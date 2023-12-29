@@ -10,17 +10,21 @@ function AddGame() {
     description: '',
     image: '',
     genres: [],
-    consoles: []
+    consoles: [],
+    rating: ''
   });
 
   const [genresList, setGenresList] = useState([]);
   const [consolesList, setConsolesList] = useState([]);
+  const [ratingsList, setRatingsList] = useState([]); // Adicionei este estado
+
   const [errors, setErrors] = useState({
     title: '',
     description: '',
     image: '',
     genres: '',
-    consoles: ''
+    consoles: '',
+    rating: ''
   });
 
   const schema = Yup.object().shape({
@@ -33,56 +37,65 @@ function AddGame() {
     consoles: Yup.array()
       .min(1, 'Selecione pelo menos um console')
       .required('Campo obrigatório'),
+    rating: Yup.string().required('Campo obrigatório')
   });
 
   useEffect(() => {
-    // Função para buscar os gêneros do Firebase
     const fetchGenres = async () => {
       const database = getDatabase();
       const genresRef = ref(database, 'genres');
 
-      // Escuta mudanças no nó 'genres'
       onValue(genresRef, (snapshot) => {
         const genresData = snapshot.val();
         if (genresData) {
-          // Converte os dados em um array
           const genresArray = Object.values(genresData);
           setGenresList(genresArray);
         }
       });
     };
 
-    // Função para buscar os consoles do Firebase
     const fetchConsoles = async () => {
       const database = getDatabase();
       const consolesRef = ref(database, 'consoles');
 
-      // Escuta mudanças no nó 'consoles'
       onValue(consolesRef, (snapshot) => {
         const consolesData = snapshot.val();
         if (consolesData) {
-          // Converte os dados em um array
           const consolesArray = Object.values(consolesData);
           setConsolesList(consolesArray);
         }
       });
     };
 
-    // Chama a função para buscar os gêneros e consoles
+    const fetchRatings = async () => {
+      const database = getDatabase();
+      const ratingsRef = ref(database, 'ratings');
+
+      onValue(ratingsRef, (snapshot) => {
+        const ratingsData = snapshot.val();
+        if (ratingsData) {
+          const ratingsArray = Object.entries(ratingsData).map(([id, label]) => ({
+            id,
+            label
+          }));
+          setRatingsList(ratingsArray);
+        }
+      });
+    };
+
     fetchGenres();
     fetchConsoles();
-  }, []); // O segundo parâmetro [] garante que a função é executada apenas uma vez, ao montar o componente
+    fetchRatings();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // Limpa a mensagem de erro do campo atual
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: '',
     }));
 
-    // Se for um checkbox, atualize o array de gêneros ou consoles
     if (type === 'checkbox') {
       setNewGame((prevGame) => {
         const updatedArray = checked
@@ -92,7 +105,6 @@ function AddGame() {
         return { ...prevGame, [name]: updatedArray };
       });
     } else {
-      // Se não for um checkbox, atualize normalmente
       setNewGame((prevGame) => ({
         ...prevGame,
         [name]: value,
@@ -109,31 +121,28 @@ function AddGame() {
       const database = getDatabase();
       const gamesRef = ref(database, 'games');
 
-      // Adiciona um novo jogo ao Firebase Realtime Database
       const newGameRef = push(gamesRef);
 
-      // Use set com a referência ao nó recém-criado
       await set(newGameRef, newGame);
 
       console.log('Novo jogo adicionado com sucesso!');
-      // Limpa o estado para um novo jogo
       setNewGame({
         title: '',
         description: '',
         image: '',
         genres: [],
-        consoles: []
+        consoles: [],
+        rating: ''
       });
-      // Limpa as mensagens de erro
       setErrors({
         title: '',
         description: '',
         image: '',
         genres: '',
-        consoles: ''
+        consoles: '',
+        rating: ''
       });
     } catch (validationError) {
-      // Atualiza as mensagens de erro para cada campo
       const fieldErrors = {};
       validationError.inner.forEach((error) => {
         fieldErrors[error.path] = error.message;
@@ -219,6 +228,25 @@ function AddGame() {
               </label>
             ))}
             {errors.consoles && <p className="error-message">{errors.consoles}</p>}
+          </div>
+        </div>
+
+        <div className='field'>
+          <p>Classificação Indicativa:</p>
+          <div className='rating-list'>
+            {ratingsList.map((rating) => (
+              <label key={rating.id} className='rating'>
+                <input
+                  type="radio"
+                  name="rating"
+                  value={rating.label}
+                  checked={newGame.rating === rating.label}
+                  onChange={handleChange}
+                />
+                {rating.label}
+              </label>
+            ))}
+            {errors.rating && <p className="error-message">{errors.rating}</p>}
           </div>
         </div>
 

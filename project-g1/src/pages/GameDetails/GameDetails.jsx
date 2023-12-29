@@ -39,6 +39,7 @@ const GameDetails = () => {
       <p>{gameData.description}</p>
       <p>{gameData.genres}</p>
       <p>{gameData.consoles}</p>
+      <p>{gameData.rating}</p>
       {/* Adicione mais detalhes conforme necessário */}
     </div>
   );
