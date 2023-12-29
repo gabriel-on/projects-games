@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
 
 const GameDetails = () => {
@@ -40,7 +40,13 @@ const GameDetails = () => {
       <p>{gameData.genres}</p>
       <p>{gameData.consoles}</p>
       <p>{gameData.rating}</p>
-      {/* Adicione mais detalhes conforme necessário */}
+      
+      {/* Verifica se há um site oficial antes de renderizar o link */}
+      {gameData.officialSite && (
+        <Link to={gameData.officialSite} target='_blank'>
+          <p>Site Oficial</p>
+        </Link>
+      )}
     </div>
   );
 };

@@ -11,7 +11,8 @@ function AddGame() {
     image: '',
     genres: [],
     consoles: [],
-    rating: ''
+    rating: '',
+    officialSite: ''
   });
 
   const [genresList, setGenresList] = useState([]);
@@ -24,7 +25,8 @@ function AddGame() {
     image: '',
     genres: '',
     consoles: '',
-    rating: ''
+    rating: '',
+    officialSite: ''
   });
 
   const schema = Yup.object().shape({
@@ -37,7 +39,8 @@ function AddGame() {
     consoles: Yup.array()
       .min(1, 'Selecione pelo menos um console')
       .required('Campo obrigatório'),
-    rating: Yup.string().required('Campo obrigatório')
+    rating: Yup.string().required('Campo obrigatório'),
+    officialSite: Yup.string().url('URL inválida'),
   });
 
   useEffect(() => {
@@ -132,7 +135,8 @@ function AddGame() {
         image: '',
         genres: [],
         consoles: [],
-        rating: ''
+        rating: '',
+        officialSite: '' // Limpa o campo officialSite
       });
       setErrors({
         title: '',
@@ -140,7 +144,8 @@ function AddGame() {
         image: '',
         genres: '',
         consoles: '',
-        rating: ''
+        rating: '',
+        officialSite: '' // Limpa a mensagem de erro do campo officialSite
       });
     } catch (validationError) {
       const fieldErrors = {};
@@ -248,6 +253,19 @@ function AddGame() {
             ))}
             {errors.rating && <p className="error-message">{errors.rating}</p>}
           </div>
+        </div>
+
+        <div className='field'>
+          <label>
+            Site Oficial (Opcional):
+            <input
+              type="text"
+              name="officialSite"
+              value={newGame.officialSite}
+              onChange={handleChange}
+            />
+            {errors.officialSite && <p className="error-message">{errors.officialSite}</p>}
+          </label>
         </div>
 
         <button type="submit">Adicionar Jogo</button>
