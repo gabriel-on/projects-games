@@ -1,0 +1,95 @@
+.add-game-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 400px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    gap: 20px;
+}
+
+.field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ff0000;
+}
+
+.add-game-container input {
+    border-radius: 5px;
+    border: 2px solid #000000;
+    outline: none;
+    width: 400px;
+    display: flex;
+    padding: 10px;
+}
+
+.add-game-container textarea {
+    border-radius: 5px;
+    border: 2px solid #000000;
+    outline: none;
+    padding: 10px;
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 15vh;
+}
+
+.add-game-container > input {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+}
+
+.add-game-container {
+    display: flex;
+    flex-direction: column;
+    width: 768px;
+    margin: auto;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    color: #ff0000;
+}
+
+label {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    cursor: pointer;
+    width: 100%;
+}
+
+.genres-list {
+    align-content: center;
+    display: flex;
+    font-size: 0.8em;
+    width: 768px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.genres-list input {
+    width: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.genre {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    width: 190px;
+    padding: 10px;
+    border-radius: 5px;
+    justify-content: space-between;
+    background: rgb(71, 32, 71);
+}
+
+.genre input:checked {
+    color: #007bff;
+}

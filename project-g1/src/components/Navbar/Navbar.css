@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&family=Rubik+Glitch&display=swap');
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: black;
+    padding: 20px 40px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a > h1 {
+    font-family: 'Rubik Glitch', 'cursive';
+    text-transform: uppercase;
+    color: purple;
+    font-size: 2.5em;
+}
+
+.navbar ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.navbar ul>li {
+    list-style: none;
+}
+
+.navbar li>a {
+    text-transform: uppercase;
+    color: white;
+}

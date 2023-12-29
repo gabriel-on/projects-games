@@ -17,9 +17,9 @@ import Home from './pages/Home/Home.jsx'
 import About from './pages/About/About.jsx'
 import Login from './pages/Login/Login.jsx'
 import Register from './pages/Register/Register.jsx'
-import CreatePost from './pages/CreatePost/CreatePost.jsx'
+import AddGame from './pages/AddGame/AddGame.jsx'
 import Dashboard from './pages/Dashboard/Dashboard.jsx'
-import Post from './pages/Post/Post.jsx'
+import GameDetails from './pages/GameDetails/GameDetails.jsx'
 
 // COMPONENTES
 import Footer from './components/Footer/Footer.jsx'
@@ -39,6 +39,18 @@ function App() {
               <Route
                 path='/'
                 element={<Home />} />
+              <Route
+                path='/about'
+                element={<About />} />
+              <Route
+                path='/new'
+                element={<AddGame />} />
+              <Route
+                path='/game/:gameId'
+                element={<GameDetails />} />
+              <Route
+                path='/dashboard'
+                element={<Dashboard />} />
             </Routes>
           </div>
           <Footer />

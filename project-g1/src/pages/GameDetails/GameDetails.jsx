@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
-import { Link } from 'react-router-dom';
 
-const FeaturedGame = ({ gameId }) => {
+const GameDetails = () => {
+  const { gameId } = useParams(); // Obtém o parâmetro gameId da URL
   const [gameData, setGameData] = useState(null);
 
   useEffect(() => {
@@ -33,14 +34,13 @@ const FeaturedGame = ({ gameId }) => {
 
   return (
     <div>
-      <Link to={`/game/${gameId}`}>
-        <h2>{gameData.title}</h2>
-        <img src={gameData.image} alt={gameData.title} style={{ maxWidth: '100%' }} />
-        <p>{gameData.description}</p>
-        {/* Adicione mais detalhes conforme necessário */}
-      </Link>
+      <h2>{gameData.title}</h2>
+      <img src={gameData.image} alt={gameData.title} style={{ maxWidth: '100%' }} />
+      <p>{gameData.description}</p>
+      <p>{gameData.genres}</p>
+      {/* Adicione mais detalhes conforme necessário */}
     </div>
   );
 };
 
-export default FeaturedGame;
+export default GameDetails;
