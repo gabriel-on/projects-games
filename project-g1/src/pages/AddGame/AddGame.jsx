@@ -9,15 +9,18 @@ function AddGame() {
     title: '',
     description: '',
     image: '',
-    genres: []
+    genres: [],
+    consoles: []
   });
 
   const [genresList, setGenresList] = useState([]);
+  const [consolesList, setConsolesList] = useState([]);
   const [errors, setErrors] = useState({
     title: '',
     description: '',
     image: '',
     genres: '',
+    consoles: ''
   });
 
   const schema = Yup.object().shape({
@@ -26,6 +29,9 @@ function AddGame() {
     image: Yup.string().required('Campo obrigatório'),
     genres: Yup.array()
       .min(1, 'Selecione pelo menos um gênero')
+      .required('Campo obrigatório'),
+    consoles: Yup.array()
+      .min(1, 'Selecione pelo menos um console')
       .required('Campo obrigatório'),
   });
 
@@ -45,8 +51,26 @@ function AddGame() {
         }
       });
     };
-    // Chama a função para buscar os gêneros
+
+    // Função para buscar os consoles do Firebase
+    const fetchConsoles = async () => {
+      const database = getDatabase();
+      const consolesRef = ref(database, 'consoles');
+
+      // Escuta mudanças no nó 'consoles'
+      onValue(consolesRef, (snapshot) => {
+        const consolesData = snapshot.val();
+        if (consolesData) {
+          // Converte os dados em um array
+          const consolesArray = Object.values(consolesData);
+          setConsolesList(consolesArray);
+        }
+      });
+    };
+
+    // Chama a função para buscar os gêneros e consoles
     fetchGenres();
+    fetchConsoles();
   }, []); // O segundo parâmetro [] garante que a função é executada apenas uma vez, ao montar o componente
 
   const handleChange = (e) => {
@@ -58,14 +82,14 @@ function AddGame() {
       [name]: '',
     }));
 
-    // Se for um checkbox, atualize o array de gêneros
+    // Se for um checkbox, atualize o array de gêneros ou consoles
     if (type === 'checkbox') {
       setNewGame((prevGame) => {
-        const genres = checked
-          ? [...prevGame.genres, value]
-          : prevGame.genres.filter((genre) => genre !== value);
+        const updatedArray = checked
+          ? [...prevGame[name], value]
+          : prevGame[name].filter((item) => item !== value);
 
-        return { ...prevGame, genres };
+        return { ...prevGame, [name]: updatedArray };
       });
     } else {
       // Se não for um checkbox, atualize normalmente
@@ -97,7 +121,8 @@ function AddGame() {
         title: '',
         description: '',
         image: '',
-        genres: []
+        genres: [],
+        consoles: []
       });
       // Limpa as mensagens de erro
       setErrors({
@@ -105,6 +130,7 @@ function AddGame() {
         description: '',
         image: '',
         genres: '',
+        consoles: ''
       });
     } catch (validationError) {
       // Atualiza as mensagens de erro para cada campo
@@ -174,6 +200,25 @@ function AddGame() {
               </label>
             ))}
             {errors.genres && <p className="error-message">{errors.genres}</p>}
+          </div>
+        </div>
+
+        <div className='field'>
+          <p>Consoles:</p>
+          <div className='consoles-list'>
+            {consolesList.map((console) => (
+              <label key={console} className='console'>
+                <input
+                  type="checkbox"
+                  name="consoles"
+                  value={console}
+                  checked={newGame.consoles.includes(console)}
+                  onChange={handleChange}
+                />
+                {console}
+              </label>
+            ))}
+            {errors.consoles && <p className="error-message">{errors.consoles}</p>}
           </div>
         </div>
 

@@ -38,6 +38,7 @@ const GameDetails = () => {
       <img src={gameData.image} alt={gameData.title} style={{ maxWidth: '100%' }} />
       <p>{gameData.description}</p>
       <p>{gameData.genres}</p>
+      <p>{gameData.consoles}</p>
       {/* Adicione mais detalhes conforme necessário */}
     </div>
   );
