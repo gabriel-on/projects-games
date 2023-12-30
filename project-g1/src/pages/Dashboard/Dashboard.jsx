@@ -1,107 +1,35 @@
-// Dashboard.jsx
-import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue } from 'firebase/database';
-import { getFirestore, collection, deleteDoc, doc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
-
+// src/components/Dashboard.js
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import GameList from '../../components/GameList/GameList.jsx';
 import EditGame from '../../components/EditGame/EditGane';
-import DeleteSelectedGames from '../../components/DeleteSelectedGames/DeleteSelectedGames';
 
-import '../AddGame/AddGame.css';
+const Dashboard = () => {
+  const [selectedGame, setSelectedGame] = useState(null);
 
-function Dashboard() {
-  const [games, setGames] = useState([]);
-  const [selectedGames, setSelectedGames] = useState([]);
-
-  const navigate = useNavigate();
-  const [selectedGameId, setSelectedGameId] = useState(null);
-
-  useEffect(() => {
-    const fetchGames = async () => {
-      const database = getDatabase();
-      const gamesRef = ref(database, 'games');
-
-      onValue(gamesRef, (snapshot) => {
-        const gamesData = snapshot.val();
-        if (gamesData) {
-          const gamesArray = Object.entries(gamesData).map(([id, game]) => ({
-            id,
-            ...game
-          }));
-          setGames(gamesArray);
-        }
-      });
-    };
-
-    fetchGames();
-  }, []);
-
-  const handleEdit = (gameId) => {
-    setSelectedGameId(gameId);
-    navigate(`/edit/${gameId}`);
+  const handleSelectGame = game => {
+    setSelectedGame(game);
   };
 
-  const handleDelete = (gameId) => {
-    setSelectedGameId(gameId);
-    navigate(`/delete/${gameId}`);
-  };
-
-  const handleCheckboxChange = (gameId) => {
-    setSelectedGames((prevSelectedGames) =>
-      prevSelectedGames.includes(gameId)
-        ? prevSelectedGames.filter((selectedGame) => selectedGame !== gameId)
-        : [...prevSelectedGames, gameId]
-    );
-  };
-
-  const deleteSelectedItems = async (selectedItems, collectionRef) => {
-    for (const gameId of selectedItems) {
-      const gameDocRef = doc(collectionRef, gameId);
-      await deleteDoc(gameDocRef);
-    }
-  };
-
-  const handleDeleteSelected = async (selectedGames) => {
+  const handleDeleteGame = async gameId => {
+    // Excluir o jogo do Firebase
+    // Aqui, você precisará ajustar para a estrutura real do seu banco de dados
     try {
-      const database = getFirestore();
-      const gamesCollection = collection(database, 'games');
-
-      await deleteSelectedItems(selectedGames, gamesCollection);
-
-      alert('Jogos selecionados excluídos com sucesso!');
-
-      const updatedGames = games.filter((game) => !selectedGames.includes(game.id));
-      setGames(updatedGames);
-
-      setSelectedGames([]);
+      await db.collection('games').doc(gameId).delete();
+      setSelectedGame(null);
     } catch (error) {
-      console.error('Erro ao excluir jogos selecionados: ', error);
+      console.error('Erro ao excluir jogo:', error);
     }
   };
 
   return (
     <div>
-      <h2>Lista de Jogos</h2>
-      <DeleteSelectedGames onDeleteSelected={handleDeleteSelected} selectedGames={selectedGames} />
-      <ul>
-        {games.map((game) => (
-          <li key={game.id}>
-            <input
-              type="checkbox"
-              checked={selectedGames.includes(game.id)}
-              onChange={() => handleCheckboxChange(game.id)}
-            />
-            <strong>{game.title}</strong>
-            <img src={game.image} alt="" />
-            <button onClick={() => handleEdit(game.id)}>Editar</button>
-            <button onClick={() => handleDelete(game.id)}>Excluir</button>
-          </li>
-        ))}
-      </ul>
-
-      {selectedGameId && <EditGame gameId={selectedGameId} />}
+      <h1>Página de Dashboard</h1>
+      <Link to="/new">Adicionar Novo Jogo</Link>
+      <GameList onSelectGame={handleSelectGame} onDeleteGame={handleDeleteGame} />
+      {selectedGame && <EditGame match={{ params: { id: selectedGame.id } }} />}
     </div>
   );
-}
+};
 
 export default Dashboard;

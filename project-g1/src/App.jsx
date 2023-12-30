@@ -29,6 +29,7 @@ import Search from './pages/Search/Search.jsx'
 // import Pagination from './components/Pagination/Pagination'
 import EditGame from './components/EditGame/EditGane.jsx'
 import DeleteGame from './components/DeleteSelectedGames/DeleteSelectedGames.jsx'
+import GameList from './components/GameList/GameList.jsx'
 
 function App() {
 
@@ -59,6 +60,7 @@ function App() {
               <Route path='/about' element={<About />} />
               <Route path='/new' element={user ? <AddGame /> : <Navigate to={"/login"} />} />
               <Route path='/game/:gameId' element={<GameDetails />} />
+              <Route path='/games' element={<GameList />} />
               <Route path='/dashboard' element={user ? <Dashboard /> : <Navigate to={"/login"} />} />
               <Route path='/edit/:gameId' element={<EditGame />} />
               <Route path='/delete/:gameId' element={<DeleteGame />} />
