@@ -111,7 +111,9 @@ const GameList = () => {
       <button onClick={handleToggleSelectAll}>
         {selectAll ? 'Desmarcar Todos' : 'Selecionar Todos'}
       </button>
-      <button onClick={handleDeleteSelected}>Excluir Selecionados</button>
+      {selectedGames.length > 0 && (
+        <button onClick={handleDeleteSelected}>Excluir Selecionados</button>
+      )}
       <ul>
         {games.map((game) => (
           <li key={game.id}>
