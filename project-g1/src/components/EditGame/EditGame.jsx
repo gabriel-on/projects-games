@@ -13,6 +13,7 @@ const EditGame = () => {
     image: '',
     genres: [],
     consoles: [],
+    developers: [],
     rating: '',
     officialSite: ''
   });
@@ -20,6 +21,7 @@ const EditGame = () => {
   const [lists, setLists] = useState({
     genres: [],
     consoles: [],
+    developers: [],
     ratings: []
   });
 
@@ -29,6 +31,7 @@ const EditGame = () => {
     image: '',
     genres: '',
     consoles: '',
+    developers: '',
     rating: '',
     officialSite: ''
   });
@@ -39,6 +42,7 @@ const EditGame = () => {
     image: Yup.string().required('Campo obrigatório'),
     genres: Yup.array().min(1, 'Selecione pelo menos um gênero').required('Campo obrigatório'),
     consoles: Yup.array().min(1, 'Selecione pelo menos um console').required('Campo obrigatório'),
+    developers: Yup.array().min(1, 'Selecione pelo menos uma desenvolvedora').required('Campo obrigatório'),
     rating: Yup.string().required('Campo obrigatório'),
     officialSite: Yup.string().url('URL inválida'),
   });
@@ -70,16 +74,20 @@ const EditGame = () => {
             image: gameData.image || '',
             genres: gameData.genres || [],
             consoles: gameData.consoles || [],
+            developers: gameData.developers || [],
             rating: gameData.rating || '',
             officialSite: gameData.officialSite || ''
           });
         }
       });
+      console.log("Ratings:", lists.ratings);
+
     };
 
     fetchGame();
     fetchData('genres', 'genres');
     fetchData('consoles', 'consoles');
+    fetchData('developers', 'developers');
     fetchData('ratings', 'ratings');
   }, [gameId]);
 
@@ -206,18 +214,37 @@ const EditGame = () => {
         </div>
 
         <div className='field'>
+          <p>Desenvolvedores:</p>
+          <div className='developers-list'>
+            {lists.developers.map((developer) => (
+              <label key={developer} className='developer'>
+                <input
+                  type="checkbox"
+                  name="developers"
+                  value={developer}
+                  checked={game && game.developers && game.developers.includes(developer)}
+                  onChange={handleChange}
+                />
+                {developer}
+              </label>
+            ))}
+            {errors.developers && <p className="error-message">{errors.developers}</p>}
+          </div>
+        </div>
+
+        <div className='field'>
           <p>Classificação Indicativa:</p>
           <div className='rating-list'>
             {lists.ratings.map((rating) => (
-              <label key={rating.id} className='rating'>
+              <label key={rating} className='rating'>
                 <input
                   type="radio"
                   name="rating"
-                  value={rating.label}
-                  checked={game.rating === rating.label}
+                  value={rating}
+                  checked={game.rating === rating}
                   onChange={handleChange}
                 />
-                {rating.label}
+                {rating}
               </label>
             ))}
             {errors.rating && <p className="error-message">{errors.rating}</p>}

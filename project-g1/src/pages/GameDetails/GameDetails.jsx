@@ -39,6 +39,7 @@ const GameDetails = () => {
       <p>{gameData.description}</p>
       <p>{gameData.genres}</p>
       <p>{gameData.consoles}</p>
+      <p>Desenvolvedoras: {gameData.developers}</p>
       <p>{gameData.rating}</p>
       
       {/* Verifica se há um site oficial antes de renderizar o link */}

@@ -12,13 +12,15 @@ function AddGame() {
     image: '',
     genres: [],
     consoles: [],
+    developers: [],
     rating: '',
     officialSite: ''
   });
 
   const [genresList, setGenresList] = useState([]);
   const [consolesList, setConsolesList] = useState([]);
-  const [ratingsList, setRatingsList] = useState([]); // Adicionei este estado
+  const [developersList, setDevelopersList] = useState([]);
+  const [ratingsList, setRatingsList] = useState([]);
 
   const navigate = useNavigate()
 
@@ -28,6 +30,7 @@ function AddGame() {
     image: '',
     genres: '',
     consoles: '',
+    developers: '',
     rating: '',
     officialSite: ''
   });
@@ -73,6 +76,19 @@ function AddGame() {
       });
     };
 
+    const fetchDevelopers = async () => {
+      const database = getDatabase();
+      const developersRef = ref(database, 'developers');
+
+      onValue(developersRef, (snapshot) => {
+        const developersData = snapshot.val();
+        if (developersData) {
+          const developersArray = Object.values(developersData);
+          setDevelopersList(developersArray);
+        }
+      });
+    }
+
     const fetchRatings = async () => {
       const database = getDatabase();
       const ratingsRef = ref(database, 'ratings');
@@ -91,6 +107,7 @@ function AddGame() {
 
     fetchGenres();
     fetchConsoles();
+    fetchDevelopers();
     fetchRatings();
   }, []);
 
@@ -237,6 +254,25 @@ function AddGame() {
               </label>
             ))}
             {errors.consoles && <p className="error-message">{errors.consoles}</p>}
+          </div>
+        </div>
+
+        <div className='field'>
+          <p>Desenvolvedores:</p>
+          <div className='developers-list'>
+            {developersList.map((developer) => (
+              <label key={developer} className='developer'>
+                <input
+                  type="checkbox"
+                  name="developers"
+                  value={developer}
+                  checked={newGame.developers.includes(developer)}
+                  onChange={handleChange}
+                />
+                {developer}
+              </label>
+            ))}
+            {errors.developers && <p className="error-message">{errors.developers}</p>}
           </div>
         </div>
 

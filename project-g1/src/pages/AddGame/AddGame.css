@@ -63,7 +63,7 @@ label {
     width: 100%;
 }
 
-.genres-list, .consoles-list, .rating-list {
+.genres-list, .consoles-list, .rating-list, .developers-list {
     align-content: center;
     display: flex;
     font-size: 0.8em;
@@ -91,7 +91,13 @@ label {
     flex-wrap: wrap;
 }
 
-.genre, .console, .rating {
+.developers-list input {
+    width: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.genre, .console, .rating, .developer {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;

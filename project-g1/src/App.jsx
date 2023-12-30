@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react'
 // HOOKS
 import { useAuthentication } from './hooks/useAuthentication.jsx'
 
-
 // CONTEXT
 import { AuthProvider } from './context/AuthContext.jsx'
 
