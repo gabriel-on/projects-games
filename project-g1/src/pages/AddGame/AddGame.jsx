@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, push, set, onValue } from 'firebase/database';
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom'
 
 import '../AddGame/AddGame.css';
 
@@ -18,6 +19,8 @@ function AddGame() {
   const [genresList, setGenresList] = useState([]);
   const [consolesList, setConsolesList] = useState([]);
   const [ratingsList, setRatingsList] = useState([]); // Adicionei este estado
+
+  const navigate = useNavigate()
 
   const [errors, setErrors] = useState({
     title: '',
@@ -147,6 +150,7 @@ function AddGame() {
         rating: '',
         officialSite: '' // Limpa a mensagem de erro do campo officialSite
       });
+      navigate("/")
     } catch (validationError) {
       const fieldErrors = {};
       validationError.inner.forEach((error) => {
