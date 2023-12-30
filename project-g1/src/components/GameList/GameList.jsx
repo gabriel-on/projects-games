@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get, remove } from 'firebase/database';
 import { Link } from 'react-router-dom';
 
-const GameList = () => {
+const GameList = ({ searchTerm }) => {
   const [games, setGames] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedGames, setSelectedGames] = useState([]);
@@ -105,37 +105,47 @@ const GameList = () => {
     return <p>Nenhum jogo disponível.</p>;
   }
 
+  // Filtrar os jogos com base no termo de pesquisa
+  const filteredGames = games.filter((game) =>
+    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  if (filteredGames.length === 0) {
+    return <p>Nenhum jogo disponível.</p>;
+  }
+
   return (
     <div>
-      <h2>Lista de Jogos</h2>
-      <button onClick={handleToggleSelectAll}>
-        {selectAll ? 'Desmarcar Todos' : 'Selecionar Todos'}
-      </button>
-      {selectedGames.length > 0 && (
-        <button onClick={handleDeleteSelected}>Excluir Selecionados</button>
-      )}
-      <ul>
-        {games.map((game) => (
-          <li key={game.id}>
-            <label>
-              <input
-                type="checkbox"
-                checked={selectAll || selectedGames.includes(game.id)}
-                onChange={() => handleToggleSelectGame(game.id)}
-              />
-              <div to={`/game/${game.id}`}>
-                <h3>{game.title}</h3>
-                <img src={game.image} alt={game.title} style={{ maxWidth: '100%' }} />
-                <p>{game.description}</p>
-              </div>
-            </label>
-            <Link to={`/edit/${game.id}`}>
-              <button>Editar</button>
-            </Link>
-            <button onClick={() => handleDelete(game.id)}>Excluir</button>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <button onClick={handleToggleSelectAll}>
+          {selectAll ? 'Desmarcar Todos' : 'Selecionar Todos'}
+        </button>
+        {selectedGames.length > 0 && (
+          <button onClick={handleDeleteSelected}>Excluir Selecionados</button>
+        )}
+        <ul>
+          {filteredGames.map((game) => (
+            <li key={game.id}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={selectAll || selectedGames.includes(game.id)}
+                  onChange={() => handleToggleSelectGame(game.id)}
+                />
+                <div to={`/game/${game.id}`}>
+                  <h3>{game.title}</h3>
+                  <img src={game.image} alt={game.title} style={{ maxWidth: '100%' }} />
+                  <p>{game.description}</p>
+                </div>
+              </label>
+              <Link to={`/edit/${game.id}`}>
+                <button>Editar</button>
+              </Link>
+              <button onClick={() => handleDelete(game.id)}>Excluir</button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
