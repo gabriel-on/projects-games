@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import GameList from '../../components/GameList/GameList.jsx';
-import EditGame from '../../components/EditGame/EditGane';
+import EditGame from '../../components/EditGame/EditGame.jsx';
 
 const Dashboard = () => {
   const [selectedGame, setSelectedGame] = useState(null);

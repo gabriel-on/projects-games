@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 const GameList = () => {
   const [games, setGames] = useState([]);
-  const [selectedGames, setSelectedGames] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [selectedGames, setSelectedGames] = useState([]);
 
   useEffect(() => {
     const fetchGamesData = async () => {
@@ -35,7 +35,14 @@ const GameList = () => {
 
   const handleToggleSelectAll = () => {
     setSelectAll((prevSelectAll) => !prevSelectAll);
-    setSelectedGames([]);
+
+    if (selectAll) {
+      // Se estiver selecionado, desmarcar todos os jogos
+      setSelectedGames([]);
+    } else {
+      // Se não estiver selecionado, selecionar todos os jogos
+      setSelectedGames(games.map((game) => game.id));
+    }
   };
 
   const handleToggleSelectGame = (gameId) => {
@@ -46,22 +53,47 @@ const GameList = () => {
         return [...prevSelectedGames, gameId];
       }
     });
+
+    // Verificar se todos os jogos estão selecionados para atualizar o estado de 'selectAll'
+    const allGamesSelected = games.every((game) => selectedGames.includes(game.id));
+    setSelectAll(allGamesSelected);
+  };
+
+  const handleDelete = async (gameId) => {
+    try {
+      const database = getDatabase();
+      const gameRef = ref(database, `games/${gameId}`);
+
+      await remove(gameRef);
+
+      // Atualizar a lista de jogos após a exclusão
+      setGames((prevGames) => prevGames.filter((game) => game.id !== gameId));
+
+      // Desmarcar o jogo excluído da seleção
+      setSelectedGames((prevSelectedGames) => prevSelectedGames.filter((id) => id !== gameId));
+
+      // Verificar se todos os jogos estão selecionados para atualizar o estado de 'selectAll'
+      const allGamesSelected = games.every((game) => selectedGames.includes(game.id));
+      setSelectAll(allGamesSelected);
+    } catch (error) {
+      console.error('Erro ao excluir jogo:', error);
+    }
   };
 
   const handleDeleteSelected = async () => {
     try {
       const database = getDatabase();
-      const gamesRef = ref(database, 'games');
+      const gamesToDelete = selectedGames.map((gameId) => ref(database, `games/${gameId}`));
 
-      // Excluir jogos selecionados
-      await Promise.all(selectedGames.map(async (gameId) => {
-        const gameRef = ref(gamesRef, gameId);
+      // Excluir todos os jogos selecionados em sequência
+      for (const gameRef of gamesToDelete) {
         await remove(gameRef);
-      }));
+      }
 
       // Atualizar a lista de jogos após a exclusão
-      const updatedGames = games.filter((game) => !selectedGames.includes(game.id));
-      setGames(updatedGames);
+      setGames((prevGames) => prevGames.filter((game) => !selectedGames.includes(game.id)));
+
+      // Limpar a lista de jogos selecionados
       setSelectedGames([]);
       setSelectAll(false);
     } catch (error) {
@@ -79,9 +111,7 @@ const GameList = () => {
       <button onClick={handleToggleSelectAll}>
         {selectAll ? 'Desmarcar Todos' : 'Selecionar Todos'}
       </button>
-      {selectedGames.length > 0 && (
-        <button onClick={handleDeleteSelected}>Excluir Selecionados</button>
-      )}
+      <button onClick={handleDeleteSelected}>Excluir Selecionados</button>
       <ul>
         {games.map((game) => (
           <li key={game.id}>
@@ -91,12 +121,16 @@ const GameList = () => {
                 checked={selectAll || selectedGames.includes(game.id)}
                 onChange={() => handleToggleSelectGame(game.id)}
               />
-              <Link to={`/game/${game.id}`}>
+              <div to={`/game/${game.id}`}>
                 <h3>{game.title}</h3>
                 <img src={game.image} alt={game.title} style={{ maxWidth: '100%' }} />
                 <p>{game.description}</p>
-              </Link>
+              </div>
             </label>
+            <Link to={`/edit/${game.id}`}>
+              <button>Editar</button>
+            </Link>
+            <button onClick={() => handleDelete(game.id)}>Excluir</button>
           </li>
         ))}
       </ul>

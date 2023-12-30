@@ -150,7 +150,7 @@ function AddGame() {
         rating: '',
         officialSite: '' // Limpa a mensagem de erro do campo officialSite
       });
-      navigate("/")
+      navigate("/dashboard")
     } catch (validationError) {
       const fieldErrors = {};
       validationError.inner.forEach((error) => {

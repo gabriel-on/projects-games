@@ -27,7 +27,7 @@ import Footer from './components/Footer/Footer.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
 import Search from './pages/Search/Search.jsx'
 // import Pagination from './components/Pagination/Pagination'
-import EditGame from './components/EditGame/EditGane.jsx'
+import EditGame from './components/EditGame/EditGame.jsx'
 import DeleteGame from './components/DeleteSelectedGames/DeleteSelectedGames.jsx'
 import GameList from './components/GameList/GameList.jsx'
 
