@@ -1,49 +1,63 @@
 // Dashboard.jsx
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, push, set, onValue } from 'firebase/database';
-import * as Yup from 'yup';
+import { getDatabase, ref, onValue } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
-import EditGame from './EditGame';
-import DeleteGame from './DeleteGame';
+
+import EditGame from '../../components/EditGame/EditGane';
 
 import '../AddGame/AddGame.css';
 
 function Dashboard() {
-  const [newGame, setNewGame] = useState({
-    title: '',
-    description: '',
-    image: '',
-    genres: [],
-    consoles: [],
-    rating: '',
-    officialSite: ''
-  });
-
-  // ... restante do código
+  const [games, setGames] = useState([]);
 
   const navigate = useNavigate();
   const [selectedGameId, setSelectedGameId] = useState(null);
 
-  const navigateToEdit = (gameId) => {
+  useEffect(() => {
+    const fetchGames = async () => {
+      const database = getDatabase();
+      const gamesRef = ref(database, 'games');
+
+      onValue(gamesRef, (snapshot) => {
+        const gamesData = snapshot.val();
+        if (gamesData) {
+          const gamesArray = Object.entries(gamesData).map(([id, game]) => ({
+            id,
+            ...game
+          }));
+          setGames(gamesArray);
+        }
+      });
+    };
+
+    fetchGames();
+  }, []);
+
+  const handleEdit = (gameId) => {
     setSelectedGameId(gameId);
     navigate(`/edit/${gameId}`);
   };
 
-  const navigateToDelete = (gameId) => {
+  const handleDelete = (gameId) => {
     setSelectedGameId(gameId);
     navigate(`/delete/${gameId}`);
   };
 
   return (
     <div>
-      <button onClick={() => navigateToEdit(selectedGameId)}>Editar Jogo</button>
-      <button onClick={() => navigateToDelete(selectedGameId)}>Excluir Jogo</button>
+      <h2>Lista de Jogos</h2>
+      <ul>
+        {games.map((game) => (
+          <li key={game.id}>
+            <strong>{game.title}</strong>
+            <img src={game.image} alt="" />
+            <button onClick={() => handleEdit(game.id)}>Editar</button>
+            <button onClick={() => handleDelete(game.id)}>Excluir</button>
+          </li>
+        ))}
+      </ul>
 
       {selectedGameId && <EditGame gameId={selectedGameId} />}
-      {selectedGameId && <DeleteGame gameId={selectedGameId} />}
-
-      {/* Restante do conteúdo do formulário ou da página */}
-      {/* ... */}
     </div>
   );
 }

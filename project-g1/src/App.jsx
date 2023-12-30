@@ -26,6 +26,8 @@ import Footer from './components/Footer/Footer.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
 import Search from './pages/Search/Search.jsx'
 // import Pagination from './components/Pagination/Pagination'
+import EditGame from './components/EditGame/EditGane.jsx'
+import DeleteGame from './components/DeleteGame/DeleteGame.jsx'
 
 function App() {
 
@@ -51,6 +53,12 @@ function App() {
               <Route
                 path='/dashboard'
                 element={<Dashboard />} />
+              <Route
+                path='/edit/:gameId'
+                element={<EditGame />} />
+              <Route
+                path='/delete/:gameId'
+                element={<DeleteGame />} />
             </Routes>
           </div>
           <Footer />
