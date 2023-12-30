@@ -14,7 +14,8 @@ function AddGame() {
     consoles: [],
     developers: [],
     rating: '',
-    officialSite: ''
+    officialSite: '',
+    releaseDate: '',
   });
 
   const [genresList, setGenresList] = useState([]);
@@ -32,7 +33,8 @@ function AddGame() {
     consoles: '',
     developers: '',
     rating: '',
-    officialSite: ''
+    officialSite: '',
+    releaseDate: '',
   });
 
   const schema = Yup.object().shape({
@@ -47,6 +49,7 @@ function AddGame() {
       .required('Campo obrigatório'),
     rating: Yup.string().required('Campo obrigatório'),
     officialSite: Yup.string().url('URL inválida'),
+    releaseDate: Yup.string().required('Campo obrigatório'),
   });
 
   useEffect(() => {
@@ -305,6 +308,19 @@ function AddGame() {
               onChange={handleChange}
             />
             {errors.officialSite && <p className="error-message">{errors.officialSite}</p>}
+          </label>
+        </div>
+
+        <div className='field'>
+          <label>
+            Data de Lançamento:
+            <input
+              type="date"
+              name="releaseDate"
+              value={newGame.releaseDate}
+              onChange={handleChange}
+            />
+            {errors.releaseDate && <p className="error-message">{errors.releaseDate}</p>}
           </label>
         </div>
 

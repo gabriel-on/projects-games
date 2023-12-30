@@ -15,7 +15,8 @@ const EditGame = () => {
     consoles: [],
     developers: [],
     rating: '',
-    officialSite: ''
+    officialSite: '',
+    releaseDate: '',
   });
 
   const [lists, setLists] = useState({
@@ -45,6 +46,7 @@ const EditGame = () => {
     developers: Yup.array().min(1, 'Selecione pelo menos uma desenvolvedora').required('Campo obrigatório'),
     rating: Yup.string().required('Campo obrigatório'),
     officialSite: Yup.string().url('URL inválida'),
+    releaseDate: Yup.date().required('Campo obrigatório'),
   });
 
   useEffect(() => {
@@ -76,7 +78,8 @@ const EditGame = () => {
             consoles: gameData.consoles || [],
             developers: gameData.developers || [],
             rating: gameData.rating || '',
-            officialSite: gameData.officialSite || ''
+            officialSite: gameData.officialSite || '',
+            releaseDate: gameData.releaseDate || '',
           });
         }
       });
@@ -261,6 +264,19 @@ const EditGame = () => {
               onChange={handleChange}
             />
             {errors.officialSite && <p className="error-message">{errors.officialSite}</p>}
+          </label>
+        </div>
+
+        <div className='field'>
+          <label>
+            Data de Lançamento:
+            <input
+              type="date"
+              name="releaseDate"
+              value={game.releaseDate}
+              onChange={handleChange}
+            />
+            {errors.releaseDate && <p className="error-message">{errors.releaseDate}</p>}
           </label>
         </div>
 
