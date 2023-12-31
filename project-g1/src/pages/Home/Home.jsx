@@ -13,13 +13,13 @@ import '../../pages/Home/Home.css';
 
 const Home = () => {
   const [gameIds, setGameIds] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const fetchGameIds = async () => {
       try {
         const database = getDatabase();
         const gamesRef = ref(database, 'games');
-
         const snapshot = await get(gamesRef);
 
         if (snapshot.exists()) {
@@ -37,13 +37,48 @@ const Home = () => {
     fetchGameIds();
   }, []);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const nextIndex = (activeIndex + 1) % gameIds.length;
+      setActiveIndex(nextIndex);
+    }, 5000); // Altere 5000 para o intervalo desejado (aqui, 5 segundos)
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [activeIndex, gameIds]);
+
+  const handleToggle = (gameId) => {
+    // Adicione a lógica para detalhes do jogo conforme necessário
+    console.log(`Detalhes do jogo com ID ${gameId}`);
+  };
+
+  const handleNext = () => {
+    const nextIndex = (activeIndex + 1) % gameIds.length;
+    setActiveIndex(nextIndex);
+  };
+
+  const handlePrev = () => {
+    const prevIndex = (activeIndex - 1 + gameIds.length) % gameIds.length;
+    setActiveIndex(prevIndex);
+  };
+
   return (
     <div>
       <div>
         <h1>Página Inicial</h1>
-        {gameIds.map((gameId) => (
-          <FeaturedGame key={gameId} gameId={gameId} />
-        ))}
+        <div className="container">
+          {gameIds.map((gameId, index) => (
+            <FeaturedGame
+              key={gameId}
+              gameId={gameId}
+              isActive={index === activeIndex}
+              onToggle={handleToggle}
+              onNext={handleNext}
+              onPrev={handlePrev}
+            />
+          ))}
+        </div>
         <GameHighlights />
         <NewsUpdates />
         <CommunityActivity />
