@@ -1,8 +1,10 @@
+// AddGame.js
+
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, push, set, onValue } from 'firebase/database';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from 'react-router-dom';
+import { useAuthentication } from '../../hooks/useAuthentication';
 import '../AddGame/AddGame.css';
 
 function AddGame() {
@@ -16,6 +18,7 @@ function AddGame() {
     rating: '',
     officialSite: '',
     releaseDate: '',
+    addedBy: null,
   });
 
   const [genresList, setGenresList] = useState([]);
@@ -23,7 +26,10 @@ function AddGame() {
   const [developersList, setDevelopersList] = useState([]);
   const [ratingsList, setRatingsList] = useState([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { error: authError, getCurrentUser } = useAuthentication();
+
+  const currentUser = getCurrentUser();
 
   const [errors, setErrors] = useState({
     title: '',
@@ -90,7 +96,7 @@ function AddGame() {
           setDevelopersList(developersArray);
         }
       });
-    }
+    };
 
     const fetchRatings = async () => {
       const database = getDatabase();
@@ -101,7 +107,7 @@ function AddGame() {
         if (ratingsData) {
           const ratingsArray = Object.entries(ratingsData).map(([id, label]) => ({
             id,
-            label
+            label,
           }));
           setRatingsList(ratingsArray);
         }
@@ -147,30 +153,39 @@ function AddGame() {
       const database = getDatabase();
       const gamesRef = ref(database, 'games');
 
-      const newGameRef = push(gamesRef);
+      const currentUser = getCurrentUser();
 
-      await set(newGameRef, newGame);
+      if (currentUser) {
+        const newGameWithUser = { ...newGame, addedBy: currentUser.displayName };
 
-      console.log('Novo jogo adicionado com sucesso!');
-      setNewGame({
-        title: '',
-        description: '',
-        image: '',
-        genres: [],
-        consoles: [],
-        rating: '',
-        officialSite: '' // Limpa o campo officialSite
-      });
-      setErrors({
-        title: '',
-        description: '',
-        image: '',
-        genres: '',
-        consoles: '',
-        rating: '',
-        officialSite: '' // Limpa a mensagem de erro do campo officialSite
-      });
-      navigate("/dashboard")
+        const newGameRef = push(gamesRef);
+        await set(newGameRef, newGameWithUser);
+
+        console.log('Novo jogo adicionado com sucesso!');
+        setNewGame({
+          title: '',
+          description: '',
+          image: '',
+          genres: [],
+          consoles: [],
+          rating: '',
+          officialSite: '',
+          releaseDate: '',
+        });
+        setErrors({
+          title: '',
+          description: '',
+          image: '',
+          genres: '',
+          consoles: '',
+          rating: '',
+          officialSite: '',
+          releaseDate: '',
+        });
+        navigate("/dashboard");
+      } else {
+        setErrors('Usuário não encontrado ao adicionar o jogo.');
+      }
     } catch (validationError) {
       const fieldErrors = {};
       validationError.inner.forEach((error) => {

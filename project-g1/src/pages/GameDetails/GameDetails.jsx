@@ -42,6 +42,7 @@ const GameDetails = () => {
       <p>Desenvolvedoras: {gameData.developers}</p>
       <p>{gameData.rating}</p>
       <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
+      <p>Adicionado por: {gameData.addedBy}</p>
       
       {/* Verifica se há um site oficial antes de renderizar o link */}
       {gameData.officialSite && (

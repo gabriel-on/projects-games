@@ -17,6 +17,7 @@ const EditGame = () => {
     rating: '',
     officialSite: '',
     releaseDate: '',
+    addedBy: null
   });
 
   const [lists, setLists] = useState({

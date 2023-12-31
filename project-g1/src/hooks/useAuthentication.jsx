@@ -79,25 +79,6 @@ export const useAuthentication = () => {
 
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
-            // } catch (error) {
-            //     console.log(error.message);
-            //     console.log(typeof error.message);
-            //     console.log(error.message.includes("user-not"));
-
-            //     let systemErrorMessage;
-
-            //     if (error.message.includes("user-not-found")) {
-            //         systemErrorMessage = "Usuário não encontrado.";
-            //     } else if (error.message.includes("wrong-password")) {
-            //         systemErrorMessage = "Senha incorreta.";
-            //     } else {
-            //         systemErrorMessage = "Ocorreu um erro, por favor tenta mais tarde.";
-            //     }
-
-            //     console.log(systemErrorMessage);
-
-            //     setError(systemErrorMessage);
-            // }
 
         } catch (error) {
             let systemErrorMessage;
@@ -122,6 +103,12 @@ export const useAuthentication = () => {
         return () => setCancelled(true);
     }, []);
 
+    // Obter informações sobre o usuário atual
+    const getCurrentUser = () => {
+        const user = auth.currentUser;
+        return user ? { uid: user.uid, email: user.email, displayName: user.displayName } : null;
+    };
+
     return {
         auth,
         createUser,
@@ -129,5 +116,6 @@ export const useAuthentication = () => {
         logout,
         login,
         loading,
+        getCurrentUser,
     };
 };
