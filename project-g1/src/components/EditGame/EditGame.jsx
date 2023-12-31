@@ -72,6 +72,7 @@ const EditGame = () => {
         const gameData = snapshot.val();
         if (gameData) {
           setGame({
+            ...gameData,
             title: gameData.title || '',
             description: gameData.description || '',
             image: gameData.image || '',
