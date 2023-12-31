@@ -1,14 +1,19 @@
 .featured-game {
+    position: relative;
     display: flex;
     align-items: center;
     /* flex-direction: row; */
     text-align: center;
     padding: 10px;
-    border: 2px solid #ffcc00;
-    background: #f8f8f8;
     margin: 0 10px;
     width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
+/* .active {
+    border: 2px solid red;
+} */
 
 .featured-game h2 {
     margin-bottom: 10px;
@@ -47,6 +52,7 @@
 .container-games {
     display: flex;
     justify-content: space-between;
+
 }
 
 .btn-pn {
@@ -62,3 +68,21 @@
     background: rgb(41, 8, 8);
     opacity: 0.8;
 }
+
+.game-background {
+    /* position: relative; */
+    display: flex;
+    width: 100%;
+    /* ou defina uma largura específica conforme necessário */
+    /* height: 100vh; */
+    /* ou defina uma altura específica conforme necessário */
+    background-size: cover;
+    /* ou ajuste conforme necessário */
+    /* Adicione mais estilos conforme necessário */
+    /* z-index: -1; */
+}
+
+/* .game-display {
+    display: flex;
+    
+} */

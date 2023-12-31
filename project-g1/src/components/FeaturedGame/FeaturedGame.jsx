@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import './FeaturedGame.css';
-import { Link } from 'react-router-dom';
+import GameBackground from './GameBackground.jsx';
+import GameDisplay from './GameDisplay';
 
 const FeaturedGame = ({ gameId, isActive, onToggle, onNext, onPrev }) => {
   const [gameData, setGameData] = useState(null);
@@ -34,17 +35,13 @@ const FeaturedGame = ({ gameId, isActive, onToggle, onNext, onPrev }) => {
         <div className="navigation-buttons">
           <button className='btn-pn' onClick={onPrev}>&lt;</button>
         </div>
-        <Link to={`game/${gameId}`}>
-          <h2>{gameData?.title}</h2>
-          <img src={gameData?.image} alt={gameData?.title} style={{ maxWidth: '100%' }} />
-          <p>{gameData?.description}</p>
-          {/* Adicione mais detalhes conforme necessário */}
-          <button onClick={() => onToggle(gameId)}>Detalhes</button>
-        </Link>
+        <GameBackground backgroundImage={gameData ? gameData.image : null} />
+        <GameDisplay gameId={gameId} gameData={gameData} />
         <div className="navigation-buttons">
           <button className='btn-pn' onClick={onNext}>&gt;</button>
         </div>
       </div>
+      {/* GameBackground fica no fundo */}
     </div>
   );
 };
