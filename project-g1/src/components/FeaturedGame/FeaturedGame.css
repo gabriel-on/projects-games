@@ -5,9 +5,9 @@
     text-align: center;
     padding: 10px;
     border: 2px solid #ffcc00;
-    background-color: #f8f8f8;
+    background: #f8f8f8;
     margin: 0 10px;
-    width: 768px;
+    width: 100%;
 }
 
 .featured-game h2 {
@@ -16,9 +16,11 @@
 }
 
 .featured-game img {
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.589);
     object-fit: cover;
-    width: 150px;
-    height: auto;
+    aspect-ratio: 4/5;
+    width: 250px;
+    /* height: auto; */
     max-width: 100%;
     margin-bottom: 10px;
 }
@@ -31,10 +33,32 @@
 .featured-game {
     display: none;
     transition: opacity 0.5s;
-  }
-  
-  .featured-game.active {
-    display: block;
-  }
+}
 
-  
+.featured-game.active {
+    display: block;
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-games {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-pn {
+    border: none;
+    cursor: pointer;
+    background: black;
+    color: white;
+    padding: 20px;
+    font-size: 2em;
+}
+
+.btn-pn:hover {
+    background: rgb(41, 8, 8);
+    opacity: 0.8;
+}

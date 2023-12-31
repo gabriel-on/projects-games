@@ -30,16 +30,20 @@ const FeaturedGame = ({ gameId, isActive, onToggle, onNext, onPrev }) => {
 
   return (
     <div className={`featured-game ${isActive ? 'active' : ''}`}>
-      <Link to={`game/${gameId}`}>
-        <h2>{gameData?.title}</h2>
-        <img src={gameData?.image} alt={gameData?.title} style={{ maxWidth: '100%' }} />
-        <p>{gameData?.description}</p>
-        {/* Adicione mais detalhes conforme necessário */}
-        <button onClick={() => onToggle(gameId)}>Detalhes</button>
-      </Link>
-      <div className="navigation-buttons">
-        <button onClick={onPrev}>&lt; Anterior</button>
-        <button onClick={onNext}>Próximo &gt;</button>
+      <div className='container-games'>
+        <div className="navigation-buttons">
+          <button className='btn-pn' onClick={onPrev}>&lt;</button>
+        </div>
+        <Link to={`game/${gameId}`}>
+          <h2>{gameData?.title}</h2>
+          <img src={gameData?.image} alt={gameData?.title} style={{ maxWidth: '100%' }} />
+          <p>{gameData?.description}</p>
+          {/* Adicione mais detalhes conforme necessário */}
+          <button onClick={() => onToggle(gameId)}>Detalhes</button>
+        </Link>
+        <div className="navigation-buttons">
+          <button className='btn-pn' onClick={onNext}>&gt;</button>
+        </div>
       </div>
     </div>
   );
