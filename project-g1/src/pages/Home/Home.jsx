@@ -88,9 +88,9 @@ const Home = () => {
               onNext={handleLoopNext}
               onPrev={handleLoopPrev}
               limit={3}
-              activeIndex={activeIndex} // Passando activeIndex como uma propriedade
+              activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
-              gameIds={gameIds}  // Adicione esta linha
+              gameIds={gameIds}
             />
           ))}
         </div>
