@@ -7,7 +7,7 @@
     padding: 10px;
     margin: 0 10px;
     width: 100%;
-    background: #666;
+    background-image: linear-gradient(to right, #e48d0b, #0f12d8);
     border: 2px solid red;
 }
 

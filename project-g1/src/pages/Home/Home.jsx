@@ -5,6 +5,7 @@ import GameHighlights from '../../components/GameHighlights/GameHighlights.jsx';
 import { getDatabase, ref, get } from 'firebase/database';
 
 import '../../pages/Home/Home.css';
+import GameContainer from '../../components/GameContainer/GameContainer.jsx';
 
 const Home = () => {
   const [gameIds, setGameIds] = useState([]);
@@ -19,7 +20,7 @@ const Home = () => {
 
         if (snapshot.exists()) {
           const data = snapshot.val();
-          const ids = Object.keys(data);
+          const ids = Object.keys(data).reverse(); // Inverte a ordem para mais recente para mais antigo
           setGameIds(ids);
         } else {
           console.log('Nenhum jogo encontrado.');
@@ -94,7 +95,7 @@ const Home = () => {
             />
           ))}
         </div>
-        <GameHighlights />
+        {/* <GameHighlights /> */}
       </div>
     </div>
   );
