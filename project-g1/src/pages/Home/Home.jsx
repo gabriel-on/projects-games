@@ -2,11 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import FeaturedGame from '../../components/FeaturedGame/FeaturedGame.jsx';
 import GameHighlights from '../../components/GameHighlights/GameHighlights.jsx';
-import NewsUpdates from '../../components/NewsUpdates/NewsUpdates.jsx';
-import CommunityActivity from '../../components/CommunityActivity/CommunityActivity.jsx';
-import EventsTournaments from '../../components/EventsTournaments/EventsTournaments.jsx';
-import FeaturedReviews from '../../components/FeaturedReviews/FeaturedReviews.jsx';
-import MediaSection from '../../components/MediaSection/MediaSection.jsx';
 import { getDatabase, ref, get } from 'firebase/database';
 
 import '../../pages/Home/Home.css';
@@ -38,10 +33,12 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
+    const gameIdsLimit = 3; // Define o limite desejado
+
     const intervalId = setInterval(() => {
-      const nextIndex = (activeIndex + 1) % gameIds.length;
+      const nextIndex = (activeIndex + 1) % Math.min(gameIds.length, gameIdsLimit);
       setActiveIndex(nextIndex);
-    }, 5000); // Altere 5000 para o intervalo desejado (aqui, 5 segundos)
+    }, 5000); // Altere 2000 para o intervalo desejado (aqui, 2 segundos)
 
     return () => {
       clearInterval(intervalId);
@@ -53,14 +50,28 @@ const Home = () => {
     console.log(`Detalhes do jogo com ID ${gameId}`);
   };
 
-  const handleNext = () => {
-    const nextIndex = (activeIndex + 1) % gameIds.length;
-    setActiveIndex(nextIndex);
+  const handleLoopNext = () => {
+    const gameIdsLimit = 3; // Define o limite desejado
+    const nextIndex = (activeIndex + 1) % Math.min(gameIds.length, gameIdsLimit);
+
+    if (nextIndex === 0) {
+      // Se o próximo índice seria 0, reinicie o loop
+      setActiveIndex(0);
+    } else {
+      setActiveIndex(nextIndex);
+    }
   };
 
-  const handlePrev = () => {
-    const prevIndex = (activeIndex - 1 + gameIds.length) % gameIds.length;
-    setActiveIndex(prevIndex);
+  const handleLoopPrev = () => {
+    const gameIdsLimit = 3; // Define o limite desejado
+    const prevIndex = (activeIndex - 1 + gameIds.length) % Math.min(gameIds.length, gameIdsLimit);
+
+    if (prevIndex === gameIdsLimit - 1) {
+      // Se o índice anterior seria gameIdsLimit - 1 (último jogo), reinicie o loop
+      setActiveIndex(0);
+    } else {
+      setActiveIndex(prevIndex);
+    }
   };
 
   return (
@@ -68,23 +79,22 @@ const Home = () => {
       <div>
         <h1>Página Inicial</h1>
         <div className="container">
-          {gameIds.map((gameId, index) => (
+          {gameIds.slice(0, 3).map((gameId, index) => (
             <FeaturedGame
               key={gameId}
               gameId={gameId}
               isActive={index === activeIndex}
               onToggle={handleToggle}
-              onNext={handleNext}
-              onPrev={handlePrev}
+              onNext={handleLoopNext}
+              onPrev={handleLoopPrev}
+              limit={3}
+              activeIndex={activeIndex} // Passando activeIndex como uma propriedade
+              setActiveIndex={setActiveIndex}
+              gameIds={gameIds}  // Adicione esta linha
             />
           ))}
         </div>
         <GameHighlights />
-        <NewsUpdates />
-        <CommunityActivity />
-        <EventsTournaments />
-        <FeaturedReviews />
-        <MediaSection />
       </div>
     </div>
   );

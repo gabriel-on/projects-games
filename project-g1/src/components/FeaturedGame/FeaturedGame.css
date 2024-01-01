@@ -7,13 +7,9 @@
     padding: 10px;
     margin: 0 10px;
     width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-/* .active {
+    background: #666;
     border: 2px solid red;
-} */
+}
 
 .featured-game h2 {
     margin-bottom: 10px;
@@ -73,16 +69,16 @@
     /* position: relative; */
     display: flex;
     width: 100%;
-    /* ou defina uma largura específica conforme necessário */
     /* height: 100vh; */
-    /* ou defina uma altura específica conforme necessário */
     background-size: cover;
-    /* ou ajuste conforme necessário */
-    /* Adicione mais estilos conforme necessário */
     /* z-index: -1; */
 }
 
-/* .game-display {
-    display: flex;
-    
-} */
+.featured-game.fade {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+.featured-game.fade.active {
+    opacity: 1;
+}
