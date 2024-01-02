@@ -12,6 +12,7 @@ const GameDetails = () => {
   const [user, setUser] = useState(null);
   const [userGameStatus, setUserGameStatus] = useState(null);
   const [pendingChanges, setPendingChanges] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,11 +27,9 @@ const GameDetails = () => {
           const data = snapshot.val();
           setGameData(data);
 
-          // Atualiza o estado da classificação do usuário com a classificação do jogo
           setUserClassification(data.classifications?.[user?.uid] || 0);
-
-          // Atualiza o estado do status do jogo para o usuário
           setUserGameStatus(data.userStatus?.[user?.uid] || null);
+          setIsFavorite(data.favorites?.[user?.uid] || false);
         } else {
           console.log(`Jogo com ID ${gameId} não encontrado.`);
         }
@@ -42,13 +41,11 @@ const GameDetails = () => {
     fetchGameData();
   }, [gameId, user]);
 
-  // Adiciona um observador para verificar a autenticação do usuário
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (authUser) => {
       setUser(authUser);
     });
 
-    // Remove o observador quando o componente é desmontado
     return () => unsubscribe();
   }, []);
 
@@ -64,14 +61,27 @@ const GameDetails = () => {
     setPendingChanges(true);
   };
 
+  const handleToggleFavorite = () => {
+    if (!user) {
+      alert('Faça login para adicionar aos favoritos.');
+      return navigate('/login');
+    }
+
+    const database = getDatabase();
+    const favoritesRef = ref(database, `games/${gameId}/favorites/${user.uid}`);
+    setIsFavorite((prevFavorite) => !prevFavorite);
+    set(favoritesRef, !isFavorite);
+  };
+
   const handleSaveChanges = async () => {
     if (!user) {
       alert('Faça login para salvar as alterações.');
       return navigate('/login');
     }
 
-    // Atualiza a classificação individual do usuário no Firebase
     const database = getDatabase();
+
+    // Atualiza a classificação individual do usuário no Firebase
     const userClassificationRef = ref(database, `games/${gameId}/classifications/${user.uid}`);
     set(userClassificationRef, userClassification);
 
@@ -87,7 +97,7 @@ const GameDetails = () => {
     const userGameStatusProfileRef = ref(database, `users/${user.uid}/gameStatus/${gameId}`);
     set(userGameStatusProfileRef, userGameStatus);
 
-    // Calcula e atualiza a classificação total do jogo no Firebase
+    // Atualiza a classificação total do jogo no Firebase
     const gameTotalRef = ref(database, `games/${gameId}/classification`);
     set(gameTotalRef, userClassification);
 
@@ -99,12 +109,8 @@ const GameDetails = () => {
     return <p>Carregando...</p>;
   }
 
-  // Calcula a classificação total dos usuários
   const totalClassifications = Object.values(gameData.classifications || {}).reduce((total, rating) => total + rating, 0);
-
   const averageClassification = totalClassifications / Object.keys(gameData.classifications || {}).length || 0;
-
-  // Conta o número de usuários que classificaram o jogo
   const numUsersInteracted = Object.keys(gameData.classifications || {}).length;
 
   return (
@@ -121,18 +127,17 @@ const GameDetails = () => {
 
       <label>
         Seu Status:
-        <select value={userGameStatus} onChange={handleStatusChange}>
+        <select value={userGameStatus || ''} onChange={handleStatusChange}>
           <option value="none">Nenhum</option>
           <option value="playing">Jogando</option>
           <option value="played">Jogado</option>
           <option value="planning">Planejando</option>
-          {/* Adicione mais opções conforme necessário */}
         </select>
       </label>
 
       <label>
         Sua Classificação:
-        <select value={userClassification} onChange={handleClassificationChange}>
+        <select value={userClassification || ''} onChange={handleClassificationChange}>
           <option value={0}>0</option>
           <option value={1}>1</option>
           <option value={2}>2</option>
@@ -147,9 +152,14 @@ const GameDetails = () => {
         </select>
       </label>
 
+      <button onClick={handleToggleFavorite}>
+        {isFavorite ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos'}
+      </button>
+
       <button onClick={handleSaveChanges} disabled={!pendingChanges}>
         Salvar Alterações
       </button>
+
       <p>{numUsersInteracted} usuário(s) interagiram com o jogo.</p>
 
       {gameData.officialSite && (
@@ -157,6 +167,7 @@ const GameDetails = () => {
           <p>Site Oficial</p>
         </Link>
       )}
+
       <p>Adicionado por: {gameData.addedBy}</p>
     </div>
   );
