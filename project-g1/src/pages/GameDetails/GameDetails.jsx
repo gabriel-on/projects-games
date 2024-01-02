@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { getDatabase, ref, get, set, push } from 'firebase/database';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { getDatabase, ref, get, set } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-import '../GameDetails/GameDetails.css'
+import '../GameDetails/GameDetails.css';
 
 const GameDetails = () => {
   const { gameId } = useParams();
   const [gameData, setGameData] = useState(null);
   const [userClassification, setUserClassification] = useState(0);
   const [user, setUser] = useState(null);
+  const [userGameStatus, setUserGameStatus] = useState(null);
+  const [pendingChanges, setPendingChanges] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGameData = async () => {
@@ -25,6 +28,9 @@ const GameDetails = () => {
 
           // Atualiza o estado da classificação do usuário com a classificação do jogo
           setUserClassification(data.classifications?.[user?.uid] || 0);
+
+          // Atualiza o estado do status do jogo para o usuário
+          setUserGameStatus(data.userStatus?.[user?.uid] || null);
         } else {
           console.log(`Jogo com ID ${gameId} não encontrado.`);
         }
@@ -48,23 +54,45 @@ const GameDetails = () => {
 
   const handleClassificationChange = (event) => {
     const newClassification = parseFloat(event.target.value);
-
-    if (!user) {
-      alert('Faça login para classificar o jogo.');
-      return;
-    }
-
-    // Atualiza o estado da classificação do usuário
     setUserClassification(newClassification);
+    setPendingChanges(true);
+  };
+
+  const handleStatusChange = (event) => {
+    const newStatus = event.target.value;
+    setUserGameStatus(newStatus);
+    setPendingChanges(true);
+  };
+
+  const handleSaveChanges = async () => {
+    if (!user) {
+      alert('Faça login para salvar as alterações.');
+      return navigate('/login');
+    }
 
     // Atualiza a classificação individual do usuário no Firebase
     const database = getDatabase();
     const userClassificationRef = ref(database, `games/${gameId}/classifications/${user.uid}`);
-    set(userClassificationRef, newClassification);
+    set(userClassificationRef, userClassification);
+
+    // Atualiza a classificação do usuário para o jogo no perfil do usuário
+    const userGameClassificationRef = ref(database, `users/${user.uid}/classifications/${gameId}`);
+    set(userGameClassificationRef, userClassification);
+
+    // Atualiza o status do jogo para o usuário no Firebase
+    const userGameStatusRef = ref(database, `games/${gameId}/userStatus/${user.uid}`);
+    set(userGameStatusRef, userGameStatus);
+
+    // Atualiza o status do jogo para o usuário no perfil do usuário
+    const userGameStatusProfileRef = ref(database, `users/${user.uid}/gameStatus/${gameId}`);
+    set(userGameStatusProfileRef, userGameStatus);
 
     // Calcula e atualiza a classificação total do jogo no Firebase
     const gameTotalRef = ref(database, `games/${gameId}/classification`);
-    set(gameTotalRef, newClassification);
+    set(gameTotalRef, userClassification);
+
+    setPendingChanges(false);
+    alert('Alterações salvas com sucesso!');
   };
 
   if (!gameData) {
@@ -73,6 +101,7 @@ const GameDetails = () => {
 
   // Calcula a classificação total dos usuários
   const totalClassifications = Object.values(gameData.classifications || {}).reduce((total, rating) => total + rating, 0);
+
   const averageClassification = totalClassifications / Object.keys(gameData.classifications || {}).length || 0;
 
   return (
@@ -86,7 +115,17 @@ const GameDetails = () => {
       <p>Desenvolvedoras: {gameData.developers}</p>
       <p className='classification-all'>Classificação Média: {averageClassification}</p>
       <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
-      <p>Adicionado por: {gameData.addedBy}</p>
+
+      <label>
+        Seu Status:
+        <select value={userGameStatus} onChange={handleStatusChange}>
+          <option value="none">Nenhum</option>
+          <option value="playing">Jogando</option>
+          <option value="played">Jogado</option>
+          <option value="planning">Planejando</option>
+          {/* Adicione mais opções conforme necessário */}
+        </select>
+      </label>
 
       <label>
         Sua Classificação:
@@ -97,14 +136,24 @@ const GameDetails = () => {
           <option value={3}>3</option>
           <option value={4}>4</option>
           <option value={5}>5</option>
+          <option value={6}>6</option>
+          <option value={7}>7</option>
+          <option value={8}>8</option>
+          <option value={9}>9</option>
+          <option value={10}>10</option>
         </select>
       </label>
+
+      <button onClick={handleSaveChanges} disabled={!pendingChanges}>
+        Salvar Alterações
+      </button>
 
       {gameData.officialSite && (
         <Link to={gameData.officialSite} target='_blank'>
           <p>Site Oficial</p>
         </Link>
       )}
+      <p>Adicionado por: {gameData.addedBy}</p>
     </div>
   );
 };

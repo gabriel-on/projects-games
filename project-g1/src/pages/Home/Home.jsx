@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import FeaturedGame from '../../components/FeaturedGame/FeaturedGame.jsx';
 import GameHighlights from '../../components/GameHighlights/GameHighlights.jsx';
 import { getDatabase, ref, get } from 'firebase/database';
-// import GamesTopList from '../../components/GamesTopList/GamesTopList.jsx'
 
 import GamesNavigation from '../../components/FeaturedGame/GameNavigation.jsx'
 
@@ -96,7 +95,14 @@ const Home = () => {
               gameIds={gameIds}
             />
           ))}
-        <GamesNavigation/>
+          <div>
+            <h2>Games</h2>
+            <GamesNavigation />
+          </div>
+          <div>
+            <h2>Ultimos Adicionados</h2>
+            <GamesNavigation />
+          </div>
         </div>
       </div>
     </div>
