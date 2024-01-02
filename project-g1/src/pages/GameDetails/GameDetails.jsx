@@ -104,6 +104,9 @@ const GameDetails = () => {
 
   const averageClassification = totalClassifications / Object.keys(gameData.classifications || {}).length || 0;
 
+  // Conta o número de usuários que classificaram o jogo
+  const numUsersInteracted = Object.keys(gameData.classifications || {}).length;
+
   return (
     <div>
       <h2>{gameData.title}</h2>
@@ -147,6 +150,7 @@ const GameDetails = () => {
       <button onClick={handleSaveChanges} disabled={!pendingChanges}>
         Salvar Alterações
       </button>
+      <p>{numUsersInteracted} usuário(s) interagiram com o jogo.</p>
 
       {gameData.officialSite && (
         <Link to={gameData.officialSite} target='_blank'>
