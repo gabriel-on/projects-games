@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useAuthentication } from '../../hooks/useAuthentication';
+import { useAuth } from '../../hooks/useAuthentication';
 import { useAuthValue } from '../../context/AuthContext';
 import '../Navbar/Navbar.css'
 
 const Navbar = () => {
-  const { logout } = useAuthentication();
+  const { logout } = useAuth();
   const { user } = useAuthValue();
 
   return (
@@ -52,6 +52,11 @@ const Navbar = () => {
         <li>
           <NavLink to="/about" className={isActive => (isActive ? 'active' : '')}>
             Sobre
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/Admin" className={isActive => (isActive ? 'active' : '')}>
+            Admin
           </NavLink>
         </li>
         {user && (

@@ -5,7 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { useState, useEffect } from 'react'
 
 // HOOKS
-import { useAuthentication } from './hooks/useAuthentication.jsx'
+import { useAuth } from './hooks/useAuthentication.jsx'
 
 // CONTEXT
 import { AuthProvider } from './context/AuthContext.jsx'
@@ -24,10 +24,11 @@ import EditGame from './components/EditGame/EditGame.jsx'
 import DeleteGame from './components/DeleteSelectedGames/DeleteSelectedGames.jsx'
 import GameList from './components/GameList/GameList.jsx'
 import UserProfile from './components/UserProfile/UserProfile.jsx'
+import AdminPage from './pages/Admin/AdminPage.jsx'
 
 function App() {
   const [user, setUser] = useState(undefined);
-  const { auth } = useAuthentication();
+  const { auth } = useAuth();
 
   const loadingUser = user === undefined;
 
@@ -41,10 +42,10 @@ function App() {
     return <p>Carregando...</p>;
   }
 
-  const isAdmin = user && user.role === 'admin';
-  
-  console.log('isAdmin:', isAdmin);
-  
+  // const isAdmin = user && user.role === 'admin';
+
+  // console.log('isAdmin:', isAdmin);
+
   return (
     <div className='App'>
       <AuthProvider value={{ user }}>
@@ -60,12 +61,12 @@ function App() {
               <Route path='/game/:gameId' element={<GameDetails />} />
               <Route path='/games' element={<GameList />} />
 
-              <Route path='/profile' element={<UserProfile/>} />
+              <Route path='/profile' element={<UserProfile />} />
 
-              {isAdmin && (
-                <Route path="/dashboard" element={<Dashboard />} />
-              )}
+              {!user && (
+                <Route path="/dashboard" element={<Dashboard />} />)}
               <Route path='/edit/:gameId' element={<EditGame />} />
+              <Route path="/admin" element={<AdminPage />} />
               <Route path='/delete/:gameId' element={<DeleteGame />} />
             </Routes>
 

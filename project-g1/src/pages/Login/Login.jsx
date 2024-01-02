@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuthentication } from '../../hooks/useAuthentication';
+import { useAuth } from '../../hooks/useAuthentication';
 import { db } from '../../firebase/firebase';
 import { Link, Navigate } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const { login, error: authError, loading, user } = useAuthentication();
+  const { login, error: authError, loading, user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

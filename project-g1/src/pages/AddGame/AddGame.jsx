@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, push, set, onValue } from 'firebase/database';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { useAuthentication } from '../../hooks/useAuthentication';
+import { useAuth } from '../../hooks/useAuthentication';
 import '../AddGame/AddGame.css';
 
 function AddGame() {
@@ -27,7 +27,7 @@ function AddGame() {
   const [ratingsList, setRatingsList] = useState([]);
 
   const navigate = useNavigate();
-  const { error: authError, getCurrentUser } = useAuthentication();
+  const { error: authError, getCurrentUser } = useAuth();
 
   const currentUser = getCurrentUser();
 

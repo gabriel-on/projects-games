@@ -8,7 +8,7 @@ import {
 
 import { useState, useEffect, useRef } from "react";
 
-export const useAuthentication = () => {
+export const useAuth = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);

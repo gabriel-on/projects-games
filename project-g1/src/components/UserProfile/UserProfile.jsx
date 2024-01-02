@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useAuthentication } from '../../hooks/useAuthentication';
+import { useAuth } from '../../hooks/useAuthentication';
 import { updateProfile as updateProfileAuth } from "firebase/auth"; // Importe a função updateProfileAuth
 
 const UserProfile = () => {
-  const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuthentication();
+  const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
   const [newDisplayName, setNewDisplayName] = useState('');
 
   useEffect(() => {
