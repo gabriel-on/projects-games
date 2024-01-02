@@ -36,7 +36,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    const gameIdsLimit = 3; // Define o limite desejado
+    const gameIdsLimit = 5; // Define o limite desejado
 
     const intervalId = setInterval(() => {
       const nextIndex = (activeIndex + 1) % Math.min(gameIds.length, gameIdsLimit);
@@ -54,7 +54,7 @@ const Home = () => {
   };
 
   const handleLoopNext = () => {
-    const gameIdsLimit = 3; // Define o limite desejado
+    const gameIdsLimit = 5; // Define o limite desejado
     const nextIndex = (activeIndex + 1) % Math.min(gameIds.length, gameIdsLimit);
 
     if (nextIndex === 0) {
@@ -66,7 +66,7 @@ const Home = () => {
   };
 
   const handleLoopPrev = () => {
-    const gameIdsLimit = 3; // Define o limite desejado
+    const gameIdsLimit = 5; // Define o limite desejado
     const prevIndex = (activeIndex - 1 + gameIds.length) % Math.min(gameIds.length, gameIdsLimit);
 
     if (prevIndex === gameIdsLimit - 1) {
@@ -82,7 +82,7 @@ const Home = () => {
       <div>
         <h1>Página Inicial</h1>
         <div className="container">
-          {gameIds.slice(0, 3).map((gameId, index) => (
+          {gameIds.slice(0, 5).map((gameId, index) => (
             <FeaturedGame
               key={gameId}
               gameId={gameId}
