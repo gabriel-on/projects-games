@@ -42,9 +42,9 @@ function App() {
     return <p>Carregando...</p>;
   }
 
-  // const isAdmin = user && user.role === 'admin';
+  const isAdmin = user && user.role === 'admin';
 
-  // console.log('isAdmin:', isAdmin);
+  console.log('isAdmin:', isAdmin);
 
   return (
     <div className='App'>
@@ -63,7 +63,7 @@ function App() {
 
               <Route path='/profile' element={<UserProfile />} />
 
-              {!user && (
+              { isAdmin && (
                 <Route path="/dashboard" element={<Dashboard />} />)}
               <Route path='/edit/:gameId' element={<EditGame />} />
               <Route path="/admin" element={<AdminPage />} />
