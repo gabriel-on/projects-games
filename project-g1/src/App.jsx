@@ -42,7 +42,7 @@ function App() {
     return <p>Carregando...</p>;
   }
 
-  const isAdmin = user && user.role === 'admin';
+  const isAdmin = user && user.isAdmin;
 
   console.log('isAdmin:', isAdmin);
 
