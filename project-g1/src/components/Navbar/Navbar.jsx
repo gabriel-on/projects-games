@@ -25,12 +25,12 @@ const Navbar = () => {
         </li>
         {!user && (
           <>
-            <li className='md-dash-admin'>
+            <li >
               <NavLink to="/login" className={isActive => (isActive ? 'active' : '')}>
                 Entrar
               </NavLink>
             </li>
-            <li className='md-dash-admin'>
+            <li >
               <NavLink to="/register" className={isActive => (isActive ? 'active' : '')}>
                 Cadastrar
               </NavLink>
@@ -49,14 +49,14 @@ const Navbar = () => {
                 Perfil
               </NavLink>
             </li>
-            <li>
+            <li className='md-dash-admin'>
               {isAdmin && (
                 <NavLink to="/dashboard" className={isActive => (isActive ? 'active' : '')}>
                   Dashboard
                 </NavLink>
               )}
             </li>
-            <li>
+            <li className='md-dash-admin'>
               {isAdmin && (
                 <NavLink to="/admin" className={isActive => (isActive ? 'active' : '')}>
                   Admin
