@@ -1,40 +1,58 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../hooks/useAuthentication';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { auth, db } from '../../firebase/firebase.js';
+import { getDatabase, ref, onValue, get } from 'firebase/database';
 
 const AdminPage = () => {
-  const { currentUser } = useAuth();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [userRole, setUserRole] = useState('user');
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const db = getDatabase();
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
-      if (currentUser && currentUser.isAdmin) {
-        setIsAdmin(true);
-      } else {
-        // Redireciona para a página inicial se o usuário não for um administrador
-        navigate('/');
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const userRef = ref(db, 'users/' + user.uid);
+
+        onValue(userRef, (snapshot) => {
+          const userData = snapshot.val();
+          setUserRole(userData?.role || 'user');
+        });
+
+        // Obtendo a lista de usuários
+        const usersRef = ref(db, 'users');
+        get(usersRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            const usersData = snapshot.val();
+            // Transformando os dados do objeto em uma matriz para mapear
+            const usersArray = Object.values(usersData);
+            setUsers(usersArray);
+          }
+        });
       }
-    };
+    });
 
-    checkAdminStatus();
-  }, [currentUser, navigate]);
-  console.log("currentUser:", currentUser);
+    return () => unsubscribe();
+  }, []);
 
-  if (!isAdmin) {
-    // Você pode personalizar a mensagem de acesso negado ou adicionar um link para a página inicial aqui
-    return (
-      <div>
-        <h1>Acesso Negado</h1>
-        <p>Você não tem permissão para acessar esta página.</p>
-      </div>
-    );
+  if (userRole !== 'isAdmin') {
+    console.log("Sucesso")
+  } else {
+    return navigate("/")
   }
 
   return (
     <div>
-      <h1>Página de Administração</h1>
-      {/* Conteúdo da página de administração */}
+      <h1>Lista de Usuários</h1>
+      <ul>
+        {users.map((user, index) => (
+          <li key={index}>
+            <p>{user.displayName}</p>
+            {user.isAdmin && 
+            <span>⭐ Administrador </span>}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

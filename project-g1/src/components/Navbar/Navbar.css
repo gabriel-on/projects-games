@@ -27,9 +27,14 @@ a > h1 {
 
 .navbar ul>li {
     list-style: none;
+    /* padding: 20px; */
 }
 
 .navbar li>a {
     text-transform: uppercase;
     color: white;
+}
+
+.md-dash-admin {
+    
 }

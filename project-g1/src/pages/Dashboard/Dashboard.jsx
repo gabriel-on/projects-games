@@ -44,7 +44,9 @@ const Dashboard = () => {
   };
 
   if (userRole !== 'isAdmin') {
-    // Redirecionar usuários não administradores para outra página
+    console.log("Sucesso")
+  } else {
+    return navigate("/")
   }
 
   return (

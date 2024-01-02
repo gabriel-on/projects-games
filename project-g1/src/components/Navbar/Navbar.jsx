@@ -25,20 +25,30 @@ const Navbar = () => {
         </li>
         {!user && (
           <>
-            <li>
+            <li className='md-dash-admin'>
               <NavLink to="/login" className={isActive => (isActive ? 'active' : '')}>
                 Entrar
               </NavLink>
             </li>
-            <li>
+            <li className='md-dash-admin'>
               <NavLink to="/register" className={isActive => (isActive ? 'active' : '')}>
                 Cadastrar
               </NavLink>
             </li>
           </>
         )}
+        <li>
+          <NavLink to="/about" className={isActive => (isActive ? 'active' : '')}>
+            Sobre
+          </NavLink>
+        </li>
         {user && (
           <>
+          <li>
+              <NavLink to="/profile" className={isActive => (isActive ? 'active' : '')}>
+                Perfil
+              </NavLink>
+            </li>
             <li>
               {isAdmin && (
                 <NavLink to="/dashboard" className={isActive => (isActive ? 'active' : '')}>
@@ -53,24 +63,14 @@ const Navbar = () => {
                 </NavLink>
               )}
             </li>
-            <li>
-              <NavLink to="/profile" className={isActive => (isActive ? 'active' : '')}>
-                Perfil
-              </NavLink>
-            </li>
           </>
         )}
-        <li>
-          <NavLink to="/about" className={isActive => (isActive ? 'active' : '')}>
-            Sobre
-          </NavLink>
-        </li>
         {user && (
-          <NavLink to="/">
-            <li>
+          <li>
+            <NavLink to="/">
               <button onClick={logout}>Sair</button>
-            </li>
-          </NavLink>
+            </NavLink>
+          </li>
         )}
       </ul>
     </nav>
