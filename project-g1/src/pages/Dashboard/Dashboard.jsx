@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebase/firebase.js';
 import GameList from '../../components/GameList/GameList.jsx';
 import EditGame from '../../components/EditGame/EditGame.jsx';
@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [userRole, setUserRole] = useState('user'); // Valor padrão para usuários não autenticados
+  const navigate = useNavigate()
   const db = getDatabase();
 
   useEffect(() => {
@@ -44,7 +45,6 @@ const Dashboard = () => {
 
   if (userRole !== 'isAdmin') {
     // Redirecionar usuários não administradores para outra página
-    return <Navigate to="/" />;
   }
 
   return (
