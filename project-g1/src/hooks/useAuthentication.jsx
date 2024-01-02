@@ -27,7 +27,15 @@ export const useAuth = () => {
         handleCancellation();
         setLoading(true);
 
+        
         try {
+
+            data.isAdmin = 
+            data.email === 'black@gmail.com' || 
+            data.email === 'black2@gmail.com' ||
+            data.email === 'black3@gmail.com';
+
+
             const { user } = await createUserWithEmailAndPassword(
                 auth,
                 data.email,

@@ -21,7 +21,6 @@ const AdminPage = () => {
   }, [currentUser, navigate]);
   console.log("currentUser:", currentUser);
 
-
   if (!isAdmin) {
     // Você pode personalizar a mensagem de acesso negado ou adicionar um link para a página inicial aqui
     return (

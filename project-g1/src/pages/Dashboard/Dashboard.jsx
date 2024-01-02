@@ -3,22 +3,23 @@ import { Link, Navigate } from 'react-router-dom';
 import { auth, db } from '../../firebase/firebase.js';
 import GameList from '../../components/GameList/GameList.jsx';
 import EditGame from '../../components/EditGame/EditGame.jsx';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 const Dashboard = () => {
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [userRole, setUserRole] = useState('user'); // Valor padrão para usuários não autenticados
+  const db = getDatabase();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        const userRef = db.collection('users').doc(user.uid);
+        const userRef = ref(db, 'users/' + user.uid);
 
-        userRef.get().then((doc) => {
-          if (doc.exists) {
-            const userData = doc.data();
-            setUserRole(userData.role || 'user');
-          }
+        // Use onValue para escutar as alterações nos dados do usuário
+        onValue(userRef, (snapshot) => {
+          const userData = snapshot.val();
+          setUserRole(userData?.role || 'user');
         });
       }
     });
@@ -41,7 +42,7 @@ const Dashboard = () => {
     }
   };
 
-  if (userRole !== 'admin') {
+  if (userRole !== 'isAdmin') {
     // Redirecionar usuários não administradores para outra página
     return <Navigate to="/" />;
   }
