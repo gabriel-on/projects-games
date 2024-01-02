@@ -149,5 +149,6 @@ export const useAuth = () => {
         login,
         loading,
         currentUser,
+        setCurrentUser
     };
 };  

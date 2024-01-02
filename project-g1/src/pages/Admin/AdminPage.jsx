@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../hooks/useAuthentication'; // Substitua pelo seu provedor de autenticação
-import { useNavigate } from 'react-router-dom'; // Importe o hook useHistory para redirecionamento
+import { useAuth } from '../../hooks/useAuthentication';
+import { useNavigate } from 'react-router-dom';
 
 const AdminPage = () => {
   const { currentUser } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
-  const navigate = useNavigate(); // Instancie o hook useHistory para redirecionamento
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkAdminStatus = async () => {
-      // Verifica se o usuário é um administrador ao montar o componente
       if (currentUser && currentUser.isAdmin) {
         setIsAdmin(true);
       } else {
-        // Redireciona ou mostra uma mensagem de erro se o usuário não for um administrador
-        // Você pode implementar isso de acordo com sua lógica específica
-        console.error('Acesso negado. Você não é um administrador.');
-        // Exemplo: redirecionamento para a página inicial
+        // Redireciona para a página inicial se o usuário não for um administrador
         navigate('/');
       }
     };
@@ -25,17 +21,15 @@ const AdminPage = () => {
   }, [currentUser, navigate]);
 
   if (!isAdmin) {
+    // Você pode personalizar a mensagem de acesso negado ou adicionar um link para a página inicial aqui
     return (
       <div>
         <h1>Acesso Negado</h1>
         <p>Você não tem permissão para acessar esta página.</p>
-        {/* Pode adicionar um botão ou link para redirecionar para a página inicial, por exemplo */}
-        {/* <Link to="/">Ir para a Página Inicial</Link> */}
       </div>
     );
   }
 
-  // Renderiza o conteúdo da página de administração
   return (
     <div>
       <h1>Página de Administração</h1>
