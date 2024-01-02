@@ -2,7 +2,7 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    updateProfile,
+    updateProfile as updateProfileAuth,
     signOut,
 } from "firebase/auth";
 
@@ -10,23 +10,20 @@ import { useState, useEffect } from "react";
 
 export const useAuthentication = () => {
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
-
-    // deal with memory leak
     const [cancelled, setCancelled] = useState(false);
 
     const auth = getAuth();
 
-    function checkIfIsCancelled() {
+    const handleCancellation = () => {
         if (cancelled) {
-            return;
+            throw new Error("Operação cancelada");
         }
-    }
+    };
 
-    // REGISTER
     const createUser = async (data) => {
-        checkIfIsCancelled();
+        handleCancellation();
 
         setLoading(true);
 
@@ -37,7 +34,7 @@ export const useAuthentication = () => {
                 data.password
             );
 
-            await updateProfile(user, { displayName: data.displayName });
+            await updateProfileAuth(user, { displayName: data.displayName });
             setCurrentUser({
                 uid: user.uid,
                 email: user.email,
@@ -50,9 +47,9 @@ export const useAuthentication = () => {
         } catch (error) {
             let systemErrorMessage;
 
-            if (error.message.includes("Password")) {
+            if (error.code === "auth/weak-password") {
                 systemErrorMessage = "A senha precisa conter pelo menos 6 caracteres.";
-            } else if (error.message.includes("email-already")) {
+            } else if (error.code === "auth/email-already-in-use") {
                 systemErrorMessage = "E-mail já cadastrado.";
             } else {
                 systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde.";
@@ -64,17 +61,15 @@ export const useAuthentication = () => {
         }
     };
 
-    // LOGOUT - SAIR
     const logout = () => {
-        checkIfIsCancelled();
+        handleCancellation();
 
         signOut(auth);
         setCurrentUser(null);
     };
 
-    // LOGIN - ENTRAR
     const login = async (data) => {
-        checkIfIsCancelled();
+        handleCancellation();
 
         setLoading(true);
         setError(false);
@@ -83,6 +78,9 @@ export const useAuthentication = () => {
             await signInWithEmailAndPassword(auth, data.email, data.password);
 
             const user = auth.currentUser;
+
+            await updateProfileAuth(user, { displayName: user.displayName });
+
             setCurrentUser({
                 uid: user.uid,
                 email: user.email,
@@ -116,7 +114,7 @@ export const useAuthentication = () => {
             unsubscribe();
             setCancelled(true);
         };
-    }, [auth]);
+    }, [auth, cancelled]);
 
     return {
         auth,
@@ -126,5 +124,6 @@ export const useAuthentication = () => {
         login,
         loading,
         currentUser,
+        setCurrentUser, // Adicione a função setCurrentUser ao retorno do hook
     };
 };
