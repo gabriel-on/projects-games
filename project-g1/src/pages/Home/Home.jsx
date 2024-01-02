@@ -89,7 +89,7 @@ const Home = () => {
               onToggle={handleToggle}
               onNext={handleLoopNext}
               onPrev={handleLoopPrev}
-              limit={3}
+              limit={5}
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
               gameIds={gameIds}
