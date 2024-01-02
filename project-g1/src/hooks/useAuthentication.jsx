@@ -149,6 +149,10 @@ export const useAuth = () => {
         };
     }, [auth]);
 
+    const getCurrentUser = () => {
+        return auth.currentUser;
+    };
+
     return {
         auth,
         createUser,
@@ -157,6 +161,7 @@ export const useAuth = () => {
         login,
         loading,
         currentUser,
-        setCurrentUser
+        setCurrentUser,
+        getCurrentUser
     };
 };  

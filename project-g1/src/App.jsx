@@ -73,7 +73,6 @@ function App() {
               <Route path='/login' element={!user ? <Login /> : <Navigate to={"/"} />} />
               <Route path='/register' element={!user ? <Register /> : <Navigate to={"/"} />} />
               <Route path='/about' element={<About />} />
-              <Route path='/new' element={user ? <AddGame /> : <Navigate to={"/login"} />} />
               <Route path='/game/:gameId' element={<GameDetails />} />
               <Route path='/games' element={<GameList />} />
 
@@ -81,12 +80,18 @@ function App() {
 
               {isAdmin && (
                 <>
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/admin" element={<AdminPage />} />
+                  <Route path='/new'
+                    element={<AddGame />} />
+                  <Route path="/dashboard"
+                    element={<Dashboard />} />
+                  <Route path="/admin"
+                    element={<AdminPage />} />
+                  <Route path='/edit/:gameId'
+                    element={<EditGame />} />
+                  <Route path='/delete/:gameId'
+                    element={<DeleteGame />} />
                 </>
               )}
-              <Route path='/edit/:gameId' element={<EditGame />} />
-              <Route path='/delete/:gameId' element={<DeleteGame />} />
             </Routes>
           </div>
           <Footer />
