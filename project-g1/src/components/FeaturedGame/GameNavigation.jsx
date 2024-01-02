@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import GamesTopList from '../GamesTopList/GamesTopList';
-import '../FeaturedGame/GameNavigation.css'
+import '../FeaturedGame/GameNavigation.css';
 import { Link } from 'react-router-dom';
 
 const GameNavigation = () => {
@@ -12,7 +12,7 @@ const GameNavigation = () => {
   useEffect(() => {
     const fetchGamesData = async () => {
       try {
-        const database = getDatabase(); // Certifique-se de que a função getDatabase está importada corretamente
+        const database = getDatabase();
         const gamesRef = ref(database, 'games');
 
         const snapshot = await get(gamesRef);
@@ -44,7 +44,7 @@ const GameNavigation = () => {
 
   const handleNext = () => {
     const totalPages = Math.ceil(games.length / gamesPerPage);
-    if (currentPage < totalPages) {
+    if (currentPage < totalPages && currentPage < 2) {
       setCurrentPage(currentPage + 1);
     }
   };
