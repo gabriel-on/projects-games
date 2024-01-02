@@ -5,8 +5,8 @@ import {
     updateProfile as updateProfileAuth,
     signOut,
 } from "firebase/auth";
-
 import { useState, useEffect, useRef } from "react";
+import { getDatabase, ref, set } from "firebase/database"; // Importação do Realtime Database
 
 export const useAuth = () => {
     const [error, setError] = useState(null);
@@ -14,7 +14,8 @@ export const useAuth = () => {
     const [currentUser, setCurrentUser] = useState(null);
 
     const auth = getAuth();
-    const isMounted = useRef(true);  // Referência mutável para verificar se o componente está montado
+    const db = getDatabase(); // Inicialização do Realtime Database
+    const isMounted = useRef(true);
 
     const handleCancellation = () => {
         if (!isMounted.current) {
@@ -24,7 +25,6 @@ export const useAuth = () => {
 
     const createUser = async (data) => {
         handleCancellation();
-
         setLoading(true);
 
         try {
@@ -35,10 +35,20 @@ export const useAuth = () => {
             );
 
             await updateProfileAuth(user, { displayName: data.displayName });
+
+            // Criar um documento para o usuário no Realtime Database
+            const dbRef = ref(db, `users/${user.uid}`);
+            await set(dbRef, {
+                email: data.email,
+                displayName: data.displayName,
+                isAdmin: data.isAdmin || false,
+            });
+
             setCurrentUser({
                 uid: user.uid,
                 email: user.email,
                 displayName: data.displayName,
+                isAdmin: data.isAdmin || false,
             });
 
             setLoading(false);
@@ -52,7 +62,8 @@ export const useAuth = () => {
             } else if (error.code === "auth/email-already-in-use") {
                 systemErrorMessage = "E-mail já cadastrado.";
             } else {
-                systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde.";
+                systemErrorMessage =
+                    "Ocorreu um erro, por favor tente mais tarde.";
             }
 
             setLoading(false);
@@ -63,7 +74,6 @@ export const useAuth = () => {
 
     const logout = async () => {
         handleCancellation();
-
         setLoading(true);
 
         try {
@@ -78,7 +88,6 @@ export const useAuth = () => {
 
     const login = async (data) => {
         handleCancellation();
-
         setLoading(true);
         setError(false);
 
@@ -93,6 +102,7 @@ export const useAuth = () => {
                 uid: user.uid,
                 email: user.email,
                 displayName: user.displayName,
+                isAdmin: data.isAdmin || false,
             });
         } catch (error) {
             let systemErrorMessage;
@@ -100,7 +110,8 @@ export const useAuth = () => {
             if (error.message) {
                 systemErrorMessage = "E-mail inválido ou Senha incorreta";
             } else {
-                systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde.";
+                systemErrorMessage =
+                    "Ocorreu um erro, por favor tente mais tarde.";
             }
 
             setError(systemErrorMessage);
@@ -110,18 +121,22 @@ export const useAuth = () => {
     };
 
     useEffect(() => {
-        isMounted.current = true;  // O componente está montado
+        isMounted.current = true;
 
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            setCurrentUser(user ? {
-                uid: user.uid,
-                email: user.email,
-                displayName: user.displayName,
-            } : null);
+            setCurrentUser(
+                user
+                    ? {
+                        uid: user.uid,
+                        email: user.email,
+                        displayName: user.displayName,
+                    }
+                    : null
+            );
         });
 
         return () => {
-            isMounted.current = false;  // O componente está sendo desmontado
+            isMounted.current = false;
             unsubscribe();
         };
     }, [auth]);
@@ -134,6 +149,5 @@ export const useAuth = () => {
         login,
         loading,
         currentUser,
-        setCurrentUser,
     };
-};
+};  
