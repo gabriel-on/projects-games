@@ -5,7 +5,6 @@ import GameHighlights from '../../components/GameHighlights/GameHighlights.jsx';
 import { getDatabase, ref, get } from 'firebase/database';
 
 import '../../pages/Home/Home.css';
-import GameContainer from '../../components/GameContainer/GameContainer.jsx';
 
 const Home = () => {
   const [gameIds, setGameIds] = useState([]);

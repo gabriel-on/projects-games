@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 export const useAuthentication = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
     // deal with memory leak
     const [cancelled, setCancelled] = useState(false);
@@ -36,16 +37,17 @@ export const useAuthentication = () => {
                 data.password
             );
 
-            await updateProfile(user, {
+            await updateProfile(user, { displayName: data.displayName });
+            setCurrentUser({
+                uid: user.uid,
+                email: user.email,
                 displayName: data.displayName,
             });
+
             setLoading(false);
 
             return user;
         } catch (error) {
-            console.log(error.message);
-            console.log(typeof error.message);
-
             let systemErrorMessage;
 
             if (error.message.includes("Password")) {
@@ -53,14 +55,13 @@ export const useAuthentication = () => {
             } else if (error.message.includes("email-already")) {
                 systemErrorMessage = "E-mail já cadastrado.";
             } else {
-                systemErrorMessage = "Ocorreu um erro, por favor tenta mais tarde.";
+                systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde.";
             }
 
             setLoading(false);
 
             setError(systemErrorMessage);
         }
-
     };
 
     // LOGOUT - SAIR
@@ -68,6 +69,7 @@ export const useAuthentication = () => {
         checkIfIsCancelled();
 
         signOut(auth);
+        setCurrentUser(null);
     };
 
     // LOGIN - ENTRAR
@@ -80,34 +82,41 @@ export const useAuthentication = () => {
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password);
 
+            const user = auth.currentUser;
+            setCurrentUser({
+                uid: user.uid,
+                email: user.email,
+                displayName: user.displayName,
+            });
         } catch (error) {
             let systemErrorMessage;
 
             if (error.message) {
-                systemErrorMessage = "E-mail invalido ou Senha incorreta"
+                systemErrorMessage = "E-mail inválido ou Senha incorreta";
             } else {
-                systemErrorMessage = "Ocorreu um erro, por favor tenta mais tarde."
+                systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde.";
             }
 
             setError(systemErrorMessage);
         } finally {
             setLoading(false);
         }
-
-        // console.log(error);
-
-        // setLoading(false);
     };
 
     useEffect(() => {
-        return () => setCancelled(true);
-    }, []);
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setCurrentUser(user ? {
+                uid: user.uid,
+                email: user.email,
+                displayName: user.displayName,
+            } : null);
+        });
 
-    // Obter informações sobre o usuário atual
-    const getCurrentUser = () => {
-        const user = auth.currentUser;
-        return user ? { uid: user.uid, email: user.email, displayName: user.displayName } : null;
-    };
+        return () => {
+            unsubscribe();
+            setCancelled(true);
+        };
+    }, [auth]);
 
     return {
         auth,
@@ -116,6 +125,6 @@ export const useAuthentication = () => {
         logout,
         login,
         loading,
-        getCurrentUser,
+        currentUser,
     };
 };

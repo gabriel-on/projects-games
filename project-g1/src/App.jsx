@@ -1,8 +1,7 @@
 import './App.css'
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { onAuthStateChanged, createUserWithEmailAndPassword } from 'firebase/auth'
-import { db } from './firebase/firebase.js'
+import { onAuthStateChanged } from 'firebase/auth'
 import { useState, useEffect } from 'react'
 
 // HOOKS
@@ -19,36 +18,36 @@ import Register from './pages/Register/Register.jsx'
 import AddGame from './pages/AddGame/AddGame.jsx'
 import Dashboard from './pages/Dashboard/Dashboard.jsx'
 import GameDetails from './pages/GameDetails/GameDetails.jsx'
-// import PrivateRoute from './components/PrivateRoute/PrivateRoute.jsx'
-
-// COMPONENTES
 import Footer from './components/Footer/Footer.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
-import Search from './pages/Search/Search.jsx'
-// import Pagination from './components/Pagination/Pagination'
 import EditGame from './components/EditGame/EditGame.jsx'
 import DeleteGame from './components/DeleteSelectedGames/DeleteSelectedGames.jsx'
 import GameList from './components/GameList/GameList.jsx'
+import UserProfile from './components/UserProfile/UserProfile.jsx'
 
 function App() {
+  const [user, setUser] = useState(undefined);
+  const { auth } = useAuthentication();
 
-  const [user, setUser] = useState(undefined)
-  const { auth } = useAuthentication()
-
-  const loadingUser = user === undefined
+  const loadingUser = user === undefined;
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setUser(user)
-    })
-  }, [auth])
+      setUser(user);
+    });
+  }, [auth]);
 
   if (loadingUser) {
-    return <p>Carregando...</p>
+    return <p>Carregando...</p>;
   }
+
+  const isAdmin = user && user.role === 'admin';
+  
+  console.log('isAdmin:', isAdmin);
+  
   return (
     <div className='App'>
-      <AuthProvider value={{user}}>
+      <AuthProvider value={{ user }}>
         <BrowserRouter>
           <Navbar />
           <div className='container'>
@@ -60,7 +59,12 @@ function App() {
               <Route path='/new' element={user ? <AddGame /> : <Navigate to={"/login"} />} />
               <Route path='/game/:gameId' element={<GameDetails />} />
               <Route path='/games' element={<GameList />} />
-              <Route path='/dashboard' element={user ? <Dashboard /> : <Navigate to={"/login"} />} />
+
+              <Route path='/profile' element={<UserProfile/>} />
+
+              {isAdmin && (
+                <Route path="/dashboard" element={<Dashboard />} />
+              )}
               <Route path='/edit/:gameId' element={<EditGame />} />
               <Route path='/delete/:gameId' element={<DeleteGame />} />
             </Routes>
@@ -73,4 +77,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

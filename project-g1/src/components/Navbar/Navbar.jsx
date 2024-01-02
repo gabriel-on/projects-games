@@ -37,14 +37,14 @@ const Navbar = () => {
         )}
         {user && (
           <>
-            {/* <li>
-              <NavLink to="/new" className={isActive => (isActive ? 'active' : '')}>
-                Novo Post
-              </NavLink>
-            </li> */}
             <li>
               <NavLink to="/dashboard" className={isActive => (isActive ? 'active' : '')}>
                 Dashboard
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile" className={isActive => (isActive ? 'active' : '')}>
+                Perfil
               </NavLink>
             </li>
           </>

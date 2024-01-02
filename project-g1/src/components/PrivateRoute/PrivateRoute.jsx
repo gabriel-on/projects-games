@@ -1,15 +1,21 @@
-// ./components/PrivateRoute/PrivateRoute.jsx
-
+// PrivateRoute.jsx
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { Navigate, Route } from 'react-router-dom';
 
-function PrivateRoute({ element, ...props }) {
-  const { user } = useAuth();
+const PrivateRoute = ({ element, adminOnly }) => {
+  // Implemente lógica de verificação de autenticação e autorização aqui
+  const isAuthenticated = true; // Exemplo: verificar se o usuário está autenticado
+  const isAdmin = true; // Exemplo: verificar se o usuário é um administrador
 
-  console.log('user:', user); // Adicione este console.log para depuração
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
 
-  return <Route {...props} element={user ? element : <Navigate to="/login" />} />;
-}
+  if (adminOnly && !isAdmin) {
+    return <Navigate to="/" />;
+  }
+
+  return <>{element}</>;
+};
 
 export default PrivateRoute;

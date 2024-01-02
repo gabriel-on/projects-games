@@ -1,74 +1,40 @@
 import { useState, useEffect } from "react";
-import { db } from "../firebase/config";
+import { db } from "../firebase/firebase";
 import {
-    collection, query, orderBy, onSnapshot, where,
+  collection, addDoc, serverTimestamp
 } from "firebase/firestore"
 
-export const useFetchDocuments = (docCollection, search = null, uid = null) => {
-    const [documents, setDocuments] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(null)
+export const useFetchDocuments = (docCollection, documentData, uid) => {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null)
 
-    // DEAL WITH MEMORY LEAK
-    const [cancelled, setCancelled] = useState(false)
+  useEffect(() => {
+    async function saveData() {
+      setLoading(true);
 
-    useEffect(() => {
-        async function loadData() {
-            if (cancelled) {
-                return;
-            }
+      try {
+        const collectionRef = collection(db, docCollection);
 
-            setLoading(true);
+        // Adiciona um campo createdAt com o timestamp do servidor
+        const dataToSave = {
+          ...documentData,
+          createdAt: serverTimestamp(),
+          uid: uid
+        };
 
-            const collectionRef = await collection(db, docCollection);
+        // Adiciona um novo documento à coleção
+        await addDoc(collectionRef, dataToSave);
 
-            try {
-                let q;
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setError(error.message);
+        setLoading(false);
+      }
+    }
 
-                if (search) {
-                    q = await query(
-                        collectionRef,
-                        where("tags", "array-contains", search),
-                        orderBy("createdAt", "desc")
-                    );
-                } else if (uid) {
-                    q = await query(
-                        collectionRef,
-                        where("uid", "==", uid),
-                        orderBy("createdAt", "desc")
-                    );
-                } else {
-                    q = await query(
-                        collectionRef,
-                        orderBy("createdAt", "desc"));
-                }
+    saveData();
+  }, [docCollection, documentData, uid])
 
-                await onSnapshot(q, (querySnapshot) => {
-                    setDocuments(
-                        querySnapshot.docs.map((doc) => ({
-                            id: doc.id,
-                            ...doc.data(),
-                        }))
-                    );
-                });
-
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-                setError(error.message);
-            }
-
-            setLoading(false);
-        }
-
-        loadData();
-    }, [docCollection, documents, search, uid, cancelled])
-
-    console.log(documents);
-
-    useEffect(() => {
-        return () => setCancelled(true);
-    }, []);
-
-    return { documents, loading, error }
+  return { loading, error }
 }
