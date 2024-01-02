@@ -6,18 +6,18 @@ import {
     signOut,
 } from "firebase/auth";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const useAuthentication = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
-    const [cancelled, setCancelled] = useState(false);
 
     const auth = getAuth();
+    const isMounted = useRef(true);  // Referência mutável para verificar se o componente está montado
 
     const handleCancellation = () => {
-        if (cancelled) {
+        if (!isMounted.current) {
             throw new Error("Operação cancelada");
         }
     };
@@ -61,11 +61,19 @@ export const useAuthentication = () => {
         }
     };
 
-    const logout = () => {
+    const logout = async () => {
         handleCancellation();
 
-        signOut(auth);
-        setCurrentUser(null);
+        setLoading(true);
+
+        try {
+            await signOut(auth);
+            setCurrentUser(null);
+        } catch (error) {
+            console.error("Erro ao fazer logout:", error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const login = async (data) => {
@@ -102,6 +110,8 @@ export const useAuthentication = () => {
     };
 
     useEffect(() => {
+        isMounted.current = true;  // O componente está montado
+
         const unsubscribe = auth.onAuthStateChanged((user) => {
             setCurrentUser(user ? {
                 uid: user.uid,
@@ -111,10 +121,10 @@ export const useAuthentication = () => {
         });
 
         return () => {
+            isMounted.current = false;  // O componente está sendo desmontado
             unsubscribe();
-            setCancelled(true);
         };
-    }, [auth, cancelled]);
+    }, [auth]);
 
     return {
         auth,
@@ -124,6 +134,6 @@ export const useAuthentication = () => {
         login,
         loading,
         currentUser,
-        setCurrentUser, // Adicione a função setCurrentUser ao retorno do hook
+        setCurrentUser,
     };
 };
