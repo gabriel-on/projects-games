@@ -26,6 +26,7 @@ import DeleteGame from './components/DeleteSelectedGames/DeleteSelectedGames.jsx
 import GameList from './components/GameList/GameList.jsx';
 import UserProfile from './components/UserProfile/UserProfile.jsx';
 import AdminPage from './pages/Admin/AdminPage.jsx';
+import AllGames from './pages/AllGames/AllGames.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -77,6 +78,8 @@ function App() {
               <Route path='/games' element={<GameList />} />
 
               <Route path='/profile' element={<UserProfile />} />
+
+              <Route path='/all-games' element={<AllGames/>}/>
 
               {isAdmin && (
                 <>

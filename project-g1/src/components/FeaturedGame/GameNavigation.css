@@ -1,0 +1,12 @@
+.game-navigation {
+    width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    max-height: 260px;
+    flex-direction: column;
+}
+.game-navigation div {
+    display: flex;
+    justify-content: space-between;
+    max-height: 260px;
+}

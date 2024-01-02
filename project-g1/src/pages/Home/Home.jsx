@@ -3,8 +3,11 @@ import React, { useState, useEffect } from 'react';
 import FeaturedGame from '../../components/FeaturedGame/FeaturedGame.jsx';
 import GameHighlights from '../../components/GameHighlights/GameHighlights.jsx';
 import { getDatabase, ref, get } from 'firebase/database';
+// import GamesTopList from '../../components/GamesTopList/GamesTopList.jsx'
 
-import '../../pages/Home/Home.css';
+import GamesNavigation from '../../components/FeaturedGame/GameNavigation.jsx'
+
+import '../../components/GamesTopList/GamesTopList.css';
 
 const Home = () => {
   const [gameIds, setGameIds] = useState([]);
@@ -93,8 +96,8 @@ const Home = () => {
               gameIds={gameIds}
             />
           ))}
+        <GamesNavigation/>
         </div>
-        {/* <GameHighlights /> */}
       </div>
     </div>
   );

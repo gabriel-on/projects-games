@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, orderByChild, limitToLast, get } from 'firebase/database';
+import GameList from '../GameList/GameList';
+import GameDisplay from '../FeaturedGame/GameDisplay';
 
 const GameHighlights = () => {
   const [latestGame, setLatestGame] = useState(null);
@@ -35,20 +37,7 @@ const GameHighlights = () => {
   return (
     <div>
       <h2>Jogo Mais Recente</h2>
-      {loading ? (
-        <p>Carregando...</p>
-      ) : (
-        latestGame ? (
-          <div>
-            <h3>{latestGame.title}</h3>
-            <p>Data de Lançamento: {latestGame.releaseDate}</p>
-            <img src={latestGame.image} alt="" />
-            {/* Adicione outros elementos do jogo conforme necessário */}
-          </div>
-        ) : (
-          <p>Nenhum jogo encontrado.</p>
-        )
-      )}
+      <GameDisplay/>
     </div>
   );
 };
