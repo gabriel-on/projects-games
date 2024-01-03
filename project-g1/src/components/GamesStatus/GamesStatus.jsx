@@ -12,7 +12,6 @@ const GameStatus = ({ gameId }) => {
     handleSaveChanges,
     isFavorite,
     pendingChanges,
-    userInteractions,
     averageClassification,
   } = useInteractions(gameId);
 
