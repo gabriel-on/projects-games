@@ -1,8 +1,9 @@
-// GameStatus.js
-import React from 'react';
+import React, { useState } from 'react';
 import useInteractions from '../../hooks/useInteractions';
+import { useAuth } from '../../hooks/useAuthentication';
 
 const GameStatus = ({ gameId }) => {
+  const { currentUser, getCurrentUser } = useAuth();
   const {
     userGameStatus,
     handleStatusChange,
@@ -12,12 +13,22 @@ const GameStatus = ({ gameId }) => {
     handleSaveChanges,
     isFavorite,
     pendingChanges,
-    averageClassification,
-    totalInteractions
   } = useInteractions(gameId);
 
+  const [isLogged, setIsLogged] = useState(!currentUser);
+  const [showLoginMessage, setShowLoginMessage] = useState(false);
+
   const handleSaveChangesClick = () => {
-    handleSaveChanges();
+    console.log("isLogged:", isLogged);
+    if (isLogged) {
+      setIsLogged(false);
+      handleSaveChanges();
+    } else {
+      setShowLoginMessage(true);
+      setTimeout(() => {
+        setShowLoginMessage(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -62,6 +73,12 @@ const GameStatus = ({ gameId }) => {
       <button onClick={handleSaveChangesClick} disabled={!pendingChanges}>
         Salvar Alterações
       </button>
+
+      {showLoginMessage && (
+        <div style={{ color: 'red', marginTop: '10px' }}>
+          Você precisa estar logado para salvar alterações.
+        </div>
+      )}
     </div>
   );
 };
