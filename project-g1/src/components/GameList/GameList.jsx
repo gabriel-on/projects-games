@@ -61,6 +61,12 @@ const GameList = ({ searchTerm }) => {
 
   const handleDelete = async (gameId) => {
     try {
+      const shouldDelete = window.confirm("Tem certeza que deseja excluir este jogo?");
+
+      if (!shouldDelete) {
+        return;
+      }
+
       const database = getDatabase();
       const gameRef = ref(database, `games/${gameId}`);
 
@@ -82,6 +88,12 @@ const GameList = ({ searchTerm }) => {
 
   const handleDeleteSelected = async () => {
     try {
+      const shouldDelete = window.confirm("Tem certeza que deseja excluir os jogos selecionados?");
+
+      if (!shouldDelete) {
+        return;
+      }
+
       const database = getDatabase();
       const gamesToDelete = selectedGames.map((gameId) => ref(database, `games/${gameId}`));
 
