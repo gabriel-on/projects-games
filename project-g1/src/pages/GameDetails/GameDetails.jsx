@@ -17,7 +17,7 @@ const GameDetails = () => {
     handleStatusChange,
     handleToggleFavorite,
     handleSaveChanges,
-    numberOfUsersInteracted
+    totalInteractions
   } = useInteractions(gameId);
 
   useEffect(() => {
@@ -80,6 +80,7 @@ const GameDetails = () => {
       )}
 
       <p>Adicionado por: {gameData.addedBy}</p>
+      <p>{totalInteractions} usuário(s) interagiram com o jogo TOP.</p>
     </div>
   );
 };
