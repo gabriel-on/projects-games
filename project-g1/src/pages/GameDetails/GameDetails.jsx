@@ -126,17 +126,15 @@ const GameDetails = () => {
       <p className='classification-all'>Classificação Média: {averageClassification}</p>
       <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
 
-      {/* <label>
-        Seu Status:
-        <select value={userGameStatus || ''} onChange={handleStatusChange}>
-          <option value="none">Nenhum</option>
-          <option value="planning">Planejando</option>
-          <option value="playing">Jogando</option>
-          <option value="played">Jogado</option>
-        </select>
-      </label> */}
-
-      <GameStatus gameId={gameId}/>
+      <GameStatus
+        gameId={gameId}
+        user={user}
+        userGameStatus={userGameStatus}
+        onStatusChange={handleStatusChange}
+        onToggleFavorite={handleToggleFavorite}
+        onSaveChanges={handleSaveChanges}
+        pendingChanges={pendingChanges}
+      />
 
       <label>
         Sua Classificação:
