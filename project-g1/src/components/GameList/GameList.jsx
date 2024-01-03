@@ -107,7 +107,7 @@ const GameList = ({ searchTerm }) => {
 
   // Filtrar os jogos com base no termo de pesquisa
   const filteredGames = games.filter((game) =>
-    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+    searchTerm ? game.title.toLowerCase().includes(searchTerm.toLowerCase()) : true
   );
 
   if (filteredGames.length === 0) {

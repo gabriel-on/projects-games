@@ -4,6 +4,7 @@ import { getDatabase, ref, get, set } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 import '../GameDetails/GameDetails.css';
+import GameStatus from '../../components/GamesStatus/GamesStatus';
 
 const GameDetails = () => {
   const { gameId } = useParams();
@@ -125,7 +126,7 @@ const GameDetails = () => {
       <p className='classification-all'>Classificação Média: {averageClassification}</p>
       <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
 
-      <label>
+      {/* <label>
         Seu Status:
         <select value={userGameStatus || ''} onChange={handleStatusChange}>
           <option value="none">Nenhum</option>
@@ -133,7 +134,9 @@ const GameDetails = () => {
           <option value="playing">Jogando</option>
           <option value="played">Jogado</option>
         </select>
-      </label>
+      </label> */}
+
+      <GameStatus gameId={gameId}/>
 
       <label>
         Sua Classificação:
