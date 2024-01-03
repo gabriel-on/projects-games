@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getDatabase, ref, get, set, update } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import GameStatus from '../../components/GamesStatus/GamesStatus';  // Corrigi o nome do componente
+import GameStatus from '../../components/GamesStatus/GamesStatus';
 import useInteractions from '../../hooks/useInteractions';
 
 const GameDetails = () => {
@@ -17,7 +17,8 @@ const GameDetails = () => {
     handleStatusChange,
     handleToggleFavorite,
     handleSaveChanges,
-    totalInteractions
+    totalInteractions,
+    averageClassification
   } = useInteractions(gameId);
 
   useEffect(() => {
@@ -64,6 +65,10 @@ const GameDetails = () => {
       <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
       <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
 
+      <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
+
+      <p>{totalInteractions} usuário(s) interagiram com o jogo.</p>
+
       <GameStatus
         gameId={gameId}
         userClassification={userClassification}
@@ -80,7 +85,6 @@ const GameDetails = () => {
       )}
 
       <p>Adicionado por: {gameData.addedBy}</p>
-      <p>{totalInteractions} usuário(s) interagiram com o jogo TOP.</p>
     </div>
   );
 };

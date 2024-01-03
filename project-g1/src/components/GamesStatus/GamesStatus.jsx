@@ -23,7 +23,6 @@ const GameStatus = ({ gameId }) => {
   return (
     <div>
       {/* Exibindo a média de classificação para todos os usuários */}
-      <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
 
       {userGameStatus !== null && (
         <div>
@@ -63,7 +62,6 @@ const GameStatus = ({ gameId }) => {
       <button onClick={handleSaveChangesClick} disabled={!pendingChanges}>
         Salvar Alterações
       </button>
-      <p>{totalInteractions} usuário(s) interagiram com o jogo.</p>
     </div>
   );
 };
