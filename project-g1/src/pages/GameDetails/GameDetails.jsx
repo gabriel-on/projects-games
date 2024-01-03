@@ -60,9 +60,9 @@ const GameDetails = () => {
       <p>{gameData.description}</p>
       <p>{gameData.genres}</p>
       <p>{gameData.consoles}</p>
-      <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
       <p>Desenvolvedoras: {gameData.developers}</p>
       <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
+      <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
 
       <GameStatus
         gameId={gameId}
