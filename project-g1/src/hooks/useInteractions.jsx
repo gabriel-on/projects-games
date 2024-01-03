@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuthentication';
-import { getDatabase, ref, get, update, set, push } from 'firebase/database';
+import { getDatabase, ref, get, update, set } from 'firebase/database';
 
 const useInteractions = (gameId) => {
     const { currentUser } = useAuth();
@@ -9,6 +9,7 @@ const useInteractions = (gameId) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [pendingChanges, setPendingChanges] = useState(false);
     const [userInteractions, setUserInteractions] = useState([]);
+    const [allClassifications, setAllClassifications] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [averageClassification, setAverageClassification] = useState(0);
 
@@ -18,27 +19,46 @@ const useInteractions = (gameId) => {
                 try {
                     const db = getDatabase();
                     const gameRef = ref(db, `games/${gameId}`);
-
+                    
                     // Load user interactions (classification, game status, favorite)
                     const snapshot = await get(gameRef);
 
                     if (snapshot.exists()) {
                         const data = snapshot.val();
                         setUserClassification(data.classifications?.[currentUser.uid] || 0);
-                        
+
                         // Load user-specific interactions
                         const userInteractionsRef = ref(db, `games/${gameId}/userInteractions/${currentUser.uid}`);
                         const userInteractionsSnapshot = await get(userInteractionsRef);
+                        
 
                         if (userInteractionsSnapshot.exists()) {
                             const interactions = userInteractionsSnapshot.val();
                             setUserInteractions(Object.values(interactions));
 
-                            // Calcular a média das classificações dos usuários
+                            // Calcular a média das classificações dos usuários específicos
                             const totalClassifications = Object.values(interactions)
                                 .reduce((sum, interaction) => sum + parseInt(interaction.classification), 0);
                             const average = totalClassifications / Object.keys(interactions).length;
                             setAverageClassification(average);
+                        }
+
+                        // Load all classifications from users
+                        const allClassificationsRef = ref(db, `games/${gameId}/classifications`);
+                        const allClassificationsSnapshot = await get(allClassificationsRef);
+
+                        if (allClassificationsSnapshot.exists()) {
+                            const classificationsData = allClassificationsSnapshot.val();
+                            const allClassificationsArray = Object.values(classificationsData)
+                                .map(userClassifications => Object.values(userClassifications))
+                                .flat();
+                            setAllClassifications(allClassificationsArray);
+
+                            // Calcular a média de todas as classificações dos usuários
+                            const totalAllClassifications = allClassificationsArray
+                                .reduce((sum, classification) => sum + parseInt(classification), 0);
+                            const averageAll = totalAllClassifications / allClassificationsArray.length;
+                            setAverageClassification(averageAll);
                         }
 
                         // Load user-specific game status
@@ -119,6 +139,7 @@ const useInteractions = (gameId) => {
         isFavorite,
         pendingChanges,
         userInteractions,
+        allClassifications,
         isLoading,
         handleClassificationChange,
         handleStatusChange,
