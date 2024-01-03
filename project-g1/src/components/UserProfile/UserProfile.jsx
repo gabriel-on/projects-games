@@ -49,11 +49,22 @@ const UserProfile = () => {
 
   const handleUpdateDisplayName = async () => {
     try {
-      await updateProfileAuth(auth.currentUser, { displayName: newDisplayName });
-      setCurrentUser({
-        ...currentUser,
-        displayName: newDisplayName,
-      });
+      // Verifica se há algo no campo newDisplayName antes de atualizar
+      if (newDisplayName.trim() === '') {
+        alert('Digite um novo nome antes de atualizar.');
+        return;
+      }
+
+      // Confirmação antes de alterar o nome
+      const shouldUpdateName = window.confirm(`Deseja atualizar o nome para "${newDisplayName}"?`);
+
+      if (shouldUpdateName) {
+        await updateProfileAuth(auth.currentUser, { displayName: newDisplayName });
+        setCurrentUser({
+          ...currentUser,
+          displayName: newDisplayName,
+        });
+      }
     } catch (error) {
       console.error('Erro ao atualizar o nome do usuário:', error.message);
     }
@@ -73,7 +84,8 @@ const UserProfile = () => {
               <p>Jogos Favoritos:</p>
               <ul>
                 {favoriteGames.map((game) => (
-                  <li key={game.id}>{game.title}
+                  <li key={game.id}>
+                    {game.title}
                     <GameStatus gameId={game.id} />
                   </li>
                 ))}
