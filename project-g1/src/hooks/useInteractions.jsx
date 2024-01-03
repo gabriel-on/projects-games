@@ -1,3 +1,4 @@
+// useInteractions.js
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuthentication';
 import { getDatabase, ref, get, update, set } from 'firebase/database';
@@ -12,7 +13,7 @@ const useInteractions = (gameId) => {
     const [allClassifications, setAllClassifications] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [averageClassification, setAverageClassification] = useState(0);
-    const [numberOfUsersInteracted, setNumberOfUsersInteracted] = useState(0); // Nova variável
+    const [totalInteractions, setTotalInteractions] = useState(0); // Nova variável
 
     useEffect(() => {
         if (currentUser) {
@@ -60,9 +61,11 @@ const useInteractions = (gameId) => {
                             const averageAll = totalAllClassifications / allClassificationsArray.length;
                             setAverageClassification(averageAll);
 
-                            // Contar usuários únicos
-                            const uniqueUserIds = new Set(allClassificationsArray.map(interaction => interaction.userId));
-                            setNumberOfUsersInteracted(uniqueUserIds.size);
+                            // Contar total de interações
+                            const totalInteractionsCount = Object.keys(data.classifications || {}).length =
+                                Object.keys(data.favorites || {}).length =
+                                Object.keys(data.userStatus || {}).length;
+                            setTotalInteractions(totalInteractionsCount);
                         }
 
                         // Load user-specific game status
@@ -150,7 +153,7 @@ const useInteractions = (gameId) => {
         handleToggleFavorite,
         handleSaveChanges,
         averageClassification,
-        numberOfUsersInteracted, // Adicionado para contar o número de usuários que interagiram
+        totalInteractions, // Adicionado para contar o número total de interações
     };
 };
 

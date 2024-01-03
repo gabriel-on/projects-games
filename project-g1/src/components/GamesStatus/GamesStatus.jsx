@@ -13,6 +13,7 @@ const GameStatus = ({ gameId }) => {
     isFavorite,
     pendingChanges,
     averageClassification,
+    totalInteractions
   } = useInteractions(gameId);
 
   const handleSaveChangesClick = () => {
@@ -62,6 +63,7 @@ const GameStatus = ({ gameId }) => {
       <button onClick={handleSaveChangesClick} disabled={!pendingChanges}>
         Salvar Alterações
       </button>
+      <p>{totalInteractions} usuário(s) interagiram com o jogo.</p>
     </div>
   );
 };

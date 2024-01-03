@@ -73,8 +73,6 @@ const GameDetails = () => {
         onSaveChanges={handleSaveChanges}
       />
 
-      <p>{numberOfUsersInteracted} usuário(s) interagiram com o jogo.</p>
-
       {gameData.officialSite && (
         <Link to={gameData.officialSite} target='_blank'>
           <p>Site Oficial</p>
