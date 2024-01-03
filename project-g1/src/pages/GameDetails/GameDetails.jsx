@@ -13,11 +13,11 @@ const GameDetails = () => {
   const navigate = useNavigate();
   const {
     userClassification,
-    numUsersInteracted,
     handleClassificationChange,
     handleStatusChange,
     handleToggleFavorite,
     handleSaveChanges,
+    numberOfUsersInteracted
   } = useInteractions(gameId);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const GameDetails = () => {
         onSaveChanges={handleSaveChanges}
       />
 
-      <p>{numUsersInteracted} usuário(s) interagiram com o jogo.</p>
+      <p>{numberOfUsersInteracted} usuário(s) interagiram com o jogo.</p>
 
       {gameData.officialSite && (
         <Link to={gameData.officialSite} target='_blank'>

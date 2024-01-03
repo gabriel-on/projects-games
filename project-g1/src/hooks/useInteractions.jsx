@@ -12,6 +12,7 @@ const useInteractions = (gameId) => {
     const [allClassifications, setAllClassifications] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [averageClassification, setAverageClassification] = useState(0);
+    const [numberOfUsersInteracted, setNumberOfUsersInteracted] = useState(0); // Nova variável
 
     useEffect(() => {
         if (currentUser) {
@@ -19,7 +20,7 @@ const useInteractions = (gameId) => {
                 try {
                     const db = getDatabase();
                     const gameRef = ref(db, `games/${gameId}`);
-                    
+
                     // Load user interactions (classification, game status, favorite)
                     const snapshot = await get(gameRef);
 
@@ -30,7 +31,6 @@ const useInteractions = (gameId) => {
                         // Load user-specific interactions
                         const userInteractionsRef = ref(db, `games/${gameId}/userInteractions/${currentUser.uid}`);
                         const userInteractionsSnapshot = await get(userInteractionsRef);
-                        
 
                         if (userInteractionsSnapshot.exists()) {
                             const interactions = userInteractionsSnapshot.val();
@@ -59,6 +59,10 @@ const useInteractions = (gameId) => {
                                 .reduce((sum, classification) => sum + parseInt(classification), 0);
                             const averageAll = totalAllClassifications / allClassificationsArray.length;
                             setAverageClassification(averageAll);
+
+                            // Contar usuários únicos
+                            const uniqueUserIds = new Set(allClassificationsArray.map(interaction => interaction.userId));
+                            setNumberOfUsersInteracted(uniqueUserIds.size);
                         }
 
                         // Load user-specific game status
@@ -146,6 +150,7 @@ const useInteractions = (gameId) => {
         handleToggleFavorite,
         handleSaveChanges,
         averageClassification,
+        numberOfUsersInteracted, // Adicionado para contar o número de usuários que interagiram
     };
 };
 
