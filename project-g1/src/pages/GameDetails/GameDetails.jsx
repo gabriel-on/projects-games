@@ -129,9 +129,9 @@ const GameDetails = () => {
         Seu Status:
         <select value={userGameStatus || ''} onChange={handleStatusChange}>
           <option value="none">Nenhum</option>
+          <option value="planning">Planejando</option>
           <option value="playing">Jogando</option>
           <option value="played">Jogado</option>
-          <option value="planning">Planejando</option>
         </select>
       </label>
 
