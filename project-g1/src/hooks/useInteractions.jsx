@@ -25,8 +25,6 @@ const useInteractions = (gameId) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
                         setUserClassification(data.classifications?.[currentUser.uid] || 0);
-                        setUserGameStatus(data.userStatus?.[currentUser.uid] || 'none');
-                        setIsFavorite(data.favorites?.[currentUser.uid] || false);
                         
                         // Load user-specific interactions
                         const userInteractionsRef = ref(db, `games/${gameId}/userInteractions/${currentUser.uid}`);
@@ -42,6 +40,19 @@ const useInteractions = (gameId) => {
                             const average = totalClassifications / Object.keys(interactions).length;
                             setAverageClassification(average);
                         }
+
+                        // Load user-specific game status
+                        const userGameStatusRef = ref(db, `games/${gameId}/userStatus/${currentUser.uid}`);
+                        const userGameStatusSnapshot = await get(userGameStatusRef);
+
+                        if (userGameStatusSnapshot.exists()) {
+                            setUserGameStatus(userGameStatusSnapshot.val());
+                        } else {
+                            // Se não houver status específico do usuário, use 'none' como padrão
+                            setUserGameStatus('none');
+                        }
+
+                        setIsFavorite(data.favorites?.[currentUser.uid] || false);
                     }
 
                 } catch (error) {
@@ -81,25 +92,18 @@ const useInteractions = (gameId) => {
                 const db = getDatabase();
                 const gameRef = ref(db, `games/${gameId}`);
 
-                // Atualizar classificação e status do usuário
+                // Atualizar classificação do usuário
                 await update(gameRef, {
                     [`classifications/${currentUser.uid}`]: userClassification,
-                    userStatus: {
-                        [currentUser.uid]: userGameStatus,
-                    },
                 });
+
+                // Salvar status do jogo específico do usuário
+                const userGameStatusRef = ref(db, `games/${gameId}/userStatus/${currentUser.uid}`);
+                await set(userGameStatusRef, userGameStatus);
 
                 // Salvar favoritos específicos do usuário
                 const favoritesRef = ref(db, `games/${gameId}/favorites/${currentUser.uid}`);
                 await set(favoritesRef, isFavorite);
-
-                // Salvar interação específica do usuário
-                const userInteractionsRef = ref(db, `games/${gameId}/userInteractions/${currentUser.uid}`);
-                const newInteractionRef = push(userInteractionsRef);
-                await set(newInteractionRef, {
-                    classification: userClassification,
-                    timestamp: new Date().toISOString(),
-                });
 
                 setPendingChanges(false);
                 console.log('User interactions saved successfully!');
