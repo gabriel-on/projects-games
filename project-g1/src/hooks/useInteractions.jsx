@@ -1,7 +1,6 @@
-// useUserInteractions.js
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuthentication';
-import { getDatabase, ref, get, update, set } from 'firebase/database';
+import { getDatabase, ref, get, update, set, push } from 'firebase/database';
 
 const useInteractions = (gameId) => {
     const { currentUser } = useAuth();
@@ -9,8 +8,9 @@ const useInteractions = (gameId) => {
     const [userGameStatus, setUserGameStatus] = useState('none');
     const [isFavorite, setIsFavorite] = useState(false);
     const [pendingChanges, setPendingChanges] = useState(false);
-    const [numUsersInteracted, setNumUsersInteracted] = useState(0);
+    const [userInteractions, setUserInteractions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [averageClassification, setAverageClassification] = useState(0);
 
     useEffect(() => {
         if (currentUser) {
@@ -27,8 +27,23 @@ const useInteractions = (gameId) => {
                         setUserClassification(data.classifications?.[currentUser.uid] || 0);
                         setUserGameStatus(data.userStatus?.[currentUser.uid] || 'none');
                         setIsFavorite(data.favorites?.[currentUser.uid] || false);
-                        setNumUsersInteracted(Object.keys(data.classifications || {}).length);
+                        
+                        // Load user-specific interactions
+                        const userInteractionsRef = ref(db, `games/${gameId}/userInteractions/${currentUser.uid}`);
+                        const userInteractionsSnapshot = await get(userInteractionsRef);
+
+                        if (userInteractionsSnapshot.exists()) {
+                            const interactions = userInteractionsSnapshot.val();
+                            setUserInteractions(Object.values(interactions));
+
+                            // Calcular a média das classificações dos usuários
+                            const totalClassifications = Object.values(interactions)
+                                .reduce((sum, interaction) => sum + parseInt(interaction.classification), 0);
+                            const average = totalClassifications / Object.keys(interactions).length;
+                            setAverageClassification(average);
+                        }
                     }
+
                 } catch (error) {
                     console.error('Error loading user interactions:', error);
                 } finally {
@@ -66,22 +81,25 @@ const useInteractions = (gameId) => {
                 const db = getDatabase();
                 const gameRef = ref(db, `games/${gameId}`);
 
-                // Save user interactions (classification, game status, favorite)
+                // Atualizar classificação e status do usuário
                 await update(gameRef, {
-                    classifications: {
-                        [currentUser.uid]: userClassification,
-                    },
+                    [`classifications/${currentUser.uid}`]: userClassification,
                     userStatus: {
                         [currentUser.uid]: userGameStatus,
                     },
-                    favorites: {
-                        [currentUser.uid]: isFavorite,
-                    },
                 });
 
-                // Save classification to the user-specific node
-                const userClassificationRef = ref(db, `users/${currentUser.uid}/classifications/${gameId}`);
-                set(userClassificationRef, userClassification);
+                // Salvar favoritos específicos do usuário
+                const favoritesRef = ref(db, `games/${gameId}/favorites/${currentUser.uid}`);
+                await set(favoritesRef, isFavorite);
+
+                // Salvar interação específica do usuário
+                const userInteractionsRef = ref(db, `games/${gameId}/userInteractions/${currentUser.uid}`);
+                const newInteractionRef = push(userInteractionsRef);
+                await set(newInteractionRef, {
+                    classification: userClassification,
+                    timestamp: new Date().toISOString(),
+                });
 
                 setPendingChanges(false);
                 console.log('User interactions saved successfully!');
@@ -96,12 +114,13 @@ const useInteractions = (gameId) => {
         userGameStatus,
         isFavorite,
         pendingChanges,
-        numUsersInteracted,
+        userInteractions,
         isLoading,
         handleClassificationChange,
         handleStatusChange,
         handleToggleFavorite,
         handleSaveChanges,
+        averageClassification,
     };
 };
 

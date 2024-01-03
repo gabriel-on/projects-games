@@ -1,9 +1,9 @@
 // GameDetails.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getDatabase, ref, get, set } from 'firebase/database';
+import { getDatabase, ref, get, set, update } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import GameStatus from '../../components/GamesStatus/GamesStatus';
+import GameStatus from '../../components/GamesStatus/GamesStatus';  // Corrigi o nome do componente
 import useInteractions from '../../hooks/useInteractions';
 
 const GameDetails = () => {
@@ -12,8 +12,12 @@ const GameDetails = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const {
+    userClassification,
     numUsersInteracted,
-    averageClassification,
+    handleClassificationChange,
+    handleStatusChange,
+    handleToggleFavorite,
+    handleSaveChanges,
   } = useInteractions(gameId);
 
   useEffect(() => {
@@ -26,7 +30,6 @@ const GameDetails = () => {
         if (snapshot.exists()) {
           const data = snapshot.val();
           setGameData(data);
-
         } else {
           console.log(`Jogo com ID ${gameId} não encontrado.`);
         }
@@ -59,10 +62,16 @@ const GameDetails = () => {
       <p>{gameData.consoles}</p>
       <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
       <p>Desenvolvedoras: {gameData.developers}</p>
-      <p className='classification-all'>Classificação Média: {averageClassification}</p>
       <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
 
-      <GameStatus gameId={gameId} />
+      <GameStatus
+        gameId={gameId}
+        userClassification={userClassification}
+        onClassificationChange={handleClassificationChange}
+        onStatusChange={handleStatusChange}
+        onToggleFavorite={handleToggleFavorite}
+        onSaveChanges={handleSaveChanges}
+      />
 
       <p>{numUsersInteracted} usuário(s) interagiram com o jogo.</p>
 
