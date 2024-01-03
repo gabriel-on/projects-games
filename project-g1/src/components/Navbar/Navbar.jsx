@@ -1,7 +1,7 @@
 // Navbar.jsx
 
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuthentication';
 import { useAuthValue } from '../../context/AuthContext';
 import '../Navbar/Navbar.css';
@@ -11,6 +11,13 @@ const Navbar = () => {
   const { user } = useAuthValue();
 
   const isAdmin = user && user.isAdmin;
+
+  const location = useLocation();
+
+  useEffect(() => {
+    // Rola para o topo da página sempre que a localização (rota) muda
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <nav className="navbar">

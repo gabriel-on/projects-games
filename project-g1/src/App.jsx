@@ -27,6 +27,7 @@ import GameList from './components/GameList/GameList.jsx';
 import UserProfile from './components/UserProfile/UserProfile.jsx';
 import AdminPage from './pages/Admin/AdminPage.jsx';
 import AllGames from './pages/AllGames/AllGames.jsx';
+import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -68,7 +69,7 @@ function App() {
       <AuthProvider value={{ user }}>
         <BrowserRouter>
           <Navbar />
-          <div className='container'>
+          <div className='container-absolute'>
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={!user ? <Login /> : <Navigate to={"/"} />} />
@@ -97,6 +98,7 @@ function App() {
               )}
             </Routes>
           </div>
+          <ScrollToTopButton/>
           <Footer />
         </BrowserRouter>
       </AuthProvider>
