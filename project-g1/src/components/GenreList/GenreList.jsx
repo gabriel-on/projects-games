@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getDatabase, ref, query, orderByChild, equalTo, get } from 'firebase/database';
+import { getDatabase, ref, get } from 'firebase/database';
 
 const GenreList = () => {
   const { genre } = useParams();
@@ -30,8 +30,7 @@ const GenreList = () => {
     } catch (error) {
       console.error('Erro ao buscar jogos:', error);
     }
-  };
-  
+  };  
 
   useEffect(() => {
     fetchGames();
@@ -43,7 +42,7 @@ const GenreList = () => {
       <ul>
         {games.map((game) => (
           <li key={game.title}>
-            <Link to={`/game/${game.title}`}>
+            <Link to={`/game/${game.id}`}>
               <img src={game.image} alt={game.title} />
               <p>{game.title}</p>
             </Link>
