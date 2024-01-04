@@ -46,7 +46,7 @@ const SearchResults = ({ searchTerm }) => {
   );
 
   return (
-    <div>
+    <div className='SearchResults'>
       {isLoading ? (
         <p>Carregando jogos...</p>
       ) : filteredGames.length > 0 ? (
@@ -54,11 +54,12 @@ const SearchResults = ({ searchTerm }) => {
           {filteredGames.map((game) => (
             <li key={game.id}>
               <Link to={`/game/${game.id}`}>
+                <img src={game.image} alt={game.title} />
                 <h3>{game.title}</h3>
-                <img src={game.image} alt={game.title} style={{ maxWidth: '20%' }} />
               </Link>
               <div>
                 <GameStatus
+                  className="games-status"
                   gameId={game.id}
                   onStatusChange={handleStatusChange}
                   onToggleFavorite={handleToggleFavorite}

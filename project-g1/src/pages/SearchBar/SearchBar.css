@@ -1,20 +1,64 @@
+.search {
+    max-width: 1200px;
+    margin: auto;
+    padding: 10px;
+}
+
+.search > .search-bar-container {
+    width: 1200px;
+    display: flex;
+    justify-content: center;
+    /* padding: 10px; */
+    margin: auto;
+    position: fixed;
+}
+
+.search-bar-container #search-bar {
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    padding: 10px;
+}
+
 .SearchResults {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    width: 400px;
+    margin: auto;
+    width: 1200px;
 }
 
 .SearchResults ul {
-    width: 200px;
+    width: 1200px;
     display: flex;
-    /* flex-wrap: nowrap; */
-    gap: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .SearchResults ul li {
+    flex-wrap: wrap;
     margin-top: 40px;
     display: flex;
-    /* position: fixed; */
+    flex-direction: column;
+}
+
+.SearchResults ul li > a {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    flex-wrap: wrap;
+}
+
+.SearchResults ul li > a img{
+    display: flex;
+    object-fit: cover;
+    aspect-ratio: 4/5;
+    width: 250px;
+}
+
+.games-status {
+    width: 250px;
 }

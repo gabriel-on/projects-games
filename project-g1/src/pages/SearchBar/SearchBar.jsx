@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
 import SearchResults from './SearchResults';
+import '../SearchBar/SearchBar.css'
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSearch = () => {
-    // Implemente sua lógica de pesquisa aqui
-    console.log('Pesquisando por:', searchTerm);
-  };
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
   return (
-    <div>
-      <input
-        type="search"
-        name="search"
-        id="search"
-        value={searchTerm}
-        onChange={handleInputChange}
-        placeholder="Pesquisar jogos..."
-      />
+    <div className='search'>
+      <div className='search-bar-container'>
+        <input
+          type="search"
+          name="search"
+          id="search-bar"
+          value={searchTerm}
+          onChange={handleInputChange}
+          placeholder="Pesquisar jogos..."
+        />
+      </div>
       <div>
         <SearchResults searchTerm={searchTerm} />
       </div>
