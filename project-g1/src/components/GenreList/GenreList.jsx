@@ -5,7 +5,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 const GenreList = () => {
   const { genre } = useParams();
   const [games, setGames] = useState([]);
-  const decodedGenre = decodeURIComponent(genre);
+  const decodedGenre = decodeURIComponent(genre).toLowerCase(); // Converter para minúsculas
 
   const fetchGames = async () => {
     const database = getDatabase();
@@ -18,9 +18,12 @@ const GenreList = () => {
       if (snapshot.exists()) {
         const gamesData = snapshot.val();
   
-        // Filtrar jogos pelo gênero fornecido
+        // Filtrar jogos pelo gênero fornecido (insensível a maiúsculas e minúsculas)
         const filteredGames = Object.keys(gamesData)
-          .filter(key => gamesData[key].genres && gamesData[key].genres.includes(decodedGenre))
+          .filter(key => 
+            gamesData[key].genres && 
+            gamesData[key].genres.some(genre => genre.toLowerCase() === decodedGenre)
+          )
           .map(key => ({ ...gamesData[key], id: key }));
   
         setGames(filteredGames);
