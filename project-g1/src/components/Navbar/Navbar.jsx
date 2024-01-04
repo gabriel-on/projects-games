@@ -1,6 +1,4 @@
-// Navbar.jsx
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuthentication';
 import { useAuthValue } from '../../context/AuthContext';
@@ -15,7 +13,6 @@ const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Rola para o topo da página sempre que a localização (rota) muda
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
@@ -30,14 +27,19 @@ const Navbar = () => {
             Home
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/search">
+            Buscar
+          </NavLink>
+        </li>
         {!user && (
           <>
-            <li >
+            <li>
               <NavLink to="/login" className={isActive => (isActive ? 'active' : '')}>
                 Entrar
               </NavLink>
             </li>
-            <li >
+            <li>
               <NavLink to="/register" className={isActive => (isActive ? 'active' : '')}>
                 Cadastrar
               </NavLink>
@@ -51,7 +53,7 @@ const Navbar = () => {
         </li>
         {user && (
           <>
-          <li>
+            <li>
               <NavLink to="/profile" className={isActive => (isActive ? 'active' : '')}>
                 Perfil
               </NavLink>
@@ -74,8 +76,8 @@ const Navbar = () => {
         )}
         {user && (
           <li>
-            <NavLink to="/">
-              <button onClick={logout}>Sair</button>
+            <NavLink to="/" onClick={logout}>
+              Sair
             </NavLink>
           </li>
         )}
