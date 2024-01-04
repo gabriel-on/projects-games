@@ -30,18 +30,19 @@ a>h1 {
     gap: 20px;
 }
 
-.navbar ul>li {
-    border-radius: 5px;
-    background: purple;
+.navbar ul > li > a {
     list-style: none;
-    padding: 8px;
 }
 
 .navbar li > a {
+    border-radius: 5px;
+    background: purple;
+    padding: 8px;
     text-transform: uppercase;
     color: white;
 }
 
-.navbar ul > .md-dash-admin {
+.navbar ul li > #md-dash-admin-1, #md-dash-admin-2 {
+    padding: 8px;
     background: red;
 }

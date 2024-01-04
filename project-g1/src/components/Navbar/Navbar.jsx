@@ -23,13 +23,13 @@ const Navbar = () => {
       </NavLink>
       <ul className="links_list">
         <li>
-          <NavLink to="/" className={isActive => (isActive ? 'active' : '')}>
-            Home
+          <NavLink to="/search">
+            <i className="bi bi-search" />
           </NavLink>
         </li>
         <li>
-          <NavLink to="/search">
-            Buscar
+          <NavLink to="/" className={isActive => (isActive ? 'active' : '')}>
+            Home
           </NavLink>
         </li>
         {!user && (
@@ -58,16 +58,16 @@ const Navbar = () => {
                 Perfil
               </NavLink>
             </li>
-            <li className='md-dash-admin'>
+            <li>
               {isAdmin && (
-                <NavLink to="/dashboard" className={isActive => (isActive ? 'active' : '')}>
+                <NavLink to="/dashboard" className={isActive => (isActive ? 'active' : '')} id='md-dash-admin-1'>
                   Dashboard
                 </NavLink>
               )}
             </li>
-            <li className='md-dash-admin'>
+            <li>
               {isAdmin && (
-                <NavLink to="/admin" className={isActive => (isActive ? 'active' : '')}>
+                <NavLink to="/admin" className={isActive => (isActive ? 'active' : '')} id='md-dash-admin-2'>
                   Admin
                 </NavLink>
               )}
