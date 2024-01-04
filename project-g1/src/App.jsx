@@ -29,6 +29,7 @@ import AdminPage from './pages/Admin/AdminPage.jsx';
 import AllGames from './pages/AllGames/AllGames.jsx';
 import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton.jsx';
 import SearchBar from './pages/SearchBar/SearchBar.jsx';
+import GenreList from './components/GenreList/GenreList.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -81,9 +82,11 @@ function App() {
 
               <Route path='/profile' element={<UserProfile />} />
 
-              <Route path='/search' element={<SearchBar/>}/>
-              
-              <Route path='/all-games' element={<AllGames/>}/>
+              <Route path='/search' element={<SearchBar />} />
+
+              <Route path='/all-games' element={<AllGames />} />
+
+              <Route path="/genres/:genre" element={<GenreList/>} />
 
               {isAdmin && (
                 <>
@@ -101,7 +104,7 @@ function App() {
               )}
             </Routes>
           </div>
-          <ScrollToTopButton/>
+          <ScrollToTopButton />
           <Footer />
         </BrowserRouter>
       </AuthProvider>
