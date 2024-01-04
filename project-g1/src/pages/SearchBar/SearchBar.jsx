@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import SearchResults from './SearchResults';
 
-function SearchBar() {
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = (e) => {
-    const term = e.target.value;
-    setSearchTerm(term);
+  const handleSearch = () => {
+    // Implemente sua lógica de pesquisa aqui
+    console.log('Pesquisando por:', searchTerm);
+  };
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   return (
@@ -16,14 +20,14 @@ function SearchBar() {
         name="search"
         id="search"
         value={searchTerm}
-        onChange={handleSearch}
-        placeholder="Digite o nome do jogo"
+        onChange={handleInputChange}
+        placeholder="Pesquisar jogos..."
       />
       <div>
         <SearchResults searchTerm={searchTerm} />
       </div>
     </div>
   );
-}
+};
 
 export default SearchBar;
