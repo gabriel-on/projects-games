@@ -51,7 +51,6 @@ const GameNavigation = () => {
 
   return (
     <div className="game-navigation">
-      <Link to={"/all-games"}>Ver mais</Link>
       <div>
         <div className="navigation-buttons">
           <button className="btn-pn" onClick={handlePrev}>

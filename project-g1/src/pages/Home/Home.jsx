@@ -7,6 +7,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 import GamesNavigation from '../../components/FeaturedGame/GameNavigation.jsx'
 
 import '../../components/GamesTopList/GamesTopList.css';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [gameIds, setGameIds] = useState([]);
@@ -97,10 +98,12 @@ const Home = () => {
           ))}
           <div>
             <h2>Games</h2>
+            <Link to={"/all-games"}>Ver mais</Link>
             <GamesNavigation />
           </div>
           <div>
             <h2>Ultimos Adicionados</h2>
+            <Link to={"/latest-added"}>Ver mais</Link>
             <GamesNavigation />
           </div>
         </div>
