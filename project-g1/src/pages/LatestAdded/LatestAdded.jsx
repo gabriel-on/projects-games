@@ -26,10 +26,13 @@ const LatestAdded = () => {
               ...gameData,
             }));
     
-          // Ordenar os jogos por data de criação (createdAt)
-          gamesArray.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          // Verificar se a propriedade createdAt está presente antes de ordenar
+          const gamesWithCreatedAt = gamesArray.filter(game => game.createdAt);
     
-          setGames(gamesArray);
+          // Ordenar os jogos por data de criação (createdAt)
+          gamesWithCreatedAt.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+          setGames(gamesWithCreatedAt);
         } else {
           console.log('Nenhum jogo encontrado.');
         }
@@ -49,7 +52,7 @@ const LatestAdded = () => {
 
   return (
     <div>
-      <h1>Últimos Jogos Adicionados:</h1>
+      <h1>Jogos Adicionados:</h1>
       <Link to={"/genres"}>Procure por gênero:</Link>
       <ul>
         {games

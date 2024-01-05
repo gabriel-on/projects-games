@@ -4,7 +4,8 @@ import FeaturedGame from '../../components/FeaturedGame/FeaturedGame.jsx';
 import GameHighlights from '../../components/GameHighlights/GameHighlights.jsx';
 import { getDatabase, ref, get } from 'firebase/database';
 
-import GamesNavigation from '../../components/FeaturedGame/GameNavigation.jsx'
+import GamesNavigation from '../../components/GameNavigation/GameNavigation.jsx'
+import GamesNavigation02 from '../../components/GameNavigation/GameNavigation02.jsx'
 
 import '../../components/GamesTopList/GamesTopList.css';
 import { Link } from 'react-router-dom';
@@ -102,9 +103,9 @@ const Home = () => {
             <GamesNavigation />
           </div>
           <div>
-            <h2>Ultimos Adicionados</h2>
+            <h2>Últimos Jogos Adicionados:</h2>
             <Link to={"/latest-added"}>Ver mais</Link>
-            <GamesNavigation />
+            <GamesNavigation02 />
           </div>
         </div>
       </div>

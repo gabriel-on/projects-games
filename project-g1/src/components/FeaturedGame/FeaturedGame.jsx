@@ -1,7 +1,7 @@
 // FeaturedGame.jsx
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
-import './FeaturedGame.css';
+import '../FeaturedGame/FeaturedGame.css';
 import GameBackground from './GameBackground.jsx';
 import GameDisplay from './GameDisplay';
 

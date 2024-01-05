@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import GamesTopList from '../GamesTopList/GamesTopList';
-import '../FeaturedGame/GameNavigation.css';
-import { Link } from 'react-router-dom';
+import '../GameNavigation/GameNavigation.css';
 
 const GameNavigation = () => {
   const [gamesPerPage] = useState(5);
