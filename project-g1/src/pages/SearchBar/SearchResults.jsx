@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import { Link } from 'react-router-dom';
 import useInteractions from '../../hooks/useInteractions';
-import GameStatus from '../../components/GamesStatus/GamesStatus'
+import GameStatus from '../../components/GamesStatus/GamesStatus';
 
 const SearchResults = ({ searchTerm }) => {
   const [games, setGames] = useState([]);
@@ -11,7 +11,7 @@ const SearchResults = ({ searchTerm }) => {
     handleStatusChange,
     handleToggleFavorite,
     handleSaveChanges
-  } = useInteractions()
+  } = useInteractions();
 
   useEffect(() => {
     const fetchGamesData = async () => {
@@ -50,27 +50,30 @@ const SearchResults = ({ searchTerm }) => {
       {isLoading ? (
         <p>Carregando jogos...</p>
       ) : filteredGames.length > 0 ? (
-        <ul>
-          {filteredGames.map((game) => (
-            <li key={game.id}>
-              <Link to={`/game/${game.id}`}>
-                <img src={game.image} alt={game.title} />
-                <h3>{game.title}</h3>
-              </Link>
-              <div>
-                <GameStatus
-                  className="games-status"
-                  gameId={game.id}
-                  onStatusChange={handleStatusChange}
-                  onToggleFavorite={handleToggleFavorite}
-                  onSaveChanges={handleSaveChanges}
-                />
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <p className='count-games'>Quantidade de jogos encontrados: {filteredGames.length}</p>
+          <ul>
+            {filteredGames.map((game) => (
+              <li key={game.id}>
+                <Link to={`/game/${game.id}`}>
+                  <img src={game.image} alt={game.title} />
+                  <h3>{game.title}</h3>
+                </Link>
+                <div>
+                  <GameStatus
+                    className="games-status"
+                    gameId={game.id}
+                    onStatusChange={handleStatusChange}
+                    onToggleFavorite={handleToggleFavorite}
+                    onSaveChanges={handleSaveChanges}
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : (
-        <p>Nenhum jogo encontrado.</p>
+        <p className='any-game'>Nenhum jogo encontrado.</p>
       )}
     </div>
   );

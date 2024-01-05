@@ -37,12 +37,11 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin-top: 10px;
 }
 
 .SearchResults ul li {
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -70,4 +69,15 @@
     background: #940000;
     padding: 10px;
     border-radius: 5px;
+}
+
+.count-games {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.any-game {
+    margin-top: 200px;
+    /* padding: 80px; */
 }
