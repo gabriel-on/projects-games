@@ -36,7 +36,7 @@
     min-height: 15vh;
 }
 
-.add-game-container > input {
+.add-game-container>input {
     display: flex;
     flex-wrap: wrap;
     width: 200px;
@@ -63,7 +63,10 @@ label {
     width: 100%;
 }
 
-.genres-list, .consoles-list, .rating-list, .developers-list {
+.genres-list,
+.consoles-list,
+.rating-list,
+.developers-list {
     align-content: center;
     display: flex;
     font-size: 0.8em;
@@ -97,7 +100,10 @@ label {
     flex-wrap: wrap;
 }
 
-.genre, .console, .rating, .developer {
+.genre,
+.console,
+.rating,
+.developer {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -117,19 +123,48 @@ input[type="date"] {
     /* Remove a seta padrão do lado direito (apenas no Firefox) */
     appearance: none;
     -moz-appearance: textfield;
-  
+
     /* Adiciona uma borda e um preenchimento para melhorar a aparência */
     border: 1px solid #ccc;
     padding: 8px;
     border-radius: 4px;
-  
+
     /* Adiciona uma sombra sutil quando focado */
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Estilizando a borda quando o componente está focado */
-  input[type="date"]:focus {
+}
+
+/* Estilizando a borda quando o componente está focado */
+input[type="date"]:focus {
     outline: none;
-    border-color: #4CAF50; /* Cor verde (pode ser ajustada conforme necessário) */
-  }
-  
+    border-color: #4CAF50;
+    /* Cor verde (pode ser ajustada conforme necessário) */
+}
+
+/* Adicione estas classes no seu arquivo CSS ou componente de estilo */
+.checked-genre {
+    background-color: #4caf50;
+    /* Cor para opção marcada */
+    color: #fff;
+    /* Cor do texto para opção marcada */
+}
+
+.checked-console {
+    background-color: #2196f3;
+    /* Cor para opção marcada */
+    color: #fff;
+    /* Cor do texto para opção marcada */
+}
+
+.checked-developer {
+    background-color: #ff9800;
+    /* Cor para opção marcada */
+    color: #fff;
+    /* Cor do texto para opção marcada */
+}
+
+.checked-rating {
+    background-color: #e91e63;
+    /* Cor para opção marcada */
+    color: #fff;
+    /* Cor do texto para opção marcada */
+}

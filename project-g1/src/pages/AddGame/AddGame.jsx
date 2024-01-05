@@ -209,6 +209,16 @@ function AddGame() {
     }
   };
 
+  const MAX_OPTIONS_DISPLAYED = 12; // Defina o número máximo de opções a serem exibidas
+  const [showAllGenres, setShowAllGenres]
+    = useState(false);
+  const [showAllDevelopers, setShowAllDevelopers]
+    = useState(false);
+  const [showAllConsoles, setShowAllConsoles]
+    = useState(false);
+  const [showAllRatings, setShowAllRatings]
+    = useState(false);
+
   return (
     <div>
       <form onSubmit={handleSubmit} className='add-game-container'>
@@ -254,8 +264,11 @@ function AddGame() {
         <div className='field'>
           <p>Gêneros:</p>
           <div className='genres-list'>
-            {genresList.map((genre) => (
-              <label key={genre} className='genre'>
+            {genresList.slice(0, showAllGenres ? genresList.length : MAX_OPTIONS_DISPLAYED).map((genre) => (
+              <label
+                key={genre}
+                className={`genre ${newGame.genres.includes(genre) ? 'checked-genre' : ''}`}
+              >
                 <input
                   type="checkbox"
                   name="genres"
@@ -268,13 +281,21 @@ function AddGame() {
             ))}
             {errors.genres && <p className="error-message">{errors.genres}</p>}
           </div>
+          {genresList.length > MAX_OPTIONS_DISPLAYED && !showAllGenres && (
+            <button className="show-more-options" onClick={() => setShowAllGenres(true)}>
+              Mostrar Tudo
+            </button>
+          )}
         </div>
 
         <div className='field'>
           <p>Consoles:</p>
           <div className='consoles-list'>
-            {consolesList.map((console) => (
-              <label key={console} className='console'>
+            {consolesList.slice(0, showAllConsoles ? consolesList.length : MAX_OPTIONS_DISPLAYED).map((console) => (
+              <label
+                key={console}
+                className={`console ${newGame.consoles.includes(console) ? 'checked-console' : ''}`}
+              >
                 <input
                   type="checkbox"
                   name="consoles"
@@ -287,13 +308,21 @@ function AddGame() {
             ))}
             {errors.consoles && <p className="error-message">{errors.consoles}</p>}
           </div>
+          {consolesList.length > MAX_OPTIONS_DISPLAYED && !showAllConsoles && (
+            <button className="show-more-options" onClick={() => setShowAllConsoles(true)}>
+              Mostrar Tudo
+            </button>
+          )}
         </div>
 
         <div className='field'>
           <p>Desenvolvedores:</p>
           <div className='developers-list'>
-            {developersList.map((developer) => (
-              <label key={developer} className='developer'>
+            {developersList.slice(0, showAllDevelopers ? developersList.length : MAX_OPTIONS_DISPLAYED).map((developer) => (
+              <label
+                key={developer}
+                className={`developer ${newGame.developers.includes(developer) ? 'checked-developer' : ''}`}
+              >
                 <input
                   type="checkbox"
                   name="developers"
@@ -306,13 +335,21 @@ function AddGame() {
             ))}
             {errors.developers && <p className="error-message">{errors.developers}</p>}
           </div>
+          {developersList.length > MAX_OPTIONS_DISPLAYED && !showAllDevelopers && (
+            <button className="show-more-options" onClick={() => setShowAllDevelopers(true)}>
+              Mostrar Tudo
+            </button>
+          )}
         </div>
 
         <div className='field'>
           <p>Classificação Indicativa:</p>
           <div className='rating-list'>
-            {ratingsList.map((rating) => (
-              <label key={rating.id} className='rating'>
+            {ratingsList.slice(0, showAllRatings ? ratingsList.length : MAX_OPTIONS_DISPLAYED).map((rating) => (
+              <label
+                key={rating.id}
+                className={`rating ${newGame.rating === rating.label ? 'checked-rating' : ''}`}
+              >
                 <input
                   type="radio"
                   name="rating"
@@ -325,6 +362,11 @@ function AddGame() {
             ))}
             {errors.rating && <p className="error-message">{errors.rating}</p>}
           </div>
+          {ratingsList.length > MAX_OPTIONS_DISPLAYED && !showAllRatings && (
+            <button className="show-more-options" onClick={() => setShowAllRatings(true)}>
+              Mostrar Tudo
+            </button>
+          )}
         </div>
 
         <div className='field'>
