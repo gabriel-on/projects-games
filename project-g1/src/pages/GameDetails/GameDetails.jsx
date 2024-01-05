@@ -60,8 +60,8 @@ const GameDetails = () => {
       <img src={gameData.image} alt={gameData.title} />
       <p>{gameData.description}</p>
       <p>Gênero: <span>{gameData.genres}</span></p>
-      <p>{gameData.consoles}</p>
-      <p>Desenvolvedoras: {gameData.developers}</p>
+      <p>Console: <span>{gameData.consoles}</span></p>
+      <p>Desenvolvedora: {gameData.developers}</p>
       <p>Data de lançamento: <span>{new Date(gameData.releaseDate).toLocaleDateString()}</span></p>
       <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
 
