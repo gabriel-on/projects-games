@@ -90,11 +90,10 @@ const GameDetails = () => {
         <div className="field">
           <label>Trailer:</label>
           <iframe
-            width="560"
-            height="315"
+            width="540"
+            height="300"
             src={`https://www.youtube.com/embed/${videoCode}`}
             title="YouTube video player"
-            frameBorder="10"
             allowFullScreen
           ></iframe>
         </div>
