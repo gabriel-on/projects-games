@@ -52,7 +52,7 @@ const LatestAdded = () => {
 
   return (
     <div>
-      <h1>Jogos Adicionados:</h1>
+      <h1>Games Adicionados:</h1>
       <Link to={"/genres"}>Procure por gênero:</Link>
       <ul>
         {games

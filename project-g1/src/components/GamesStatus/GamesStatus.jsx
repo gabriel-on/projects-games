@@ -42,6 +42,7 @@ const GameStatus = ({ gameId }) => {
             <option value="none">Nenhum</option>
             <option value="planning">Planejando</option>
             <option value="playing">Jogando</option>
+            <option value="re-playing">Re-jogando</option>
             <option value="played">Jogado</option>
             {/* Adicione mais opções conforme necessário */}
           </select>

@@ -103,7 +103,7 @@ const Home = () => {
             <GamesNavigation />
           </div>
           <div>
-            <h2>Últimos Jogos Adicionados:</h2>
+            <h2>Últimos Games Adicionados:</h2>
             <Link to={"/latest-added"}>Ver mais</Link>
             <GamesNavigation02 />
           </div>

@@ -59,7 +59,7 @@ const GameDetails = () => {
       <h2>{gameData.title}</h2>
       <img src={gameData.image} alt={gameData.title} />
       <p>{gameData.description}</p>
-      <p>{gameData.genres}</p>
+      <p>Gênero: <span>{gameData.genres}</span></p>
       <p>{gameData.consoles}</p>
       <p>Desenvolvedoras: {gameData.developers}</p>
       <p>Data de lançamento: <span>{new Date(gameData.releaseDate).toLocaleDateString()}</span></p>
