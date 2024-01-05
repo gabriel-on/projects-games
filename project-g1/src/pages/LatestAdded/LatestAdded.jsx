@@ -15,9 +15,9 @@ const LatestAdded = () => {
       try {
         const database = getDatabase();
         const gamesRef = ref(database, 'games');
-  
+    
         const snapshot = await get(gamesRef);
-  
+    
         if (snapshot.exists()) {
           const data = snapshot.val();
           const gamesArray = Object.entries(data)
@@ -25,10 +25,10 @@ const LatestAdded = () => {
               id: gameId,
               ...gameData,
             }));
-  
-          // Ordenar os jogos por data de criação (supondo que você tenha uma propriedade createdAt)
+    
+          // Ordenar os jogos por data de criação (createdAt)
           gamesArray.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  
+    
           setGames(gamesArray);
         } else {
           console.log('Nenhum jogo encontrado.');
@@ -37,7 +37,7 @@ const LatestAdded = () => {
         console.error('Erro ao obter dados do Firebase:', error);
       }
     };
-  
+    
     fetchGamesData();
   }, []);
 

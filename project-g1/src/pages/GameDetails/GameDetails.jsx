@@ -62,6 +62,7 @@ const GameDetails = () => {
       <p>{gameData.genres}</p>
       <p>{gameData.consoles}</p>
       <p>Desenvolvedoras: {gameData.developers}</p>
+      <p>Data de criação: <span>{gameData.createdAt}</span></p>
       <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
       <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
 
