@@ -62,8 +62,7 @@ const GameDetails = () => {
       <p>{gameData.genres}</p>
       <p>{gameData.consoles}</p>
       <p>Desenvolvedoras: {gameData.developers}</p>
-      <p>Data de criação: <span>{gameData.createdAt}</span></p>
-      <p>Data de lançamento: <span>{gameData.releaseDate}</span></p>
+      <p>Data de lançamento: <span>{new Date(gameData.releaseDate).toLocaleDateString()}</span></p>
       <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
 
       <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
@@ -77,7 +76,7 @@ const GameDetails = () => {
         onStatusChange={handleStatusChange}
         onToggleFavorite={handleToggleFavorite}
         onSaveChanges={handleSaveChanges}
-      />
+        />
 
       {gameData.officialSite && (
         <Link to={gameData.officialSite} target='_blank'>
@@ -86,6 +85,7 @@ const GameDetails = () => {
       )}
 
       <p>Adicionado por: {gameData.addedBy}</p>
+      <p>Data de criação: <span>{new Date(gameData.createdAt).toLocaleString()}</span></p>
     </div>
   );
 };
