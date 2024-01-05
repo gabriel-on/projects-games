@@ -123,7 +123,7 @@ const GameList = ({ searchTerm }) => {
   );
 
   if (filteredGames.length === 0) {
-    return <p>Nenhum jogo disponível.</p>;
+    return <p>Nenhum jogo encontrado para o termo de pesquisa "{searchTerm}".</p>;
   }
 
   return (
@@ -133,8 +133,12 @@ const GameList = ({ searchTerm }) => {
           {selectAll ? 'Desmarcar Todos' : 'Selecionar Todos'}
         </button>
         {selectedGames.length > 0 && (
-          <button onClick={handleDeleteSelected}>Excluir Selecionados</button>
+          <div>
+            <p>Jogos Selecionados: {selectedGames.length}</p>
+            <button onClick={handleDeleteSelected}>Excluir Selecionados</button>
+          </div>
         )}
+        <p>Total de Jogos: {filteredGames.length}</p>
         <ul>
           {filteredGames.map((game) => (
             <li key={game.id}>
