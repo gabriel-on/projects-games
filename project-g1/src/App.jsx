@@ -31,6 +31,7 @@ import ScrollToTopButton from './components/ScrollToTopButton/ScrollToTopButton.
 import SearchBar from './pages/SearchBar/SearchBar.jsx';
 import GenreList from './components/GenreList/GenreList.jsx';
 import LatestAdded from './pages/LatestAdded/LatestAdded.jsx';
+import GamesMoreInteractions from './components/PopularGamesList/PopularGamesList.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -88,6 +89,8 @@ function App() {
               <Route path='/all-games' element={<AllGames />} />
 
               <Route path='/latest-added' element={<LatestAdded />} />
+
+              <Route path='/populations' element={<GamesMoreInteractions />} />
 
               <Route path="/genres" element={<GenreList/>} />
 

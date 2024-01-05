@@ -6,6 +6,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 
 import GamesNavigation from '../../components/GameNavigation/GameNavigation.jsx'
 import GamesNavigation02 from '../../components/GameNavigation/GameNavigation02.jsx'
+import GamesNavigation03 from '../../components/GameNavigation/GameNavigation03.jsx'
 
 import '../../components/GamesTopList/GamesTopList.css';
 import { Link } from 'react-router-dom';
@@ -81,8 +82,8 @@ const Home = () => {
   return (
     <div>
       <div>
-        <h1>Página Inicial</h1>
         <div className="container">
+        <h1>Página Inicial</h1>
           {gameIds.slice(0, 5).map((gameId, index) => (
             <FeaturedGame
               key={gameId}
@@ -106,6 +107,11 @@ const Home = () => {
             <h2>Últimos Games Adicionados:</h2>
             <Link to={"/latest-added"}>Ver mais</Link>
             <GamesNavigation02 />
+          </div>
+          <div>
+            <h2>Games Populares:</h2>
+            <Link to={"/"}>Ver mais</Link>
+            <GamesNavigation03 />
           </div>
         </div>
       </div>
