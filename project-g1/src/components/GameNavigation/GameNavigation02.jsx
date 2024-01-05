@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import '../GameNavigation/GameNavigation.css';
-import LatestAdded from '../../pages/LatestAdded/LatestAdded';
+import LatestAddedHighlights from '../../pages/LatestAdded/LatestAddedHighlights.jsx';
 
 const GameNavigation = () => {
   const [gamesPerPage] = useState(5);
@@ -56,7 +56,7 @@ const GameNavigation = () => {
             &lt;
           </button>
         </div>
-        {/* <LatestAdded gamesPerPage={gamesPerPage} currentPage={currentPage} /> */}
+        <LatestAddedHighlights gamesPerPage={gamesPerPage} currentPage={currentPage} />
         <div className="navigation-buttons">
           <button className="btn-pn" onClick={handleNext}>
             &gt;
