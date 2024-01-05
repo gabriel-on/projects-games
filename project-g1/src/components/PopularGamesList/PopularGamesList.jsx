@@ -19,7 +19,7 @@ const PopularGamesList = ({ gamesPerPage, currentPage }) => {
         {limitedGamesArray.map((game) => (
           <li key={game.gameId}>
             <Link to={`/game/${game.gameId}`}>
-              <img src={game.gameData.image} alt={game.gameData.title} />
+              <img src={game.gameData.image} alt={game.gameData.title} title={game.gameData.title}/>
             </Link>
           </li>
         ))}
