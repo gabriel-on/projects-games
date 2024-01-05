@@ -19,12 +19,14 @@ function AddGame() {
     officialSite: '',
     releaseDate: '',
     addedBy: null,
+    trailer: '',
   });
 
   const [genresList, setGenresList] = useState([]);
   const [consolesList, setConsolesList] = useState([]);
   const [developersList, setDevelopersList] = useState([]);
   const [ratingsList, setRatingsList] = useState([]);
+  const [trailer, setTrailer] = useState('');
 
   const navigate = useNavigate();
   const { error: authError, getCurrentUser } = useAuth();
@@ -41,6 +43,7 @@ function AddGame() {
     rating: '',
     officialSite: '',
     releaseDate: '',
+    trailer: '',
   });
 
   const schema = Yup.object().shape({
@@ -56,6 +59,7 @@ function AddGame() {
     rating: Yup.string().required('Campo obrigatório'),
     officialSite: Yup.string().url('URL inválida'),
     releaseDate: Yup.string().required('Campo obrigatório'),
+    trailer: Yup.string().url('URL do trailer inválida'),
   });
 
   useEffect(() => {
@@ -128,7 +132,9 @@ function AddGame() {
       [name]: '',
     }));
 
-    if (type === 'checkbox') {
+    if (name === 'trailer') {
+      setTrailer(value);
+    } else if (type === 'checkbox') {
       setNewGame((prevGame) => {
         const updatedArray = checked
           ? [...prevGame[name], value]
@@ -156,11 +162,11 @@ function AddGame() {
       const currentUser = getCurrentUser();
 
       if (currentUser) {
-        const newGameWithUser = { 
+        const newGameWithUser = {
           ...newGame,
           addedBy: currentUser.displayName,
           createdAt: new Date().toISOString(),
- };
+        };
 
         const newGameRef = push(gamesRef);
         await set(newGameRef, newGameWithUser);
@@ -175,7 +181,9 @@ function AddGame() {
           rating: '',
           officialSite: '',
           releaseDate: '',
+          trailer: '', // Adicione esta linha
         });
+        setTrailer(''); // Adicione esta linha
         setErrors({
           title: '',
           description: '',
@@ -185,6 +193,8 @@ function AddGame() {
           rating: '',
           officialSite: '',
           releaseDate: '',
+          trailer: '', // Adicione esta linha
+          userNotFound: '', // Adicione esta linha
         });
         navigate("/dashboard");
       } else {
@@ -327,6 +337,19 @@ function AddGame() {
               onChange={handleChange}
             />
             {errors.officialSite && <p className="error-message">{errors.officialSite}</p>}
+          </label>
+        </div>
+
+        <div className='field'>
+          <label>
+            Trailer (Opcional):
+            <input
+              type="text"
+              name="trailer"
+              value={trailer}
+              onChange={(e) => setTrailer(e.target.value)}
+            />
+            {errors.trailer && <p className="error-message">{errors.trailer}</p>}
           </label>
         </div>
 

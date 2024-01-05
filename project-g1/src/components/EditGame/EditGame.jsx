@@ -17,14 +17,15 @@ const EditGame = () => {
     rating: '',
     officialSite: '',
     releaseDate: '',
-    addedBy: null
+    addedBy: null,
+    trailer: '', // Adicione o campo do trailer aqui
   });
 
   const [lists, setLists] = useState({
     genres: [],
     consoles: [],
     developers: [],
-    ratings: []
+    ratings: [],
   });
 
   const [errors, setErrors] = useState({
@@ -35,7 +36,8 @@ const EditGame = () => {
     consoles: '',
     developers: '',
     rating: '',
-    officialSite: ''
+    officialSite: '',
+    trailer: '', // Adicione o campo do trailer aqui
   });
 
   const schema = Yup.object().shape({
@@ -48,6 +50,7 @@ const EditGame = () => {
     rating: Yup.string().required('Campo obrigatório'),
     officialSite: Yup.string().url('URL inválida'),
     releaseDate: Yup.date().required('Campo obrigatório'),
+    trailer: Yup.string().url('URL do trailer inválida'), // Adicione o campo do trailer aqui
   });
 
   useEffect(() => {
@@ -82,11 +85,10 @@ const EditGame = () => {
             rating: gameData.rating || '',
             officialSite: gameData.officialSite || '',
             releaseDate: gameData.releaseDate || '',
+            trailer: gameData.trailer || '', // Adicione o campo do trailer aqui
           });
         }
       });
-      console.log("Ratings:", lists.ratings);
-
     };
 
     fetchGame();
@@ -266,6 +268,19 @@ const EditGame = () => {
               onChange={handleChange}
             />
             {errors.officialSite && <p className="error-message">{errors.officialSite}</p>}
+          </label>
+        </div>
+
+        <div className='field'>
+          <label>
+            Trailer (Opcional):
+            <input
+              type="text"
+              name="trailer"
+              value={game.trailer}
+              onChange={handleChange}
+            />
+            {errors.trailer && <p className="error-message">{errors.trailer}</p>}
           </label>
         </div>
 

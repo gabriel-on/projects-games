@@ -21,6 +21,8 @@ const GameDetails = () => {
     averageClassification
   } = useInteractions(gameId);
 
+  const videoCode = gameData?.trailer ? gameData.trailer.split('v=')[1] : null;
+
   useEffect(() => {
     const fetchGameData = async () => {
       try {
@@ -76,13 +78,28 @@ const GameDetails = () => {
         onStatusChange={handleStatusChange}
         onToggleFavorite={handleToggleFavorite}
         onSaveChanges={handleSaveChanges}
-        />
+      />
 
       {gameData.officialSite && (
         <Link to={gameData.officialSite} target='_blank'>
           <p>Site Oficial</p>
         </Link>
       )}
+
+      {gameData.trailer && (
+        <div className="field">
+          <label>Trailer:</label>
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${videoCode}`}
+            title="YouTube video player"
+            frameBorder="10"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
+
 
       <p>Adicionado por: {gameData.addedBy}</p>
       <p>Data de criação: <span>{new Date(gameData.createdAt).toLocaleString()}</span></p>
