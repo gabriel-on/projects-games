@@ -64,7 +64,7 @@ const GameDetails = () => {
       <p>Gênero: <span>{gameData.genres}</span></p>
       <p>Console: <span>{gameData.consoles}</span></p>
       <p>Desenvolvedora: {gameData.developers}</p>
-      <p>Data de lançamento: <span>{new Date(gameData.releaseDate).toLocaleDateString()}</span></p>
+      <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
       <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
 
       <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
