@@ -86,7 +86,7 @@ function App() {
 
               <Route path='/all-games' element={<AllGames />} />
 
-              <Route path="/genres/:genre" element={<GenreList/>} />
+              <Route path="/genres" element={<GenreList/>} />
 
               {isAdmin && (
                 <>

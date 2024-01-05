@@ -11,6 +11,8 @@
     /* padding: 10px; */
     margin: auto;
     position: fixed;
+    align-items: center;
+    gap: 20px;
 }
 
 .search-bar-container #search-bar {
@@ -61,4 +63,11 @@
 
 .games-status {
     width: 250px;
+}
+
+.find-genres {
+    color: black;
+    background: #940000;
+    padding: 10px;
+    border-radius: 5px;
 }

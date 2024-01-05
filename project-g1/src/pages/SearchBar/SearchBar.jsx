@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SearchResults from './SearchResults';
 import '../SearchBar/SearchBar.css'
+import { Link } from 'react-router-dom';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -20,6 +21,9 @@ const SearchBar = () => {
           onChange={handleInputChange}
           placeholder="Pesquisar jogos..."
         />
+        <div>
+          <Link to={"/genres"} className='find-genres'>Procurar por Genero</Link>
+        </div>
       </div>
       <div>
         <SearchResults searchTerm={searchTerm} />
