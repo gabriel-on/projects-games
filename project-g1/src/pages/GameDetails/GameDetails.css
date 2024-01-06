@@ -52,6 +52,7 @@
 .box-reviews-container > div {
     justify-content: center;
     display: flex;
+    flex-direction: column;
 }
 
 .box-reviews-container > div textarea {
