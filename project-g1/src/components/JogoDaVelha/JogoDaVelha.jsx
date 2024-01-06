@@ -29,24 +29,16 @@ const JogoDaVelha = () => {
 
             if (currentUser && currentUser.uid) {
                 try {
-                    // Atualize a pontuação diretamente para o nó do usuário
                     await updateScoresInRealtimeDatabase(currentUser.uid, 'usersScore', 0);
-
-                    // Defina pointsSaved como true para indicar que os pontos foram salvos
                     setPointsSaved(true);
-
-                    // Mensagem de depuração para indicar que a atualização foi bem-sucedida
                     console.log('Atualização de pontos bem-sucedida!');
                 } catch (error) {
-                    // Mensagem de depuração em caso de erro durante a atualização
                     console.error('Erro ao salvar pontos:', error);
                 }
             } else {
-                // Mensagem de depuração se o usuário não estiver autenticado
                 console.warn('Usuário não autenticado ou não possui um UID. Não é possível salvar pontos.');
             }
         } else {
-            // Mensagem de depuração se os pontos já foram salvos
             console.warn('Os pontos já foram salvos anteriormente.');
         }
     };
@@ -59,9 +51,8 @@ const JogoDaVelha = () => {
         setPointsSaved(false);
         setPlayAgain(false);
 
-        // Se a máquina estiver jogando e não for a vez dela, faça um movimento
         if (isAgainstMachine && !xIsNext) {
-            makeMachineMove();
+            makeMachineMoveWithDelay();
         }
     };
 
@@ -96,6 +87,12 @@ const JogoDaVelha = () => {
                 setXIsNext(true);
             }
         }
+    };
+
+    const makeMachineMoveWithDelay = () => {
+        setTimeout(() => {
+            makeMachineMove();
+        }, 1000);
     };
 
     const minimax = (currentBoard, player) => {
@@ -152,12 +149,10 @@ const JogoDaVelha = () => {
         const handleWinner = () => {
             const winnerPlayer = calculateWinner(board);
             if (winnerPlayer && !winner) {
-                let scoreDelta = 10; // Pontuação padrão em caso de vitória
-
+                let scoreDelta = 10;
                 let winnerName = 'Unknown User';
 
                 if (user && winnerPlayer === 'X') {
-                    // Se o vencedor for o jogador humano ('X'), use o nome do usuário
                     winnerName = user.displayName || winnerName;
                 }
 
@@ -167,24 +162,20 @@ const JogoDaVelha = () => {
                 }));
 
                 if (user && user.uid && winnerPlayer === 'X') {
-                    // Atualizar pontuações no Realtime Database apenas se o vencedor for um jogador humano ('X')
                     updateScoresInRealtimeDatabase(user.uid, 'usersScore', scoreDelta);
                 }
-                // Mostrar botão "Jogar Novamente" quando a IA vencer
+
                 setPlayAgain(true);
             }
         };
 
         handleWinner();
 
-        // Salvar automaticamente ao terminar a partida
         if (winner || (board.every(cell => cell !== null) && !winner)) {
             if (user) {
-                // Não passe 0, apenas atualize se a pontuação precisar ser recalculada
                 let scoreDelta = 0;
 
                 if (calculateWinner(board) === 'O') {
-                    // Se o jogador 'O' ganhou, ganhe metade da pontuação
                     scoreDelta = -5;
                 }
 
@@ -192,9 +183,8 @@ const JogoDaVelha = () => {
             }
         }
 
-        // Se a máquina estiver jogando e não for a vez dela, faça um movimento
         if (isAgainstMachine && !xIsNext) {
-            makeMachineMove();
+            makeMachineMoveWithDelay();
         }
     }, [board, isAgainstMachine, winner, user]);
 
@@ -202,7 +192,6 @@ const JogoDaVelha = () => {
         const db = getDatabase();
         const userRef = ref(db, `${node}/${userId}/0`);
 
-        // Use runTransaction para garantir uma atualização atômica
         try {
             await runTransaction(userRef, (userData) => {
                 if (!userData) {
@@ -213,34 +202,26 @@ const JogoDaVelha = () => {
                     };
                 }
 
-                // Verifique se é um empate
                 const isDraw = calculateWinner(board) === null && board.every(cell => cell !== null);
 
-                // Calcule a pontuação com base no resultado da partida
                 let updatedScore;
                 if (isDraw) {
-                    // Ganhe metade dos pontos em caso de empate
                     updatedScore = (userData?.score || 0) + (5 + scoreDelta);
                 } else {
-                    // Ganhe ou perca a pontuação total em caso de vitória ou derrota
                     updatedScore = (userData?.score || 0) + (10 + scoreDelta);
                 }
 
                 return {
                     ...userData,
                     score: isNaN(updatedScore) ? 0 : updatedScore,
-                    wins: (userData?.wins || 0) + (isDraw ? 0 : 1), // Não conte uma vitória em caso de empate
+                    wins: (userData?.wins || 0) + (isDraw ? 0 : 1),
                     displayName: user?.displayName || userData?.displayName || 'DefaultDisplayName',
                 };
             });
 
-            // Se a transação for bem-sucedida, atualize pointsSaved para true
             setPointsSaved(true);
-
-            // Mensagem de depuração para indicar que a atualização foi bem-sucedida
             console.log('Atualização de pontos bem-sucedida!');
         } catch (error) {
-            // Mensagem de depuração em caso de erro durante a atualização
             console.error('Erro ao salvar pontos:', error);
         }
     };
@@ -262,9 +243,8 @@ const JogoDaVelha = () => {
         setPointsSaved(false);
         setPlayAgain(false);
 
-        // Se a máquina estiver jogando e não for a vez dela, faça um movimento
         if (isAgainstMachine && !xIsNext) {
-            makeMachineMove();
+            makeMachineMoveWithDelay();
         }
     };
 
@@ -289,7 +269,7 @@ const JogoDaVelha = () => {
 
             {playAgain && (
                 <button onClick={handlePlayAgain}>
-                    Confirmar
+                    Jogar Novamente
                 </button>
             )}
 
