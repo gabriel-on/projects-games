@@ -11,11 +11,13 @@ const GameAnalysis = ({ gameId }) => {
     const [gameData, setGameData] = useState(null);
     const database = getDatabase();
     const auth = getAuth();
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const displayName = user.displayName || 'Usuário Anônimo';
+        const unsubscribe = onAuthStateChanged(auth, (authUser) => {
+            setUser(authUser);
+            if (authUser) {
+                const displayName = authUser.displayName || 'Usuário Anônimo';
                 setUserName(displayName);
             } else {
                 setUserName('Usuário Anônimo');
@@ -44,11 +46,11 @@ const GameAnalysis = ({ gameId }) => {
                         setGameAnalysis(analysisArray);
 
                         // Encontrar a análise do usuário atual, se existir
-                        const user = auth.currentUser;
-                        if (user) {
-                            const userAnalysis = analysisArray.find((analysis) => analysis.userId === user.uid);
-                            setUserAnalysis(userAnalysis || null);
-                            setAnalysis(userAnalysis ? userAnalysis.text : '');
+                        const currentUser = auth.currentUser;
+                        if (currentUser) {
+                            const currentUserAnalysis = analysisArray.find((analysis) => analysis.userId === currentUser.uid);
+                            setUserAnalysis(currentUserAnalysis || null);
+                            setAnalysis(currentUserAnalysis ? currentUserAnalysis.text : '');
                         }
                     } else {
                         setGameAnalysis([]);
@@ -62,7 +64,7 @@ const GameAnalysis = ({ gameId }) => {
         };
 
         fetchGameData();
-    }, [gameId, database]);
+    }, [gameId, database, user]);
 
     const handleAnalysisSubmit = async () => {
         if (analysis.trim() === '') {
@@ -70,14 +72,14 @@ const GameAnalysis = ({ gameId }) => {
             return;
         }
 
-        const user = auth.currentUser;
-        if (!user) {
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
             alert('Usuário não autenticado. Faça login para enviar uma análise.');
             return;
         }
 
         try {
-            const displayName = user.displayName || 'Usuário Anônimo';
+            const displayName = currentUser.displayName || 'Usuário Anônimo';
 
             let userAnalysisRef;
 
@@ -87,7 +89,7 @@ const GameAnalysis = ({ gameId }) => {
             } else {
                 const analysisRef = ref(database, `gameAnalysis/${gameId}`);
                 const newAnalysisRef = push(analysisRef);
-                const analysisId = newAnalysisRef.key; // Gere um novo ID
+                const analysisId = newAnalysisRef.key;
                 userAnalysisRef = newAnalysisRef;
             }
 
@@ -95,8 +97,8 @@ const GameAnalysis = ({ gameId }) => {
                 text: analysis,
                 timestamp: Date.now(),
                 userName: displayName,
-                userId: user.uid,
-                analysisId: userAnalysis.analysisId || analysisId,
+                userId: currentUser.uid,
+                analysisId: userAnalysisRef.key,
             });
 
             console.log('Análise enviada com sucesso!');
@@ -108,15 +110,31 @@ const GameAnalysis = ({ gameId }) => {
 
     return (
         <div className='box-reviews-container'>
+            <div>
+                {user ? (
+                    <div className=''>
+                        {userAnalysis ? (
+                            <div>
+                                <p>Sua Análise do Jogo:</p>
+                                <p>{userAnalysis.text}</p>
+                            </div>
+                        ) : (
+                            <p>Faça sua analise</p>
+                        )}
+                    </div>
+                ) : (
+                    <p>Faça login para deixar sua análise.</p>
+                )}
+            </div>
             <h2>Análise do Jogo</h2>
-            <form action="">
+            <div>
                 <textarea
                     value={analysis}
                     onChange={(e) => setAnalysis(e.target.value)}
                     placeholder="Digite sua análise aqui..."
                 />
                 <button onClick={handleAnalysisSubmit}>Enviar/Editar Análise</button>
-            </form>
+            </div>
 
             {isAnalysisSubmitted && (
                 <div>
@@ -125,7 +143,7 @@ const GameAnalysis = ({ gameId }) => {
                     </p>
                 </div>
             )}
-            
+
             <div className=''>
                 <p>Todos as Análises:</p>
                 {gameAnalysis.length > 0 ? (

@@ -116,17 +116,7 @@ const GameDetails = () => {
       )}
 
       <div className='reviews-container'>
-        <h2>Sua Análise do Jogo</h2>
-        {gameAnalysis.length > 0 ? (
-          <ul>
-            {gameAnalysis.map((analysis) => (
-              <li key={analysis.timestamp}>{analysis.text}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>Nenhuma análise disponível.</p>
-        )}
-
+        {/* <h2>Sua Análise do Jogo</h2> */}
         <GameAnalysis gameId={gameId} />
       </div>
 

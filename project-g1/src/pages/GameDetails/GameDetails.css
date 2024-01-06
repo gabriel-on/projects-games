@@ -49,12 +49,12 @@
     gap: 20px;
 }
 
-.box-reviews-container > form {
+.box-reviews-container > div {
     justify-content: center;
     display: flex;
 }
 
-.box-reviews-container > form textarea {
+.box-reviews-container > div textarea {
     padding: 10px;
     justify-content: center;
     display: flex;
