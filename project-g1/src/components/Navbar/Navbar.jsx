@@ -28,6 +28,11 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/leaderboard">
+            Ranking
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/" className={isActive => (isActive ? 'active' : '')}>
             Home
           </NavLink>
