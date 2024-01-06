@@ -11,6 +11,7 @@ const JogoDaVelha = () => {
     const [isAgainstMachine, setIsAgainstMachine] = useState(false);
     const [pointsSaved, setPointsSaved] = useState(false);
     const { getCurrentUser } = useAuth();
+    const [playAgain, setPlayAgain] = useState(false);
 
     const handleClick = (index) => {
         if (!board[index] && !winner && (isAgainstMachine || (xIsNext && !isAgainstMachine))) {
@@ -56,6 +57,7 @@ const JogoDaVelha = () => {
         setXIsNext(true);
         setIsAgainstMachine(!isAgainstMachine);
         setPointsSaved(false);
+        setPlayAgain(false);
 
         // Se a máquina estiver jogando e não for a vez dela, faça um movimento
         if (isAgainstMachine && !xIsNext) {
@@ -167,10 +169,9 @@ const JogoDaVelha = () => {
                 if (user && user.uid && winnerPlayer === 'X') {
                     // Atualizar pontuações no Realtime Database apenas se o vencedor for um jogador humano ('X')
                     updateScoresInRealtimeDatabase(user.uid, 'usersScore', scoreDelta);
-                } else {
-                    // Mensagem de depuração se o vencedor não for um jogador humano ou se o usuário não estiver autenticado ou não possuir um UID
-                    console.warn('Vencedor não é um jogador humano ou usuário não autenticado ou não possui um UID. Não é possível salvar pontos.');
                 }
+                // Mostrar botão "Jogar Novamente" quando a IA vencer
+                setPlayAgain(true);
             }
         };
 
@@ -250,7 +251,20 @@ const JogoDaVelha = () => {
         } else if (board.every(cell => cell !== null) && !winner) {
             return 'It\'s a draw!';
         } else {
-            return isAgainstMachine ? (xIsNext ? 'Your turn (X)' : 'Machine is thinking...') : (xIsNext ? 'Player X' : 'Player O');
+            return isAgainstMachine ? (xIsNext ? 'SUA VEZ (X)' : 'Machine is thinking...') : (xIsNext ? 'Player X' : 'Player O');
+        }
+    };
+
+    const handlePlayAgain = () => {
+        setBoard(Array(9).fill(null));
+        setWinner(null);
+        setXIsNext(true);
+        setPointsSaved(false);
+        setPlayAgain(false);
+
+        // Se a máquina estiver jogando e não for a vez dela, faça um movimento
+        if (isAgainstMachine && !xIsNext) {
+            makeMachineMove();
         }
     };
 
@@ -267,22 +281,41 @@ const JogoDaVelha = () => {
             <p>
                 <strong>{getCurrentPlayer()}</strong>
             </p>
-            <button onClick={handleToggleMode}>Toggle Mode (Against Machine)</button>
+            {!isAgainstMachine && (
+                <button onClick={handleToggleMode} disabled={playAgain}>
+                    Jogar contra a Maquina (Against Machine)
+                </button>
+            )}
+
+            {playAgain && (
+                <button onClick={handlePlayAgain}>
+                    Confirmar
+                </button>
+            )}
 
             {winner || (board.every(cell => cell !== null) && !winner) ? (
                 winner ? (
                     winner.symbol === 'O' ? (
                         <p>IA ganhou. Pontos não salvos.</p>
                     ) : (
-                        <button onClick={handleSavePoints} disabled={pointsSaved}>
-                            {pointsSaved ? 'Points Saved' : 'Save Points'}
-                        </button>
+                        <div>
+                            <p>{winner.name} ({winner.symbol}) ganhou. Pontos não salvos.</p>
+                            <button onClick={handleSavePoints} disabled={pointsSaved}>
+                                {pointsSaved ? 'Pontos Salvos' : 'Salvar Pontos'}
+                            </button>
+                            <button onClick={() => setPlayAgain(true)}>
+                                Jogar Novamente
+                            </button>
+                        </div>
                     )
                 ) : (
                     <div>
                         <p>Empate. Pontos não salvos.</p>
                         <button onClick={handleSavePoints} disabled={pointsSaved}>
-                            {pointsSaved ? 'Points Saved' : 'Save Points'}
+                            {pointsSaved ? 'Pontos Salvos' : 'Salvar Pontos'}
+                        </button>
+                        <button onClick={() => setPlayAgain(true)}>
+                            Jogar Novamente
                         </button>
                     </div>
                 )
