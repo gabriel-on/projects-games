@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuthentication';
-import { ref, getDatabase, push, runTransaction } from 'firebase/database';
+import { ref, getDatabase, runTransaction } from 'firebase/database';
 import '../JogoDaVelha/JogoDaVelha.css';
 
-const TicTacToe = () => {
+const JogoDaVelha = () => {
     const { user } = useAuth();
     const [board, setBoard] = useState(Array(9).fill(null));
     const [xIsNext, setXIsNext] = useState(true);
@@ -56,6 +56,11 @@ const TicTacToe = () => {
         setXIsNext(true);
         setIsAgainstMachine(!isAgainstMachine);
         setPointsSaved(false);
+
+        // Se a máquina estiver jogando e não for a vez dela, faça um movimento
+        if (isAgainstMachine && !xIsNext) {
+            makeMachineMove();
+        }
     };
 
     const calculateWinner = (squares) => {
@@ -76,6 +81,69 @@ const TicTacToe = () => {
             }
         }
         return null;
+    };
+
+    const makeMachineMove = () => {
+        const emptyCells = board.reduce((acc, cell, i) => (cell === null ? [...acc, i] : acc), []);
+        const bestMove = minimax(board, 'O').index;
+        if (emptyCells.includes(bestMove)) {
+            if (!calculateWinner(board)) {
+                const newBoard = board.slice();
+                newBoard[bestMove] = 'O';
+                setBoard(newBoard);
+                setXIsNext(true);
+            }
+        }
+    };
+
+    const minimax = (currentBoard, player) => {
+        const emptyCells = currentBoard.reduce((acc, cell, i) => (cell === null ? [...acc, i] : acc), []);
+        if (calculateWinner(currentBoard) === 'X') {
+            return { score: -1 };
+        } else if (calculateWinner(currentBoard) === 'O') {
+            return { score: 1 };
+        } else if (emptyCells.length === 0) {
+            return { score: 0 };
+        }
+
+        const moves = [];
+        for (let i = 0; i < emptyCells.length; i++) {
+            const move = {};
+            move.index = emptyCells[i];
+            currentBoard[emptyCells[i]] = player;
+
+            if (player === 'O') {
+                const result = minimax(currentBoard, 'X');
+                move.score = result.score;
+            } else {
+                const result = minimax(currentBoard, 'O');
+                move.score = result.score;
+            }
+
+            currentBoard[emptyCells[i]] = null;
+            moves.push(move);
+        }
+
+        let bestMove;
+        if (player === 'O') {
+            let bestScore = -Infinity;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score > bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        } else {
+            let bestScore = Infinity;
+            for (let i = 0; i < moves.length; i++) {
+                if (moves[i].score < bestScore) {
+                    bestScore = moves[i].score;
+                    bestMove = i;
+                }
+            }
+        }
+
+        return moves[bestMove];
     };
 
     useEffect(() => {
@@ -121,6 +189,11 @@ const TicTacToe = () => {
 
                 updateScoresInRealtimeDatabase(user.uid, 'usersScore', scoreDelta);
             }
+        }
+
+        // Se a máquina estiver jogando e não for a vez dela, faça um movimento
+        if (isAgainstMachine && !xIsNext) {
+            makeMachineMove();
         }
     }, [board, isAgainstMachine, winner, user]);
 
@@ -183,7 +256,7 @@ const TicTacToe = () => {
 
     return (
         <div>
-            <h2>Tic Tac Toe</h2>
+            <h2>Jogo da Velha</h2>
             <div className="board">
                 {board.map((cell, index) => (
                     <div key={index} className="cell" onClick={() => handleClick(index)}>
@@ -218,4 +291,4 @@ const TicTacToe = () => {
     );
 };
 
-export default TicTacToe;
+export default JogoDaVelha;
