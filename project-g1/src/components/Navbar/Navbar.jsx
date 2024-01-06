@@ -28,10 +28,15 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/game-v">
+            Game 1
+          </NavLink>
+        </li>
+        {/* <li>
           <NavLink to="/leaderboard">
             Ranking
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to="/" className={isActive => (isActive ? 'active' : '')}>
             Home
