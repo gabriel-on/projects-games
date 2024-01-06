@@ -28,7 +28,7 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/game-v">
+          <NavLink to="/" title='Em breve'>
             Game 1
           </NavLink>
         </li>
