@@ -18,3 +18,21 @@
     aspect-ratio: 3/4;
     object-fit: cover;
 }
+
+@media screen and (max-width: 400px) {
+    
+    .all-games-list {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .all-games-list li {
+        width: 50px;
+    }
+    
+    .all-games-list li img {
+        width: 100%;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+    }
+}

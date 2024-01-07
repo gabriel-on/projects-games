@@ -10,3 +10,22 @@
     justify-content: space-between;
     max-height: 260px;
 }
+
+@media screen and (max-width: 400px) {
+    .game-navigation {
+        max-width: 380px;
+        max-height: 140px;
+    }
+    .game-navigation div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-height: 140px;
+    }
+
+    .game-navigation .navigation-buttons .btn-pn {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+}

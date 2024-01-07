@@ -98,17 +98,17 @@ const Home = () => {
               gameIds={gameIds}
             />
           ))}
-          <div>
+          <div className='sections'>
             <h2>Games</h2>
             <Link to={"/all-games"}>Ver mais</Link>
             <GamesNavigation />
           </div>
-          <div>
+          <div className='sections'>
             <h2>Últimos Games Adicionados:</h2>
             <Link to={"/latest-added"}>Ver mais</Link>
             <GamesNavigation02 />
           </div>
-          <div>
+          <div className='sections'>
             <h2>Games Populares:</h2>
             <Link to={"/"}>Ver mais</Link>
             <GamesNavigation03 />

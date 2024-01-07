@@ -14,8 +14,14 @@ body {
     margin-top: 85px;
 }
 
-/* @media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
+    body{
+        background: rgb(251, 255, 1);
+    }   
+}
+
+@media screen and (max-width: 400px) {
     body{
         background: red;
     }   
-} */
+}

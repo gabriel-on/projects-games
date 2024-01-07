@@ -10,6 +10,12 @@
   gap: 20px;
 }
 
+.sections {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 /* TABLETS */
 @media screen and (max-width: 768px) {
   .container {
@@ -31,7 +37,10 @@
     align-items: center;
     width: 380px;
     overflow: hidden;
-    white-space: nowrap;
     gap: 10px;
+  }
+
+  .sections {
+    width: 400px;
   }
 }
