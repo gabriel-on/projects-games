@@ -44,7 +44,7 @@ const AllGames = () => {
   };
 
   return (
-    <div>
+    <div className='all-games-container'>
       <h1>Todos os Jogos:</h1>
       <Link to={"/genres"}>Procure por gênero:</Link>
       <ul>

@@ -17,11 +17,17 @@ body {
 @media screen and (max-width: 768px) {
     body{
         background: rgb(251, 255, 1);
-    }   
+    }
+    img {
+        max-width: 240px;
+    }  
 }
 
 @media screen and (max-width: 400px) {
     body{
-        background: red;
+        background: rgb(167, 167, 167);
     }   
+    img {
+        max-width: 220px;
+    }
 }

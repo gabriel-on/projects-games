@@ -41,6 +41,10 @@
   }
 
   .sections {
-    width: 400px;
+    display: flex;
+    width: 380px;
+  }
+  .all-games-container {
+    width: 240px;
   }
 }
