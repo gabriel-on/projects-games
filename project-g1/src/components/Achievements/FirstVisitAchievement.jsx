@@ -11,16 +11,18 @@ const FirstVisitAchievement = ({ userId, firstVisitAchievementId }) => {
       try {
         const db = getDatabase();
 
-        // Verificar se o usuário está autenticado
         if (userId) {
           const userAchievementRef = ref(db, `userAchievements/${userId}/${firstVisitAchievementId}`);
           const userAchievementSnapshot = await get(userAchievementRef);
 
-          // Verificar se o usuário já reivindicou a conquista
+          console.log('userAchievementSnapshot:', userAchievementSnapshot.val());
+
           if (!userAchievementSnapshot.exists() || !userAchievementSnapshot.val().claimed) {
             const achievementRef = ref(db, `achievements/${firstVisitAchievementId}`);
             const achievementSnapshot = await get(achievementRef);
             const achievementInfo = achievementSnapshot.val();
+
+            console.log('achievementSnapshot:', achievementSnapshot.val());
 
             if (achievementInfo) {
               await set(userAchievementRef, {
@@ -40,21 +42,23 @@ const FirstVisitAchievement = ({ userId, firstVisitAchievementId }) => {
       }
     };
 
-    // Reivindicar a conquista apenas se o usuário estiver autenticado, o ID estiver definido e ainda não foi reivindicada
     if (userId && firstVisitAchievementId && !isAchievementClaimed) {
       claimAchievement();
     }
   }, [userId, firstVisitAchievementId, isAchievementClaimed]);
 
   useEffect(() => {
-    // Fechar automaticamente após 5 segundos (5000 milissegundos)
     const timeoutId = setTimeout(() => {
       setIsClosed(true);
-    }, 5000);
+    }, 10000);
 
-    // Limpar o temporizador ao desmontar o componente
     return () => clearTimeout(timeoutId);
   }, []);
+
+  useEffect(() => {
+    console.log('isAchievementClaimed:', isAchievementClaimed);
+    console.log('achievementData:', achievementData);
+  }, [isAchievementClaimed, achievementData]);
 
   if (isClosed || !achievementData) {
     return null;
