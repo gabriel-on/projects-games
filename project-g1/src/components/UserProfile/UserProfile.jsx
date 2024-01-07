@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuthentication';
 import { updateProfile as updateProfileAuth } from 'firebase/auth';
-import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { getDatabase, ref, onValue } from 'firebase/database';
 import GameStatus from '../GamesStatus/GamesStatus';
-import FirstVisitAchievement from '../Achievements/FirstVisitAchievement';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -28,7 +27,6 @@ const UserProfile = () => {
           const data = snapshot.val();
           const gameIds = Object.keys(data);
 
-          // Filtra apenas os jogos favoritos do usuário autenticado
           const favoriteGames = gameIds
             .filter((gameId) => data[gameId].favorites && data[gameId].favorites[userId])
             .map((gameId) => ({
@@ -70,13 +68,11 @@ const UserProfile = () => {
 
   const handleUpdateDisplayName = async () => {
     try {
-      // Verifica se há algo no campo newDisplayName antes de atualizar
       if (newDisplayName.trim() === '') {
         alert('Digite um novo nome antes de atualizar.');
         return;
       }
 
-      // Confirmação antes de alterar o nome
       const shouldUpdateName = window.confirm(`Deseja atualizar o nome para "${newDisplayName}"?`);
 
       if (shouldUpdateName) {
@@ -101,8 +97,18 @@ const UserProfile = () => {
           <p>Nome do Usuário: {currentUser.displayName}</p>
           <p>Email: {currentUser.email}</p>
 
-          {/* Conquistas */}
-          {/* <FirstVisitAchievement userId={currentUser.uid} /> */}
+          {/* Adiciona todas as conquistas do usuário automaticamente */}
+          <div>
+            <h2>Todas as suas conquistas</h2>
+            {Object.keys(userAchievements).map((achievementId) => (
+              <div key={achievementId}>
+                <h3>Conquista: {userAchievements[achievementId].name}</h3>
+                <p>Descrição: {userAchievements[achievementId].description}</p>
+                <p>Pontos: {userAchievements[achievementId].points}</p>
+                {/* Adicione qualquer outra informação desejada */}
+              </div>
+            ))}
+          </div>
 
           {/* Lista de jogos favoritos */}
           {favoriteGames.length > 0 && (
