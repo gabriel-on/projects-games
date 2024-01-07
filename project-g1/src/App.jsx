@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useState, useEffect } from 'react';
-import { getDatabase, ref, get } from 'firebase/database';
+import { getDatabase, ref, get, set } from 'firebase/database';
 
 // HOOKS
 import { useAuth } from './hooks/useAuthentication.jsx';
@@ -34,6 +34,7 @@ import LatestAdded from './pages/LatestAdded/LatestAdded.jsx';
 import GamesMoreInteractions from './components/PopularGamesList/PopularGamesList.jsx';
 import JogoDaVelha from './components/JogoDaVelha/JogoDaVelha.jsx';
 import Leaderboard from './components/Leaderboard/Leaderboard.jsx';
+import FirstVisitAchievement from './components/Achievements/FirstVisitAchievement.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -56,6 +57,14 @@ function App() {
             const userData = snapshot.val();
             const isAdmin = userData.isAdmin || false;
             setUser((prevUser) => ({ ...prevUser, isAdmin }));
+          } else {
+            // O usuário não existe no banco de dados, é o primeiro acesso
+            // Desbloqueie a conquista de primeiro acesso
+            const achievementsRef = ref(database, 'userAchievements/' + user.uid);
+            await set(achievementsRef, {
+              firstVisitAchievement: true,
+              // Outras conquistas podem ser adicionadas aqui
+            });
           }
         } catch (error) {
           console.error('Error fetching user data:', error);
@@ -74,6 +83,7 @@ function App() {
     <div className='App'>
       <AuthProvider value={{ user }}>
         <BrowserRouter>
+          <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
           <Navbar />
           <div className='container-absolute'>
             <Routes>
@@ -94,11 +104,12 @@ function App() {
 
               <Route path='/populations' element={<GamesMoreInteractions />} />
 
-              <Route path="/genres" element={<GenreList/>} />
 
-              <Route path="/game-v" element={<JogoDaVelha/>} />
+              <Route path="/genres" element={<GenreList />} />
 
-              <Route path="/leaderboard" element={<Leaderboard/>} />
+              <Route path="/game-v" element={<JogoDaVelha />} />
+
+              <Route path="/leaderboard" element={<Leaderboard />} />
 
               {isAdmin && (
                 <>
