@@ -13,6 +13,64 @@
     z-index: 1000;
 }
 
+/* TABLETS */
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 20px 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .navbar a>h1 {
+        display: none;
+        font-size: 1em;
+    }
+
+    .navbar li>a {
+        padding: 10px;
+
+    }
+
+    .navbar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .navbar a>h1 {
+        font-size: 3.5em;
+    }
+
+    .navbar li>a {
+        font-size: 1.5em;
+    }
+}
+
+/* MOBILES */
+@media screen and (max-width: 400px) {
+    .navbar {
+        padding: 20px 20px;
+        display: flex;
+    }
+
+    .navbar a>h1 {
+        display: none;
+        font-size: 1em;
+    }
+
+    .navbar li>a {
+        font-size: 0.4em;
+        padding: 10px;
+
+    }
+
+    .navbar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
 a {
     text-decoration: none;
 }
@@ -28,13 +86,10 @@ a>h1 {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-}
-
-.navbar ul > li > a {
     list-style: none;
 }
 
-.navbar li > a {
+.navbar li>a {
     border-radius: 5px;
     background: purple;
     padding: 8px;
@@ -42,7 +97,8 @@ a>h1 {
     color: white;
 }
 
-.navbar ul li > #md-dash-admin-1, #md-dash-admin-2 {
+.navbar ul li>#md-dash-admin-1,
+#md-dash-admin-2 {
     padding: 8px;
     background: red;
 }

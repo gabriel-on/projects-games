@@ -13,3 +13,9 @@ body {
     background: #e2e2e2;
     margin-top: 85px;
 }
+
+/* @media screen and (min-width: 768px) {
+    body{
+        background: red;
+    }   
+} */

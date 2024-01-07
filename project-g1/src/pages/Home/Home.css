@@ -9,3 +9,29 @@
   white-space: nowrap;
   gap: 20px;
 }
+
+/* TABLETS */
+@media screen and (max-width: 768px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 740px;
+    overflow: hidden;
+    white-space: nowrap;
+    gap: 10px;
+  }
+}
+
+/* MOBILES */
+@media screen and (max-width: 400px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 380px;
+    overflow: hidden;
+    white-space: nowrap;
+    gap: 10px;
+  }
+}
