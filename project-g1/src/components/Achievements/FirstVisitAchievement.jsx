@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get, set } from 'firebase/database';
 
 const FirstVisitAchievement = ({ userId, firstVisitAchievementId }) => {
-    const [isAchievementClaimed, setIsAchievementClaimed] = useState(false);
     const [achievementData, setAchievementData] = useState(null);
     const [isClosed, setIsClosed] = useState(false);
 
@@ -15,20 +14,18 @@ const FirstVisitAchievement = ({ userId, firstVisitAchievementId }) => {
                     const userAchievementRef = ref(db, `userAchievements/${userId}/${firstVisitAchievementId}`);
                     const userAchievementSnapshot = await get(userAchievementRef);
 
-                    if (!userAchievementSnapshot.exists() || !userAchievementSnapshot.val().claimed) {
+                    if (!userAchievementSnapshot.exists()) {
                         const achievementRef = ref(db, `achievements/${firstVisitAchievementId}`);
                         const achievementSnapshot = await get(achievementRef);
                         const achievementInfo = achievementSnapshot.val();
 
                         if (achievementInfo) {
                             await set(userAchievementRef, {
-                                claimed: true,
                                 name: achievementInfo.name,
                                 description: achievementInfo.description,
                                 points: achievementInfo.points,
                             });
 
-                            setIsAchievementClaimed(true);
                             setAchievementData(achievementInfo);
                         }
                     }
@@ -38,10 +35,10 @@ const FirstVisitAchievement = ({ userId, firstVisitAchievementId }) => {
             }
         };
 
-        if (userId && firstVisitAchievementId && !isAchievementClaimed) {
+        if (userId && firstVisitAchievementId && !isClosed) {
             claimAchievement();
         }
-    }, [userId, firstVisitAchievementId, isAchievementClaimed]);
+    }, [userId, firstVisitAchievementId, isClosed]);
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -50,9 +47,6 @@ const FirstVisitAchievement = ({ userId, firstVisitAchievementId }) => {
 
         return () => clearTimeout(timeoutId);
     }, []);
-
-    useEffect(() => {
-    }, [isAchievementClaimed, achievementData]);
 
     if (isClosed || !achievementData) {
         return null;
@@ -66,9 +60,6 @@ const FirstVisitAchievement = ({ userId, firstVisitAchievementId }) => {
                 <p>Descrição: {achievementData.description}</p>
                 <p>Pontos: {achievementData.points}</p>
                 <button onClick={() => setIsClosed(true)}>Fechar</button>
-                {isAchievementClaimed && (
-                    <p>Conquista já resgatada automaticamente!</p>
-                )}
             </div>
         </div>
     );

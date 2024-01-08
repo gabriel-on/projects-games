@@ -3,25 +3,33 @@ import React, { useEffect, useState } from 'react';
 const UserLevel = ({ userPoints }) => {
   const [userLevel, setUserLevel] = useState(1);
   const [pointsToNextLevel, setPointsToNextLevel] = useState(0);
+  const pointsPerLevel = 50;
 
   useEffect(() => {
-    // Definir o número de pontos necessários por nível
-    const pointsPerLevel = 50;
+    if (typeof userPoints !== 'number' || isNaN(userPoints)) {
+      return;
+    }
 
-    // Calcular o nível do usuário com base nos pontos totais
     const newLevel = Math.floor(userPoints / pointsPerLevel);
     setUserLevel(newLevel);
 
-    // Calcular os pontos restantes até o próximo nível
     const pointsToNext = pointsPerLevel - (userPoints % pointsPerLevel);
     setPointsToNextLevel(pointsToNext);
   }, [userPoints]);
 
+  // Adiciona um useEffect para atualizar o nível quando os pontos mudarem
+  useEffect(() => {
+    const newLevel = Math.floor(userPoints / pointsPerLevel);
+    setUserLevel(newLevel);
+
+    const pointsToNext = pointsPerLevel - (userPoints % pointsPerLevel);
+    setPointsToNextLevel(pointsToNext);
+  }, [userPoints, pointsPerLevel]);
+
   return (
     <div>
       <p>Nível: {userLevel}</p>
-      <p>Pontos para o próximo nível: {pointsToNextLevel}</p>
-      {/* Você pode adicionar mais informações sobre o nível, se necessário */}
+      <p>Faltam {pointsToNextLevel} Pontos para o próximo nível</p>
     </div>
   );
 };

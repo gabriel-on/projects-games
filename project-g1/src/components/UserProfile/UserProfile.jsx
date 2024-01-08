@@ -1,67 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../hooks/useAuthentication';
 import { updateProfile as updateProfileAuth } from 'firebase/auth';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import GameStatus from '../GamesStatus/GamesStatus';
+import { useAuth } from '../../hooks/useAuthentication'; // Certifique-se de importar corretamente o hook de autenticação
+import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
   const [newDisplayName, setNewDisplayName] = useState('');
-  const [favoriteGames, setFavoriteGames] = useState([]);
-  const [userAchievements, setUserAchievements] = useState({});
   const [userPoints, setUserPoints] = useState(0);
 
   useEffect(() => {
     if (currentUser) {
-      loadFavoriteGames(currentUser.uid);
       loadUserAchievements(currentUser.uid);
     }
   }, [currentUser]);
-
-  const loadFavoriteGames = (userId) => {
-    try {
-      const db = getDatabase();
-      const gamesRef = ref(db, 'games');
-
-      onValue(gamesRef, (snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const gameIds = Object.keys(data);
-
-          const favoriteGames = gameIds
-            .filter((gameId) => data[gameId].favorites && data[gameId].favorites[userId])
-            .map((gameId) => ({
-              id: gameId,
-              ...data[gameId],
-            }));
-
-          setFavoriteGames(favoriteGames);
-        } else {
-          setFavoriteGames([]);
-        }
-      });
-    } catch (error) {
-      console.error('Erro ao carregar jogos favoritos:', error.message);
-    }
-  };
 
   const loadUserAchievements = (userId) => {
     try {
       const db = getDatabase();
       const userAchievementsRef = ref(db, `userAchievements/${userId}`);
 
+      // Use onValue para ouvir alterações no banco de dados
       onValue(userAchievementsRef, (snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          setUserAchievements(data);
-
-          const totalPoints = Object.values(data).reduce((acc, achievement) => acc + achievement.points, 0);
-          setUserPoints(totalPoints);
-        } else {
-          setUserAchievements({});
-          setUserPoints(0);
-        }
+        // Lógica para atualizar a lista de conquistas no estado, se necessário
       });
     } catch (error) {
       console.error('Erro ao carregar conquistas do usuário:', error.message);
@@ -104,36 +66,11 @@ const UserProfile = () => {
           <p>Email: {currentUser.email}</p>
 
           <div>
-            <UserLevel userPoints={userPoints} />
+            <UserLevel userPoints={userPoints}/>
           </div>
 
-          {/* Adiciona todas as conquistas do usuário automaticamente */}
-          <div>
-            <h2>Todas as suas conquistas</h2>
-            {Object.keys(userAchievements).map((achievementId) => (
-              <div key={achievementId}>
-                <h3>Conquista: {userAchievements[achievementId].name}</h3>
-                <p>Descrição: {userAchievements[achievementId].description}</p>
-                <p>Pontos: {userAchievements[achievementId].points}</p>
-                {/* Adicione qualquer outra informação desejada */}
-              </div>
-            ))}
-          </div>
-
-          {/* Lista de jogos favoritos */}
-          {favoriteGames.length > 0 && (
-            <div>
-              <h2>Jogos Favoritos:</h2>
-              <ul>
-                {favoriteGames.map((game) => (
-                  <li key={game.id}>
-                    {game.title}
-                    <GameStatus gameId={game.id} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {/* Adiciona o componente UserAchievementsList para exibir as conquistas resgatadas */}
+          <UserAchievementsList userId={currentUser.uid} />
 
           {/* Outras informações do usuário */}
           <div>
