@@ -1,23 +1,80 @@
 {
     "rewrites": [
-      { "source": "/login", "destination": "/index.html" },
-      { "source": "/register", "destination": "/index.html" },
-      { "source": "/about", "destination": "/index.html" },
-      { "source": "/game/:gameId", "destination": "/index.html" },
-      { "source": "/games", "destination": "/index.html" },
-      { "source": "/profile", "destination": "/index.html" },
-      { "source": "/search", "destination": "/index.html" },
-      { "source": "/all-games", "destination": "/index.html" },
-      { "source": "/latest-added", "destination": "/index.html" },
-      { "source": "/populations", "destination": "/index.html" },
-      { "source": "/genres", "destination": "/index.html" },
-      { "source": "/game-v", "destination": "/index.html" },
-      { "source": "/leaderboard", "destination": "/index.html" },
-      { "source": "/new", "destination": "/index.html" },
-      { "source": "/dashboard", "destination": "/index.html" },
-      { "source": "/admin", "destination": "/index.html" },
-      { "source": "/edit/:gameId", "destination": "/index.html" },
-      { "source": "/delete/:gameId", "destination": "/index.html" },
-      { "source": "/(.*)", "destination": "/index.html" }
+        {
+            "source": "/login",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/register",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/about",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/game/:gameId",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/games",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/profile",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/search",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/all-games",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/latest-added",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/populations",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/genres",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/game-v",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/leaderboard",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/new",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/dashboard",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/admin",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/edit/:gameId",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/delete/:gameId",
+            "destination": "/index.html"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
     ]
-  }  
+}
