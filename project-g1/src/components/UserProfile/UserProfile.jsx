@@ -1,29 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfile as updateProfileAuth } from 'firebase/auth';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { useAuth } from '../../hooks/useAuthentication'; // Certifique-se de importar corretamente o hook de autenticação
+import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
+import GameStatus from '../../components/GamesStatus/GamesStatus'
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
   const [newDisplayName, setNewDisplayName] = useState('');
+  const [favoriteGames, setFavoriteGames] = useState([]);
+
   const [userPoints, setUserPoints] = useState(0);
+  const [userAchievements, setUserAchievements] = useState([]);
 
   useEffect(() => {
     if (currentUser) {
+      loadFavoriteGames(currentUser.uid);
       loadUserAchievements(currentUser.uid);
     }
   }, [currentUser]);
+
+  const loadFavoriteGames = (userId) => {
+    try {
+      const db = getDatabase();
+      const gamesRef = ref(db, 'games');
+
+      onValue(gamesRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const gameIds = Object.keys(data);
+
+          const favoriteGames = gameIds
+            .filter((gameId) => data[gameId].favorites && data[gameId].favorites[userId])
+            .map((gameId) => ({
+              id: gameId,
+              ...data[gameId],
+            }));
+
+          setFavoriteGames(favoriteGames);
+        } else {
+          setFavoriteGames([]);
+        }
+      });
+    } catch (error) {
+      console.error('Erro ao carregar jogos favoritos:', error.message);
+    }
+  };
 
   const loadUserAchievements = (userId) => {
     try {
       const db = getDatabase();
       const userAchievementsRef = ref(db, `userAchievements/${userId}`);
 
-      // Use onValue para ouvir alterações no banco de dados
       onValue(userAchievementsRef, (snapshot) => {
-        // Lógica para atualizar a lista de conquistas no estado, se necessário
+        let totalPoints = 0;
+        const achievementsData = {};
+
+        snapshot.forEach((achievement) => {
+          const achievementData = achievement.val();
+          const achievementPoints = achievementData.points;
+          totalPoints += achievementPoints;
+
+          achievementsData[achievement.key] = achievementData;
+        });
+
+        // Atualizar os pontos e as conquistas do usuário
+        setUserPoints(totalPoints);
+        setUserAchievements(achievementsData);
       });
     } catch (error) {
       console.error('Erro ao carregar conquistas do usuário:', error.message);
@@ -66,11 +110,26 @@ const UserProfile = () => {
           <p>Email: {currentUser.email}</p>
 
           <div>
-            <UserLevel userPoints={userPoints}/>
+            <UserLevel userPoints={userPoints} userAchievements={userAchievements} />
           </div>
 
           {/* Adiciona o componente UserAchievementsList para exibir as conquistas resgatadas */}
           <UserAchievementsList userId={currentUser.uid} />
+
+          {/* Lista de jogos favoritos */}
+          {favoriteGames.length > 0 && (
+            <div>
+              <h2>Jogos Favoritos:</h2>
+              <ul>
+                {favoriteGames.map((game) => (
+                  <li key={game.id}>
+                    {game.title}
+                    <GameStatus gameId={game.id} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* Outras informações do usuário */}
           <div>
