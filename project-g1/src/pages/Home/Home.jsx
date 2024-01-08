@@ -99,9 +99,8 @@ const Home = () => {
             />
           ))}
           <div className='sections'>
-            <h2>Vercel 2</h2>
+            <h2>Vercel</h2>
             <h2>Games</h2>
-            <h2>Games 2</h2>
             <Link to={"/all-games"}>Ver mais</Link>
             <GamesNavigation />
           </div>
