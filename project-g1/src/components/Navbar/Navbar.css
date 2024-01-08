@@ -47,7 +47,7 @@
 }
 
 /* MOBILES */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 420px) {
     .navbar {
         padding: 20px 20px;
         display: flex;

@@ -11,7 +11,7 @@
     max-height: 260px;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 420px) {
     .game-navigation {
         max-width: 380px;
         max-height: 140px;
