@@ -3,12 +3,14 @@ import { useAuth } from '../../hooks/useAuthentication';
 import { updateProfile as updateProfileAuth } from 'firebase/auth';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import GameStatus from '../GamesStatus/GamesStatus';
+import UserLevel from '../UserLevel/UserLevel';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
   const [newDisplayName, setNewDisplayName] = useState('');
   const [favoriteGames, setFavoriteGames] = useState([]);
   const [userAchievements, setUserAchievements] = useState({});
+  const [userPoints, setUserPoints] = useState(0);
 
   useEffect(() => {
     if (currentUser) {
@@ -96,6 +98,10 @@ const UserProfile = () => {
           <h1>Perfil do Usuário</h1>
           <p>Nome do Usuário: {currentUser.displayName}</p>
           <p>Email: {currentUser.email}</p>
+
+          <div>
+            <UserLevel userPoints={userPoints} />
+          </div>
 
           {/* Adiciona todas as conquistas do usuário automaticamente */}
           <div>
