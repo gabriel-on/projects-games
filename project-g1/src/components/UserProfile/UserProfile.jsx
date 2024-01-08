@@ -55,8 +55,13 @@ const UserProfile = () => {
         if (snapshot.exists()) {
           const data = snapshot.val();
           setUserAchievements(data);
+
+          // Somar os pontos das conquistas para calcular os pontos totais
+          const totalPoints = Object.values(data).reduce((acc, achievement) => acc + achievement.points, 0);
+          setUserPoints(totalPoints);
         } else {
           setUserAchievements({});
+          setUserPoints(0);
         }
       });
     } catch (error) {
