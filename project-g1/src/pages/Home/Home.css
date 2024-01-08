@@ -30,7 +30,7 @@
 }
 
 /* MOBILES */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 420px) {
   .container {
     display: flex;
     justify-content: center;
