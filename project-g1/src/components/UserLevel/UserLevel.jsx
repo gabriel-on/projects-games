@@ -20,7 +20,7 @@ const UserLevel = ({ userPoints }) => {
   return (
     <div>
       <p>Nível: {userLevel}</p>
-      <p>Faltam {pointsToNextLevel} Pontos para o próximo nível</p>
+      <p>Pontos para o próximo nível: {pointsToNextLevel}</p>
       {/* Você pode adicionar mais informações sobre o nível, se necessário */}
     </div>
   );
