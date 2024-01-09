@@ -89,7 +89,6 @@ const GameAnalysis = ({ gameId }) => {
             } else {
                 const analysisRef = ref(database, `gameAnalysis/${gameId}`);
                 const newAnalysisRef = push(analysisRef);
-                const analysisId = newAnalysisRef.key;
                 userAnalysisRef = newAnalysisRef;
             }
 
@@ -117,9 +116,10 @@ const GameAnalysis = ({ gameId }) => {
                             <div>
                                 <p>Sua Análise do Jogo:</p>
                                 <p>{userAnalysis.text}</p>
+                                <p>Data da Análise: {new Date(userAnalysis.timestamp).toLocaleString()}</p>
                             </div>
                         ) : (
-                            <p>Faça sua analise</p>
+                            <p>Faça sua análise</p>
                         )}
                     </div>
                 ) : (
@@ -151,6 +151,8 @@ const GameAnalysis = ({ gameId }) => {
                         {gameAnalysis.map((analysis) => (
                             <li key={analysis.timestamp}>
                                 {analysis.userName}: {analysis.text}
+                                <br />
+                                Data da Análise: {new Date(analysis.timestamp).toLocaleString()}
                             </li>
                         ))}
                     </ul>
