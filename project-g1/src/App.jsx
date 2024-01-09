@@ -124,7 +124,7 @@ function App() {
                   <Route path="/dashboard"
                     element={<Dashboard />} />
                   <Route path="/admin"
-                    element={<AdminPage />} />
+                    element={<AdminPage isAdmin={isAdmin} />} />
                   <Route path='/edit/:gameId'
                     element={<EditGame />} />
                   <Route path='/delete/:gameId'
