@@ -82,10 +82,8 @@ const UserProfile = () => {
       onValue(userRankingsRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          console.log('Data do Ranking:', data);
   
           const userRankingData = Object.entries(data).map(([userId, ranking]) => ({ userId, ...ranking }));
-          console.log('User Ranking Data:', userRankingData);
   
           const currentUserRanking = userRankingData.find((ranking) => ranking.userId === userId);
           setUserRanking(currentUserRanking || null);
@@ -137,7 +135,7 @@ const UserProfile = () => {
           {userRanking && (
             <div>
               <p>
-                Ranking: {userRanking.nome}
+                Ranking: <strong>{userRanking.nome}</strong>
               </p>
               <p>
                 Dificuldade: {userRanking.dificuldade}

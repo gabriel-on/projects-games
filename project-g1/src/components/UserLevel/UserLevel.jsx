@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const UserLevel = ({ userPoints, userAchievements }) => {
   const [userLevel, setUserLevel] = useState(1);
   const [pointsToNextLevel, setPointsToNextLevel] = useState(0);
-  const basePointsPerLevel = 40;
+  const basePointsPerLevel = 50;
   const difficultyFactor = 1; // Fator de dificuldade, ajuste conforme necessário
 
   useEffect(() => {
