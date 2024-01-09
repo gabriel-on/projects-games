@@ -11,7 +11,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, userName }) => {
             <div className="backdrop" onClick={onClose}></div>
             <div className="modal">
                 <div className="modal-content">
-                    <p>{`Deseja realmente excluir o usuário ${userName}?`}</p>
+                    <p>Deseja realmente excluir o usuário, <span className='red-user'>{userName}</span>?</p>
                     <button onClick={onConfirm}>Sim</button>
                     <button onClick={onClose}>Não</button>
                 </div>

@@ -30,3 +30,7 @@
     text-align: center;
   }
   
+  .red-user {
+    color: red;
+    font-weight: bold;
+}
