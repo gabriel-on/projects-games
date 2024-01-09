@@ -5,6 +5,9 @@ import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
 import GameStatus from '../../components/GamesStatus/GamesStatus';
+import '../../components/UserProfile/UserProfile.css'
+
+import defaultProfileImage from '../../img/perfil.png'; // Substitua pelo caminho real da imagem de perfil padrão
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -78,13 +81,13 @@ const UserProfile = () => {
     try {
       const db = getDatabase();
       const userRankingsRef = ref(db, 'userRankings');
-  
+
       onValue(userRankingsRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-  
+
           const userRankingData = Object.entries(data).map(([userId, ranking]) => ({ userId, ...ranking }));
-  
+
           const currentUserRanking = userRankingData.find((ranking) => ranking.userId === userId);
           setUserRanking(currentUserRanking || null);
         } else {
@@ -94,7 +97,7 @@ const UserProfile = () => {
     } catch (error) {
       console.error('Erro ao carregar ranking do usuário:', error.message);
     }
-  };  
+  };
 
   const handleDisplayNameChange = (e) => {
     setNewDisplayName(e.target.value);
@@ -127,6 +130,12 @@ const UserProfile = () => {
       {error && <p>{error}</p>}
       {currentUser && (
         <div>
+          <div className='standard-profile'>
+            <img
+              src={currentUser.photoURL || defaultProfileImage}
+              alt="Foto de Perfil"
+            />
+          </div>
           <h1>Perfil do Usuário</h1>
           <p>Nome do Usuário: {currentUser.displayName}</p>
           <p>Email: {currentUser.email}</p>
