@@ -1,10 +1,9 @@
-// Pagination.jsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const getPageNumbers = () => {
         const pageNumbers = [];
-        const MAX_PAGES_DISPLAYED = 5; // Número máximo de páginas exibidas
+        const MAX_PAGES_DISPLAYED = 5;
 
         let startPage = Math.max(1, currentPage - Math.floor(MAX_PAGES_DISPLAYED / 2));
         let endPage = Math.min(totalPages, startPage + MAX_PAGES_DISPLAYED - 1);
@@ -19,6 +18,23 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
         return pageNumbers;
     };
+
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        // Recuperar a página atual do localStorage ao montar o componente
+        const storedPage = localStorage.getItem('currentPage');
+        if (storedPage && isMounted.current) {
+            onPageChange(parseInt(storedPage));
+            console.log('Página atual recuperada do localStorage:', storedPage);
+            isMounted.current = false; // Defina para falso após a primeira execução
+        }
+    }, [onPageChange]);
+
+    // Efeito para armazenar a página atual no localStorage sempre que ela for alterada
+    useEffect(() => {
+        localStorage.setItem('currentPage', currentPage);
+    }, [currentPage]);
 
     return (
         <div>

@@ -53,6 +53,21 @@ const LatestAdded = () => {
     fetchGamesData();
   }, [sortBy]);
 
+  useEffect(() => {
+    // Recuperar a página atual do localStorage ao montar o componente
+    const storedPage = localStorage.getItem('currentPageLatestAdded');
+    if (storedPage) {
+      setCurrentPage(parseInt(storedPage));
+      console.log('Página atual recuperada do localStorage:', storedPage);
+    }
+  }, []);
+  
+  useEffect(() => {
+    // Armazenar a página atual no localStorage
+    localStorage.setItem('currentPageLatestAdded', currentPage.toString());
+    console.log('Página atual armazenada no localStorage:', currentPage);
+  }, [currentPage]);
+  
   const totalPages = Math.ceil(games.length / PAGE_SIZE);
 
   const handlePageChange = (page) => {
