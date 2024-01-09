@@ -132,21 +132,25 @@ const UserProfile = () => {
           <p>Email: {currentUser.email}</p>
 
           {/* Exibir o ranking do usuário */}
-          {userRanking && (
-            <div>
-              <p>
-                Ranking: <strong>{userRanking.nome}</strong>
-              </p>
-              <p>
-                Dificuldade: {userRanking.dificuldade}
-              </p>
-              <p>
-                Porcentagem: {userRanking.porcentagem}%
-              </p>
-            </div>
-          )}
+          <div>
+            <h2>Ranking</h2>
+            {userRanking && (
+              <div>
+                <p>
+                  Ranking: <strong>{userRanking.nome}</strong>
+                </p>
+                <p>
+                  Dificuldade: {userRanking.dificuldade}
+                </p>
+                <p>
+                  Porcentagem: {userRanking.porcentagem}%
+                </p>
+              </div>
+            )}
+          </div>
 
           <div>
+            <h2>Nível</h2>
             <UserLevel userPoints={userPoints} userAchievements={userAchievements} />
           </div>
 
