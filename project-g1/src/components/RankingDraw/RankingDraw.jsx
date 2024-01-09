@@ -10,7 +10,7 @@ const RankingDraw = ({ userId }) => {
         { nome: 'E', dificuldade: 'Extremamente Fácil', porcentagem: 25 },
     ];
 
-    const totalTentativas = 1;
+    const totalTentativas = 3;
     const tempoPreSorteioSegundos = 10;
 
     const [resultado, setResultado] = useState(null);
@@ -32,14 +32,6 @@ const RankingDraw = ({ userId }) => {
             clearInterval(timerPreSorteio);
         };
     }, [sorteioRealizado, tempoPreSorteio]);
-
-    const formatarTempo = (segundos) => {
-        const horas = Math.floor(segundos / 3600);
-        const minutos = Math.floor((segundos % 3600) / 60);
-        const segundosRestantes = segundos % 60;
-
-        return `${horas}h ${minutos}m ${segundosRestantes}s`;
-    };
 
     const sortear = () => {
         if (tentativas <= 0 || rankingConfirmado) {
@@ -73,8 +65,8 @@ const RankingDraw = ({ userId }) => {
     const confirmarRanking = async () => {
         if (resultado) {
             const database = getDatabase();
-            const userRankingRef = ref(database, `users/${userId}/ranking`);
-
+            const userRankingRef = ref(database, `userRankings/${userId}`);
+    
             try {
                 await set(userRankingRef, resultado);
                 console.log('Ranking confirmado e salvo no banco de dados.');
@@ -85,14 +77,14 @@ const RankingDraw = ({ userId }) => {
         } else {
             alert('Você precisa sortear um ranking antes de confirmar.');
         }
-    };
+    };    
 
     return (
         <div>
             <h1>Descubra Seu Ranking</h1>
             {!sorteioRealizado && tempoPreSorteio > 0 && (
                 <div>
-                    <p>Contagem regressiva antes do sorteio: {formatarTempo(tempoPreSorteio)}</p>
+                    <p>Contagem regressiva antes do sorteio: {tempoPreSorteio} segundos</p>
                 </div>
             )}
 

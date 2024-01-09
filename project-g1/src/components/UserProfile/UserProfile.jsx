@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfile as updateProfileAuth } from 'firebase/auth';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, orderByChild, equalTo } from 'firebase/database';
 import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
-import GameStatus from '../../components/GamesStatus/GamesStatus'
+import GameStatus from '../../components/GamesStatus/GamesStatus';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
   const [newDisplayName, setNewDisplayName] = useState('');
   const [favoriteGames, setFavoriteGames] = useState([]);
-
   const [userPoints, setUserPoints] = useState(0);
   const [userAchievements, setUserAchievements] = useState([]);
+  const [userRanking, setUserRanking] = useState(null);
 
   useEffect(() => {
     if (currentUser) {
       loadFavoriteGames(currentUser.uid);
       loadUserAchievements(currentUser.uid);
+      loadUserRanking(currentUser.uid);
     }
   }, [currentUser]);
 
@@ -65,7 +66,6 @@ const UserProfile = () => {
           achievementsData[achievement.key] = achievementData;
         });
 
-        // Atualizar os pontos e as conquistas do usuário
         setUserPoints(totalPoints);
         setUserAchievements(achievementsData);
       });
@@ -73,6 +73,30 @@ const UserProfile = () => {
       console.error('Erro ao carregar conquistas do usuário:', error.message);
     }
   };
+
+  const loadUserRanking = (userId) => {
+    try {
+      const db = getDatabase();
+      const userRankingsRef = ref(db, 'userRankings');
+  
+      onValue(userRankingsRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          console.log('Data do Ranking:', data);
+  
+          const userRankingData = Object.entries(data).map(([userId, ranking]) => ({ userId, ...ranking }));
+          console.log('User Ranking Data:', userRankingData);
+  
+          const currentUserRanking = userRankingData.find((ranking) => ranking.userId === userId);
+          setUserRanking(currentUserRanking || null);
+        } else {
+          setUserRanking(null);
+        }
+      });
+    } catch (error) {
+      console.error('Erro ao carregar ranking do usuário:', error.message);
+    }
+  };  
 
   const handleDisplayNameChange = (e) => {
     setNewDisplayName(e.target.value);
@@ -109,11 +133,25 @@ const UserProfile = () => {
           <p>Nome do Usuário: {currentUser.displayName}</p>
           <p>Email: {currentUser.email}</p>
 
+          {/* Exibir o ranking do usuário */}
+          {userRanking && (
+            <div>
+              <p>
+                Ranking: {userRanking.nome}
+              </p>
+              <p>
+                Dificuldade: {userRanking.dificuldade}
+              </p>
+              <p>
+                Porcentagem: {userRanking.porcentagem}%
+              </p>
+            </div>
+          )}
+
           <div>
             <UserLevel userPoints={userPoints} userAchievements={userAchievements} />
           </div>
 
-          {/* Adiciona o componente UserAchievementsList para exibir as conquistas resgatadas */}
           <UserAchievementsList userId={currentUser.uid} />
 
           {/* Lista de jogos favoritos */}
