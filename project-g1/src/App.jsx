@@ -35,6 +35,7 @@ import GamesMoreInteractions from './components/PopularGamesList/PopularGamesLis
 import JogoDaVelha from './components/JogoDaVelha/JogoDaVelha.jsx';
 import Leaderboard from './components/Leaderboard/Leaderboard.jsx';
 import FirstVisitAchievement from './components/Achievements/FirstVisitAchievement.jsx';
+import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -76,8 +77,11 @@ function App() {
   }, [auth]);
 
   const isAdmin = user && user.isAdmin;
+  const userId = user ? user.uid : null; // Adicione esta linha
 
   console.log('isAdmin:', isAdmin);
+
+  const rankings = ['S', 'A', 'B', 'C', 'E'];
 
   return (
     <div className='App'>
@@ -99,6 +103,8 @@ function App() {
               <Route path='/search' element={<SearchBar />} />
 
               <Route path='/all-games' element={<AllGames />} />
+
+              <Route path='/rank' element={<RankingDraw rankings={rankings} userId={userId} />} />
 
               <Route path='/latest-added' element={<LatestAdded />} />
 
