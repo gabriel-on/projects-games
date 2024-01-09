@@ -14,9 +14,46 @@ const GameAnalysis = ({ gameId }) => {
   const [userAnalysis, setUserAnalysis] = useState(null);
   const [gameAnalysis, setGameAnalysis] = useState([]);
   const [gameData, setGameData] = useState(null);
+  const [isTextEdited, setIsTextEdited] = useState(false);
   const database = getDatabase();
   const auth = getAuth();
   const [user, setUser] = useState(null);
+
+  // Função fetchGameData movida para fora do useEffect
+  const fetchGameData = async () => {
+    try {
+      const gameRef = ref(database, `games/${gameId}`);
+      const snapshot = await get(gameRef);
+
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        setGameData(data);
+
+        const analysisRef = ref(database, `gameAnalysis/${gameId}`);
+        const analysisSnapshot = await get(analysisRef);
+
+        if (analysisSnapshot.exists()) {
+          const analysisData = analysisSnapshot.val();
+          const analysisArray = Object.values(analysisData);
+          setGameAnalysis(analysisArray);
+
+          // Encontrar a análise do usuário atual, se existir
+          const currentUser = auth.currentUser;
+          if (currentUser) {
+            const currentUserAnalysis = analysisArray.find((analysis) => analysis.userId === currentUser.uid);
+            setUserAnalysis(currentUserAnalysis || null);
+            setAnalysis(currentUserAnalysis ? currentUserAnalysis.text : '');
+          }
+        } else {
+          setGameAnalysis([]);
+        }
+      } else {
+        console.log(`Jogo com ID ${gameId} não encontrado.`);
+      }
+    } catch (error) {
+      console.error('Erro ao obter dados do Firebase:', error);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (authUser) => {
@@ -33,41 +70,6 @@ const GameAnalysis = ({ gameId }) => {
   }, [auth]);
 
   useEffect(() => {
-    const fetchGameData = async () => {
-      try {
-        const gameRef = ref(database, `games/${gameId}`);
-        const snapshot = await get(gameRef);
-
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          setGameData(data);
-
-          const analysisRef = ref(database, `gameAnalysis/${gameId}`);
-          const analysisSnapshot = await get(analysisRef);
-
-          if (analysisSnapshot.exists()) {
-            const analysisData = analysisSnapshot.val();
-            const analysisArray = Object.values(analysisData);
-            setGameAnalysis(analysisArray);
-
-            // Encontrar a análise do usuário atual, se existir
-            const currentUser = auth.currentUser;
-            if (currentUser) {
-              const currentUserAnalysis = analysisArray.find((analysis) => analysis.userId === currentUser.uid);
-              setUserAnalysis(currentUserAnalysis || null);
-              setAnalysis(currentUserAnalysis ? currentUserAnalysis.text : '');
-            }
-          } else {
-            setGameAnalysis([]);
-          }
-        } else {
-          console.log(`Jogo com ID ${gameId} não encontrado.`);
-        }
-      } catch (error) {
-        console.error('Erro ao obter dados do Firebase:', error);
-      }
-    };
-
     fetchGameData();
   }, [gameId, database, user]);
 
@@ -97,9 +99,50 @@ const GameAnalysis = ({ gameId }) => {
   };
 
   const handleAnalysisSubmit = async () => {
-    // Código existente de envio de análise
+    if (analysis.trim() === '') {
+      alert('A análise não pode estar vazia.');
+      return;
+    }
 
-    setIsAnalysisSubmitted(true);
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      alert('Usuário não autenticado. Faça login para enviar uma análise.');
+      return;
+    }
+
+    try {
+      const displayName = currentUser.displayName || 'Usuário Anônimo';
+
+      let userAnalysisRef;
+
+      // Se o usuário já tiver uma análise, atualize-a, senão, crie uma nova
+      if (userAnalysis && userAnalysis.analysisId) {
+        userAnalysisRef = ref(database, `gameAnalysis/${gameId}/${userAnalysis.analysisId}`);
+      } else {
+        const analysisRef = ref(database, `gameAnalysis/${gameId}`);
+        const newAnalysisRef = push(analysisRef);
+        userAnalysisRef = newAnalysisRef;
+      }
+
+      await set(userAnalysisRef, {
+        text: analysis,
+        timestamp: Date.now(),
+        userName: displayName,
+        userId: currentUser.uid,
+        analysisId: userAnalysisRef.key,
+      });
+
+      console.log('Análise enviada com sucesso!');
+      setIsAnalysisSubmitted(true);
+      setIsTextEdited(false); // Resetar o estado de edição após o envio
+    } catch (error) {
+      console.error('Erro ao enviar análise:', error);
+    }
+  };
+
+  const handleAnalysisChange = (e) => {
+    setAnalysis(e.target.value);
+    setIsTextEdited(true); // Marcar como editado quando o texto é alterado
   };
 
   return (
@@ -128,12 +171,14 @@ const GameAnalysis = ({ gameId }) => {
       <div>
         <textarea
           value={analysis}
-          onChange={(e) => setAnalysis(e.target.value)}
+          onChange={handleAnalysisChange}
           placeholder="Digite sua análise aqui..."
           maxLength={500} // Defina o limite de caracteres desejado
         />
         <p>Caracteres restantes: {500 - analysis.length}</p>
-        <button onClick={handleAnalysisSubmit}>Enviar/Editar Análise</button>
+        <button onClick={handleAnalysisSubmit} disabled={!isTextEdited}>
+          Enviar/Editar Análise
+        </button>
       </div>
 
       {isAnalysisSubmitted && (
@@ -152,11 +197,6 @@ const GameAnalysis = ({ gameId }) => {
               <li key={analysis.timestamp}>
                 <p>{analysis.userName}: {analysis.text}</p>
                 <span>Data da Análise: {new Date(analysis.timestamp).toLocaleString()}</span>
-                {user && user.uid === analysis.userId && (
-                  <button onClick={() => handleDeleteAnalysis(analysis.analysisId)}>
-                    Excluir Análise
-                  </button>
-                )}
               </li>
             ))}
           </ul>
