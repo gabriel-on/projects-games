@@ -10,7 +10,7 @@ const RankingDraw = ({ userId }) => {
         { nome: 'E', dificuldade: 'Extremamente Fácil', porcentagem: 25 },
     ];
 
-    const totalTentativas = 3;
+    const totalTentativas = 1;
     const tempoPreSorteioSegundos = 10;
 
     const [resultado, setResultado] = useState(null);
@@ -32,6 +32,14 @@ const RankingDraw = ({ userId }) => {
             clearInterval(timerPreSorteio);
         };
     }, [sorteioRealizado, tempoPreSorteio]);
+
+    const formatarTempo = (segundos) => {
+        const horas = Math.floor(segundos / 3600);
+        const minutos = Math.floor((segundos % 3600) / 60);
+        const segundosRestantes = segundos % 60;
+
+        return `${horas}h ${minutos}m ${segundosRestantes}s`;
+    };
 
     const sortear = () => {
         if (tentativas <= 0 || rankingConfirmado) {
@@ -84,7 +92,7 @@ const RankingDraw = ({ userId }) => {
             <h1>Descubra Seu Ranking</h1>
             {!sorteioRealizado && tempoPreSorteio > 0 && (
                 <div>
-                    <p>Contagem regressiva antes do sorteio: {tempoPreSorteio} segundos</p>
+                    <p>Contagem regressiva antes do sorteio: {formatarTempo(tempoPreSorteio)}</p>
                 </div>
             )}
 
