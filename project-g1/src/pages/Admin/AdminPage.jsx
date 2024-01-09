@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.js';
 import { getDatabase, ref, get, remove } from 'firebase/database';
-import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal.jsx';
+import ConfirmationModal from '../../components/ConfirmModal/ConfirmationModal.jsx';
 
 const AdminPage = ({ isAdmin }) => {
   const [users, setUsers] = useState([]);

@@ -81,7 +81,7 @@ function App() {
 
   console.log('isAdmin:', isAdmin);
 
-  const rankings = ['S', 'A', 'B', 'C', 'E'];
+  const rankings = ['S', 'A', 'B', 'C', 'D', 'E'];
 
   return (
     <div className='App'>

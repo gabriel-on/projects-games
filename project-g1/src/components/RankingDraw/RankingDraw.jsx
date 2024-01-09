@@ -7,7 +7,8 @@ const RankingDraw = ({ userId }) => {
         { nome: 'A', dificuldade: 'Moderado', porcentagem: 10 },
         { nome: 'B', dificuldade: 'Fácil', porcentagem: 15 },
         { nome: 'C', dificuldade: 'Muito Fácil', porcentagem: 20 },
-        { nome: 'E', dificuldade: 'Extremamente Fácil', porcentagem: 25 },
+        { nome: 'D', dificuldade: 'Extremamente Fácil', porcentagem: 25 },
+        { nome: 'E', dificuldade: 'Ultra Fácil', porcentagem: 30 },
     ];
 
     const totalTentativas = 3;
