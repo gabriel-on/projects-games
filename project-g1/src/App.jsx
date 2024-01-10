@@ -39,6 +39,7 @@ import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
+  const [userLevel, setUserLevel] = useState(1);
   const { auth } = useAuth();
 
   const loadingUser = user === undefined;
@@ -115,7 +116,7 @@ function App() {
 
               <Route path="/game-v" element={<JogoDaVelha />} />
 
-              <Route path="/leaderboard" element={<Leaderboard />} />
+              <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} />} />
 
               {isAdmin && (
                 <>

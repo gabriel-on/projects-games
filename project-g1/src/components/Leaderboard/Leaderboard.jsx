@@ -1,53 +1,58 @@
-// Leaderboard.js
-import React, { useEffect, useState } from 'react';
-import { ref, get } from 'firebase/database';
-import database from '../../firebase/firebase';
+import React, { useState, useEffect } from 'react';
+import { getDatabase, ref, get } from 'firebase/database';
+import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
+import UserLevelAllUsers from '../UserLevel/UserLevelAllUsers';
 
 const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState([]);
+  const [userAchievements, setUserAchievements] = useState({});
 
   useEffect(() => {
-    const leaderboardRef = ref(database, 'leaderboard');
-
     const fetchData = async () => {
+      const database = getDatabase();
+      const usersRef = ref(database, 'users');
+
       try {
-        const snapshot = await get(leaderboardRef);
+        const snapshot = await get(usersRef);
+
         if (snapshot.exists()) {
-          const data = snapshot.val();
-          const sortedLeaderboard = Object.entries(data)
-            .sort((a, b) => b[1].score - a[1].score)
-            .map(([userId, userInfo]) => ({ userId, ...userInfo }));
-          setLeaderboard(sortedLeaderboard);
+          const usersData = Object.entries(snapshot.val()).map(([userId, userData]) => ({
+            userId,
+            userName: userData.displayName,
+            score: userData.score,
+          }));
+
+          usersData.sort((a, b) => b.score - a.score);
+          setLeaderboard(usersData);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching users data:', error);
       }
     };
 
     fetchData();
   }, []);
 
+  const handleAchievementsLoaded = (achievements, userId) => {
+    setUserAchievements((prevUserAchievements) => ({
+      ...prevUserAchievements,
+      [userId]: achievements,
+    }));
+  };
+
   return (
     <div>
       <h2>Leaderboard</h2>
       <table>
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>User</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leaderboard.map((user, index) => (
-            <tr key={user.userId}>
-              <td>{index + 1}</td>
-              <td>{user.userName}</td>
-              <td>{user.score}</td>
-            </tr>
-          ))}
-        </tbody>
+        {/* ... Restante do código do leaderboard */}
       </table>
+      {/* Adicione UserAchievementsList e UserLevelAllUsers para cada usuário no leaderboard */}
+      {leaderboard.map((user) => (
+        <div key={user.userId}>
+          <UserAchievementsList userId={user.userId} onAchievementsLoaded={(achievements) => handleAchievementsLoaded(achievements, user.userId)} />
+          <UserLevelAllUsers userAchievements={userAchievements[user.userId] || []} />
+        </div>
+      ))}
     </div>
   );
 };
