@@ -110,14 +110,17 @@ const UserProfile = () => {
         return;
       }
       const newLevel = calculateUserLevel(totalPoints);
-      if (newLevel !== userLevel) {
+      if (newLevel !== currentUser.level) {
         // Atualiza o nível no banco de dados
         const db = getDatabase();
         const userRef = ref(db, `users/${currentUser.uid}`);
-        await set(userRef, { ...currentUser, level: newLevel }); // Supondo que 'users' seja a coleção de usuários no seu banco de dados
+        await set(userRef, { ...currentUser, level: newLevel });
 
         // Atualiza o estado local com o novo nível
-        setUserLevel(newLevel);
+        setCurrentUser({
+          ...currentUser,
+          level: newLevel,
+        });
       }
 
       const shouldUpdateName = window.confirm(`Deseja atualizar o nome para "${newDisplayName}"?`);

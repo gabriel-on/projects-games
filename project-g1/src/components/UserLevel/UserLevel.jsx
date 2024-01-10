@@ -14,8 +14,8 @@ const UserLevel = ({ userPoints, userAchievements, userId }) => {
     );
 
     const totalUserPoints = typeof userPoints === 'number' && !isNaN(userPoints) ? userPoints : 0;
-    const adjustedPointsPerLevel = basePointsPerLevel * difficultyFactor;
 
+    const adjustedPointsPerLevel = basePointsPerLevel * difficultyFactor;
     const totalPoints = totalUserPoints + achievementsPoints;
 
     if (!isNaN(totalPoints) && totalPoints >= 0) {
@@ -25,23 +25,19 @@ const UserLevel = ({ userPoints, userAchievements, userId }) => {
       const pointsToNext = adjustedPointsPerLevel - (totalPoints % adjustedPointsPerLevel);
       setPointsToNextLevel(pointsToNext);
 
-      // Salva o novo nível no banco de dados com o ID do usuário
+      // Salva o nível do usuário no Firebase Realtime Database
       const db = getDatabase();
       const userLevelRef = ref(db, `usersLevel/${userId}/level`);
       set(userLevelRef, newLevel);
     } else {
       console.error('Pontos inválidos:', totalPoints);
     }
-  }, [userPoints, userAchievements, userId]);
+  }, [userPoints, userAchievements, difficultyFactor, userId]);
 
   return (
     <div>
       <p>Nível: {userLevel}</p>
-      {pointsToNextLevel > 0 ? (
-        <p>Faltam {pointsToNextLevel} Pontos para o próximo nível</p>
-      ) : (
-        <p>Parabéns! Você atingiu o nível máximo.</p>
-      )}
+      <p>Faltam {pointsToNextLevel} Pontos para o próximo nível</p>
     </div>
   );
 };
