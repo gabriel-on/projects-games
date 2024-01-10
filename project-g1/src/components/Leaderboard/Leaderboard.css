@@ -1,0 +1,21 @@
+.info-users {
+    flex-direction: column;
+    background: #d1d1d1;
+    gap: 20px;
+}
+
+.info-users tr td {
+    padding: 10px;
+}
+
+.info-users tr:nth-child(1) {
+    background: #ffc107;
+}
+
+.info-users tr:nth-child(2) {
+    background: #007bff;
+}
+
+.info-users tr:nth-child(3) {
+    background: #28a745;
+}

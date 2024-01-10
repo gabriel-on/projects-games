@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
+import '../Leaderboard/Leaderboard.css';
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
@@ -26,10 +27,23 @@ const Leaderboard = () => {
           const usersLevelRef = ref(database, 'usersLevel');
           const usersLevelSnapshot = await get(usersLevelRef);
 
-          if (usersLevelSnapshot.exists()) {
+          // Fetch data from userRankings
+          const userRankingsRef = ref(database, 'userRankings');
+          const userRankingsSnapshot = await get(userRankingsRef);
+
+          if (usersLevelSnapshot.exists() && userRankingsSnapshot.exists()) {
             const mergedData = usersData.map(user => {
               const userLevelData = usersLevelSnapshot.val()[user.userId];
-              return { ...user, level: userLevelData ? userLevelData.level : null };
+              const userRankingsData = userRankingsSnapshot.val()[user.userId];
+
+              return {
+                ...user,
+                level: userLevelData ? userLevelData.level : null,
+                ranking: userRankingsData ? userRankingsData.ranking : null,
+                difficulty: userRankingsData ? userRankingsData.dificuldade : null,
+                name: userRankingsData ? userRankingsData.nome : null,
+                percentage: userRankingsData ? userRankingsData.porcentagem : null,
+              };
             });
 
             // Sort users by level in descending order
@@ -56,14 +70,20 @@ const Leaderboard = () => {
             <th>Position</th>
             <th>Name</th>
             <th>Level</th>
+            <th>Ranking</th>
+            <th>Difficulty</th>
+            <th>Percentage</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='info-users'>
           {users.map((user, index) => (
-            <tr key={user.userId}>
+            <tr key={user.userId} className={index < 3 ? `highlight-${index + 1}` : ''}>
               <td>{index + 1}</td>
               <td>{user.displayName}</td>
               <td>{user.level}</td>
+              <td>{user.name}</td>
+              <td>{user.difficulty}</td>
+              <td>{user.percentage}</td>
             </tr>
           ))}
         </tbody>
