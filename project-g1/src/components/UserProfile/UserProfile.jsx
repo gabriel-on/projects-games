@@ -134,8 +134,6 @@ const UserProfile = () => {
     }
   };
 
-  const userId = '';
-
   return (
     <div className='profile-container'>
       {loading && <p>Carregando...</p>}
@@ -152,6 +150,7 @@ const UserProfile = () => {
             <h1>Perfil do Usuário</h1>
             <p>Nome do Usuário: {currentUser.displayName}</p>
             <p>Email: {currentUser.email}</p>
+
             {/* Exibir o ranking do usuário */}
             <div>
               <h2>Ranking</h2>
@@ -171,7 +170,10 @@ const UserProfile = () => {
             </div>
             <div>
               <h2>Nível</h2>
-              <UserLevel userPoints={userPoints} userAchievements={userAchievements} userId={currentUser.uid} />
+              <UserLevel
+                userPoints={userPoints}
+                userAchievements={userAchievements}
+                userId={currentUser.uid} />
             </div>
             <UserAchievementsList userId={currentUser.uid} />
           </div>
