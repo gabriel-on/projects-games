@@ -162,7 +162,7 @@ const UserProfile = () => {
   return (
     <div className='profile-container'>
       {loading && <p>Carregando...</p>}
-      {!currentUser && navigate('/')} 
+      {!currentUser && navigate('/')}
       {error && <p>{error}</p>}
       {user && (
         <div className='profile-content'>
@@ -220,14 +220,14 @@ const UserProfile = () => {
             )}
           </div>
 
-          <button onClick={() => setPublicView(!publicView)}>
-            {publicView ? 'Ver Perfil Privado' : 'Ver Perfil Público'}
-          </button>
 
           {/* Outras informações do usuário */}
           {currentUser.uid === userId ? (
             // Modo de visualização privada para o próprio usuário
             <div>
+              <button onClick={() => setPublicView(!publicView)}>
+                {publicView ? 'Ver Perfil Privado' : 'Ver Perfil Público'}
+              </button>
               <p>Email: {user.email}</p>
               <label htmlFor="newDisplayName">Novo Nome:</label>
               <input
