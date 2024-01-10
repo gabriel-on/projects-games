@@ -1,6 +1,6 @@
 // Leaderboard.js
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
 import '../Leaderboard/Leaderboard.css';
 
@@ -72,7 +72,7 @@ const Leaderboard = () => {
             <th>Level</th>
             <th>Ranking</th>
             <th>Difficulty</th>
-            <th>Percentage</th>
+            {/* <th>Percentage</th> */}
           </tr>
         </thead>
         <tbody className='info-users'>
@@ -83,7 +83,7 @@ const Leaderboard = () => {
               <td>{user.level}</td>
               <td>{user.name}</td>
               <td>{user.difficulty}</td>
-              <td>{user.percentage}</td>
+              {/* <td>{user.percentage}</td> */}
             </tr>
           ))}
         </tbody>
