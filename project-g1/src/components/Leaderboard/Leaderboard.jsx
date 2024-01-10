@@ -1,29 +1,42 @@
+// Leaderboard.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
-import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
-import UserLevelAllUsers from '../UserLevel/UserLevelAllUsers';
 
 const Leaderboard = () => {
-  const [leaderboard, setLeaderboard] = useState([]);
-  const [userAchievements, setUserAchievements] = useState({});
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+  const database = getDatabase();
 
   useEffect(() => {
     const fetchData = async () => {
-      const database = getDatabase();
-      const usersRef = ref(database, 'users');
-
       try {
-        const snapshot = await get(usersRef);
+        const usersRef = ref(database, 'users');
+        const usersSnapshot = await get(usersRef);
 
-        if (snapshot.exists()) {
-          const usersData = Object.entries(snapshot.val()).map(([userId, userData]) => ({
-            userId,
-            userName: userData.displayName,
-            score: userData.score,
-          }));
+        if (usersSnapshot.exists()) {
+          const usersData = Object.entries(usersSnapshot.val()).map(
+            ([userId, userData]) => ({
+              userId,
+              displayName: userData.displayName,
+            })
+          );
 
-          usersData.sort((a, b) => b.score - a.score);
-          setLeaderboard(usersData);
+          // Fetch data from usersLevel
+          const usersLevelRef = ref(database, 'usersLevel');
+          const usersLevelSnapshot = await get(usersLevelRef);
+
+          if (usersLevelSnapshot.exists()) {
+            const mergedData = usersData.map(user => {
+              const userLevelData = usersLevelSnapshot.val()[user.userId];
+              return { ...user, level: userLevelData ? userLevelData.level : null };
+            });
+
+            // Sort users by level in descending order
+            mergedData.sort((a, b) => (b.level || 0) - (a.level || 0));
+
+            setUsers(mergedData);
+          }
         }
       } catch (error) {
         console.error('Error fetching users data:', error);
@@ -31,28 +44,30 @@ const Leaderboard = () => {
     };
 
     fetchData();
-  }, []);
-
-  const handleAchievementsLoaded = (achievements, userId) => {
-    setUserAchievements((prevUserAchievements) => ({
-      ...prevUserAchievements,
-      [userId]: achievements,
-    }));
-  };
+  }, [database]);
 
   return (
     <div>
       <h2>Leaderboard</h2>
+
       <table>
-        {/* ... Restante do código do leaderboard */}
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Name</th>
+            <th>Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr key={user.userId}>
+              <td>{index + 1}</td>
+              <td>{user.displayName}</td>
+              <td>{user.level}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
-      {/* Adicione UserAchievementsList e UserLevelAllUsers para cada usuário no leaderboard */}
-      {leaderboard.map((user) => (
-        <div key={user.userId}>
-          <UserAchievementsList userId={user.userId} onAchievementsLoaded={(achievements) => handleAchievementsLoaded(achievements, user.userId)} />
-          <UserLevelAllUsers userAchievements={userAchievements[user.userId] || []} />
-        </div>
-      ))}
     </div>
   );
 };

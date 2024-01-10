@@ -32,11 +32,11 @@ const Navbar = () => {
             Game 1
           </NavLink>
         </li>
-        {/* <li>
+        <li>
           <NavLink to="/leaderboard">
             Ranking
           </NavLink>
-        </li> */}
+        </li>
         <li>
           <NavLink to="/" className={isActive => (isActive ? 'active' : '')}>
             Home

@@ -109,6 +109,16 @@ const UserProfile = () => {
         alert('Digite um novo nome antes de atualizar.');
         return;
       }
+      const newLevel = calculateUserLevel(totalPoints);
+      if (newLevel !== userLevel) {
+        // Atualiza o nível no banco de dados
+        const db = getDatabase();
+        const userRef = ref(db, `users/${currentUser.uid}`);
+        await set(userRef, { ...currentUser, level: newLevel }); // Supondo que 'users' seja a coleção de usuários no seu banco de dados
+
+        // Atualiza o estado local com o novo nível
+        setUserLevel(newLevel);
+      }
 
       const shouldUpdateName = window.confirm(`Deseja atualizar o nome para "${newDisplayName}"?`);
 
@@ -123,6 +133,8 @@ const UserProfile = () => {
       console.error('Erro ao atualizar o nome do usuário:', error.message);
     }
   };
+
+  const userId = '';
 
   return (
     <div className='profile-container'>
@@ -159,7 +171,7 @@ const UserProfile = () => {
             </div>
             <div>
               <h2>Nível</h2>
-              <UserLevel userPoints={userPoints} userAchievements={userAchievements} />
+              <UserLevel userPoints={userPoints} userAchievements={userAchievements} userId={currentUser.uid} />
             </div>
             <UserAchievementsList userId={currentUser.uid} />
           </div>
