@@ -89,7 +89,7 @@ a>h1 {
     list-style: none;
 }
 
-/*
+
 .navbar li>a {
     border-radius: 5px;
     background: purple;
@@ -98,6 +98,7 @@ a>h1 {
     color: white;
 }
 
+/*
 .navbar ul li>#md-dash-admin-1,
 #md-dash-admin-2 {
     padding: 8px;

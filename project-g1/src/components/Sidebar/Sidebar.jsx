@@ -1,34 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Sidebar.css';
+import '../Sidebar/Sidebar.css';
+import defaultProfileImage from '../../img/perfil.png';
 
 const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(isOpen);
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [isBackdropVisible, setBackdropVisible] = useState(false);
 
     const closeSidebar = () => {
-        setIsSidebarOpen(false);
+        setSidebarOpen(false);
+        setBackdropVisible(false);
     };
 
     useEffect(() => {
-        setIsSidebarOpen(isOpen);
-    }, [isOpen]);
-
-    useEffect(() => {
-        const handlePopState = () => {
-            closeSidebar();
-        };
-
-        window.addEventListener('popstate', handlePopState);
-
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
-        };
-    }, []);
+        // Lógica adicional, se necessário, quando o estado isSidebarOpen é alterado.
+    }, [isSidebarOpen]);
 
     return (
         <div>
-            {isSidebarOpen && <div className="backdrop-sidebar" onClick={closeSidebar}></div>}
+            <button
+                className='standard-profile-sidebar'
+                onClick={() => {
+                    setSidebarOpen(!isSidebarOpen);
+                    setBackdropVisible(!isBackdropVisible);
+                }}>
+                <div>
+                    {user && user.photoURL ? (
+                        <img
+                            src={user.photoURL}
+                            alt="Foto de Perfil"
+                        />
+                    ) : (
+                        <img
+                            src={defaultProfileImage}
+                            alt="Foto de Perfil Padrão"
+                        />
+                    )}
+                </div>
+            </button>
 
+            {isBackdropVisible && (
+                <div
+                    className="backdrop-sidebar"
+                    onClick={closeSidebar}
+                />
+            )}
             <div className={`sidebar ${isSidebarOpen ? 'show' : ''}`}>
                 <ul className="links_list">
                     <li>
