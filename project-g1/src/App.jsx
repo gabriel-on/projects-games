@@ -91,6 +91,7 @@ function App() {
         <BrowserRouter>
           <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
           <Navbar userId={userId}/>
+          {/* <Sidebar/> */}
           <div className='container-absolute'>
             <Routes>
               <Route path='/' element={<Home />} />

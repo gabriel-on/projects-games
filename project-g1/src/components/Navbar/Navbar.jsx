@@ -1,16 +1,31 @@
+
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuthentication';
 import { useAuthValue } from '../../context/AuthContext';
 import '../Navbar/Navbar.css';
+import Sidebar from '../Sidebar/Sidebar';
+import ToggleButton from '../Sidebar/ToggleButton';
 
-const Navbar = ({userId}) => {
+const Navbar = ({ userId }) => {
   const { logout } = useAuth();
   const { user } = useAuthValue();
 
   const isAdmin = user && user.isAdmin;
 
   const location = useLocation();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isBackdropVisible, setIsBackdropVisible] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prevIsOpen) => !prevIsOpen);
+    setIsBackdropVisible((prevIsOpen) => !prevIsOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+    setIsBackdropVisible(false);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -18,6 +33,7 @@ const Navbar = ({userId}) => {
 
   return (
     <nav className="navbar">
+      {/* {isBackdropVisible && <div className="backdrop-sidebar" onClick={closeSidebar}></div>} */}
       <NavLink to="/" className="brand">
         <h1>Logo</h1>
       </NavLink>
@@ -28,74 +44,11 @@ const Navbar = ({userId}) => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/" title='Em breve'>
-            Game 1
-          </NavLink>
+          <ToggleButton onClick={toggleSidebar} isOpen={isSidebarOpen} onToggle={setIsSidebarOpen} />
         </li>
         <li>
-          <NavLink to="/leaderboard">
-            Ranking
-          </NavLink>
+          <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen} />
         </li>
-        <li>
-          <NavLink to={`/profiles`}>
-            Usuarios
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/" className={isActive => (isActive ? 'active' : '')}>
-            Home
-          </NavLink>
-        </li>
-        {!user && (
-          <>
-            <li>
-              <NavLink to="/login" className={isActive => (isActive ? 'active' : '')}>
-                Entrar
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/register" className={isActive => (isActive ? 'active' : '')}>
-                Cadastrar
-              </NavLink>
-            </li>
-          </>
-        )}
-        <li>
-          <NavLink to="/about" className={isActive => (isActive ? 'active' : '')}>
-            Sobre
-          </NavLink>
-        </li>
-        {user && (
-          <>
-            <li>
-              <NavLink to={`/profile/${userId}`} className={isActive => (isActive ? 'active' : '')}>
-                Perfil
-              </NavLink>
-            </li>
-            <li>
-              {isAdmin && (
-                <NavLink to="/dashboard" className={isActive => (isActive ? 'active' : '')} id='md-dash-admin-1'>
-                  Dashboard
-                </NavLink>
-              )}
-            </li>
-            <li>
-              {isAdmin && (
-                <NavLink to="/admin" className={isActive => (isActive ? 'active' : '')} id='md-dash-admin-2'>
-                  Admin
-                </NavLink>
-              )}
-            </li>
-          </>
-        )}
-        {user && (
-          <li>
-            <NavLink to="/" onClick={logout}>
-              Sair
-            </NavLink>
-          </li>
-        )}
       </ul>
     </nav>
   );

@@ -81,14 +81,15 @@ a>h1 {
     color: purple;
     font-size: 2.5em;
 }
-
-.navbar ul {
+ .navbar > ul {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 20px;
     list-style: none;
 }
 
+/*
 .navbar li>a {
     border-radius: 5px;
     background: purple;
@@ -101,4 +102,4 @@ a>h1 {
 #md-dash-admin-2 {
     padding: 8px;
     background: red;
-}
+} */
