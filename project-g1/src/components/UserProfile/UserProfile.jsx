@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfile as updateProfileAuth } from 'firebase/auth';
-import { getDatabase, ref, onValue, orderByChild, equalTo } from 'firebase/database';
+import { getDatabase, ref, onValue } from 'firebase/database';
 import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
 import GameStatus from '../../components/GamesStatus/GamesStatus';
 import '../../components/UserProfile/UserProfile.css'
 
-import defaultProfileImage from '../../img/perfil.png'; // Substitua pelo caminho real da imagem de perfil padrão
+import defaultProfileImage from '../../img/perfil.png';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -125,60 +125,61 @@ const UserProfile = () => {
   };
 
   return (
-    <div>
+    <div className='profile-container'>
       {loading && <p>Carregando...</p>}
       {error && <p>{error}</p>}
       {currentUser && (
-        <div>
-          <div className='standard-profile'>
-            <img
-              src={currentUser.photoURL || defaultProfileImage}
-              alt="Foto de Perfil"
-            />
-          </div>
-          <h1>Perfil do Usuário</h1>
-          <p>Nome do Usuário: {currentUser.displayName}</p>
-          <p>Email: {currentUser.email}</p>
-
-          {/* Exibir o ranking do usuário */}
+        <div className='profile-content'>
           <div>
-            <h2>Ranking</h2>
-            {userRanking && (
+            <div className='standard-profile'>
+              <img
+                src={currentUser.photoURL || defaultProfileImage}
+                alt="Foto de Perfil"
+              />
+            </div>
+            <h1>Perfil do Usuário</h1>
+            <p>Nome do Usuário: {currentUser.displayName}</p>
+            <p>Email: {currentUser.email}</p>
+            {/* Exibir o ranking do usuário */}
+            <div>
+              <h2>Ranking</h2>
+              {userRanking && (
+                <div>
+                  <p>
+                    Ranking: <strong>{userRanking.nome}</strong>
+                  </p>
+                  <p>
+                    Dificuldade: {userRanking.dificuldade}
+                  </p>
+                  <p>
+                    Porcentagem: {userRanking.porcentagem}%
+                  </p>
+                </div>
+              )}
+            </div>
+            <div>
+              <h2>Nível</h2>
+              <UserLevel userPoints={userPoints} userAchievements={userAchievements} />
+            </div>
+            <UserAchievementsList userId={currentUser.uid} />
+          </div>
+
+          {/* Lista de jogos favoritos */}
+          <div className='favorites-container'>
+            {favoriteGames.length > 0 && (
               <div>
-                <p>
-                  Ranking: <strong>{userRanking.nome}</strong>
-                </p>
-                <p>
-                  Dificuldade: {userRanking.dificuldade}
-                </p>
-                <p>
-                  Porcentagem: {userRanking.porcentagem}%
-                </p>
+                <h2>Jogos Favoritos:</h2>
+                <ul>
+                  {favoriteGames.map((game) => (
+                    <li key={game.id}>
+                      {game.title}
+                      <GameStatus gameId={game.id} />
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
-
-          <div>
-            <h2>Nível</h2>
-            <UserLevel userPoints={userPoints} userAchievements={userAchievements} />
-          </div>
-
-          <UserAchievementsList userId={currentUser.uid} />
-
-          {/* Lista de jogos favoritos */}
-          {favoriteGames.length > 0 && (
-            <div>
-              <h2>Jogos Favoritos:</h2>
-              <ul>
-                {favoriteGames.map((game) => (
-                  <li key={game.id}>
-                    {game.title}
-                    <GameStatus gameId={game.id} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           {/* Outras informações do usuário */}
           <div>
