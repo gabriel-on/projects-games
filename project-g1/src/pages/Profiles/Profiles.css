@@ -1,0 +1,9 @@
+.info-users-all {
+    flex-direction: column;
+    background: #d1d1d1;
+    gap: 20px;
+}
+
+.info-users-all tr td {
+    padding: 10px;
+}

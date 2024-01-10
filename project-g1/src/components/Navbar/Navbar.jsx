@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/useAuthentication';
 import { useAuthValue } from '../../context/AuthContext';
 import '../Navbar/Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({userId}) => {
   const { logout } = useAuth();
   const { user } = useAuthValue();
 
@@ -38,6 +38,11 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
+          <NavLink to={`/profiles`}>
+            Usuarios
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/" className={isActive => (isActive ? 'active' : '')}>
             Home
           </NavLink>
@@ -64,7 +69,7 @@ const Navbar = () => {
         {user && (
           <>
             <li>
-              <NavLink to="/profile" className={isActive => (isActive ? 'active' : '')}>
+              <NavLink to={`/profile/${userId}`} className={isActive => (isActive ? 'active' : '')}>
                 Perfil
               </NavLink>
             </li>

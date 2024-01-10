@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
-import '../Leaderboard/Leaderboard.css';
+import '../Profiles/Profiles.css'
 
-const Leaderboard = () => {
+const Profiles = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const database = getDatabase();
@@ -46,9 +46,6 @@ const Leaderboard = () => {
               };
             });
 
-            // Sort users by level in descending order
-            mergedData.sort((a, b) => (b.level || 0) - (a.level || 0));
-
             setUsers(mergedData);
           }
         }
@@ -62,23 +59,19 @@ const Leaderboard = () => {
 
   return (
     <div>
-      <h2>Leaderboard</h2>
+      <h2>Todos os usuarios</h2>
 
       <table>
         <thead>
           <tr>
-            <th>Position</th>
-            <th>Name</th>
+            <th>Nome</th>
             <th>Level</th>
             <th>Ranking</th>
-            <th>Difficulty</th>
-            {/* <th>Percentage</th> */}
           </tr>
         </thead>
-        <tbody className='info-users'>
-          {users.map((user, index) => (
-            <tr key={user.userId} className={index < 3 ? `highlight-${index + 1}` : ''}>
-              <td>{index + 1}</td>
+        <tbody className='info-users-all'>
+          {users.map((user) => (
+            <tr key={user.userId}>
               <td>
                 <Link to={`/profile/${user.userId}`}>
                   {user.displayName}
@@ -86,8 +79,6 @@ const Leaderboard = () => {
               </td>
               <td>{user.level}</td>
               <td>{user.name}</td>
-              <td>{user.difficulty}</td>
-              {/* <td>{user.percentage}</td> */}
             </tr>
           ))}
         </tbody>
@@ -96,4 +87,4 @@ const Leaderboard = () => {
   );
 };
 
-export default Leaderboard;
+export default Profiles;

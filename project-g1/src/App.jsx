@@ -36,6 +36,7 @@ import JogoDaVelha from './components/JogoDaVelha/JogoDaVelha.jsx';
 import Leaderboard from './components/Leaderboard/Leaderboard.jsx';
 import FirstVisitAchievement from './components/Achievements/FirstVisitAchievement.jsx';
 import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
+import Profiles from './pages/Profiles/Profiles.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -89,7 +90,7 @@ function App() {
       <AuthProvider value={{ user }}>
         <BrowserRouter>
           <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
-          <Navbar />
+          <Navbar userId={userId}/>
           <div className='container-absolute'>
             <Routes>
               <Route path='/' element={<Home />} />
@@ -99,7 +100,9 @@ function App() {
               <Route path='/game/:gameId' element={<GameDetails />} />
               <Route path='/games' element={<GameList />} />
 
-              <Route path='/profile' element={<UserProfile />} />
+              <Route path='/profile/:userId' element={<UserProfile />} />
+
+              <Route path='/profiles' element={<Profiles/>} />
 
               <Route path='/search' element={<SearchBar />} />
 
