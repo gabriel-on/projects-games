@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
-import '../Profiles/Profiles.css'
+import './Members.css'
 
 const Profiles = () => {
   const [users, setUsers] = useState([]);

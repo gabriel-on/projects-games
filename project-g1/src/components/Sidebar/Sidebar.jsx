@@ -46,6 +46,9 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                 />
             )}
             <div className={`sidebar ${isSidebarOpen ? 'show' : ''}`}>
+                <button className="close-button" onClick={closeSidebar}>
+                    Fechar
+                </button>
                 <ul className="links_list">
                     <li>
                         <NavLink to="/" onClick={closeSidebar} className="active">
@@ -58,8 +61,8 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/profiles" onClick={closeSidebar} className="active">
-                            <i className="icon bi bi-person" /> Usuários
+                        <NavLink to="/members" onClick={closeSidebar} className="active">
+                            <i className="icon bi bi-person" /> Membros
                         </NavLink>
                     </li>
 

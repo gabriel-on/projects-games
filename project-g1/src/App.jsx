@@ -36,7 +36,7 @@ import JogoDaVelha from './components/JogoDaVelha/JogoDaVelha.jsx';
 import Leaderboard from './components/Leaderboard/Leaderboard.jsx';
 import FirstVisitAchievement from './components/Achievements/FirstVisitAchievement.jsx';
 import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
-import Profiles from './pages/Profiles/Profiles.jsx';
+import Members from './pages/Members/Members.jsx'
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -103,7 +103,7 @@ function App() {
 
               <Route path='/profile/:userId' element={<UserProfile />} />
 
-              <Route path='/profiles' element={<Profiles/>} />
+              <Route path='/members' element={<Members/>} />
 
               <Route path='/search' element={<SearchBar />} />
 
