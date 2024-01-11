@@ -38,16 +38,26 @@ const UserProfile = () => {
 
   const loadUserProfile = (userId) => {
     try {
+      console.log('UserID:', userId);
       const db = getDatabase();
       const userRef = ref(db, `users/${userId}`);
 
       onValue(userRef, (snapshot) => {
         if (snapshot.exists()) {
+          console.log('User data:', snapshot.val());
           const userData = snapshot.val();
+          console.log('User Data:', userData);
+
           setUser(userData);
           loadFavoriteGames(userId);
           loadUserAchievements(userId);
           loadUserRanking(userId);
+
+          // Verifica se userData.level é definido antes de salvar
+          if (userData && userData.level !== undefined) {
+            const userLevelRef = ref(db, `usersLevel/${userId}/level`);
+            set(userLevelRef, userData.level);
+          }
         } else {
           setUser(null);
           setFavoriteGames([]);
@@ -144,9 +154,25 @@ const UserProfile = () => {
         alert('Digite um novo nome antes de atualizar.');
         return;
       }
-
+  
+      // Calcula o nível do usuário com base nos pontos e conquistas
+      const achievementsPoints = Object.values(userAchievements).reduce(
+        (acc, achievement) => acc + (achievement.points || 0),
+        0
+      );
+  
+      const totalUserPoints = typeof userPoints === 'number' && !isNaN(userPoints) ? userPoints : 0;
+      const adjustedPointsPerLevel = basePointsPerLevel * difficultyFactor;
+      const totalPoints = totalUserPoints + achievementsPoints;
+      const newLevel = Math.floor(totalPoints / adjustedPointsPerLevel);
+  
+      // Atualiza o nível no banco de dados
+      const db = getDatabase();
+      const userLevelRef = ref(db, `usersLevel/${userId}/level`);
+      set(userLevelRef, newLevel);
+  
       const shouldUpdateName = window.confirm(`Deseja atualizar o nome para "${newDisplayName}"?`);
-
+  
       if (shouldUpdateName) {
         await updateProfileAuth(auth.currentUser, { displayName: newDisplayName });
         setCurrentUser({
@@ -157,7 +183,7 @@ const UserProfile = () => {
     } catch (error) {
       console.error('Erro ao atualizar o nome do usuário:', error.message);
     }
-  };
+  };  
 
   return (
     <div className='profile-container'>
@@ -195,10 +221,7 @@ const UserProfile = () => {
             </div>
             <div>
               <h2>Nível</h2>
-              <UserLevel
-                userPoints={userPoints}
-                userAchievements={userAchievements}
-                userId={user.uid} />
+              <UserLevel userPoints={userPoints} userAchievements={userAchievements} userId={currentUser.uid} />
             </div>
             <UserAchievementsList userId={user.uid} />
           </div>
