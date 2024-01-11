@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
 import './Members.css'
 
-const Profiles = () => {
+const Members = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const database = getDatabase();
@@ -87,4 +87,4 @@ const Profiles = () => {
   );
 };
 
-export default Profiles;
+export default Members;
