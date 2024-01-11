@@ -4,7 +4,9 @@ import '../Footer/Footer.css'
 function Footer() {
   return (
     <footer>
-      <p>Footer</p>
+      <div>
+        <p>Pre_Alpha</p>
+      </div>
     </footer>
   )
 }
