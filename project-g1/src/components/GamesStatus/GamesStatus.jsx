@@ -22,8 +22,6 @@ const GameStatus = ({ gameId }) => {
 
   const { unlockAchievement } = useAchievements(currentUser?.uid);
 
-  const [isLogged, setIsLogged] = useState(!currentUser);
-  const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [achievementUnlockedMessage, setAchievementUnlockedMessage] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -36,25 +34,25 @@ const GameStatus = ({ gameId }) => {
   const handleSaveChangesClick = async () => {
     if (currentUser) {
       await handleSaveChanges();
-  
+
       // Verificar se é a primeira interação do usuário
       const userAchievementRef = ref(getDatabase(), `userAchievements/${currentUser?.uid}/FirstInteractionGameId`);
       const userAchievementSnapshot = await get(userAchievementRef);
-  
+
       if (!userAchievementSnapshot.exists()) {
         // Desbloquear a conquista aqui
         await unlockAchievement('FirstInteractionGameId');
-  
+
         // Salvar detalhes da conquista no nó específico do usuário
         await saveUserAchievement(currentUser?.uid, 'FirstInteractionGameId', {
           name: "O Começo",
           description: "Interaja com um jogo pela primeira vez!",
           points: 75,
         });
-  
+
         // Mostrar a mensagem de conquista desbloqueada
         setAchievementUnlockedMessage('Conquista desbloqueada: "O Começo"');
-  
+
         setTimeout(() => {
           setAchievementUnlockedMessage('');
         }, 15000);
@@ -64,7 +62,6 @@ const GameStatus = ({ gameId }) => {
       setShowLoginModal(true);
     }
   };
-  
 
   return (
     <div>
