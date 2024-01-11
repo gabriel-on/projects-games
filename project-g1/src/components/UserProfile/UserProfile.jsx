@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfile as updateProfileAuth } from 'firebase/auth';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
@@ -21,6 +21,7 @@ const UserProfile = () => {
   const [publicView, setPublicView] = useState(false);
   const { userId } = useParams();
   const navigate = useNavigate()
+  const [confirmLevelUp, setConfirmLevelUp] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -55,7 +56,7 @@ const UserProfile = () => {
 
           // Verifica se userData.level é definido antes de salvar
           if (userData && userData.level !== undefined) {
-            const userLevelRef = ref(db, `usersLevel/${userId}/level`);
+            const userLevelRef = ref(db, `users/${userId}/level`);
             set(userLevelRef, userData.level);
           }
         } else {
@@ -154,36 +155,41 @@ const UserProfile = () => {
         alert('Digite um novo nome antes de atualizar.');
         return;
       }
-  
-      // Calcula o nível do usuário com base nos pontos e conquistas
-      const achievementsPoints = Object.values(userAchievements).reduce(
-        (acc, achievement) => acc + (achievement.points || 0),
-        0
-      );
-  
-      const totalUserPoints = typeof userPoints === 'number' && !isNaN(userPoints) ? userPoints : 0;
-      const adjustedPointsPerLevel = basePointsPerLevel * difficultyFactor;
-      const totalPoints = totalUserPoints + achievementsPoints;
-      const newLevel = Math.floor(totalPoints / adjustedPointsPerLevel);
-  
-      // Atualiza o nível no banco de dados
-      const db = getDatabase();
-      const userLevelRef = ref(db, `usersLevel/${userId}/level`);
-      set(userLevelRef, newLevel);
-  
+
       const shouldUpdateName = window.confirm(`Deseja atualizar o nome para "${newDisplayName}"?`);
-  
+
       if (shouldUpdateName) {
         await updateProfileAuth(auth.currentUser, { displayName: newDisplayName });
-        setCurrentUser({
-          ...currentUser,
-          displayName: newDisplayName,
-        });
+
+        if (currentUser.uid === userId) {
+          // Calcula o nível do usuário apenas se estiver atualizando o próprio perfil
+          const achievementsPoints = Object.values(userAchievements).reduce(
+            (acc, achievement) => acc + (achievement.points || 0),
+            0
+          );
+
+          const totalUserPoints = typeof userPoints === 'number' && !isNaN(userPoints) ? userPoints : 0;
+          const adjustedPointsPerLevel = basePointsPerLevel * difficultyFactor;
+          const totalPoints = totalUserPoints + achievementsPoints;
+          const newLevel = Math.floor(totalPoints / adjustedPointsPerLevel);
+
+          // Atualiza o nível no banco de dados apenas se o usuário autenticado for o mesmo que está sendo visualizado
+          const db = getDatabase();
+          const userLevelRef = ref(db, `usersLevel/${currentUser.uid}/level`);
+          set(userLevelRef, newLevel);
+
+          setCurrentUser({
+            ...currentUser,
+            displayName: newDisplayName,
+          });
+        }
+
+        alert('Nome atualizado com sucesso.');
       }
     } catch (error) {
       console.error('Erro ao atualizar o nome do usuário:', error.message);
     }
-  };  
+  };
 
   return (
     <div className='profile-container'>
@@ -221,7 +227,14 @@ const UserProfile = () => {
             </div>
             <div>
               <h2>Nível</h2>
-              <UserLevel userPoints={userPoints} userAchievements={userAchievements} userId={currentUser.uid} />
+              <UserLevel
+                userPoints={userPoints}
+                userAchievements={userAchievements}
+                userId={userId}
+                confirmLevelUp={confirmLevelUp}
+                setConfirmLevelUp={setConfirmLevelUp}
+                
+              />
             </div>
             <UserAchievementsList userId={user.uid} />
           </div>
