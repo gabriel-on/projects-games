@@ -4,9 +4,11 @@ import useAchievements from '../../hooks/useAchievements ';
 import { useAuth } from '../../hooks/useAuthentication';
 import { getDatabase, ref, set, get } from 'firebase/database';
 import AchievementMessage from '../Achievements/AchievementMessage';
+import LoginModal from '../AllModal/LoginModal';
 
 const GameStatus = ({ gameId }) => {
   const { currentUser } = useAuth();
+
   const {
     userGameStatus,
     handleStatusChange,
@@ -23,6 +25,7 @@ const GameStatus = ({ gameId }) => {
   const [isLogged, setIsLogged] = useState(!currentUser);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
   const [achievementUnlockedMessage, setAchievementUnlockedMessage] = useState('');
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const saveUserAchievement = async (userId, achievementId, achievementDetails) => {
     const database = getDatabase();
@@ -31,43 +34,40 @@ const GameStatus = ({ gameId }) => {
   };
 
   const handleSaveChangesClick = async () => {
-    if (isLogged) {
-      setIsLogged(false);
+    if (currentUser) {
       await handleSaveChanges();
-
+  
       // Verificar se é a primeira interação do usuário
       const userAchievementRef = ref(getDatabase(), `userAchievements/${currentUser?.uid}/FirstInteractionGameId`);
       const userAchievementSnapshot = await get(userAchievementRef);
-
+  
       if (!userAchievementSnapshot.exists()) {
         // Desbloquear a conquista aqui
         await unlockAchievement('FirstInteractionGameId');
-
+  
         // Salvar detalhes da conquista no nó específico do usuário
         await saveUserAchievement(currentUser?.uid, 'FirstInteractionGameId', {
           name: "O Começo",
           description: "Interaja com um jogo pela primeira vez!",
           points: 75,
         });
-
+  
         // Mostrar a mensagem de conquista desbloqueada
         setAchievementUnlockedMessage('Conquista desbloqueada: "O Começo"');
-
+  
         setTimeout(() => {
           setAchievementUnlockedMessage('');
         }, 15000);
       }
     } else {
-      setShowLoginMessage(true);
-      setTimeout(() => {
-        setShowLoginMessage(false);
-      }, 15000);
+      // Exibir o modal apenas se o usuário não estiver autenticado
+      setShowLoginModal(true);
     }
   };
+  
 
   return (
     <div>
-      {/* Exibindo a média de classificação para todos os usuários */}
       {userGameStatus !== null && (
         <div>
           <p>Status do Jogo: {userGameStatus}</p>
@@ -79,30 +79,19 @@ const GameStatus = ({ gameId }) => {
             <option value="pause">Pausando</option>
             <option value="quit">Desistindo</option>
             <option value="played">Jogou</option>
-            {/* Adicione mais opções conforme necessário */}
           </select>
         </div>
       )}
 
-      {/* Exibindo a classificação do usuário */}
       <label>
         Sua Classificação:
         <select value={userClassification} onChange={(e) => handleClassificationChange(e.target.value)}>
-          <option value={0}>0</option>
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-          <option value={6}>6</option>
-          <option value={7}>7</option>
-          <option value={8}>8</option>
-          <option value={9}>9</option>
-          <option value={10}>10</option>
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
+            <option key={value} value={value}>{value}</option>
+          ))}
         </select>
       </label>
 
-      {/* Botões para interações do usuário */}
       <button onClick={handleToggleFavorite}>
         {isFavorite ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos'}
       </button>
@@ -111,14 +100,8 @@ const GameStatus = ({ gameId }) => {
         Salvar Alterações
       </button>
 
-      {/* Mensagem de login */}
-      {!isLogged && showLoginMessage && (
-        <div style={{ color: 'red', marginTop: '10px' }}>
-          Você precisa estar logado para salvar alterações.
-        </div>
-      )}
+      <LoginModal showModal={showLoginModal} closeModal={() => setShowLoginModal(false)} />
 
-      {/* Mensagem da conquista desbloqueada no topo do site */}
       {achievementUnlockedMessage && (
         <AchievementMessage message={achievementUnlockedMessage} details={{
           name: "O Começo",

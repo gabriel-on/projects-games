@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, set, push, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
+import ConfirmModal from '../../components/AllModal/ConfirmModal';
 
 const GameAnalysis = ({ gameId }) => {
   const [deleteAnalysisId, setDeleteAnalysisId] = useState(null);

@@ -13,3 +13,4 @@ const Achievement = ({ name, description, points }) => {
 };
 
 export default Achievement;
+

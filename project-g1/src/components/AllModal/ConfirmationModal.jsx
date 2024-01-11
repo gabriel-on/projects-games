@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../components/ConfirmModal/ConfirmationModal.css';
+import '../../components/AllModal/ConfirmationModal.css';
 
 const ConfirmationModal = ({ isOpen, onClose, onConfirm, userName }) => {
     if (!isOpen) {
