@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, set, get } from 'firebase/database';
 
-const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp }) => {
+const UserLevel = ({ userId, userPoints, userAchievements, confirmLevelUp, setConfirmLevelUp }) => {
   const [confirmedUserLevel, setConfirmedUserLevel] = useState(null);
   const [pointsToNextLevel, setPointsToNextLevel] = useState(0);
   const [totalPointsToNextLevel, setTotalPointsToNextLevel] = useState(0);
@@ -41,6 +41,20 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp }) =>
 
       // Zera os pontos do usuário
       setTotalPointsToNextLevel(0);
+
+      // Atualiza os pontos de todas as conquistas para 0
+      const achievementsRef = ref(db, `userAchievements/${userId}`);
+      const snapshot = await get(achievementsRef);
+
+      if (snapshot.exists()) {
+        const userAchievements = snapshot.val();
+
+        for (const achievementId in userAchievements) {
+          userAchievements[achievementId].points = 0;
+        }
+
+        set(achievementsRef, userAchievements);
+      }
     } catch (error) {
       console.error('Erro ao confirmar subida de nível:', error.message);
     }
