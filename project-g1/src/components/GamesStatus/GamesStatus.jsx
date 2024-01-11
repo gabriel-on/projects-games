@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useInteractions from '../../hooks/useInteractions';
+import useAchievements from '../../hooks/useAchievements ';
 import { useAuth } from '../../hooks/useAuthentication';
+import { getDatabase, ref, set, get } from 'firebase/database';
+import AchievementMessage from '../Achievements/AchievementMessage';
 
 const GameStatus = ({ gameId }) => {
-  const { currentUser, getCurrentUser } = useAuth();
+  const { currentUser } = useAuth();
   const {
     userGameStatus,
     handleStatusChange,
@@ -15,26 +18,56 @@ const GameStatus = ({ gameId }) => {
     pendingChanges,
   } = useInteractions(gameId);
 
+  const { unlockAchievement } = useAchievements(currentUser?.uid);
+
   const [isLogged, setIsLogged] = useState(!currentUser);
   const [showLoginMessage, setShowLoginMessage] = useState(false);
+  const [achievementUnlockedMessage, setAchievementUnlockedMessage] = useState('');
 
-  const handleSaveChangesClick = () => {
-    console.log("isLogged:", isLogged);
+  const saveUserAchievement = async (userId, achievementId, achievementDetails) => {
+    const database = getDatabase();
+    const userAchievementRef = ref(database, `userAchievements/${userId}/${achievementId}`);
+    await set(userAchievementRef, achievementDetails);
+  };
+
+  const handleSaveChangesClick = async () => {
     if (isLogged) {
       setIsLogged(false);
-      handleSaveChanges();
+      await handleSaveChanges();
+
+      // Verificar se é a primeira interação do usuário
+      const userAchievementRef = ref(getDatabase(), `userAchievements/${currentUser?.uid}/FirstInteractionGameId`);
+      const userAchievementSnapshot = await get(userAchievementRef);
+
+      if (!userAchievementSnapshot.exists()) {
+        // Desbloquear a conquista aqui
+        await unlockAchievement('FirstInteractionGameId');
+
+        // Salvar detalhes da conquista no nó específico do usuário
+        await saveUserAchievement(currentUser?.uid, 'FirstInteractionGameId', {
+          name: "O Começo",
+          description: "Interaja com um jogo pela primeira vez!",
+          points: 75,
+        });
+
+        // Mostrar a mensagem de conquista desbloqueada
+        setAchievementUnlockedMessage('Conquista desbloqueada: "O Começo"');
+
+        setTimeout(() => {
+          setAchievementUnlockedMessage('');
+        }, 15000);
+      }
     } else {
       setShowLoginMessage(true);
       setTimeout(() => {
         setShowLoginMessage(false);
-      }, 3000);
+      }, 15000);
     }
   };
 
   return (
     <div>
       {/* Exibindo a média de classificação para todos os usuários */}
-
       {userGameStatus !== null && (
         <div>
           <p>Status do Jogo: {userGameStatus}</p>
@@ -69,6 +102,7 @@ const GameStatus = ({ gameId }) => {
         </select>
       </label>
 
+      {/* Botões para interações do usuário */}
       <button onClick={handleToggleFavorite}>
         {isFavorite ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos'}
       </button>
@@ -77,10 +111,20 @@ const GameStatus = ({ gameId }) => {
         Salvar Alterações
       </button>
 
-      {showLoginMessage && (
+      {/* Mensagem de login */}
+      {!isLogged && showLoginMessage && (
         <div style={{ color: 'red', marginTop: '10px' }}>
           Você precisa estar logado para salvar alterações.
         </div>
+      )}
+
+      {/* Mensagem da conquista desbloqueada no topo do site */}
+      {achievementUnlockedMessage && (
+        <AchievementMessage message={achievementUnlockedMessage} details={{
+          name: "O Começo",
+          description: "Interaja com um jogo pela primeira vez!",
+          points: 75,
+        }} />
       )}
     </div>
   );

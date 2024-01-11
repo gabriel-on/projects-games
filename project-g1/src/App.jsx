@@ -79,8 +79,8 @@ function App() {
   }, [auth]);
 
   const isAdmin = user && user.isAdmin;
-  const userId = user ? user.uid : null; // Adicione esta linha
-
+  const userId = user ? user.uid : null; 
+  
   console.log('isAdmin:', isAdmin);
 
   const rankings = ['S', 'A', 'B', 'C', 'D', 'E'];
@@ -91,7 +91,6 @@ function App() {
         <BrowserRouter>
           <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
           <Navbar userId={userId}/>
-          {/* <Sidebar/> */}
           <div className='container-absolute'>
             <Routes>
               <Route path='/' element={<Home />} />
