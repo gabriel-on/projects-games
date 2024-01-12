@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, set, get } from 'firebase/database';
 
-const UserLevel = ({ userId, userPoints, userAchievements, confirmLevelUp, setConfirmLevelUp }) => {
+const UserLevel = ({ userId, userPoints, userAchievements, confirmLevelUp, setConfirmLevelUp, currentUser }) => {
   const [userLevel, setUserLevel] = useState(null);
   const [pointsToNextLevel, setPointsToNextLevel] = useState(0);
   const [totalPointsToNextLevel, setTotalPointsToNextLevel] = useState(0);
@@ -82,17 +82,21 @@ const UserLevel = ({ userId, userPoints, userAchievements, confirmLevelUp, setCo
           <p>Nível: {userLevel}</p>
         </div>
       )}
-      <p>Total de pontos disponíveis: {userPoints}</p>
-      <div>
-        <p>Faltam {pointsToNextLevel} pontos para o próximo nível.</p>
-        <p>Você realmente deseja subir de nível?</p>
-        <button
-          onClick={handleLevelUpConfirmation}
-          disabled={userPoints < totalPointsToNextLevel}
-        >
-          Confirmar
-        </button>
-      </div>
+      {currentUser.uid === userId && (
+        <div>
+          <p>Total de pontos disponíveis: {userPoints}</p>
+          <div>
+            <p>Faltam {pointsToNextLevel} pontos para o próximo nível.</p>
+            <p>Você realmente deseja subir de nível?</p>
+            <button
+              onClick={handleLevelUpConfirmation}
+              disabled={userPoints < totalPointsToNextLevel}
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

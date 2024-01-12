@@ -231,6 +231,7 @@ const UserProfile = () => {
                 userPoints={userPoints}
                 userAchievements={userAchievements}
                 userId={userId}
+                currentUser={currentUser}
                 confirmLevelUp={confirmLevelUp}
                 setConfirmLevelUp={setConfirmLevelUp}
                 
