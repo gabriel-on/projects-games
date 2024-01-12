@@ -1,5 +1,4 @@
 // MultipleSitesInput.js
-
 import React from 'react';
 
 function MultipleSitesInput({ value, onChange, name, error }) {
@@ -10,6 +9,12 @@ function MultipleSitesInput({ value, onChange, name, error }) {
   const handleInputChange = (e, index) => {
     const newValue = sites.map((site, i) => (i === index ? { ...site, [e.target.name]: e.target.value } : site));
     onChange({ target: { name, value: newValue } });
+  };
+
+  // Função para acionar a atualização do site e do nome
+  const handleUpdate = (index) => {
+    // Implemente a lógica para atualizar o site e o nome conforme necessário
+    console.log(`Atualizando site e nome para o índice ${index}`);
   };
 
   return (
@@ -32,6 +37,12 @@ function MultipleSitesInput({ value, onChange, name, error }) {
               value={site.link || ''}
               onChange={(e) => handleInputChange(e, index)}
             />
+            <button
+              type="button"
+              onClick={() => handleUpdate(index)}
+            >
+              Atualizar
+            </button>
           </div>
         ))}
         <button

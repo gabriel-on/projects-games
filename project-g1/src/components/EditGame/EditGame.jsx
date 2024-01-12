@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import MultipleSitesInput from '../MultipleSitesInput/MultipleSitesInput';
 
 const EditGame = () => {
   const { gameId } = useParams();
@@ -15,7 +16,6 @@ const EditGame = () => {
     consoles: [],
     developers: [],
     rating: '',
-    officialSite: '',
     releaseDate: '',
     addedBy: null,
     trailer: '', // Adicione o campo do trailer aqui
@@ -36,7 +36,6 @@ const EditGame = () => {
     consoles: '',
     developers: '',
     rating: '',
-    officialSite: '',
     trailer: '', // Adicione o campo do trailer aqui
   });
 
@@ -48,7 +47,7 @@ const EditGame = () => {
     consoles: Yup.array().min(1, 'Selecione pelo menos um console').required('Campo obrigatório'),
     developers: Yup.array().min(1, 'Selecione pelo menos uma desenvolvedora').required('Campo obrigatório'),
     rating: Yup.string().required('Campo obrigatório'),
-    officialSite: Yup.string().url('URL inválida'),
+    // officialSites: Yup.string().url('URL inválida'),
     releaseDate: Yup.date().required('Campo obrigatório'),
     trailer: Yup.string().url('URL do trailer inválida'), // Adicione o campo do trailer aqui
   });
@@ -83,7 +82,6 @@ const EditGame = () => {
             consoles: gameData.consoles || [],
             developers: gameData.developers || [],
             rating: gameData.rating || '',
-            officialSite: gameData.officialSite || '',
             releaseDate: gameData.releaseDate || '',
             trailer: gameData.trailer || '', // Adicione o campo do trailer aqui
           });
@@ -301,18 +299,12 @@ const EditGame = () => {
           )}
         </div>
 
-        <div className='field'>
-          <label>
-            Site Oficial (Opcional):
-            <input
-              type="text"
-              name="officialSite"
-              value={game.officialSite}
-              onChange={handleChange}
-            />
-            {errors.officialSite && <p className="error-message">{errors.officialSite}</p>}
-          </label>
-        </div>
+        <MultipleSitesInput
+          name="officialSites"
+          value={game.officialSites}
+          onChange={handleChange}
+          error={errors.officialSites}
+        />
 
         <div className='field'>
           <label>

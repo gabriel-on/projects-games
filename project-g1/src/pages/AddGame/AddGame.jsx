@@ -1,5 +1,3 @@
-// AddGame.js
-
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, push, set, onValue } from 'firebase/database';
 import * as Yup from 'yup';
@@ -17,7 +15,6 @@ function AddGame() {
     consoles: [],
     developers: [],
     rating: '',
-    officialSite: '',
     releaseDate: '',
     addedBy: null,
     trailer: '',
@@ -42,7 +39,6 @@ function AddGame() {
     consoles: '',
     developers: '',
     rating: '',
-    officialSite: '',
     releaseDate: '',
     trailer: '',
   });
@@ -58,7 +54,7 @@ function AddGame() {
       .min(1, 'Selecione pelo menos um console')
       .required('Campo obrigatório'),
     rating: Yup.string().required('Campo obrigatório'),
-    officialSite: Yup.string().url('URL inválida'),
+    // officialSite: Yup.string().url('URL inválida'),
     releaseDate: Yup.string().required('Campo obrigatório'),
     trailer: Yup.string().url('URL do trailer inválida'),
   });
@@ -180,7 +176,6 @@ function AddGame() {
           genres: [],
           consoles: [],
           rating: '',
-          officialSite: '',
           releaseDate: '',
           trailer: '', // Adicione esta linha
         });
@@ -192,7 +187,6 @@ function AddGame() {
           genres: '',
           consoles: '',
           rating: '',
-          officialSite: '',
           releaseDate: '',
           trailer: '', // Adicione esta linha
           userNotFound: '', // Adicione esta linha
