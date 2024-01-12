@@ -102,29 +102,27 @@ const GameDetails = () => {
             onToggleFavorite={handleToggleFavorite}
             onSaveChanges={handleSaveChanges}
           />
-          <div>
-            <h3>Onde comprar</h3>
-            <div>
-              {gameData.officialSites && (
-                <div>
-                  {/* <h3>Sites Oficiais:</h3> */}
-                  <ul>
-                    {gameData.officialSites.map((site, index) => (
-                      <li key={index}>
-                        <a href={site.link} target="_blank" rel="noopener noreferrer">
-                          {site.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </div>
 
       <div className='description-trailer'>
+          <div className='sites-container'>
+            <h3>Onde comprar</h3>
+            {gameData.officialSites && (
+              <div>
+                {/* <h3>Sites Oficiais:</h3> */}
+                <ul>
+                  {gameData.officialSites.map((site, index) => (
+                    <li key={index}>
+                      <a href={site.link} target="_blank" rel="noopener noreferrer">
+                        {site.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         {gameData.trailer && (
           <div className="field">
             <label>Trailer:</label>
