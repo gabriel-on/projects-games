@@ -11,7 +11,7 @@
 body {
     font-family: 'Roboto', sans-serif;    
     background: #e2e2e2;
-    margin-top: 85px;
+    margin-top: 100px;
 }
 
 @media screen and (max-width: 768px) {

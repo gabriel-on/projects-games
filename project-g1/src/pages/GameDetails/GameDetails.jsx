@@ -74,46 +74,67 @@ const GameDetails = () => {
   return (
     <div className='game-details-container'>
       <div className='game-details'>
-        <h2>{gameData.title}</h2>
-        <img src={gameData.image} alt={gameData.title} />
-        <p>{gameData.description}</p>
-        <p>Gênero: <span>{gameData.genres}</span></p>
-        <p>Console: <span>{gameData.consoles}</span></p>
-        <p>Desenvolvedora: {gameData.developers}</p>
-        <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
-        <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
-        <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
-        <p>{totalInteractions} usuário(s) interagiram com o jogo.</p>
-        <GameStatus
-          className={"status-games-details"}
-          gameId={gameId}
-          userClassification={userClassification}
-          onClassificationChange={handleClassificationChange}
-          onStatusChange={handleStatusChange}
-          onToggleFavorite={handleToggleFavorite}
-          onSaveChanges={handleSaveChanges}
-        />
+        <div className='details-div'>
+          <img src={gameData.image} alt={gameData.title} />
+          <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
+          <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
+          <p className='interactions-all'>{totalInteractions} usuário(s) interagiram com o jogo.</p>
+        </div>
+        <div className='details-container'>
+          <h1>{gameData.title}</h1>
+          <div className='details-div'>
+            <p>Gênero: <span>{gameData.genres}</span></p>
+            <p>Console: <span>{gameData.consoles}</span></p>
+            <p>Desenvolvedora: {gameData.developers}</p>
+            <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
+          </div>
+          <div className='description-container'>
+            <p>{gameData.description}</p>
+          </div>
+        </div>
+        <div className=''>
+          <GameStatus
+            className={"status-games-details"}
+            gameId={gameId}
+            userClassification={userClassification}
+            onClassificationChange={handleClassificationChange}
+            onStatusChange={handleStatusChange}
+            onToggleFavorite={handleToggleFavorite}
+            onSaveChanges={handleSaveChanges}
+          />
+          <div>
+            <h3>Onde comprar: PC</h3>
+            <p>Steam</p>
+            <p>Epic Games</p>
+            <h3>Onde comprar: Console</h3>
+            <p>Playstation Store</p>
+            <p>Xbox Store</p>
+          </div>
+        </div>
       </div>
 
+      <div>
+        {gameData.officialSite && (
+          <Link to={gameData.officialSite} target='_blank'>
+            <p>Site Oficial</p>
+          </Link>
+        )}
+      </div>
 
-      {gameData.officialSite && (
-        <Link to={gameData.officialSite} target='_blank'>
-          <p>Site Oficial</p>
-        </Link>
-      )}
-
-      {gameData.trailer && (
-        <div className="field">
-          <label>Trailer:</label>
-          <iframe
-            width="540"
-            height="300"
-            src={`https://www.youtube.com/embed/${videoCode}`}
-            title="YouTube video player"
-            allowFullScreen
-          ></iframe>
-        </div>
-      )}
+      <div className='description-trailer'>
+        {gameData.trailer && (
+          <div className="field">
+            <label>Trailer:</label>
+            <iframe
+              width="380"
+              height="260"
+              src={`https://www.youtube.com/embed/${videoCode}`}
+              title="YouTube video player"
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
+      </div>
 
       <div className='reviews-container'>
         {/* <h2>Sua Análise do Jogo</h2> */}

@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuthentication';
 import { getDatabase, ref, set, get } from 'firebase/database';
 import AchievementMessage from '../Achievements/AchievementMessage';
 import LoginModal from '../AllModal/LoginModal';
+import '../GamesStatus/GamesStatus.css'
 
 const GameStatus = ({ gameId }) => {
   const [isMarked, setIsMarked] = useState(false);
@@ -95,7 +96,7 @@ const GameStatus = ({ gameId }) => {
   };
 
   return (
-    <div>
+    <div className='status-games-details'>
       <div>
       <button onClick={handleMarkGame}>{isMarked ? 'Desmarcar Jogo' : 'Marcar Jogo'}</button>
       </div>

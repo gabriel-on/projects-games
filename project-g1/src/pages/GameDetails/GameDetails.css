@@ -9,24 +9,68 @@
 
 .game-details {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
 
-.game-details>img {
-    width: 400px;
+.game-details .details-div > img {
+    width: 260px;
 }
 
-.rating-age {
-    color: white;
-    background: red;
-}
-
-.classification-all {
+.game-details .rating-age {
+    padding: 5px;
     color: white;
     background: blue;
+}
+
+.game-details .classification-all {
+    padding: 5px;
+    color: white;
+    background: green;
+}
+.game-details .interactions-all {
+    padding: 5px;
+    font-size: .9em;
+    color: rgb(0, 0, 0);
+    background: yellow;
+}
+
+.details-container {
+    background: #707070;
+    width: 600px;
+    height: 415px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+.details-container h1 {
+    margin: 10px 0;
+}
+
+.details-container .details-div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.games-status-details {
+    display: flex;
+    height: 400px;
+}
+
+.description-container {
+    padding: 10px;
+    background: white;
+    color: black;
+}
+
+.description-trailer {
+    display: flex;
+    /* width: 820px; */
 }
 
 .reviews-container {
