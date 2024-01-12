@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import GameStatus from '../GamesStatus/GamesStatus';
-import { getDatabase, ref, get } from 'firebase/database';
+import { getDatabase, ref, get, remove } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
+
+// ...
 
 const UserGameList = () => {
   const [markedGames, setMarkedGames] = useState([]);
@@ -50,6 +52,32 @@ const UserGameList = () => {
     }
   }, [user]);
 
+  const handleMarkGame = async (gameId) => {
+    try {
+      const database = getDatabase();
+      const userMarksRef = ref(database, `userMarks/${user.uid}/${gameId}`);
+      await set(userMarksRef, true);
+
+      // Atualizar a lista de jogos marcados
+      setMarkedGames((prevMarkedGames) => [...prevMarkedGames, gameId]);
+    } catch (error) {
+      console.error('Erro ao marcar jogo:', error);
+    }
+  };
+
+  const handleUnmarkGame = async (gameId) => {
+    try {
+      const database = getDatabase();
+      const userMarksRef = ref(database, `userMarks/${user.uid}/${gameId}`);
+      await remove(userMarksRef);
+
+      // Atualizar a lista de jogos marcados
+      setMarkedGames((prevMarkedGames) => prevMarkedGames.filter((id) => id !== gameId));
+    } catch (error) {
+      console.error('Erro ao desmarcar jogo:', error);
+    }
+  };
+
   return (
     <div>
       <h2>Sua lista de Jogos Marcados:</h2>
@@ -57,7 +85,12 @@ const UserGameList = () => {
         <ul>
           {markedGames.map((gameId) => (
             <li key={gameId}>
-              <GameStatus gameId={gameId} />
+              <GameStatus
+                gameId={gameId}
+                onUnmarkGame={handleUnmarkGame}
+                onMarkGame={handleMarkGame}
+                isMarked={markedGames.includes(gameId)}
+              />
               <p>Nome do Jogo: {gameDetails[gameId]}</p>
             </li>
           ))}

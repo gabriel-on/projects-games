@@ -7,6 +7,7 @@ import AchievementMessage from '../Achievements/AchievementMessage';
 import LoginModal from '../AllModal/LoginModal';
 
 const GameStatus = ({ gameId }) => {
+  const [isMarked, setIsMarked] = useState(false);
   const { currentUser } = useAuth();
 
   const {
@@ -24,6 +25,36 @@ const GameStatus = ({ gameId }) => {
 
   const [achievementUnlockedMessage, setAchievementUnlockedMessage] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleMarkGame = async () => {
+    if (currentUser) {
+      const userMarksRef = ref(getDatabase(), `userMarks/${currentUser?.uid}/${gameId}`);
+      if (isMarked) {
+        // Se o jogo estiver marcado, desmarque-o
+        await set(userMarksRef, null);
+      } else {
+        // Se o jogo não estiver marcado, marque-o
+        await set(userMarksRef, true);
+      }
+      // Atualize o estado local
+      setIsMarked(!isMarked);
+    } else {
+      // Exiba o modal de login se o usuário não estiver autenticado
+      setShowLoginModal(true);
+    }
+  };
+  
+  useEffect(() => {
+    const checkMarkedStatus = async () => {
+      if (currentUser) {
+        const userMarksRef = ref(getDatabase(), `userMarks/${currentUser?.uid}/${gameId}`);
+        const userMarksSnapshot = await get(userMarksRef);
+        setIsMarked(userMarksSnapshot.exists());
+      }
+    };
+  
+    checkMarkedStatus();
+  }, [currentUser, gameId]);
 
   const saveUserAchievement = async (userId, achievementId, achievementDetails) => {
     const database = getDatabase();
@@ -65,6 +96,9 @@ const GameStatus = ({ gameId }) => {
 
   return (
     <div>
+      <div>
+      <button onClick={handleMarkGame}>{isMarked ? 'Desmarcar Jogo' : 'Marcar Jogo'}</button>
+      </div>
       {userGameStatus !== null && (
         <div>
           <p>Status do Jogo: {userGameStatus}</p>
