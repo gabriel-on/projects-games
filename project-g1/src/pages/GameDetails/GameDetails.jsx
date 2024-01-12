@@ -14,6 +14,7 @@ const GameDetails = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [gameAnalysis, setGameAnalysis] = useState([]);
+  const [isMarked, setIsMarked] = useState(false);
   const {
     userClassification,
     handleClassificationChange,
@@ -48,6 +49,11 @@ const GameDetails = () => {
           } else {
             setGameAnalysis([]);
           }
+          if (user) {
+            const userMarkRef = ref(database, `userMarks/${user.uid}/${gameId}`);
+            const userMarkSnapshot = await get(userMarkRef);
+            setIsMarked(userMarkSnapshot.exists());
+          }
         } else {
           console.log(`Jogo com ID ${gameId} não encontrado.`);
         }
@@ -58,6 +64,25 @@ const GameDetails = () => {
 
     fetchGameData();
   }, [gameId, user]);
+
+  const handleMarkGame = async () => {
+    try {
+      const database = getDatabase();
+      const userMarkRef = ref(database, `userMarks/${user.uid}/${gameId}`);
+
+      if (isMarked) {
+        // Desmarcar o jogo
+        await set(userMarkRef, null);
+      } else {
+        // Marcar o jogo
+        await set(userMarkRef, true);
+      }
+
+      setIsMarked(!isMarked);
+    } catch (error) {
+      console.error('Erro ao marcar/desmarcar o jogo:', error);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (authUser) => {
@@ -76,6 +101,9 @@ const GameDetails = () => {
       <div className='game-details'>
         <h2>{gameData.title}</h2>
         <img src={gameData.image} alt={gameData.title} />
+        <button onClick={handleMarkGame}>
+          {isMarked ? 'Desmarcar Jogo' : 'Marcar Jogo'}
+        </button>
         <p>{gameData.description}</p>
         <p>Gênero: <span>{gameData.genres}</span></p>
         <p>Console: <span>{gameData.consoles}</span></p>

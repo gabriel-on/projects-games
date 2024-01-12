@@ -20,7 +20,8 @@ ul {
     width: 100%;
 }
 
-.favorites-container {
+.favorites-container, 
+.UserGameList-container {
     width: 1100px;
     display: flex;
     padding: 10px 0;
@@ -32,8 +33,22 @@ ul {
     flex-wrap: wrap;
     gap: 20px;
 }
-
 .favorites-container div ul li{
+    width: 260px;
+    flex-direction: column;
+    border: 1px solid black;
+    display: flex;
+    padding: 10px;
+}
+
+.UserGameList-container div ul{
+    /* width: 860px; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.UserGameList-container div ul li{
     width: 260px;
     flex-direction: column;
     border: 1px solid black;

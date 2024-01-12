@@ -9,6 +9,7 @@ import '../../components/UserProfile/UserProfile.css'
 
 import defaultProfileImage from '../../img/perfil.png';
 import { useNavigate, useParams } from 'react-router-dom';
+import UserGameList from '../UserGameList/UserGameList';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -234,7 +235,7 @@ const UserProfile = () => {
                 currentUser={currentUser}
                 confirmLevelUp={confirmLevelUp}
                 setConfirmLevelUp={setConfirmLevelUp}
-                
+
               />
             </div>
             <UserAchievementsList userId={user.uid} />
@@ -257,6 +258,9 @@ const UserProfile = () => {
             )}
           </div>
 
+          <div className='UserGameList-container'>
+            <UserGameList />
+          </div>
 
           {/* Outras informações do usuário */}
           {currentUser.uid === userId ? (
