@@ -3,18 +3,16 @@ import GameStatus from '../GamesStatus/GamesStatus';
 import { getDatabase, ref, get, remove } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
 
-// ...
-
-const UserGameList = () => {
+const UserGameList = ({ userId }) => {
   const [markedGames, setMarkedGames] = useState([]);
   const [gameDetails, setGameDetails] = useState({});
-  const user = getAuth().currentUser;
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchMarkedGames = async () => {
       try {
         const database = getDatabase();
-        const userMarksRef = ref(database, `userMarks/${user.uid}`);
+        const userMarksRef = ref(database, `userMarks/${userId}`);
         const userMarksSnapshot = await get(userMarksRef);
 
         if (userMarksSnapshot.exists()) {
@@ -47,15 +45,17 @@ const UserGameList = () => {
       }
     };
 
-    if (user) {
+    const auth = getAuth();
+    if (auth.currentUser) {
+      setUser(auth.currentUser);
       fetchMarkedGames();
     }
-  }, [user]);
+  }, [userId]);
 
   const handleMarkGame = async (gameId) => {
     try {
       const database = getDatabase();
-      const userMarksRef = ref(database, `userMarks/${user.uid}/${gameId}`);
+      const userMarksRef = ref(database, `userMarks/${userId}/${gameId}`);
       await set(userMarksRef, true);
 
       // Atualizar a lista de jogos marcados
@@ -68,7 +68,7 @@ const UserGameList = () => {
   const handleUnmarkGame = async (gameId) => {
     try {
       const database = getDatabase();
-      const userMarksRef = ref(database, `userMarks/${user.uid}/${gameId}`);
+      const userMarksRef = ref(database, `userMarks/${userId}/${gameId}`);
       await remove(userMarksRef);
 
       // Atualizar a lista de jogos marcados
@@ -80,7 +80,7 @@ const UserGameList = () => {
 
   return (
     <div>
-      <h2>Sua lista de Jogos Marcados:</h2>
+      <h2>Lista de Jogos Marcados:</h2>
       {markedGames.length > 0 ? (
         <ul>
           {markedGames.map((gameId) => (

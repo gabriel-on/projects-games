@@ -27,11 +27,6 @@ const UserProfile = () => {
   useEffect(() => {
     if (userId) {
       loadUserProfile(userId);
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    if (userId) {
       loadFavoriteGames(userId);
       loadUserAchievements(userId);
       loadUserRanking(userId);
@@ -259,7 +254,7 @@ const UserProfile = () => {
           </div>
 
           <div className='UserGameList-container'>
-            <UserGameList />
+            <UserGameList userId={userId} />
           </div>
 
           {/* Outras informações do usuário */}
