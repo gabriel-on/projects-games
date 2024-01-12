@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuthentication';
 import '../AddGame/AddGame.css';
+import MultipleSitesInput from '../../components/MultipleSitesInput/MultipleSitesInput';
 
 function AddGame() {
   const [newGame, setNewGame] = useState({
@@ -369,18 +370,12 @@ function AddGame() {
           )}
         </div>
 
-        <div className='field'>
-          <label>
-            Site Oficial (Opcional):
-            <input
-              type="text"
-              name="officialSite"
-              value={newGame.officialSite}
-              onChange={handleChange}
-            />
-            {errors.officialSite && <p className="error-message">{errors.officialSite}</p>}
-          </label>
-        </div>
+        <MultipleSitesInput
+          name="officialSites"
+          value={newGame.officialSites}
+          onChange={handleChange}
+          error={errors.officialSite}
+        />
 
         <div className='field'>
           <label>

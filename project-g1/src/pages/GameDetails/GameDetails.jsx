@@ -103,22 +103,25 @@ const GameDetails = () => {
             onSaveChanges={handleSaveChanges}
           />
           <div>
-            <h3>Onde comprar: PC</h3>
-            <p>Steam</p>
-            <p>Epic Games</p>
-            <h3>Onde comprar: Console</h3>
-            <p>Playstation Store</p>
-            <p>Xbox Store</p>
+            <h3>Onde comprar</h3>
+            <div>
+              {gameData.officialSites && (
+                <div>
+                  {/* <h3>Sites Oficiais:</h3> */}
+                  <ul>
+                    {gameData.officialSites.map((site, index) => (
+                      <li key={index}>
+                        <a href={site.link} target="_blank" rel="noopener noreferrer">
+                          {site.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-
-      <div>
-        {gameData.officialSite && (
-          <Link to={gameData.officialSite} target='_blank'>
-            <p>Site Oficial</p>
-          </Link>
-        )}
       </div>
 
       <div className='description-trailer'>
