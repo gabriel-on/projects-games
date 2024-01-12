@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, set, get } from 'firebase/database';
 
 const UserLevel = ({ userId, userPoints, userAchievements, confirmLevelUp, setConfirmLevelUp }) => {
-  const [confirmedUserLevel, setConfirmedUserLevel] = useState(null);
+  const [userLevel, setUserLevel] = useState(null);
   const [pointsToNextLevel, setPointsToNextLevel] = useState(0);
   const [totalPointsToNextLevel, setTotalPointsToNextLevel] = useState(0);
   const basePointsPerLevel = 25;
@@ -15,8 +15,8 @@ const UserLevel = ({ userId, userPoints, userAchievements, confirmLevelUp, setCo
         const snapshot = await get(userLevelRef);
 
         if (snapshot.exists()) {
-          const userLevel = snapshot.val();
-          setConfirmedUserLevel(userLevel);
+          const level = snapshot.val();
+          setUserLevel(level);
         }
       } catch (error) {
         console.error('Erro ao buscar nível do usuário:', error.message);
@@ -28,19 +28,13 @@ const UserLevel = ({ userId, userPoints, userAchievements, confirmLevelUp, setCo
 
   const handleLevelUpConfirmation = async () => {
     try {
-      // Adicione aqui a lógica para subir de nível, se necessário
-      // ...
-
       // Atualiza o estado para ocultar o botão de confirmação
       setConfirmLevelUp(false);
 
       // Salva os pontos do usuário em "usersLevel"
       const db = getDatabase();
       const userLevelRef = ref(db, `usersLevel/${userId}/level`);
-      set(userLevelRef, confirmedUserLevel + 1); // Aumenta o nível em 1 e salva no banco de dados
-
-      // Zera os pontos do usuário
-      setTotalPointsToNextLevel(0);
+      set(userLevelRef, userLevel + 1); // Aumenta o nível em 1 e salva no banco de dados
 
       // Atualiza os pontos de todas as conquistas para 0
       const achievementsRef = ref(db, `userAchievements/${userId}`);
@@ -55,44 +49,50 @@ const UserLevel = ({ userId, userPoints, userAchievements, confirmLevelUp, setCo
 
         set(achievementsRef, userAchievements);
       }
+
+      // Zera os pontos do usuário após salvar o novo nível
+      setTotalPointsToNextLevel(0);
     } catch (error) {
       console.error('Erro ao confirmar subida de nível:', error.message);
     }
   };
 
   useEffect(() => {
-    // Calcula quantos pontos faltam para o próximo nível
-    const remainingPoints = basePointsPerLevel - (userPoints % basePointsPerLevel);
-    setPointsToNextLevel(remainingPoints);
-
     // Calcula o total de pontos necessários para atingir o próximo nível
-    const totalPoints = remainingPoints + userPoints;
-    setTotalPointsToNextLevel(totalPoints || 0); // Mostra 0 se totalPoints for falsy
-  }, [userPoints]);
+    const totalPoints = (userLevel + 1) * basePointsPerLevel;
+    setTotalPointsToNextLevel(totalPoints);
+
+    // Calcula quantos pontos faltam para o próximo nível
+    const remainingPoints = totalPoints - userPoints;
+    setPointsToNextLevel(remainingPoints);
+  }, [userPoints, userLevel, basePointsPerLevel]);
 
   useEffect(() => {
     // Exibe o botão de confirmação apenas quando o usuário atingir exatamente 50 pontos
-    if (userPoints % basePointsPerLevel === 0 && userPoints > 0) {
+    if (userPoints >= basePointsPerLevel) {
       setConfirmLevelUp(true);
+    } else {
+      setConfirmLevelUp(false);
     }
-  }, [userPoints, setConfirmLevelUp]);
+  }, [userPoints, setConfirmLevelUp, basePointsPerLevel]);
 
   return (
     <div>
-      {confirmedUserLevel !== null && (
+      {userLevel !== null && (
         <div>
-          <p>Nível: {confirmedUserLevel}</p>
+          <p>Nível: {userLevel}</p>
         </div>
       )}
       <p>Total de pontos disponíveis: {totalPointsToNextLevel}</p>
-      {confirmLevelUp && confirmedUserLevel === null && (
-        <div>
-          <p>Faltam {pointsToNextLevel} pontos para o próximo nível.</p>
-          <p>Você realmente deseja subir de nível?</p>
-          <button onClick={handleLevelUpConfirmation}>Confirmar</button>
-          <button onClick={() => setConfirmLevelUp(false)}>Cancelar</button>
-        </div>
-      )}
+      <div>
+        <p>Faltam {pointsToNextLevel} pontos para o próximo nível.</p>
+        <p>Você realmente deseja subir de nível?</p>
+        <button
+          onClick={handleLevelUpConfirmation}
+          disabled={userPoints < basePointsPerLevel}>
+          Confirmar
+        </button>
+      </div>
     </div>
   );
 };
