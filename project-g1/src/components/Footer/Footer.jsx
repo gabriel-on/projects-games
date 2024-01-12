@@ -5,7 +5,7 @@ function Footer() {
   return (
     <footer>
       <div>
-        <p>Pre_Alpha</p>
+        <p>&copy; - Pre_Alpha - Version: 1</p>
       </div>
     </footer>
   )
