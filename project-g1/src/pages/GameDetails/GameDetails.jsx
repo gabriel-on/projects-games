@@ -7,11 +7,14 @@ import useInteractions from '../../hooks/useInteractions';
 import GameStatus from '../../components/GamesStatus/GamesStatus';
 import GameAnalysis from '../../components/GameAnalysis/GameAnalysis';
 import '../GameDetails/GameDetails.css'
+import GameStatusModal from '../../components/GamesStatus/GameStatusModal';
 
 const GameDetails = () => {
   const { gameId } = useParams();
   const [gameData, setGameData] = useState(null);
   const [user, setUser] = useState(null);
+  const [showGameStatusModal, setShowGameStatusModal] = useState(false);
+
   const navigate = useNavigate();
   const [gameAnalysis, setGameAnalysis] = useState([]);
   const {
@@ -101,20 +104,6 @@ const GameDetails = () => {
         </div>
       </div>
 
-      <div id="status">
-        <div className=''>
-          <GameStatus
-            className={"status-games-details"}
-            gameId={gameId}
-            userClassification={userClassification}
-            onClassificationChange={handleClassificationChange}
-            onStatusChange={handleStatusChange}
-            onToggleFavorite={handleToggleFavorite}
-            onSaveChanges={handleSaveChanges}
-          />
-        </div>
-      </div>
-
       <div
         className='set-rating-classification-interactions'
         id='set-rci'>
@@ -122,6 +111,24 @@ const GameDetails = () => {
         <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
         <p className='interactions-all'>{totalInteractions} usuário(s) interagiram com o jogo.</p>
       </div>
+
+      <div id="status">
+        <button onClick={() => setShowGameStatusModal(true)}>
+          Marcar Jogo
+        </button>
+        {showGameStatusModal && (
+          <GameStatusModal
+            gameId={gameId}
+            userClassification={userClassification}
+            onClassificationChange={handleClassificationChange}
+            onStatusChange={handleStatusChange}
+            onToggleFavorite={handleToggleFavorite}
+            onSaveChanges={handleSaveChanges}
+            onClose={() => setShowGameStatusModal(false)}
+          />
+        )}
+      </div>
+
       <div id="descrição">
         <div className='details-container'>
           <div className='description-container'>
@@ -158,8 +165,8 @@ const GameDetails = () => {
           <div className="field">
             <label>Trailer:</label>
             <iframe
-              width="380"
-              height="260"
+              width="360"
+              height="240"
               src={`https://www.youtube.com/embed/${videoCode}`}
               title="YouTube video player"
               allowFullScreen
