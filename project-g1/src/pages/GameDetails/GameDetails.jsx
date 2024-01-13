@@ -74,14 +74,16 @@ const GameDetails = () => {
   }
 
   return (
-    <div className='game-details-container'>
-      <div className='game-details'>
+    <div className='game-details-container' id='container'>
+      <div id="foto-do-jogo">
         <div className='details-div'>
           <img src={gameData.image} alt={gameData.title} />
           <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
           <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
           <p className='interactions-all'>{totalInteractions} usuário(s) interagiram com o jogo.</p>
         </div>
+      </div>
+      <div id="banner">
         <div className='secondary-images-container'>
           <ul>
             {secondaryImages.map((image, index) => (
@@ -91,7 +93,8 @@ const GameDetails = () => {
             ))}
           </ul>
         </div>
-        
+      </div>
+      <div id="status">
         <div className=''>
           <GameStatus
             className={"status-games-details"}
@@ -104,25 +107,28 @@ const GameDetails = () => {
           />
         </div>
       </div>
-
-      <div className='description-trailer'>
-        <div className='sites-container'>
-          <h3>Onde comprar</h3>
-          {gameData.officialSites && (
-            <div>
-              {/* <h3>Sites Oficiais:</h3> */}
-              <ul>
-                {gameData.officialSites.map((site, index) => (
-                  <li key={index}>
-                    <a href={site.link} target="_blank" rel="noopener noreferrer">
-                      {site.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+      <div id="onde-comprar">
+        <div className='description-trailer'>
+          <div className='sites-container'>
+            <h3>Onde comprar</h3>
+            {gameData.officialSites && (
+              <div>
+                {/* <h3>Sites Oficiais:</h3> */}
+                <ul>
+                  {gameData.officialSites.map((site, index) => (
+                    <li key={index}>
+                      <a href={site.link} target="_blank" rel="noopener noreferrer">
+                        {site.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
+      </div>
+      <div id="descrição">
         <div className='details-container'>
           <h1>{gameData.title}</h1>
           <div className='details-div'>
@@ -136,26 +142,30 @@ const GameDetails = () => {
           </div>
         </div>
       </div>
+      <div id='trailer'>
         {gameData.trailer && (
-          <div className="field">
-            <label>Trailer:</label>
-            <iframe
-              width="380"
-              height="260"
-              src={`https://www.youtube.com/embed/${videoCode}`}
-              title="YouTube video player"
-              allowFullScreen
-            ></iframe>
-          </div>
-        )}
-
-      <div className='reviews-container'>
-        {/* <h2>Sua Análise do Jogo</h2> */}
-        <GameAnalysis gameId={gameId} />
+            <div className="field">
+              <label>Trailer:</label>
+              <iframe
+                width="380"
+                height="260"
+                src={`https://www.youtube.com/embed/${videoCode}`}
+                title="YouTube video player"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
       </div>
-
-      <p>Adicionado por: {gameData.addedBy}</p>
-      <p>Data de criação: <span>{new Date(gameData.createdAt).toLocaleString()}</span></p>
+      <div id="analises">
+        <div className='reviews-container'>
+          {/* <h2>Sua Análise do Jogo</h2> */}
+          <GameAnalysis gameId={gameId} />
+        </div>
+      </div>
+      <div id='createdBy'>
+        <p>Adicionado por: {gameData.addedBy}</p>
+        <p>Data de criação: <span>{new Date(gameData.createdAt).toLocaleString()}</span></p>
+      </div>
     </div>
   );
 };
