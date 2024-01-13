@@ -76,13 +76,13 @@ const GameDetails = () => {
   return (
     <div className='game-details-container' id='container'>
       <div id="foto-do-jogo">
-        <div className='details-div'>
+        <div className='details-div-foto'>
           <img src={gameData.image} alt={gameData.title} />
-          <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
-          <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
-          <p className='interactions-all'>{totalInteractions} usuário(s) interagiram com o jogo.</p>
+          <h1>{gameData.title}</h1>
+          <p>Gênero: <span>{gameData.genres}</span></p>
         </div>
       </div>
+
       <div id="banner">
         <div className='secondary-images-container'>
           <ul>
@@ -94,6 +94,7 @@ const GameDetails = () => {
           </ul>
         </div>
       </div>
+
       <div id="status">
         <div className=''>
           <GameStatus
@@ -107,54 +108,58 @@ const GameDetails = () => {
           />
         </div>
       </div>
-      <div id="onde-comprar">
-        <div className='description-trailer'>
-          <div className='sites-container'>
-            <h3>Onde comprar</h3>
-            {gameData.officialSites && (
-              <div>
-                {/* <h3>Sites Oficiais:</h3> */}
-                <ul>
-                  {gameData.officialSites.map((site, index) => (
-                    <li key={index}>
-                      <a href={site.link} target="_blank" rel="noopener noreferrer">
-                        {site.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
+
+      <div 
+      className='set-rating-classification-interactions' 
+      id='set-rci'>
+        <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
+        <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
+        <p className='interactions-all'>{totalInteractions} usuário(s) interagiram com o jogo.</p>
       </div>
       <div id="descrição">
         <div className='details-container'>
-          <h1>{gameData.title}</h1>
-          <div className='details-div'>
-            <p>Gênero: <span>{gameData.genres}</span></p>
-            <p>Console: <span>{gameData.consoles}</span></p>
-            <p>Desenvolvedora: {gameData.developers}</p>
-            <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
-          </div>
           <div className='description-container'>
             <p>{gameData.description}</p>
           </div>
         </div>
       </div>
+      <div id='details-div'>
+        <h2>Detalhes</h2>
+        <div>
+          <p>Console: <span>{gameData.consoles}</span></p>
+          <p>Desenvolvedora: {gameData.developers}</p>
+          <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
+        </div>
+      </div>
+      {gameData.officialSites && (
+        <div id="onde-comprar">
+          <h3>Onde comprar</h3>
+          <div className='sites-container'>
+            <ul>
+              {gameData.officialSites.map((site, index) => (
+                <li key={index}>
+                  <a href={site.link} target="_blank" rel="noopener noreferrer">
+                    {site.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
       <div id='trailer'>
         {gameData.trailer && (
-            <div className="field">
-              <label>Trailer:</label>
-              <iframe
-                width="380"
-                height="260"
-                src={`https://www.youtube.com/embed/${videoCode}`}
-                title="YouTube video player"
-                allowFullScreen
-              ></iframe>
-            </div>
-          )}
+          <div className="field">
+            <label>Trailer:</label>
+            <iframe
+              width="380"
+              height="260"
+              src={`https://www.youtube.com/embed/${videoCode}`}
+              title="YouTube video player"
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
       </div>
       <div id="analises">
         <div className='reviews-container'>
