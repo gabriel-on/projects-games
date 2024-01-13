@@ -86,11 +86,17 @@ const GameDetails = () => {
       <div id="banner">
         <div className='secondary-images-container'>
           <ul>
-            {secondaryImages.map((image, index) => (
-              <li key={index}>
-                <img src={image.link} alt={`Imagem ${index + 1}`} />
+            {secondaryImages.length > 0 ? (
+              secondaryImages.map((image, index) => (
+                <li key={index}>
+                  <img src={image.link} alt={`Imagem ${index + 1}`} />
+                </li>
+              ))
+            ) : (
+              <li>
+                <img src="../src/img/foto-padrao.png" alt="Foto Padrão" />
               </li>
-            ))}
+            )}
           </ul>
         </div>
       </div>
@@ -109,9 +115,9 @@ const GameDetails = () => {
         </div>
       </div>
 
-      <div 
-      className='set-rating-classification-interactions' 
-      id='set-rci'>
+      <div
+        className='set-rating-classification-interactions'
+        id='set-rci'>
         <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
         <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
         <p className='interactions-all'>{totalInteractions} usuário(s) interagiram com o jogo.</p>

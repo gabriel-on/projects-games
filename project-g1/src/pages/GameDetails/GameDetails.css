@@ -102,22 +102,35 @@
     z-index: -20;
 }
 
-.secondary-images-container img {
-    border: 4px solid black;
+.secondary-images-container ul > li > img {
     width: 1200px;
     height: 415px;
     object-fit: cover;
+    border: 2px solid transparent;
+    border-image: linear-gradient(to right, rgba(255, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    border-image-slice: 1;
 }
+
+.secondary-images-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1200px;
+    height: 415px;
+    background-image: linear-gradient(180deg, transparent, #1b1b1b);
+  }
 
 #foto-do-jogo>.details-div-foto {
     position: relative;
-    top: 220px;
+    top: 40%;
     width: 280px;
-    /* margin-left: 40px; */
 }
 
 .details-div-foto>img {
-    /* position: relative; */
+    object-fit: cover;
+    border: 2px solid black;
+    height: 40vh;
     width: 220px;
 }
 
