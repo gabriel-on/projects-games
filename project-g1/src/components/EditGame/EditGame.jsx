@@ -3,6 +3,7 @@ import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { useParams, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import MultipleSitesInput from '../MultipleSitesInput/MultipleSitesInput';
+import SecondaryImagesInput from '../SecondaryImagesInput/SecondaryImagesInput';
 
 const EditGame = () => {
   const { gameId } = useParams();
@@ -298,6 +299,13 @@ const EditGame = () => {
             </button>
           )}
         </div>
+
+        <SecondaryImagesInput
+          name="secondaryImages"
+          value={game.secondaryImages}
+          onChange={handleChange}
+          error={errors.secondaryImages}
+        />
 
         <MultipleSitesInput
           name="officialSites"
