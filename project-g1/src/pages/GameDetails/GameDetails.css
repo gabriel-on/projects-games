@@ -13,6 +13,23 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    justify-content: space-between;
+}
+
+.secondary-images-container {
+    z-index: -20;
+    position: absolute;
+}
+
+.secondary-images-container img {
+    height: 415px;
+    object-fit: cover;
+    width: 1200px;
+}
+
+.game-details .details-div {
+    position: relative;
+    top: 200px;
 }
 
 .game-details .details-div > img {
@@ -39,7 +56,7 @@
 
 .details-container {
     background: #707070;
-    width: 640px;
+    width: 920px;
     height: 415px;
     display: flex;
     flex-direction: column;
@@ -63,6 +80,8 @@
 }
 
 .sites-container {
+    position: relative;
+    top: 185px;
     display: flex;
     /* border: 1px solid black; */
     width: 260px;

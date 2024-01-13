@@ -1,8 +1,10 @@
 .status-games-details {
     border: 1px solid black;
+    background: black;
+    color: white;
     display: flex;
     flex-direction: column;
-    height: 220px;
+    height: 415px;
     width: 260px;
     gap: 10px;
     padding: 10px;

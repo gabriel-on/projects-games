@@ -24,6 +24,8 @@ const GameDetails = () => {
     averageClassification
   } = useInteractions(gameId);
 
+  const secondaryImages = gameData?.secondaryImages || [];
+
   const videoCode = gameData?.trailer ? gameData.trailer.split('v=')[1] : null;
 
   useEffect(() => {
@@ -80,18 +82,16 @@ const GameDetails = () => {
           <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
           <p className='interactions-all'>{totalInteractions} usuário(s) interagiram com o jogo.</p>
         </div>
-        <div className='details-container'>
-          <h1>{gameData.title}</h1>
-          <div className='details-div'>
-            <p>Gênero: <span>{gameData.genres}</span></p>
-            <p>Console: <span>{gameData.consoles}</span></p>
-            <p>Desenvolvedora: {gameData.developers}</p>
-            <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
-          </div>
-          <div className='description-container'>
-            <p>{gameData.description}</p>
-          </div>
+        <div className='secondary-images-container'>
+          <ul>
+            {secondaryImages.map((image, index) => (
+              <li key={index}>
+                <img src={image.link} alt={`Imagem ${index + 1}`} />
+              </li>
+            ))}
+          </ul>
         </div>
+        
         <div className=''>
           <GameStatus
             className={"status-games-details"}
@@ -106,23 +106,36 @@ const GameDetails = () => {
       </div>
 
       <div className='description-trailer'>
-          <div className='sites-container'>
-            <h3>Onde comprar</h3>
-            {gameData.officialSites && (
-              <div>
-                {/* <h3>Sites Oficiais:</h3> */}
-                <ul>
-                  {gameData.officialSites.map((site, index) => (
-                    <li key={index}>
-                      <a href={site.link} target="_blank" rel="noopener noreferrer">
-                        {site.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+        <div className='sites-container'>
+          <h3>Onde comprar</h3>
+          {gameData.officialSites && (
+            <div>
+              {/* <h3>Sites Oficiais:</h3> */}
+              <ul>
+                {gameData.officialSites.map((site, index) => (
+                  <li key={index}>
+                    <a href={site.link} target="_blank" rel="noopener noreferrer">
+                      {site.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        <div className='details-container'>
+          <h1>{gameData.title}</h1>
+          <div className='details-div'>
+            <p>Gênero: <span>{gameData.genres}</span></p>
+            <p>Console: <span>{gameData.consoles}</span></p>
+            <p>Desenvolvedora: {gameData.developers}</p>
+            <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
           </div>
+          <div className='description-container'>
+            <p>{gameData.description}</p>
+          </div>
+        </div>
+      </div>
         {gameData.trailer && (
           <div className="field">
             <label>Trailer:</label>
@@ -135,7 +148,6 @@ const GameDetails = () => {
             ></iframe>
           </div>
         )}
-      </div>
 
       <div className='reviews-container'>
         {/* <h2>Sua Análise do Jogo</h2> */}
