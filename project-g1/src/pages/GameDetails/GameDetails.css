@@ -1,13 +1,14 @@
 #container {
     display: grid;
-    grid-template-columns:  1fr 1fr;
-    grid-template-rows: 2fr 1fr 2fr;
+    grid-template-columns:  2fr 3fr 2fr;
+    grid-template-rows: 1fr 2fr 1fr 2fr;
     grid-template-areas:
         "Banner Banner Banner"
         "Fotodojogo set-rci set-rci"
-        "Fotodojogo Status Trailer"
+        /* "Fotodojogo set-rci set-rci" */
         "Descrição Descrição Descrição"
-        "details-div details-div details-div"
+        "Trailer Trailer Trailer"
+        "details-div details-div details-div "
         "Ondecomprar Ondecomprar Ondecomprar"
         "Analises Analises Analises"
         "createdBy createdBy createdBy";
@@ -31,10 +32,6 @@
     grid-area: Banner;
 }
 
-#status {
-    grid-area: Status;
-}
-
 #descrição {
     grid-area: Descrição;
 }
@@ -55,14 +52,6 @@
     grid-area: details-div;
 }
 
-#status {
-    width: 100px;
-    display: flex;
-    max-height: 20px;
-    /* justify-content: flex-end; */
-    grid-area: Status;
-}
-
 .game-details-container {
     max-width: 1200px;
     margin: auto;
@@ -75,6 +64,11 @@
     align-items: center;
     gap: 20px;
     justify-content: space-between;
+}
+
+#trailer {
+    display: flex;
+    justify-content: flex-end;
 }
 
 #details-div {
@@ -124,9 +118,20 @@
     background-image: linear-gradient(180deg, transparent, #1b1b1b);
   }
 
+#foto-do-jogo {
+    position: relative;
+    top: 80px;
+}
+
+#set-rci, #descrição {
+    position: relative;
+    top: 80px;
+    z-index: -10;
+}
+
 #foto-do-jogo>.details-div-foto {
     /* position: relative; */
-    top: 40%;
+    top: 80px;
     width: 280px;
 }
 
@@ -172,7 +177,7 @@
 .set-rating-classification-interactions {
     /* position: relative; */
     /* top: 15px; */
-    width: 633px;
+    width: 300px;
     height: 30px;
     display: flex;
     flex-wrap: wrap;
