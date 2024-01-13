@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuthentication';
 import '../AddGame/AddGame.css';
 import MultipleSitesInput from '../../components/MultipleSitesInput/MultipleSitesInput';
+import SecondaryImagesInput from '../../components/SecondaryImagesInput/SecondaryImagesInput';
 
 function AddGame() {
   const [newGame, setNewGame] = useState({
@@ -363,6 +364,13 @@ function AddGame() {
             </button>
           )}
         </div>
+
+        <SecondaryImagesInput
+          name="secondaryImages"
+          value={newGame.secondaryImages}
+          onChange={handleChange}
+          error={errors.secondaryImages}
+        />
 
         <MultipleSitesInput
           name="officialSites"
