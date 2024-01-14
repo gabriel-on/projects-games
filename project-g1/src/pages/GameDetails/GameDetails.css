@@ -1,16 +1,13 @@
 #container {
     display: grid;
-    grid-template-columns:  2fr 3fr 2fr;
-    grid-template-rows: 1fr 2fr 1fr 2fr;
+    grid-template-columns: 2fr 3fr 2fr;
+    grid-template-rows: 1fr 1.4fr 0fr;
     grid-template-areas:
         "Banner Banner Banner"
         "Fotodojogo set-rci set-rci"
-        /* "Fotodojogo set-rci set-rci" */
-        "Descrição Descrição Descrição"
-        "Trailer Trailer Trailer"
-        "details-div details-div details-div "
-        "Ondecomprar Ondecomprar Ondecomprar"
-        "Analises Analises Analises"
+        "Fotodojogo 1 1"
+        "item-list item-list item-list"
+        "Info-container Info-container Info-container"
         "createdBy createdBy createdBy";
     text-align: center;
     gap: 20px;
@@ -32,24 +29,38 @@
     grid-area: Banner;
 }
 
-#descrição {
-    grid-area: Descrição;
+#item-list {
+    grid-area: item-list;
 }
 
-#trailer {
-    grid-area: Trailer;
-}
-
-#analises {
-    grid-area: Analises;
+#info-container-details {
+    grid-area: Info-container;
 }
 
 #createdBy {
     grid-area: createdBy;
 }
 
-#details-div {
-    grid-area: details-div;
+#descrição {
+    grid-area: Descrição;
+}
+
+#status {
+    position: relative;
+    bottom: 275px;
+    left: 190px;
+    display: flex;
+}
+
+#status>button {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: .8em;
+    border: 1px solid black;
+    padding: 10px;
+    background: red;
+    color: black;
+    cursor: pointer;
 }
 
 .game-details-container {
@@ -66,7 +77,7 @@
     justify-content: space-between;
 }
 
-#trailer {
+/* #trailer {
     display: flex;
     justify-content: flex-end;
 }
@@ -81,25 +92,24 @@
     align-items: flex-start;
     gap: 20px;
     margin: auto;
-}
+} */
 
-#details-div div {
+/* #details-div div {
     align-items: flex-start;
     flex-direction: column;
     display: flex;
     gap: 10px;
-}
+} */
 
-#banner, .secondary-images-container{
+#banner,
+.secondary-images-container {
     display: flex;
     margin: auto;
     position: absolute;
-    /* width: 1200px;
-    height: 415px; */
     z-index: -20;
 }
 
-.secondary-images-container ul > li > img {
+.secondary-images-container ul>li>img {
     width: 1200px;
     height: 415px;
     object-fit: cover;
@@ -116,13 +126,13 @@
     width: 1200px;
     height: 415px;
     background-image: linear-gradient(180deg, transparent, #1b1b1b);
-  }
-
-#foto-do-jogo {
-    position: relative;
-    top: 80px;
 }
 
+/* #foto-do-jogo {
+    display: flex;
+} */
+
+/* 
 #set-rci, #descrição {
     position: relative;
     top: 80px;
@@ -130,10 +140,9 @@
 }
 
 #foto-do-jogo>.details-div-foto {
-    /* position: relative; */
     top: 80px;
     width: 280px;
-}
+} */
 
 .details-div-foto>img {
     object-fit: cover;
@@ -157,13 +166,15 @@
     display: flex;
 }
 
-#onde-comprar .sites-container > ul {
+
+#onde-comprar .sites-container>ul {
     gap: 10px;
     display: flex;
     max-width: 1200px;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
+
 
 #onde-comprar .sites-container ul>li>a {
     font-size: 1em;
