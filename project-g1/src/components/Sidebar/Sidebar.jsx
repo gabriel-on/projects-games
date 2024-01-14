@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../Sidebar/Sidebar.css';
 import defaultProfileImage from '../../img/perfil.png';
+import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
-const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
+const Sidebar = ({ userId, user, isAdmin, logout, isOpen, toggleDarkMode }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isBackdropVisible, setBackdropVisible] = useState(false);
 
@@ -49,6 +50,9 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                 <button className="close-button" onClick={closeSidebar}>
                     Fechar
                 </button>
+                
+                <DarkModeToggle toggleDarkMode={toggleDarkMode}/>
+
                 <ul className="links_list">
                     <li>
                         <NavLink to="/" onClick={closeSidebar} className="active">

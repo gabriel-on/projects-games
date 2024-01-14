@@ -1,0 +1,15 @@
+/* DarkModeToggle.css */
+.dark-mode-toggle {
+    margin-top: 20px;
+  }
+  
+  .dark-mode-toggle label {
+    display: flex;
+    align-items: center;
+    color: #fff;
+  }
+  
+  .dark-mode-toggle input {
+    margin-left: 10px;
+  }
+  

@@ -9,6 +9,11 @@ import Sidebar from '../Sidebar/Sidebar';
 const Navbar = ({ userId }) => {
   const { logout } = useAuth();
   const { user } = useAuthValue();
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   const isAdmin = user && user.isAdmin;
 
@@ -31,7 +36,7 @@ const Navbar = ({ userId }) => {
           </NavLink>
         </li>
         <li>
-          <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen} />
+          <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen}  toggleDarkMode={toggleDarkMode} />
         </li>
       </ul>
     </nav>

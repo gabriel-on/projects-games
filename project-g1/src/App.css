@@ -1,33 +1,51 @@
+/* Importações */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
+/* Configurações globais */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Configurações da fonte e corpo do documento */
 body {
-    font-family: 'Roboto', sans-serif;    
+    font-family: 'Roboto', sans-serif;
     background: #e2e2e2;
     margin-top: 100px;
 }
 
+/* Estilos responsivos para telas pequenas */
 @media screen and (max-width: 768px) {
-    body{
+    body {
         background: rgb(251, 255, 1);
     }
+
     img {
         max-width: 240px;
-    }  
+    }
 }
 
+/* Estilos responsivos para telas muito pequenas (ex.: dispositivos móveis) */
 @media screen and (max-width: 420px) {
-    body{
+    body {
         background: rgb(167, 167, 167);
-    }   
+    }
+
     img {
         max-width: 220px;
     }
 }
+
+/* Estilos para o modo claro */
+/* .light-mode {
+    background-color: #fff;
+    color: #333;
+} */
+
+/* Estilos para o modo escuro */
+/* .dark-mode {
+    background-color: #333;
+    color: #fff;
+} */
