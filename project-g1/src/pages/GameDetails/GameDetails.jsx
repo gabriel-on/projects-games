@@ -77,29 +77,6 @@ const GameDetails = () => {
 
   return (
     <div className='game-details-container' id='container'>
-      <div id="foto-do-jogo">
-        <div className='details-div-foto'>
-          <img src={gameData.image} alt={gameData.title} />
-          <div id="status">
-            <button onClick={() => setShowGameStatusModal(true)}>
-              Marcar
-            </button>
-            {showGameStatusModal && (
-              <GameStatusModal
-                gameId={gameId}
-                userClassification={userClassification}
-                onClassificationChange={handleClassificationChange}
-                onStatusChange={handleStatusChange}
-                onToggleFavorite={handleToggleFavorite}
-                onSaveChanges={handleSaveChanges}
-                onClose={() => setShowGameStatusModal(false)}
-              />
-            )}
-          </div>
-          <h1>{gameData.title}</h1>
-          <p>Gênero: <span>{gameData.genres}</span></p>
-        </div>
-      </div>
 
       <div id="banner">
         <div className='secondary-images-container'>
@@ -119,12 +96,58 @@ const GameDetails = () => {
         </div>
       </div>
 
+      <div id="foto-do-jogo">
+        <div className='details-div-foto'>
+          <img src={gameData.image} alt={gameData.title} />
+          <div id="status">
+            <button onClick={() => setShowGameStatusModal(true)}>
+              Marcar
+            </button>
+            {showGameStatusModal && (
+              <GameStatusModal
+                gameId={gameId}
+                userClassification={userClassification}
+                onClassificationChange={handleClassificationChange}
+                onStatusChange={handleStatusChange}
+                onToggleFavorite={handleToggleFavorite}
+                onSaveChanges={handleSaveChanges}
+                onClose={() => setShowGameStatusModal(false)}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+
       <div
         className='set-rating-classification-interactions'
         id='set-rci'>
-        <p className='rating-age'>Idade recomendada: {gameData.rating}</p>
-        <p className='classification-all'>Classificação Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
+        <p className='rating-age'>Idade: {gameData.rating}</p>
+        <p className='classification-all'>Média: {Math.ceil(averageClassification) === 10 ? 10 : averageClassification.toFixed(averageClassification % 1 !== 0 ? 1 : 0)}</p>
         <p className='interactions-all'>{totalInteractions} usuário(s) interagiram com o jogo.</p>
+        <div>
+          <h1>{gameData.title}</h1>
+          <h3>Gênero:</h3>
+          <ul>
+            {gameData.genres.map((genre, index) => (
+              <li key={index}>{genre}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div id='trailer'>
+        {gameData.trailer && (
+          <div className="field">
+            <label>Trailer:</label>
+            <iframe
+              width="360"
+              height="240"
+              src={`https://www.youtube.com/embed/${videoCode}`}
+              title="YouTube video player"
+              allowFullScreen
+            ></iframe>
+          </div>
+        )}
       </div>
 
       <div id='info-container-details'>
@@ -168,20 +191,6 @@ const GameDetails = () => {
             </div>
           </div>
         )}
-        <div id='trailer'>
-          {gameData.trailer && (
-            <div className="field">
-              <label>Trailer:</label>
-              <iframe
-                width="360"
-                height="240"
-                src={`https://www.youtube.com/embed/${videoCode}`}
-                title="YouTube video player"
-                allowFullScreen
-              ></iframe>
-            </div>
-          )}
-        </div>
         <div id="analises">
           <div className='reviews-container'>
             {/* <h2>Sua Análise do Jogo</h2> */}

@@ -1,10 +1,10 @@
 #container {
     display: grid;
-    grid-template-columns: 2fr 3fr 2fr;
-    grid-template-rows: 1fr 1.4fr 0fr;
+    grid-template-columns: 2fr 2fr 3fr;
+    grid-template-rows: 1fr 7fr 0fr;
     grid-template-areas:
         "Banner Banner Banner"
-        "Fotodojogo set-rci set-rci"
+        "Fotodojogo set-rci trailer"
         "Fotodojogo 1 1"
         "item-list item-list item-list"
         "Info-container Info-container Info-container"
@@ -37,6 +37,10 @@
     grid-area: Info-container;
 }
 
+#trailer {
+    grid-area: trailer;
+}
+
 #createdBy {
     grid-area: createdBy;
 }
@@ -61,6 +65,42 @@
     background: red;
     color: black;
     cursor: pointer;
+}
+
+#set-rci > div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#set-rci > div h1 {
+    display: flex;
+    gap: 10px;
+    color: white;
+}
+
+#set-rci > div h3 {
+    display: flex;
+    color: white;
+}
+
+#set-rci div > ul{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    display: flex;
+    color: black;
+    gap: 10px;
+    max-height: 40px;
+}
+
+#set-rci div > ul li{
+    text-transform: uppercase;
+    font-size: 0.9em;
+    padding: 6px;
+    background: #e70000;
+    display: flex;
+    color: black;
 }
 
 .game-details-container {
