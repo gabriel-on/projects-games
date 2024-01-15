@@ -1,3 +1,13 @@
+:root {
+    --background-navbar-light: #e1e1e1;
+    --text-color-navbar-light: #1e1e1e;
+    --text-color-logo-light: #1e1e1e;
+
+    --background-navbar-dark: #1e1e1e;
+    --text-color-navbar-dark: #e1e1e1;
+    --text-color-logo-dark: purple;
+}
+
 #container {
     display: grid;
     grid-template-columns: 2fr 2fr 3fr;
@@ -126,11 +136,15 @@
 }
 
 .secondary-images-container ul>li>img {
+    display: flex;
+    justify-content: center;
     width: 1200px;
-    height: 415px;
+    height: 390px;
+    margin: auto;
     object-fit: cover;
-    border-image-slice: 1;
-    filter: blur(4px);
+    /* border-image-slice: 1; */
+
+    filter: blur(30px) brightness(0.8) contrast(1.2);
 }
 
 .secondary-images-container::after {

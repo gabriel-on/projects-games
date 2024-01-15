@@ -136,7 +136,7 @@ const GameDetails = () => {
       </div>
 
       <div id='trailer'>
-        {gameData.trailer && (
+        {gameData.trailer ? (
           <div className="field">
             <label>Trailer:</label>
             <iframe
@@ -147,8 +147,14 @@ const GameDetails = () => {
               allowFullScreen
             ></iframe>
           </div>
+        ) : (
+          <div className="field">
+            <label>Trailer:</label>
+            <p>Nenhum vídeo disponível.</p>
+          </div>
         )}
       </div>
+
 
       <div id='info-container-details'>
         {/* <div id='item-list'>
