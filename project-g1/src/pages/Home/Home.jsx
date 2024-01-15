@@ -10,6 +10,7 @@ import GamesNavigation03 from '../../components/GameNavigation/GameNavigation03.
 
 import '../../components/GamesTopList/GamesTopList.css';
 import { Link } from 'react-router-dom';
+import TopUsers from '../../components/TopUsers/TopUsers.jsx';
 
 const Home = () => {
   const [gameIds, setGameIds] = useState([]);
@@ -112,6 +113,9 @@ const Home = () => {
             <h2>Games Populares:</h2>
             <Link to={"/"}>Ver mais</Link>
             <GamesNavigation03 />
+          </div>
+          <div>
+            <TopUsers/>
           </div>
         </div>
       </div>

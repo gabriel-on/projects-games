@@ -1,0 +1,86 @@
+.info-top-users-container {
+    width: 1100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.info-top-users-container table {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background: #d1d1d1;
+    gap: 10px;
+    justify-content: center;
+    width: 1100px;
+}
+
+.info-top-users {
+    flex-wrap: wrap;
+    display: flex;
+    background: #d1d1d1;
+    gap: 10px;
+    justify-content: center;
+}
+
+.info-top-users tr td a {
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.info-top-users tr {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 500px;
+    color: rgb(72, 255, 0);
+    background: black;
+    justify-content: space-between;
+}
+
+.info-top-users tr td{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.name-top {
+    width: 200px;
+    display: flex;
+    color: #c100fc;
+}
+
+.position-top {
+    color: #ffffff;
+}
+
+.level-top {
+    display: flex;
+    width: 100px;
+}
+
+.info-top-users tr:nth-child(1) {
+    background: #ffc107;
+    display: flex;
+    justify-content: space-between;
+    width: 1010px;
+}
+
+.info-top-users tr:nth-child(2) {
+    background: #007bff;
+}
+
+.info-top-users tr:nth-child(3) {
+    background: #28a745;
+}
+
+.info-top-users tr:nth-child(10) {
+    background: #742e00;
+    display: flex;
+    justify-content: space-between;
+    width: 1010px;
+}
