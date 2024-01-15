@@ -37,6 +37,7 @@ import Leaderboard from './components/Leaderboard/Leaderboard.jsx';
 import FirstVisitAchievement from './components/Achievements/FirstVisitAchievement.jsx';
 import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
 import Members from './pages/Members/Members.jsx'
+import { ThemeProvider } from './context/ThemeContext.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -50,7 +51,10 @@ function App() {
 
   const loadingUser = user === undefined;
 
-  document.body.style.backgroundColor = isDarkMode ? 'black' : '#f5f5f5';
+  useEffect(() => {
+    const body = document.body;
+    body.classList.toggle('dark-mode', isDarkMode);
+  }, [isDarkMode]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -94,60 +98,62 @@ function App() {
 
   return (
     <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
-      <AuthProvider value={{ user }}>
-        <BrowserRouter>
-          <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
-          <Navbar userId={userId} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
-          <div className="container-absolute">
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={!user ? <Login /> : <Navigate to={"/"} />} />
-              <Route path='/register' element={!user ? <Register /> : <Navigate to={"/"} />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/game/:gameId' element={<GameDetails />} />
-              <Route path='/games' element={<GameList />} />
+      <ThemeProvider value={{ isDarkMode, toggleTheme }}>
+        <AuthProvider value={{ user }}>
+          <BrowserRouter>
+            <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
+            <Navbar userId={userId} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+            <div className="container-absolute">
+              <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path='/login' element={!user ? <Login /> : <Navigate to={"/"} />} />
+                <Route path='/register' element={!user ? <Register /> : <Navigate to={"/"} />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/game/:gameId' element={<GameDetails />} />
+                <Route path='/games' element={<GameList />} />
 
-              <Route path='/profile/:userId' element={<UserProfile />} />
+                <Route path='/profile/:userId' element={<UserProfile />} />
 
-              <Route path='/members' element={<Members />} />
+                <Route path='/members' element={<Members />} />
 
-              <Route path='/search' element={<SearchBar />} />
+                <Route path='/search' element={<SearchBar />} />
 
-              <Route path='/all-games' element={<AllGames />} />
+                <Route path='/all-games' element={<AllGames />} />
 
-              <Route path='/rank' element={<RankingDraw rankings={rankings} userId={userId} />} />
+                <Route path='/rank' element={<RankingDraw rankings={rankings} userId={userId} />} />
 
-              <Route path='/latest-added' element={<LatestAdded />} />
+                <Route path='/latest-added' element={<LatestAdded />} />
 
-              <Route path='/populations' element={<GamesMoreInteractions />} />
+                <Route path='/populations' element={<GamesMoreInteractions />} />
 
 
-              <Route path="/genres" element={<GenreList />} />
+                <Route path="/genres" element={<GenreList />} />
 
-              <Route path="/game-v" element={<JogoDaVelha />} />
+                <Route path="/game-v" element={<JogoDaVelha />} />
 
-              <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} />} />
+                <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} />} />
 
-              {isAdmin && (
-                <>
-                  <Route path='/new'
-                    element={<AddGame />} />
-                  <Route path="/dashboard"
-                    element={<Dashboard />} />
-                  <Route path="/admin"
-                    element={<AdminPage isAdmin={isAdmin} />} />
-                  <Route path='/edit/:gameId'
-                    element={<EditGame />} />
-                  <Route path='/delete/:gameId'
-                    element={<DeleteGame />} />
-                </>
-              )}
-            </Routes>
-          </div>
-          <ScrollToTopButton />
-          <Footer />
-        </BrowserRouter>
-      </AuthProvider>
+                {isAdmin && (
+                  <>
+                    <Route path='/new'
+                      element={<AddGame />} />
+                    <Route path="/dashboard"
+                      element={<Dashboard />} />
+                    <Route path="/admin"
+                      element={<AdminPage isAdmin={isAdmin} />} />
+                    <Route path='/edit/:gameId'
+                      element={<EditGame />} />
+                    <Route path='/delete/:gameId'
+                      element={<DeleteGame />} />
+                  </>
+                )}
+              </Routes>
+            </div>
+            <ScrollToTopButton />
+            <Footer />
+          </BrowserRouter>
+        </AuthProvider>
+      </ThemeProvider>
     </div>
   );
 }

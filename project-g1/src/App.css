@@ -18,10 +18,10 @@ body {
     margin-top: 100px;
     background: var(--background-light);
     font-family: 'Roboto', sans-serif;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.dark-mode .App {
-    transition: background-color 0.3s ease-in-out;
+body.dark-mode{
     background: var(--background-dark);
 }
 
