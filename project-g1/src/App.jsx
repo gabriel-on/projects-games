@@ -42,14 +42,15 @@ function App() {
   const [user, setUser] = useState(undefined);
   const [userLevel, setUserLevel] = useState(1);
   const { auth } = useAuth();
+  const [isDarkMode, setDarkMode] = useState(false);
+
+  const toggleTheme = () => {
+    setDarkMode((prevMode) => !prevMode);
+  };
 
   const loadingUser = user === undefined;
 
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+  document.body.style.backgroundColor = isDarkMode ? 'black' : '#f5f5f5';
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -92,51 +93,61 @@ function App() {
   const rankings = ['S', 'A', 'B', 'C', 'D', 'E'];
 
   return (
-    <div className='App'>
-      <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-        <AuthProvider value={{ user }}>
-          <BrowserRouter>
-            <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
-            <Navbar userId={userId} toggleDarkMode={toggleDarkMode} />
-            <div className='container-absolute'>
-              <Routes>
-                <Route path='/' element={<Home toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/login' element={!user ? <Login toggleDarkMode={toggleDarkMode} /> : <Navigate to={"/"} />} />
-                <Route path='/register' element={!user ? <Register toggleDarkMode={toggleDarkMode} /> : <Navigate to={"/"} />} />
-                <Route path='/about' element={<About toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/game/:gameId' element={<GameDetails toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/games' element={<GameList toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/profile/:userId' element={<UserProfile toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/members' element={<Members toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/search' element={<SearchBar toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/all-games' element={<AllGames toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/rank' element={<RankingDraw rankings={rankings} userId={userId} toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/latest-added' element={<LatestAdded toggleDarkMode={toggleDarkMode} />} />
-                <Route path='/populations' element={<GamesMoreInteractions toggleDarkMode={toggleDarkMode} />} />
-                <Route path="/genres" element={<GenreList toggleDarkMode={toggleDarkMode} />} />
-                <Route path="/game-v" element={<JogoDaVelha toggleDarkMode={toggleDarkMode} />} />
-                <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} toggleDarkMode={toggleDarkMode} />} />
-                {isAdmin && (
-                  <>
-                    <Route path='/new'
-                      element={<AddGame toggleDarkMode={toggleDarkMode} />} />
-                    <Route path="/dashboard"
-                      element={<Dashboard toggleDarkMode={toggleDarkMode} />} />
-                    <Route path="/admin"
-                      element={<AdminPage isAdmin={isAdmin} toggleDarkMode={toggleDarkMode} />} />
-                    <Route path='/edit/:gameId'
-                      element={<EditGame toggleDarkMode={toggleDarkMode} />} />
-                    <Route path='/delete/:gameId'
-                      element={<DeleteGame toggleDarkMode={toggleDarkMode} />} />
-                  </>
-                )}
-              </Routes>
-            </div>
-            <ScrollToTopButton />
-            <Footer />
-          </BrowserRouter>
-        </AuthProvider>
-      </div>
+    <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
+      <AuthProvider value={{ user }}>
+        <BrowserRouter>
+          <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
+          <Navbar userId={userId} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+          <div className="container-absolute">
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={!user ? <Login /> : <Navigate to={"/"} />} />
+              <Route path='/register' element={!user ? <Register /> : <Navigate to={"/"} />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/game/:gameId' element={<GameDetails />} />
+              <Route path='/games' element={<GameList />} />
+
+              <Route path='/profile/:userId' element={<UserProfile />} />
+
+              <Route path='/members' element={<Members />} />
+
+              <Route path='/search' element={<SearchBar />} />
+
+              <Route path='/all-games' element={<AllGames />} />
+
+              <Route path='/rank' element={<RankingDraw rankings={rankings} userId={userId} />} />
+
+              <Route path='/latest-added' element={<LatestAdded />} />
+
+              <Route path='/populations' element={<GamesMoreInteractions />} />
+
+
+              <Route path="/genres" element={<GenreList />} />
+
+              <Route path="/game-v" element={<JogoDaVelha />} />
+
+              <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} />} />
+
+              {isAdmin && (
+                <>
+                  <Route path='/new'
+                    element={<AddGame />} />
+                  <Route path="/dashboard"
+                    element={<Dashboard />} />
+                  <Route path="/admin"
+                    element={<AdminPage isAdmin={isAdmin} />} />
+                  <Route path='/edit/:gameId'
+                    element={<EditGame />} />
+                  <Route path='/delete/:gameId'
+                    element={<DeleteGame />} />
+                </>
+              )}
+            </Routes>
+          </div>
+          <ScrollToTopButton />
+          <Footer />
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }

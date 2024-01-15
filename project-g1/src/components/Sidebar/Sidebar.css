@@ -1,7 +1,7 @@
 .sidebar {
     width: 240px;
     height: 100%;
-    background-color: #fff;
+    background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     transform: translateX(1340px);
@@ -28,6 +28,10 @@
 
 .links_list li {
     margin-bottom: 8px;
+}
+
+.dark-mode .links_list a.active {
+    color: #ff0606;
 }
 
 .links_list a {

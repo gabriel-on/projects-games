@@ -13,6 +13,10 @@
     z-index: 1000;
 }
 
+.dark-mode .navbar {
+    background-color: #d80b0b;
+}
+
 /* TABLETS */
 @media screen and (max-width: 768px) {
     .navbar {
@@ -81,7 +85,8 @@ a>h1 {
     color: purple;
     font-size: 2.5em;
 }
- .navbar > ul {
+
+.navbar>ul {
     display: flex;
     flex-wrap: wrap;
     align-items: center;

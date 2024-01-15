@@ -1,19 +1,14 @@
-
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuthentication';
 import { useAuthValue } from '../../context/AuthContext';
 import '../Navbar/Navbar.css';
 import Sidebar from '../Sidebar/Sidebar';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 
-const Navbar = ({ userId }) => {
+const Navbar = ({ userId, toggleTheme, isDarkMode }) => {
   const { logout } = useAuth();
   const { user } = useAuthValue();
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
 
   const isAdmin = user && user.isAdmin;
 
@@ -23,9 +18,9 @@ const Navbar = ({ userId }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-
+  
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isDarkMode ? 'dark-mode' : ''}`}>
       <NavLink to="/" className="brand">
         <h1>Logo</h1>
       </NavLink>
@@ -36,7 +31,10 @@ const Navbar = ({ userId }) => {
           </NavLink>
         </li>
         <li>
-          <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen}  toggleDarkMode={toggleDarkMode} />
+          <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen} />
+        </li>
+        <li>
+          <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         </li>
       </ul>
     </nav>
