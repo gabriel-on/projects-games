@@ -35,7 +35,7 @@
     flex-wrap: wrap;
     width: 500px;
     color: rgb(72, 255, 0);
-    background: black;
+    background: #313131;
     justify-content: space-between;
 }
 
@@ -61,6 +61,18 @@
 .level-top {
     display: flex;
     width: 100px;
+}
+
+.perfil-top-ten {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60px;
+    align-content: center;
+}
+
+.perfil-top-ten img {
+    width: 40px;
+    color: red;
 }
 
 .info-top-users tr:nth-child(1) {

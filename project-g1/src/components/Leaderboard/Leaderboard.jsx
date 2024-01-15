@@ -78,7 +78,7 @@ const Leaderboard = () => {
         <tbody className='info-users'>
           {users.map((user, index) => (
             <tr key={user.userId} className={index < 3 ? `highlight-${index + 1}` : ''}>
-              <td>{index + 1}</td>
+              <td>{index + 1} &deg;</td>
               <td>
                 <Link to={`/profile/${user.userId}`}>
                   {user.displayName}

@@ -3,6 +3,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { getDatabase, ref, get } from 'firebase/database';
 import '../TopUsers/TopUsers.css';
+import defaultProfilePhotoURL from '../../img/perfil.png'
 
 const TopUsers = () => {
     const [topUsers, setTopUsers] = useState([]);
@@ -65,14 +66,26 @@ const TopUsers = () => {
     return (
         <div className='info-top-users-container'>
             <h2>Top 10 Usuários</h2>
+            <Link to={"/leaderboard"}>Ver mais</Link>
             <table>
                 <tbody className='info-top-users'>
                     {topUsers.map((user, index) => (
                         <tr key={user.userId} className={index < 3 ? `highlight-top-${index + 1}` : ''}>
-                            <td>
-                                <img src={``} alt="Foto de perfil" />
+                            <td className='perfil-top-ten'>
+                                {user.photoURL ? (
+                                    <img src={user.photoURL} alt="Foto de perfil" />
+                                ) : (
+                                    <img src={defaultProfilePhotoURL} alt="Foto de perfil padrão" />
+                                )}
                             </td>
                             <td>
+                                {/* <div className='perfil-top-ten'>
+                                    {user.photoURL ? (
+                                        <img src={user.photoURL} alt="Foto de perfil" />
+                                    ) : (
+                                        <img src={defaultProfilePhotoURL} alt="Foto de perfil padrão" />
+                                    )}
+                                </div> */}
                                 <Link to={`/profile/${user.userId}`} className='name-top'>
                                     Nome: {user.displayName}
                                 </Link>
