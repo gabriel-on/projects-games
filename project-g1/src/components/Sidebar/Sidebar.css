@@ -1,6 +1,7 @@
 .dark-mode .sidebar {
     background: var(--background-dark);
     transition: background-color 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
 }
 
 .dark-mode .links_list a.active {
@@ -13,7 +14,7 @@
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
-    transform: translateX(1340px);
+    transform: translateX(1540px);
     position: fixed;
     top: 0;
     left: 0;
@@ -23,7 +24,7 @@
 }
 
 .sidebar.show {
-    transform: translateX(1100px);
+    transform: translateX(1115px);
 }
 
 /* .toggle-button {

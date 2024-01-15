@@ -12,10 +12,14 @@
 :root {
     --background-light: #f5f5f5;
     --background-dark: #333;
+
+    --text-color-light: #fff;
+    --text-color-dark: #000;
 }
 
 body.dark-mode {
     background: var(--background-dark);
+    color: var(--text-color-light);
 }
 
 body {

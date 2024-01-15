@@ -31,10 +31,10 @@ const Navbar = ({ userId, toggleTheme, isDarkMode }) => {
           </NavLink>
         </li>
         <li>
-          <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen} />
+          <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         </li>
         <li>
-          <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+          <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen} />
         </li>
       </ul>
     </nav>
