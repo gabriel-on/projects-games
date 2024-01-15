@@ -43,11 +43,22 @@ function App() {
   const [user, setUser] = useState(undefined);
   const [userLevel, setUserLevel] = useState(1);
   const { auth } = useAuth();
-  const [isDarkMode, setDarkMode] = useState(false);
+  const [isDarkMode, setDarkMode] = useState(() => {
+    // Obtém o valor do localStorage ou define o padrão como false
+    return JSON.parse(localStorage.getItem('darkMode')) || false;
+  });
 
   const toggleTheme = () => {
     setDarkMode((prevMode) => !prevMode);
   };
+
+  useEffect(() => {
+    const body = document.body;
+    body.classList.toggle('dark-mode', isDarkMode);
+
+    // Salva o estado do tema no localStorage
+    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
+  }, [isDarkMode]);
 
   const loadingUser = user === undefined;
 

@@ -1,3 +1,12 @@
+.dark-mode .sidebar {
+    background: var(--background-dark);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dark-mode .links_list a.active {
+    color: #ff0606;
+}
+
 .sidebar {
     width: 240px;
     height: 100%;
@@ -28,10 +37,6 @@
 
 .links_list li {
     margin-bottom: 8px;
-}
-
-.dark-mode .links_list a.active {
-    color: #ff0606;
 }
 
 .links_list a {

@@ -1,20 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&family=Rubik+Glitch&display=swap');
 
+:root {
+    --background-navbar-light: #e1e1e1;
+    --text-color-navbar-light: #1e1e1e;
+    --text-color-logo-light: #1e1e1e;
+
+    --background-navbar-dark: #1e1e1e;
+    --text-color-navbar-dark: #e1e1e1;
+    --text-color-logo-dark: purple;
+}
+
+.dark-mode .navbar {
+    background: var(--background-navbar-dark);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.dark-mode a>h1 {
+    font-family: 'Rubik Glitch', 'cursive';
+    text-transform: uppercase;
+    color: var(--text-color-logo-dark);
+    font-size: 2.5em;
+}
+
 .navbar {
     display: flex;
+    background: var(--background-navbar-light);
     justify-content: space-between;
     align-items: center;
-    background: black;
     padding: 20px 40px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-}
-
-.dark-mode .navbar {
-    background-color: #d80b0b;
 }
 
 /* TABLETS */
@@ -82,7 +100,7 @@ a {
 a>h1 {
     font-family: 'Rubik Glitch', 'cursive';
     text-transform: uppercase;
-    color: purple;
+    color: var(--text-color-logo-light);
     font-size: 2.5em;
 }
 
