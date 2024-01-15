@@ -1,11 +1,23 @@
+:root {
+    --background-sidebar-light: #e1e1e1;
+    --text-color-sidebar-light: #1e1e1e;
+
+    --background-sidebar-dark: #1e1e1e;
+    --text-color-sidebar-dark: #e1e1e1;
+}
+
 .dark-mode .sidebar {
-    background: var(--background-dark);
+    background: var(--background-sidebar-dark);
     transition: background-color 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out;
 }
 
 .dark-mode .links_list a.active {
-    color: #ff0606;
+    color: var(--text-color-sidebar-light);
+}
+
+.dark-mode .close-button {
+    color: var(--text-color-sidebar-dark);
 }
 
 .sidebar {
@@ -93,7 +105,7 @@
 .close-button {
     background: none;
     border: none;
-    color: #000000;
+    color: var(--text-color-sidebar-light);
     font-size: 1.1rem;
     cursor: pointer;
     margin: 10px;
