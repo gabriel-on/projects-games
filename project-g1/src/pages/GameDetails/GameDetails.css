@@ -77,24 +77,24 @@
     cursor: pointer;
 }
 
-#set-rci > div {
+#set-rci>div {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-#set-rci > div h1 {
+#set-rci>div h1 {
     display: flex;
     gap: 10px;
     color: white;
 }
 
-#set-rci > div h3 {
+#set-rci>div h3 {
     display: flex;
     color: white;
 }
 
-#set-rci div > ul{
+#set-rci div>ul {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -104,7 +104,7 @@
     max-height: 40px;
 }
 
-#set-rci div > ul li{
+#set-rci div>ul li {
     text-transform: uppercase;
     font-size: 0.9em;
     padding: 6px;
@@ -117,6 +117,66 @@
     max-width: 1200px;
     margin: auto;
     justify-content: center;
+}
+
+#info-container-details>#details-div {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background: black;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+#info-container-details>#details-div>div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+#info-container-details>#details-div>h2 {
+    color: white;
+    font-size: 2em;
+    text-transform: uppercase;
+}
+
+#info-container-details>#details-div>div p {
+    font-size: 1em;
+    color: #acac27;
+    text-transform: uppercase;
+}
+
+#info-container-details>#details-div>div p > span {
+    font-size: 1em;
+    color: yellow;
+    text-transform: uppercase;
+}
+
+#info-container-details>#details-div>div {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1em;
+    /* width: 1000px; */
+    gap: 20px;
+}
+#info-container-details>#details-div>div ul {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#info-container-details>#details-div>div ul li{
+    color: rgb(0, 0, 0);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 1em;
+    background: yellow;
+    padding: 5px;
 }
 
 .game-details {
@@ -280,6 +340,9 @@
 }
 
 .box-reviews-container>div textarea {
+    max-width: 800px;
+    min-width: 800px;
+    min-height: 100px;
     padding: 10px;
     justify-content: center;
     display: flex;

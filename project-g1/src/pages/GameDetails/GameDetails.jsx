@@ -176,8 +176,18 @@ const GameDetails = () => {
         <div id='details-div'>
           <h2>Detalhes</h2>
           <div>
-            <p>Console: <span>{gameData.consoles}</span></p>
-            <p>Desenvolvedora: {gameData.developers}</p>
+            <ul className="console-list">
+              <p>Console:</p>
+              {gameData.consoles.map((console, index) => (
+                <li key={index}>{console}</li>
+              ))}
+            </ul>
+            <ul className="developer-list">
+              <p>Desenvolvedora:</p>
+              {gameData.developers.map((developer, index) => (
+                <li key={index}>{developer}</li>
+              ))}
+            </ul>
             <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
           </div>
         </div>
