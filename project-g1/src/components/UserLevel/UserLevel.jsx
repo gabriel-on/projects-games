@@ -154,7 +154,7 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
       )}
       {currentUser.uid === userId && (
         <div>
-          <p>Total de pontos disponíveis: {userPoints}</p>
+          <p>Total de pontos disponíveis: {totalPointsToNextLevel}</p>
           <p>Faltam {pointsToNextLevel} pontos para o próximo nível.</p>
           <button
             onClick={handleAutoLevelUp}
