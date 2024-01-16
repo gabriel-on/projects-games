@@ -63,11 +63,6 @@ function App() {
   const loadingUser = user === undefined;
 
   useEffect(() => {
-    const body = document.body;
-    body.classList.toggle('dark-mode', isDarkMode);
-  }, [isDarkMode]);
-
-  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
 
