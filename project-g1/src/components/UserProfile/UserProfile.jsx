@@ -233,7 +233,7 @@ const UserProfile = () => {
 
               />
             </div>
-            <UserAchievementsList userId={user.uid} />
+            <UserAchievementsList userId={userId} />
           </div>
 
           {/* Lista de jogos favoritos */}

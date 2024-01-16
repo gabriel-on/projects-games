@@ -55,7 +55,6 @@ const UserAchievementsList = ({ userId }) => {
                         <li key={achievement.id}>
                             <p>Conquista: {achievement.name}</p>
                             <p>Descrição: {achievement.description}</p>
-                            <p>Pontos: {achievement.points}</p>
                         </li>
                     ))}
                 </ul>
