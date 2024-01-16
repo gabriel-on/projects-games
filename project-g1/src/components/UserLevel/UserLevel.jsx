@@ -5,8 +5,8 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
   const [userLevel, setUserLevel] = useState(null);
   const [pointsToNextLevel, setPointsToNextLevel] = useState(0);
   const [totalPointsToNextLevel, setTotalPointsToNextLevel] = useState(0);
-  const basePointsPerLevel = 50;
-  const pointsLimitPerLevel = 50;
+  const basePointsPerLevel = 150;
+  const pointsLimitPerLevel = 150;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,42 +73,75 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
   const handleAutoLevelUp = async () => {
     try {
       setConfirmLevelUp(false);
-
+  
       const db = getDatabase();
       const userLevelRef = ref(db, `usersLevel/${userId}/level`);
-
+  
       const snapshot = await get(userLevelRef);
       const currentLevel = snapshot.exists() ? snapshot.val() : 0;
-
-      const levelsToUp = Math.floor(userPoints / basePointsPerLevel);
-
+  
+      // Calcular a soma total de pontos do usuário, incluindo os das conquistas
+      const totalPoints = userPoints + (await getTotalAchievementPoints(userId));
+  
+      // Atualizar os pontos antes de subir de nível
+      const nextLevelRef = ref(db, `usersLevel/${userId}/${currentLevel + 1}/points`);
+      const nextLevelSnapshot = await get(nextLevelRef);
+      const existingPoints = nextLevelSnapshot.exists() ? nextLevelSnapshot.val() : 0;
+  
+      const newPoints = Math.max(existingPoints, totalPoints);
+      await set(nextLevelRef, newPoints);
+  
+      const levelsToUp = Math.floor(newPoints / basePointsPerLevel);
+  
       if (levelsToUp > 0) {
         await set(userLevelRef, currentLevel + levelsToUp);
-
-        const remainingPoints = userPoints % basePointsPerLevel;
-        if (remainingPoints > 0) {
-          const nextLevelRef = ref(db, `usersLevel/${userId}/${currentLevel + levelsToUp + 1}/points`);
-
-          const nextLevelSnapshot = await get(nextLevelRef);
-          const existingPoints = nextLevelSnapshot.exists() ? nextLevelSnapshot.val() : 0;
-
-          await set(nextLevelRef, existingPoints + remainingPoints);
-        }
-
+  
+        // Zerar os pontos de cada conquista
         const achievementsRef = ref(db, `userAchievements/${userId}`);
         const achievementsSnapshot = await get(achievementsRef);
-
+  
         if (achievementsSnapshot.exists()) {
           const userAchievements = achievementsSnapshot.val();
-
+  
+          // Percorrer todas as conquistas e zerar os pontos
           for (const achievementId in userAchievements) {
             const achievementRef = ref(db, `userAchievements/${userId}/${achievementId}/points`);
             await set(achievementRef, 0);
           }
         }
+  
+        const remainingPoints = newPoints % basePointsPerLevel;
+        if (remainingPoints > 0) {
+          const nextLevelRef = ref(db, `usersLevel/${userId}/${currentLevel + levelsToUp + 1}/points`);
+          await set(nextLevelRef, remainingPoints);
+        }
       }
     } catch (error) {
       console.error('Erro ao realizar a subida de nível automática:', error.message);
+    }
+  };  
+
+  // Função para calcular a soma total de pontos das conquistas do usuário
+  const getTotalAchievementPoints = async (userId) => {
+    try {
+      const db = getDatabase();
+      const achievementsRef = ref(db, `userAchievements/${userId}`);
+      const snapshot = await get(achievementsRef);
+
+      if (snapshot.exists()) {
+        const userAchievements = snapshot.val();
+
+        // Calcular a soma total de pontos das conquistas
+        const totalAchievementPoints = Object.values(userAchievements)
+          .reduce((total, achievement) => total + (achievement.points || 0), 0);
+
+        return totalAchievementPoints;
+      }
+
+      return 0;
+    } catch (error) {
+      console.error('Erro ao calcular pontos das conquistas:', error.message);
+      return 0;
     }
   };
 
