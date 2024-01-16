@@ -5,8 +5,8 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
   const [userLevel, setUserLevel] = useState(null);
   const [pointsToNextLevel, setPointsToNextLevel] = useState(0);
   const [totalPointsToNextLevel, setTotalPointsToNextLevel] = useState(0);
-  const basePointsPerLevel = 150;
-  const pointsLimitPerLevel = 150;
+  const basePointsPerLevel = 75;
+  const pointsLimitPerLevel = 100;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -154,9 +154,8 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
       )}
       {currentUser.uid === userId && (
         <div>
-          <p>Total de pontos disponíveis: {totalPointsToNextLevel}</p>
+          <p>Total de pontos disponíveis: {userPoints}</p>
           <p>Faltam {pointsToNextLevel} pontos para o próximo nível.</p>
-          <p>Você realmente deseja subir de nível?</p>
           <button
             onClick={handleAutoLevelUp}
             disabled={userPoints < totalPointsToNextLevel || !confirmLevelUp}
