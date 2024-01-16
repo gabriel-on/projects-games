@@ -20,6 +20,14 @@ function AddGame() {
     releaseDate: '',
     addedBy: null,
     trailer: '',
+    systemRequirements: {
+      minProcessor: '',
+      recProcessor: '',
+      minRam: '',
+      recRam: '',
+      minStorage: '',
+      recStorage: '',
+    },
   });
 
   const [genresList, setGenresList] = useState([]);
@@ -57,16 +65,19 @@ function AddGame() {
   const handleRequirementsChange = (e) => {
     const { name, value } = e.target;
 
-    setMinRequirements((prevMinRequirements) => ({
-      ...prevMinRequirements,
-      [name]: value,
-    }));
-
-    setRecRequirements((prevRecRequirements) => ({
-      ...prevRecRequirements,
+    setSystemRequirements((prevSystemRequirements) => ({
+      ...prevSystemRequirements,
       [name]: value,
     }));
   };
+
+  const [systemRequirements, setSystemRequirements] = useState({
+    minRam: '',
+    minStorage: '',
+    recRam: '',
+    recStorage: '',
+  });
+
 
   const schema = Yup.object().shape({
     title: Yup.string().required('Campo obrigatório'),
@@ -188,6 +199,7 @@ function AddGame() {
           ...newGame,
           addedBy: currentUser.displayName,
           createdAt: new Date().toISOString(),
+          systemRequirements: systemRequirements,
         };
 
         const newGameRef = push(gamesRef);
@@ -202,7 +214,15 @@ function AddGame() {
           consoles: [],
           rating: '',
           releaseDate: '',
-          trailer: '', // Adicione esta linha
+          trailer: '',
+          systemRequirements: {
+            minProcessor: '',
+            recProcessor: '',
+            minRam: '',
+            recRam: '',
+            minStorage: '',
+            recStorage: '',
+          },
         });
         setTrailer(''); // Adicione esta linha
         setErrors({

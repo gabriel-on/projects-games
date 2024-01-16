@@ -7,6 +7,7 @@ import useInteractions from '../../hooks/useInteractions';
 import GameAnalysis from '../../components/GameAnalysis/GameAnalysis';
 import '../GameDetails/GameDetails.css'
 import GameStatusModal from '../../components/GamesStatus/GameStatusModal';
+import SystemRequirementsTable from './SystemRequirementsTable';
 
 const GameDetails = () => {
   const { gameId } = useParams();
@@ -197,6 +198,11 @@ const GameDetails = () => {
             </div>
           </div>
         )}
+        {gameData.systemRequirements && (
+        <div id="system-requirements">
+          <SystemRequirementsTable systemRequirements={gameData.systemRequirements} />
+        </div>
+      )}
         <div id="analises">
           <div className='reviews-container'>
             {/* <h2>Sua Análise do Jogo</h2> */}
