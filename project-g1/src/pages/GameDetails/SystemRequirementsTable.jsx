@@ -26,8 +26,8 @@ const SystemRequirementsTable = ({ systemRequirements }) => {
           </tr>
           <tr>
             <td>RAM</td>
-            <td>{systemRequirements.minRam}</td>
-            <td>{systemRequirements.recRam}</td>
+            <td>{systemRequirements.minRam} GB</td>
+            <td>{systemRequirements.recRam} GB</td>
           </tr>
           <tr>
             <td>Armazenamento</td>

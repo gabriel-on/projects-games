@@ -199,10 +199,10 @@ const GameDetails = () => {
           </div>
         )}
         {gameData.systemRequirements && (
-        <div id="system-requirements">
-          <SystemRequirementsTable systemRequirements={gameData.systemRequirements} />
-        </div>
-      )}
+          <div id="system-requirements">
+            <SystemRequirementsTable systemRequirements={gameData.systemRequirements} />
+          </div>
+        )}
         <div id="analises">
           <div className='reviews-container'>
             {/* <h2>Sua Análise do Jogo</h2> */}
