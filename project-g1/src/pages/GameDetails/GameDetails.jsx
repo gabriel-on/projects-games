@@ -155,17 +155,7 @@ const GameDetails = () => {
         )}
       </div>
 
-
       <div id='info-container-details'>
-        {/* <div id='item-list'>
-          <ul>
-            <li>
-              <Link>
-                Trailer
-              </Link>
-            </li>
-          </ul>
-        </div> */}
         <div id="descrição">
           <div className='details-container'>
             <div className='description-container'>

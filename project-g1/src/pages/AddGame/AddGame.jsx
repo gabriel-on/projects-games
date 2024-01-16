@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuthentication';
 import '../AddGame/AddGame.css';
 import MultipleSitesInput from '../../components/MultipleSitesInput/MultipleSitesInput';
 import SecondaryImagesInput from '../../components/SecondaryImagesInput/SecondaryImagesInput';
+import SystemRequirements from '../../components/SystemRequirements/SystemRequirements';
 
 function AddGame() {
   const [newGame, setNewGame] = useState({
@@ -43,6 +44,29 @@ function AddGame() {
     releaseDate: '',
     trailer: '',
   });
+
+  const [minRequirements, setMinRequirements] = useState({
+    minProcessor: '',
+    // Adicione outros requisitos mínimos aqui
+  });
+  const [recRequirements, setRecRequirements] = useState({
+    recProcessor: '',
+    // Adicione outros requisitos recomendados aqui
+  });
+
+  const handleRequirementsChange = (e) => {
+    const { name, value } = e.target;
+
+    setMinRequirements((prevMinRequirements) => ({
+      ...prevMinRequirements,
+      [name]: value,
+    }));
+
+    setRecRequirements((prevRecRequirements) => ({
+      ...prevRecRequirements,
+      [name]: value,
+    }));
+  };
 
   const schema = Yup.object().shape({
     title: Yup.string().required('Campo obrigatório'),
@@ -364,6 +388,12 @@ function AddGame() {
             </button>
           )}
         </div>
+
+        <SystemRequirements
+          minRequirements={minRequirements}
+          recRequirements={recRequirements}
+          onChange={handleRequirementsChange}
+        />
 
         <SecondaryImagesInput
           name="secondaryImages"
