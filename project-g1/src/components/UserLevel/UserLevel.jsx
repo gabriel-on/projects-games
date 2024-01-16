@@ -37,11 +37,9 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
         if (snapshot.exists()) {
           const userAchievements = snapshot.val();
 
-          // Calcula os pontos totais de conquista
           const totalAchievementPoints = Object.values(userAchievements)
             .reduce((total, achievement) => total + (achievement.points || 0), 0);
 
-          // Atualiza o estado de userPoints com a soma dos pontos de conquista
           setTotalPointsToNextLevel(totalAchievementPoints);
         }
       } catch (error) {
@@ -65,44 +63,44 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
     }
   }, [userPoints, userLevel, basePointsPerLevel, setConfirmLevelUp, pointsLimitPerLevel]);
 
-  const handleLevelUpConfirmation = async () => {
+  useEffect(() => {
+    // Verificar se atingiu o limite para subir de nível automaticamente
+    if (userPoints >= totalPointsToNextLevel) {
+      handleAutoLevelUp();
+    }
+  }, [userPoints, totalPointsToNextLevel]);
+
+  const handleAutoLevelUp = async () => {
     try {
       setConfirmLevelUp(false);
-  
+
       const db = getDatabase();
       const userLevelRef = ref(db, `usersLevel/${userId}/level`);
-  
-      // Obter o nível atual do usuário
+
       const snapshot = await get(userLevelRef);
       const currentLevel = snapshot.exists() ? snapshot.val() : 0;
-  
-      // Calcular quantos níveis o usuário pode subir com os pontos disponíveis
+
       const levelsToUp = Math.floor(userPoints / basePointsPerLevel);
-  
+
       if (levelsToUp > 0) {
-        // Subir de múltiplos níveis somando
         await set(userLevelRef, currentLevel + levelsToUp);
-  
-        // Atualizar os pontos no próximo nível se houver pontos restantes
+
         const remainingPoints = userPoints % basePointsPerLevel;
         if (remainingPoints > 0) {
           const nextLevelRef = ref(db, `usersLevel/${userId}/${currentLevel + levelsToUp + 1}/points`);
-  
-          // Obter os pontos existentes no próximo nível (se houver)
+
           const nextLevelSnapshot = await get(nextLevelRef);
           const existingPoints = nextLevelSnapshot.exists() ? nextLevelSnapshot.val() : 0;
-  
-          // Adicionar os pontos restantes aos pontos existentes no próximo nível
+
           await set(nextLevelRef, existingPoints + remainingPoints);
         }
-  
-        // Zerar os pontos de cada conquista individualmente
+
         const achievementsRef = ref(db, `userAchievements/${userId}`);
         const achievementsSnapshot = await get(achievementsRef);
-  
+
         if (achievementsSnapshot.exists()) {
           const userAchievements = achievementsSnapshot.val();
-  
+
           for (const achievementId in userAchievements) {
             const achievementRef = ref(db, `userAchievements/${userId}/${achievementId}/points`);
             await set(achievementRef, 0);
@@ -110,9 +108,9 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
         }
       }
     } catch (error) {
-      console.error('Erro ao confirmar subida de nível:', error.message);
+      console.error('Erro ao realizar a subida de nível automática:', error.message);
     }
-  };  
+  };
 
   return (
     <div>
@@ -127,10 +125,10 @@ const UserLevel = ({ userId, userPoints, confirmLevelUp, setConfirmLevelUp, curr
           <p>Faltam {pointsToNextLevel} pontos para o próximo nível.</p>
           <p>Você realmente deseja subir de nível?</p>
           <button
-            onClick={handleLevelUpConfirmation}
-            disabled={userPoints < !confirmLevelUp}
+            onClick={handleAutoLevelUp}
+            disabled={userPoints < totalPointsToNextLevel || !confirmLevelUp}
           >
-            Confirmar
+            Subir de Nível Automaticamente
           </button>
         </div>
       )}
