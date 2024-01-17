@@ -1,14 +1,35 @@
 import React, { useState } from 'react';
+import { getDatabase, ref, set } from 'firebase/database';
 import ChangeName from './ChangeName';
 
 function ConfigUserProfile({ userId, user, currentUser, setCurrentUser }) {
-  // Estado para rastrear a cor escolhida
-  const [nameColor, setNameColor] = useState(user?.nameColor || 'black'); // Usa o operador de coalescência nula para lidar com o caso em que user é undefined
+  const [nameColor, setNameColor] = useState(user?.nameColor || 'black');
+  const [tempNameColor, setTempNameColor] = useState(nameColor); // Novo estado para rastrear temporariamente a cor
 
-  // Função para atualizar a cor escolhida
   const handleColorChange = (color) => {
-    setNameColor(color);
+    setTempNameColor(color); // Atualiza temporariamente a cor ao escolher uma nova
   };
+
+  const handleUpdateColor = async () => {
+    try {
+      // Atualiza apenas a cor no banco de dados
+      const db = getDatabase();
+      const userRef = ref(db, `users/${userId}`);
+
+      await set(userRef, { ...user, nameColor: tempNameColor });
+
+      // Atualiza apenas a cor no objeto de usuário local
+      setCurrentUser({
+        ...currentUser,
+        nameColor: tempNameColor,
+      });
+
+      alert('Cor atualizada com sucesso.');
+    } catch (error) {
+      console.error('Erro ao atualizar a cor do usuário:', error.message);
+    }
+  };
+
 
   return (
     <div>
@@ -16,18 +37,17 @@ function ConfigUserProfile({ userId, user, currentUser, setCurrentUser }) {
         <div>
           <p>Email: {user.email}</p>
 
-          {/* Exibe a cor atual e permite que o usuário escolha uma nova cor */}
           <div>
             <p>Cor Atual: {nameColor}</p>
             <label>Escolher Nova Cor:</label>
             <input
               type="color"
-              value={nameColor}
+              value={tempNameColor} // Usa tempNameColor temporariamente
               onChange={(e) => handleColorChange(e.target.value)}
             />
+            <button onClick={handleUpdateColor}>Atualizar Cor</button> {/* Novo botão para atualizar a cor */}
           </div>
 
-          {/* Passa a cor escolhida para o componente ChangeName */}
           <ChangeName
             userId={userId}
             user={user}
