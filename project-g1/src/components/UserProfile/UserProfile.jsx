@@ -10,10 +10,10 @@ import '../../components/UserProfile/UserProfile.css'
 import defaultProfileImage from '../../img/perfil.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import UserGameList from '../UserGameList/UserGameList';
+import ChangeName from './ChangeName';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
-  const [newDisplayName, setNewDisplayName] = useState('');
   const [favoriteGames, setFavoriteGames] = useState([]);
   const [userPoints, setUserPoints] = useState(0);
   const [userAchievements, setUserAchievements] = useState([]);
@@ -141,52 +141,6 @@ const UserProfile = () => {
     }
   };
 
-  const handleDisplayNameChange = (e) => {
-    setNewDisplayName(e.target.value);
-  };
-
-  const handleUpdateDisplayName = async () => {
-    try {
-      if (newDisplayName.trim() === '') {
-        alert('Digite um novo nome antes de atualizar.');
-        return;
-      }
-
-      const shouldUpdateName = window.confirm(`Deseja atualizar o nome para "${newDisplayName}"?`);
-
-      if (shouldUpdateName) {
-        await updateProfileAuth(auth.currentUser, { displayName: newDisplayName });
-
-        if (currentUser.uid === userId) {
-          // Calcula o nível do usuário apenas se estiver atualizando o próprio perfil
-          const achievementsPoints = Object.values(userAchievements).reduce(
-            (acc, achievement) => acc + (achievement.points || 0),
-            0
-          );
-
-          const totalUserPoints = typeof userPoints === 'number' && !isNaN(userPoints) ? userPoints : 0;
-          const adjustedPointsPerLevel = basePointsPerLevel * difficultyFactor;
-          const totalPoints = totalUserPoints + achievementsPoints;
-          const newLevel = Math.floor(totalPoints / adjustedPointsPerLevel);
-
-          // Atualiza o nível no banco de dados apenas se o usuário autenticado for o mesmo que está sendo visualizado
-          const db = getDatabase();
-          const userLevelRef = ref(db, `usersLevel/${currentUser.uid}/level`);
-          set(userLevelRef, newLevel);
-
-          setCurrentUser({
-            ...currentUser,
-            displayName: newDisplayName,
-          });
-        }
-
-        alert('Nome atualizado com sucesso.');
-      }
-    } catch (error) {
-      console.error('Erro ao atualizar o nome do usuário:', error.message);
-    }
-  };
-
   return (
     <div className='profile-container'>
       {loading && <p>Carregando...</p>}
@@ -265,15 +219,12 @@ const UserProfile = () => {
                 {publicView ? 'Ver Perfil Privado' : 'Ver Perfil Público'}
               </button>
               <p>Email: {user.email}</p>
-              <label htmlFor="newDisplayName">Novo Nome:</label>
-              <input
-                type="text"
-                id="newDisplayName"
-                value={newDisplayName}
-                onChange={handleDisplayNameChange}
+              <ChangeName
+                userId={userId}
+                user={user}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
               />
-              <button onClick={handleUpdateDisplayName}>Atualizar Nome</button>
-              <button onClick={logout}>Logout</button>
             </div>
           ) : (
             // Modo de visualização pública para outros usuários
