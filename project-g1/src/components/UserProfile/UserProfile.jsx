@@ -228,7 +228,7 @@ const UserProfile = () => {
                 user={user}
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
-                nameColor={nameColor} // Passa a cor do nome para o componente ConfigUserProfile
+                nameColor={nameColor}
                 setNameColor={setNameColor}
               />
             </div>

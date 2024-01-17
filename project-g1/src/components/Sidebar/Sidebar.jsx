@@ -66,11 +66,6 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                             <i className="icon bi bi-person" /> Membros
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/settings" onClick={closeSidebar} className="active">
-                            <i className="bi bi-gear" /> Configurações
-                        </NavLink>
-                    </li>
 
                     {!user && (
                         <>
@@ -93,6 +88,11 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                         <li>
                             <NavLink to={`/profile/${userId}`} onClick={closeSidebar} className="active">
                                 <i className="icon bi bi-person-circle" /> Perfil
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/settings" onClick={closeSidebar} className="active">
+                                <i className="bi bi-gear" /> Configurações
                             </NavLink>
                         </li>
                         {isAdmin && (

@@ -30,13 +30,12 @@ function ConfigUserProfile({ userId, user, currentUser, setCurrentUser }) {
     }
   };
 
-
   return (
     <div>
+      <h1>Configurações do Usuário</h1>
       {user && (
         <div>
           <p>Email: {user.email}</p>
-
           <div>
             <p>Cor Atual: {nameColor}</p>
             <label>Escolher Nova Cor:</label>
