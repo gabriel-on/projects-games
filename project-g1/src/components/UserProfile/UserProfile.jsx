@@ -232,7 +232,6 @@ const UserProfile = () => {
             <div>
               {/* ... Informações do perfil ... */}
               {currentUser.uid === userId ? (
-                // Modo de visualização privada para o próprio usuário
                 <div>
                   <button onClick={toggleView}>
                     {publicView ? 'Ver Perfil Privado' : 'Ver Perfil Público'}
