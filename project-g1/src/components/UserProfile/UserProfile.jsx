@@ -141,8 +141,15 @@ const UserProfile = () => {
       console.error('Erro ao carregar ranking do usuário:', error.message);
     }
   };
+  
   const toggleView = () => {
-    setShowConfig(!showConfig);
+    if (currentUser.uid === userId) {
+      // Se for o próprio usuário, exibir ou ocultar configurações
+      setShowConfig(!showConfig);
+    } else {
+      // Se for outro usuário, alternar entre visualização pública/privada
+      setPublicView(!publicView);
+    }
   };
 
   return (
@@ -220,32 +227,33 @@ const UserProfile = () => {
           </div>
 
           {showConfig ? (
-            // Se mostrar configurações, exibir ConfigUserProfile
-            <ConfigUserProfile
-              userId={userId}
-              user={user}
-              currentUser={currentUser}
-              setCurrentUser={setCurrentUser}
-            />
-          ) : (
-            // Caso contrário, exibir informações do perfil
-            <div>
-              {/* ... Informações do perfil ... */}
-              {currentUser.uid === userId ? (
-                <div>
-                  <button onClick={toggleView}>
-                    {publicView ? 'Ver Perfil Privado' : 'Ver Perfil Público'}
-                  </button>
-                </div>
-              ) : (
-                // Modo de visualização pública para outros usuários
-                <div>
-                  <p>Este é o perfil de <strong style={{ color: user.nameColor }}>{user.displayName}</strong>.</p>
-                  {/* Adicione outras informações públicas aqui */}
-                </div>
-              )}
-            </div>
-          )}
+              // Se mostrar configurações, exibir ConfigUserProfile
+              <ConfigUserProfile
+                userId={userId}
+                user={user}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
+              />
+            ) : (
+              // Caso contrário, exibir informações do perfil
+              <div>
+                {/* ... Informações do perfil ... */}
+                {currentUser.uid === userId ? (
+                  <div>
+                    <button onClick={toggleView}>
+                      {publicView ? 'Ocultar configurações' : 'Ver configurações'}
+                    </button>
+                  </div>
+                ) : (
+                  // Modo de visualização pública para outros usuários
+                  <div>
+                    <p>Este é o perfil de <strong style={{ color: user.nameColor }}>{user.displayName}</strong>.</p>
+                    {/* Adicione outras informações públicas aqui */}
+                  </div>
+                )}
+              </div>
+            )}
+
 
         </div>
       )}
