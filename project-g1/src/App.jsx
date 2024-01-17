@@ -113,7 +113,7 @@ function App() {
             <div className="container-absolute">
               <Routes>
                 <Route path='/' element={<Home />} />
-                <Route path='/login' element={!user ? <Login /> : <Navigate to={"/"} />} />
+                <Route path='/login' element={!user ? <Login /> : <Navigate to={`/profile/${userId}`} />} />
                 <Route path='/register' element={!user ? <Register /> : <Navigate to={"/"} />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/game/:gameId' element={<GameDetails />} />
