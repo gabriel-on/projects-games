@@ -147,13 +147,13 @@ const GameAnalysis = ({ gameId }) => {
 
   return (
     <div className='box-reviews-container'>
-      <div>
+      <div className='user-review'>
         {user ? (
           <div>
             <h3>Sua Análise do Jogo:</h3>
             {userAnalysis ? (
               <div>
-                <p>{userAnalysis.text}</p>
+                <p className='user-text'>{userAnalysis.text}</p>
                 <p>Data da Análise: {new Date(userAnalysis.timestamp).toLocaleString()}</p>
                 <button onClick={() => handleDeleteAnalysis(userAnalysis.analysisId)}>
                   Excluir Análise
@@ -189,14 +189,15 @@ const GameAnalysis = ({ gameId }) => {
         </div>
       )}
 
-      <div className=''>
+      <div className='all-reviews-container'>
         <p>Todos as Análises:</p>
         {gameAnalysis.length > 0 ? (
           <ul>
             {gameAnalysis.map((analysis) => (
               <li key={analysis.timestamp}>
-                <p>{analysis.userName}: {analysis.text}</p>
-                <span>Data da Análise: {new Date(analysis.timestamp).toLocaleString()}</span>
+                <p className='user-name-review'>{analysis.userName}</p>
+                <p><span className='review-text'>{analysis.text}</span></p>
+                <p><span>Data da Análise: {new Date(analysis.timestamp).toLocaleString()}</span></p>
               </li>
             ))}
           </ul>

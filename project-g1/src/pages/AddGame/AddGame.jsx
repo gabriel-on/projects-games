@@ -78,7 +78,6 @@ function AddGame() {
     recStorage: '',
   });
 
-
   const schema = Yup.object().shape({
     title: Yup.string().required('Campo obrigatório'),
     description: Yup.string().required('Campo obrigatório'),

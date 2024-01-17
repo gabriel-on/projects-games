@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import GraphicsCards from './GraphicsCards';
 import Processors from './Processors';
+import './SystemRequirements.css'
 
 function SystemRequirements({ systemRequirements, onChange }) {
   const [processors, setProcessors] = useState([]);
@@ -53,7 +54,7 @@ function SystemRequirements({ systemRequirements, onChange }) {
   }, []);
 
   return (
-    <div className='field'>
+    <div className='system-requirements-container'>
       <h3>Requisitos do Sistema (PC)</h3>
       <table>
         <tbody>

@@ -1,0 +1,26 @@
+.system-requirements-table-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.system-requirements-table-container h2 {
+    text-transform: uppercase;
+}
+.system-requirements-table-container table {
+    border: 1px solid aqua;
+    color: aqua;
+    background: black;
+}
+
+.system-requirements-table-container table thead th{
+    border: 1px solid aqua;
+    padding: 10px;
+    gap: 10px;
+}
+
+.system-requirements-table-container table tbody tr td {
+    padding: 10px;
+    border: 1px solid aqua;
+}

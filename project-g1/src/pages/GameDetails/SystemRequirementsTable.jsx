@@ -1,9 +1,9 @@
-// SystemRequirementsTable.js
 import React from 'react';
+import '../GameDetails/SystemRequirementsTable.css'
 
 const SystemRequirementsTable = ({ systemRequirements }) => {
   return (
-    <div>
+    <div className='system-requirements-table-container'>
       <h2>Requisitos do Sistema (PC)</h2>
       <table>
         <thead>

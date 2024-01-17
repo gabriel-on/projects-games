@@ -119,6 +119,13 @@
     justify-content: center;
 }
 
+#info-container-details {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+}
+
 #info-container-details>#details-div {
     padding: 10px;
     display: flex;
@@ -149,7 +156,7 @@
     text-transform: uppercase;
 }
 
-#info-container-details>#details-div>div p > span {
+#info-container-details>#details-div>div p>span {
     font-size: 1em;
     color: yellow;
     text-transform: uppercase;
@@ -162,6 +169,7 @@
     /* width: 1000px; */
     gap: 20px;
 }
+
 #info-container-details>#details-div>div ul {
     display: flex;
     gap: 10px;
@@ -169,7 +177,7 @@
     align-items: center;
 }
 
-#info-container-details>#details-div>div ul li{
+#info-container-details>#details-div>div ul li {
     color: rgb(0, 0, 0);
     display: flex;
     gap: 10px;
@@ -333,6 +341,29 @@
     gap: 20px;
 }
 
+.box-reviews-container .user-review div {
+    padding: 10px;
+    background: #1b1b1b;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    /* width: 600px; */
+}
+
+
+.box-reviews-container .user-review div>.user-text {
+    width: 600px;
+    background: #e1e1e1;
+    color: #1b1b1b;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: start;
+}
+
 .box-reviews-container>div {
     justify-content: center;
     display: flex;
@@ -340,11 +371,61 @@
 }
 
 .box-reviews-container>div textarea {
-    max-width: 800px;
-    min-width: 800px;
+    max-width: 600px;
+    min-width: 600px;
     min-height: 100px;
     padding: 10px;
     justify-content: center;
     display: flex;
     font-size: 1.2em;
+}
+
+.all-reviews-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 10px;
+    background: black;
+    color: white;
+    width: 600px;
+    gap: 10px;
+}
+
+.all-reviews-container>p {
+    text-transform: uppercase;
+}
+
+.all-reviews-container>ul li {
+    margin: 10px 0;
+    text-align: start;
+    border: 1px solid aqua;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 10px;
+}
+
+.all-reviews-container>ul li> p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.all-reviews-container .user-name-review {
+    max-width: 100%;
+    padding: 6px;
+    color: black;
+    background: yellow;
+}
+
+.all-reviews-container>ul li>p>span {
+    display: flex;
+    width: 560px;
+}
+
+.all-reviews-container>ul li>p> .review-text {
+    background: white;
+    color: #1b1b1b;
+    display: flex;
+    padding: 10px;
 }
