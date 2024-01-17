@@ -141,7 +141,7 @@ const UserProfile = () => {
       console.error('Erro ao carregar ranking do usuário:', error.message);
     }
   };
-  
+
   const toggleView = () => {
     if (currentUser.uid === userId) {
       // Se for o próprio usuário, exibir ou ocultar configurações
@@ -158,7 +158,7 @@ const UserProfile = () => {
       {!currentUser && navigate('/')}
       {error && <p>{error}</p>}
       {user && (
-        <div className='profile-content'>
+        <div className='profile-content' style={{ background: user.backgroundColor }}>
           <div>
             <div className='standard-profile'>
               <img
@@ -253,8 +253,6 @@ const UserProfile = () => {
                 )}
               </div>
             )}
-
-
         </div>
       )}
     </div>

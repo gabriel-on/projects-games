@@ -11,6 +11,7 @@ import GamesNavigation03 from '../../components/GameNavigation/GameNavigation03.
 import '../../components/GamesTopList/GamesTopList.css';
 import { Link } from 'react-router-dom';
 import TopUsers from '../../components/TopUsers/TopUsers.jsx';
+import '../Home/Home.css'
 
 const Home = () => {
   const [gameIds, setGameIds] = useState([]);

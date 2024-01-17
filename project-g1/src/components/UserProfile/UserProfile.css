@@ -1,11 +1,16 @@
 .profile-container {
     display: flex;
-    width: 1100px;
+    width: 1200px;
     margin: auto;
 }
 
 ul {
     list-style: none;
+}
+
+.profile-content {
+    width: 100%;
+    padding: 10px;
 }
 
 .profile-container .standard-profile {
@@ -49,11 +54,3 @@ ul {
     flex-wrap: wrap;
     gap: 20px;
 }
-
-/* .UserGameList-container div ul li{
-    width: 260px;
-    flex-direction: column;
-    border: 1px solid black;
-    display: flex;
-    padding: 10px;
-} */

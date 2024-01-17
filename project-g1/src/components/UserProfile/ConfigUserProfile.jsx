@@ -4,10 +4,12 @@ import ChangeName from './ChangeName';
 
 function ConfigUserProfile({ userId, user, currentUser, setCurrentUser }) {
   const [nameColor, setNameColor] = useState(user?.nameColor || '#000000');
+  const [backgroundColor, setBackgroundColor] = useState(user?.backgroundColor || '#FFFFFF');
   const [tempNameColor, setTempNameColor] = useState(nameColor);
+  const [tempBackgroundColor, setTempBackgroundColor] = useState(backgroundColor);
 
-  const handleColorChange = (color) => {
-    setTempNameColor(color);
+  const handleColorChange = (color, setColorCallback) => {
+    setColorCallback(color);
   };
 
   const handleSaveColor = async () => {
@@ -15,17 +17,18 @@ function ConfigUserProfile({ userId, user, currentUser, setCurrentUser }) {
       const db = getDatabase();
       const userRef = ref(db, `users/${userId}`);
 
-      await set(userRef, { ...user, nameColor: tempNameColor });
+      await set(userRef, { ...user, nameColor: tempNameColor, backgroundColor: tempBackgroundColor });
 
-      // Atualiza apenas a cor no objeto de usuário local de forma síncrona
+      // Atualiza as cores no objeto de usuário local de forma síncrona
       setCurrentUser((prevUser) => ({
         ...prevUser,
         nameColor: tempNameColor,
+        backgroundColor: tempBackgroundColor,
       }));
 
-      alert('Cor atualizada com sucesso.');
+      alert('Cores atualizadas com sucesso.');
     } catch (error) {
-      console.error('Erro ao atualizar a cor do usuário:', error.message);
+      console.error('Erro ao atualizar as cores do usuário:', error.message);
     }
   };
 
@@ -34,16 +37,28 @@ function ConfigUserProfile({ userId, user, currentUser, setCurrentUser }) {
       <h1>Configurações do Usuário</h1>
       <div>
         <p>Email: {user?.email}</p>
+
         <div>
-          <p>Cor Atual: {nameColor}</p>
-          <label>Escolher Nova Cor:</label>
+          <p>Cor do Texto Atual: {nameColor}</p>
+          <label>Escolher Nova Cor do Texto:</label>
           <input
             type="color"
             value={tempNameColor}
-            onChange={(e) => handleColorChange(e.target.value)}
+            onChange={(e) => handleColorChange(e.target.value, setTempNameColor)}
           />
-          <button onClick={handleSaveColor}>Salvar Nova Cor</button>
         </div>
+
+        <div>
+          <p>Cor de Fundo Atual: {backgroundColor}</p>
+          <label>Escolher Nova Cor de Fundo:</label>
+          <input
+            type="color"
+            value={tempBackgroundColor}
+            onChange={(e) => handleColorChange(e.target.value, setTempBackgroundColor)}
+          />
+        </div>
+
+        <button onClick={handleSaveColor}>Salvar Novas Cores</button>
 
         <ChangeName
           userId={userId}
