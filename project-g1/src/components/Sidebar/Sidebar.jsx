@@ -90,11 +90,6 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                                 <i className="icon bi bi-person-circle" /> Perfil
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to="/settings" onClick={closeSidebar} className="active">
-                                <i className="bi bi-gear" /> Configurações
-                            </NavLink>
-                        </li>
                         {isAdmin && (
                             <>
                                 <li>

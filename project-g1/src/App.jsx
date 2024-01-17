@@ -137,9 +137,7 @@ function App() {
                 <Route path="/genres" element={<GenreList />} />
 
                 <Route path="/game-v" element={<JogoDaVelha />} />
-
-                <Route path="/settings" element={<ConfigUserProfile />} />
-
+                
                 <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} />} />
 
                 {isAdmin && (

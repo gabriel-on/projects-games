@@ -8,7 +8,7 @@ import GameStatus from '../../components/GamesStatus/GamesStatus';
 import '../../components/UserProfile/UserProfile.css'
 
 import defaultProfileImage from '../../img/perfil.png';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import UserGameList from '../UserGameList/UserGameList';
 import ConfigUserProfile from './ConfigUserProfile';
 
@@ -22,7 +22,7 @@ const UserProfile = () => {
   const [publicView, setPublicView] = useState(false);
   const { userId } = useParams();
   const navigate = useNavigate()
-  const [nameColor, setNameColor] = useState('black');
+  const [showConfig, setShowConfig] = useState(false);
   const [confirmLevelUp, setConfirmLevelUp] = useState(false);
 
   useEffect(() => {
@@ -141,6 +141,9 @@ const UserProfile = () => {
       console.error('Erro ao carregar ranking do usuário:', error.message);
     }
   };
+  const toggleView = () => {
+    setShowConfig(!showConfig);
+  };
 
   return (
     <div className='profile-container' >
@@ -216,29 +219,35 @@ const UserProfile = () => {
             <UserGameList userId={userId} />
           </div>
 
-          {/* Outras informações do usuário */}
-          {currentUser.uid === userId ? (
-            // Modo de visualização privada para o próprio usuário
-            <div>
-              <button onClick={() => setPublicView(!publicView)}>
-                {publicView ? 'Ver Perfil Privado' : 'Ver Perfil Público'}
-              </button>
-              <ConfigUserProfile
-                userId={userId}
-                user={user}
-                currentUser={currentUser}
-                setCurrentUser={setCurrentUser}
-                nameColor={nameColor}
-                setNameColor={setNameColor}
-              />
-            </div>
+          {showConfig ? (
+            // Se mostrar configurações, exibir ConfigUserProfile
+            <ConfigUserProfile
+              userId={userId}
+              user={user}
+              currentUser={currentUser}
+              setCurrentUser={setCurrentUser}
+            />
           ) : (
-            // Modo de visualização pública para outros usuários
+            // Caso contrário, exibir informações do perfil
             <div>
-              <p>Este é o perfil de <strong style={{ color: user.nameColor }}>{user.displayName}</strong>.</p>
-              {/* Adicione outras informações públicas aqui */}
+              {/* ... Informações do perfil ... */}
+              {currentUser.uid === userId ? (
+                // Modo de visualização privada para o próprio usuário
+                <div>
+                  <button onClick={toggleView}>
+                    {publicView ? 'Ver Perfil Privado' : 'Ver Perfil Público'}
+                  </button>
+                </div>
+              ) : (
+                // Modo de visualização pública para outros usuários
+                <div>
+                  <p>Este é o perfil de <strong style={{ color: user.nameColor }}>{user.displayName}</strong>.</p>
+                  {/* Adicione outras informações públicas aqui */}
+                </div>
+              )}
             </div>
           )}
+
         </div>
       )}
     </div>
