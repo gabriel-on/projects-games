@@ -10,7 +10,7 @@ import '../../components/UserProfile/UserProfile.css'
 import defaultProfileImage from '../../img/perfil.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import UserGameList from '../UserGameList/UserGameList';
-import ChangeName from './ChangeName';
+import ConfigUserProfile from './ConfigUserProfile';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -142,7 +142,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div className='profile-container'>
+    <div className='profile-container' >
       {loading && <p>Carregando...</p>}
       {!currentUser && navigate('/')}
       {error && <p>{error}</p>}
@@ -156,11 +156,11 @@ const UserProfile = () => {
               />
             </div>
             <h1>Perfil do Usuário</h1>
-            <p>Nome do Usuário: {user.displayName}</p>
+            <p>Nome do Usuário: <span style={{ color: user.nameColor }}>{user.displayName}</span></p>
 
             {/* Exibir o ranking do usuário */}
             <div>
-              <h2>Ranking</h2>
+              <h2 style={{ color: user.nameColor }}>Ranking</h2>
               {userRanking && (
                 <div>
                   <p>
@@ -175,8 +175,8 @@ const UserProfile = () => {
                 </div>
               )}
             </div>
-            <div>
-              <h2>Nível</h2>
+            <div >
+              <h2 style={{ color: user.nameColor }}>Nível</h2>
               <UserLevel
                 userPoints={userPoints}
                 userAchievements={userAchievements}
@@ -187,14 +187,17 @@ const UserProfile = () => {
 
               />
             </div>
-            <UserAchievementsList userId={userId} />
+            <div>
+              <h2 style={{ color: user.nameColor }}>Conquistas Resgatadas</h2>
+              <UserAchievementsList userId={userId} />
+            </div>
           </div>
 
           {/* Lista de jogos favoritos */}
-          <div className='favorites-container'>
+          <div className='favorites-container' >
             {favoriteGames.length > 0 && (
-              <div>
-                <h2>Jogos Favoritos:</h2>
+              <div className='favorites-container'>
+                <h2 style={{ color: user.nameColor }}>Jogos Favoritos:</h2>
                 <ul>
                   {favoriteGames.map((game) => (
                     <li key={game.id}>
@@ -208,6 +211,7 @@ const UserProfile = () => {
           </div>
 
           <div className='UserGameList-container'>
+            <h2 style={{ color: user.nameColor }}>Lista de Jogos Marcados:</h2>
             <UserGameList userId={userId} />
           </div>
 
@@ -218,8 +222,7 @@ const UserProfile = () => {
               <button onClick={() => setPublicView(!publicView)}>
                 {publicView ? 'Ver Perfil Privado' : 'Ver Perfil Público'}
               </button>
-              <p>Email: {user.email}</p>
-              <ChangeName
+              <ConfigUserProfile
                 userId={userId}
                 user={user}
                 currentUser={currentUser}
@@ -229,7 +232,7 @@ const UserProfile = () => {
           ) : (
             // Modo de visualização pública para outros usuários
             <div>
-              <p>Este é o perfil de {user.displayName}.</p>
+              <p>Este é o perfil de <strong style={{ color: user.nameColor }}>{user.displayName}</strong>.</p>
               {/* Adicione outras informações públicas aqui */}
             </div>
           )}

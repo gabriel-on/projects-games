@@ -48,7 +48,6 @@ const UserAchievementsList = ({ userId }) => {
 
     return (
         <div>
-            <h2>Conquistas Resgatadas</h2>
             {userAchievements.length > 0 ? (
                 <ul>
                     {userAchievements.map((achievement) => (

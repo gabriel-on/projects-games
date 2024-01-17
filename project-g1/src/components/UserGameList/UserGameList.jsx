@@ -80,7 +80,6 @@ const UserGameList = ({ userId }) => {
 
   return (
     <div>
-      <h2>Lista de Jogos Marcados:</h2>
       {markedGames.length > 0 ? (
         <ul>
           {markedGames.map((gameId) => (
