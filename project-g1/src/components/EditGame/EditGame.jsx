@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import MultipleSitesInput from '../MultipleSitesInput/MultipleSitesInput';
 import SecondaryImagesInput from '../SecondaryImagesInput/SecondaryImagesInput';
+import SystemRequirements from '../SystemRequirements/SystemRequirements';
 
 const EditGame = () => {
   const { gameId } = useParams();
@@ -19,7 +20,21 @@ const EditGame = () => {
     rating: '',
     releaseDate: '',
     addedBy: null,
-    trailer: '', // Adicione o campo do trailer aqui
+    trailer: '',
+    systemRequirements: {
+      minGraphicsCard1: '',
+      minGraphicsCard2: '',
+      minProcessor1: '',
+      minProcessor2: '',
+      minRam: '',
+      minStorage: '',
+      recGraphicsCard1: '',
+      recGraphicsCard2: '',
+      recProcessor1: '',
+      recProcessor2: '',
+      recRam: '',
+      recStorage: '',
+    },
   });
 
   const [lists, setLists] = useState({
@@ -39,6 +54,18 @@ const EditGame = () => {
     rating: '',
     trailer: '', // Adicione o campo do trailer aqui
   });
+
+  const handleRequirementsChange = (e) => {
+    const { name, value } = e.target;
+
+    setGame((prevGame) => ({
+      ...prevGame,
+      systemRequirements: {
+        ...prevGame.systemRequirements,
+        [name]: value,
+      },
+    }));
+  };
 
   const schema = Yup.object().shape({
     title: Yup.string().required('Campo obrigatório'),
@@ -84,7 +111,7 @@ const EditGame = () => {
             developers: gameData.developers || [],
             rating: gameData.rating || '',
             releaseDate: gameData.releaseDate || '',
-            trailer: gameData.trailer || '', // Adicione o campo do trailer aqui
+            trailer: gameData.trailer || '',
           });
         }
       });
@@ -299,6 +326,11 @@ const EditGame = () => {
             </button>
           )}
         </div>
+
+        <SystemRequirements
+          systemRequirements={game.systemRequirements}
+          onChange={handleRequirementsChange}
+        />
 
         <SecondaryImagesInput
           name="secondaryImages"

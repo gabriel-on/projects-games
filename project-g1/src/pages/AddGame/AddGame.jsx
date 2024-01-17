@@ -410,10 +410,10 @@ function AddGame() {
         </div>
 
         <SystemRequirements
-          minRequirements={minRequirements}
-          recRequirements={recRequirements}
+          systemRequirements={systemRequirements}
           onChange={handleRequirementsChange}
         />
+
 
         <SecondaryImagesInput
           name="secondaryImages"

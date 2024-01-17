@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue } from 'firebase/database';
 import GraphicsCards from './GraphicsCards';
 import Processors from './Processors';
 
-function SystemRequirements({ minRequirements, recRequirements, onChange }) {
+function SystemRequirements({ systemRequirements, onChange }) {
   const [processors, setProcessors] = useState([]);
   const [graphicsCards, setGraphicsCards] = useState([]);
 
@@ -60,16 +60,16 @@ function SystemRequirements({ minRequirements, recRequirements, onChange }) {
           <tr>
             <td>
               <GraphicsCards
-                minRequirements={minRequirements}
-                recRequirements={recRequirements}
+                minRequirements={systemRequirements}
+                recRequirements={systemRequirements}
                 onChange={onChange}
                 graphicsCards={graphicsCards}
               />
             </td>
             <td>
               <Processors
-                minRequirements={minRequirements}
-                recRequirements={recRequirements}
+                minRequirements={systemRequirements}
+                recRequirements={systemRequirements}
                 onChange={onChange}
                 processors={processors}
               />
@@ -82,7 +82,7 @@ function SystemRequirements({ minRequirements, recRequirements, onChange }) {
                 <input
                   type="text"
                   name="minRam"
-                  value={minRequirements.minRam}
+                  value={systemRequirements.minRam}
                   onChange={onChange}
                 />
               </label>
@@ -93,7 +93,7 @@ function SystemRequirements({ minRequirements, recRequirements, onChange }) {
                 <input
                   type="text"
                   name="recRam"
-                  value={recRequirements.recRam}
+                  value={systemRequirements.recRam}
                   onChange={onChange}
                 />
               </label>
@@ -106,7 +106,7 @@ function SystemRequirements({ minRequirements, recRequirements, onChange }) {
                 <input
                   type="text"
                   name="minStorage"
-                  value={minRequirements.minStorage}
+                  value={systemRequirements.minStorage}
                   onChange={onChange}
                 />
               </label>
@@ -117,7 +117,7 @@ function SystemRequirements({ minRequirements, recRequirements, onChange }) {
                 <input
                   type="text"
                   name="recStorage"
-                  value={recRequirements.recStorage}
+                  value={systemRequirements.recStorage}
                   onChange={onChange}
                 />
               </label>
