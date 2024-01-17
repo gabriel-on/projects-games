@@ -38,6 +38,7 @@ import FirstVisitAchievement from './components/Achievements/FirstVisitAchieveme
 import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
 import Members from './pages/Members/Members.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx';
+import ConfigUserProfile from './components/UserProfile/ConfigUserProfile.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -136,6 +137,8 @@ function App() {
                 <Route path="/genres" element={<GenreList />} />
 
                 <Route path="/game-v" element={<JogoDaVelha />} />
+
+                <Route path="/settings" element={<ConfigUserProfile />} />
 
                 <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} />} />
 

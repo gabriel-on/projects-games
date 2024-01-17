@@ -22,6 +22,7 @@ const UserProfile = () => {
   const [publicView, setPublicView] = useState(false);
   const { userId } = useParams();
   const navigate = useNavigate()
+  const [nameColor, setNameColor] = useState('black');
   const [confirmLevelUp, setConfirmLevelUp] = useState(false);
 
   useEffect(() => {
@@ -227,6 +228,8 @@ const UserProfile = () => {
                 user={user}
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
+                nameColor={nameColor} // Passa a cor do nome para o componente ConfigUserProfile
+                setNameColor={setNameColor}
               />
             </div>
           ) : (
