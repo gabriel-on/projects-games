@@ -20,6 +20,7 @@ const Leaderboard = () => {
             ([userId, userData]) => ({
               userId,
               displayName: userData.displayName,
+              nameColor: userData.nameColor,
             })
           );
 
@@ -81,7 +82,7 @@ const Leaderboard = () => {
               <td>{index + 1} &deg;</td>
               <td>
                 <Link to={`/profile/${user.userId}`}>
-                  {user.displayName}
+                  <p style={{ color: user.nameColor }}>{user.displayName}</p>
                 </Link>
               </td>
               <td>{user.level}</td>
