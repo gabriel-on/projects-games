@@ -27,7 +27,11 @@ const GameDetails = () => {
     averageClassification
   } = useInteractions(gameId);
 
-  const [userDisplayName, setUserDisplayName] = useState(null);
+  const [userDisplayName, setUserDisplayName] = useState({
+    displayName: null,
+    nameColor: null,
+  });
+
 
   const secondaryImages = gameData?.secondaryImages || [];
 
@@ -62,7 +66,10 @@ const GameDetails = () => {
 
           if (userSnapshot.exists()) {
             const userData = userSnapshot.val();
-            setUserDisplayName(userData.displayName);
+            setUserDisplayName({
+              displayName: userData.displayName,
+              nameColor: userData.nameColor,
+            });
           } else {
             console.log(`Usuário com ID ${data.addedBy.userId} não encontrado.`);
           }
@@ -225,11 +232,12 @@ const GameDetails = () => {
       </div>
       <div id='createdBy'>
         <p>
-          Adicionado por:
-          <Link to={`/profile/${gameData.addedBy.userId}`}>
-            {userDisplayName || gameData.addedBy.displayName}
+          Adicionado por:{" "}
+          <Link to={`/profile/${gameData.addedBy.userId}`} style={{ color: userDisplayName.nameColor }}>
+            {userDisplayName.displayName || gameData.addedBy.displayName}
           </Link>
         </p>
+
         <p>Data de criação: <span>{new Date(gameData.createdAt).toLocaleString()}</span></p>
       </div>
 
