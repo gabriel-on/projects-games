@@ -38,6 +38,7 @@ import FirstVisitAchievement from './components/Achievements/FirstVisitAchieveme
 import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
 import Members from './pages/Members/Members.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx';
+import ProgressBar from './components/ProgressBar/ProgressBar.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -105,6 +106,7 @@ function App() {
           <BrowserRouter>
             <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
             <Navbar userId={userId} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
+            <ProgressBar /> 
             <div className="container-absolute">
               <Routes>
                 <Route path='/' element={<Home />} />

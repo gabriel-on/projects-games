@@ -1,15 +1,23 @@
-import React from 'react';
-import { useProgressBar } from '../../context/ProgressBarContext.jsx';
+import React, { useState, useEffect } from 'react';
 import './ProgressBar.css';
 
 const ProgressBar = () => {
-  const { progress } = useProgressBar();
+  const [scrollPercentage, setScrollPercentage] = useState(0);
 
-  return (
-    <div className="progress-bar-container">
-      <div className="progress-bar" style={{ width: `${progress}%` }} />
-    </div>
-  );
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (window.scrollY / scrollHeight) * 100;
+    setScrollPercentage(scrolled);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return <div className="progress-bar" style={{ width: `${scrollPercentage}%` }} />;
 };
 
 export default ProgressBar;
