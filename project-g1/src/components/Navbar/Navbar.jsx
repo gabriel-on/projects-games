@@ -18,25 +18,27 @@ const Navbar = ({ userId, toggleTheme, isDarkMode }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  
+
   return (
     <nav className={`navbar ${isDarkMode ? 'dark-mode' : ''}`}>
-      <NavLink to="/" className="brand">
-        <h1>Logo</h1>
-      </NavLink>
-      <ul className="links_list">
-        <li>
-          <NavLink to="/search">
-            <i className="bi bi-search" />
-          </NavLink>
-        </li>
-        <li>
-          <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-        </li>
-        <li>
-          <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen} />
-        </li>
-      </ul>
+      <>
+        <NavLink to="/" className="brand">
+          <h1>Logo</h1>
+        </NavLink>
+        <ul className="links_list">
+          <li>
+            <NavLink to="/search">
+              <i className="bi bi-search" />
+            </NavLink>
+          </li>
+          <li>
+            <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+          </li>
+          <li>
+            <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen} />
+          </li>
+        </ul>
+      </>
     </nav>
   );
 };

@@ -1,10 +1,9 @@
 .progress-bar {
-    position: fixed;
-    /* top: 0; */
-    left: 0;
-    height: 5px; /* Altura da barra de progresso */
-    background-color: #3498db; /* Cor da barra de progresso */
-    transition: width 0.3s; /* Adiciona uma transição suave à largura da barra de progresso */
-    z-index: 999;
-  }
-  
+  position: fixed;
+  top: 86px;
+  left: 0;
+  height: 5px;
+  background-color: #3498db;
+  transition: width 0.3s;
+  z-index: 999;
+}
