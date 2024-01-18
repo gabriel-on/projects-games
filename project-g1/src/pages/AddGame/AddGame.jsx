@@ -196,10 +196,13 @@ function AddGame() {
       if (currentUser) {
         const newGameWithUser = {
           ...newGame,
-          addedBy: currentUser.displayName,
+          addedBy: {
+            userId: currentUser.uid,
+            displayName: currentUser.displayName,
+          },
           createdAt: new Date().toISOString(),
           systemRequirements: systemRequirements,
-        };
+        };  
 
         const newGameRef = push(gamesRef);
         await set(newGameRef, newGameWithUser);
