@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { updateProfile as updateProfileAuth } from 'firebase/auth';
+import { getAuth, updateProfile as updateProfileAuth } from 'firebase/auth';
 import { getDatabase, ref, onValue, set } from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
@@ -11,6 +13,7 @@ import defaultProfileImage from '../../img/perfil.png';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import UserGameList from '../UserGameList/UserGameList';
 import ConfigUserProfile from './ConfigUserProfile';
+import ProfileImageUploader from './ProfileImageUploader';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -152,6 +155,20 @@ const UserProfile = () => {
     }
   };
 
+  const handleUploadSuccess = async (downloadURL) => {
+    try {
+      const auth = getAuth();
+      await updateProfileAuth(auth.currentUser, {
+        photoURL: downloadURL,
+      });
+
+      await loadUserProfile(currentUser.uid);
+    } catch (error) {
+      console.error('Erro ao atualizar foto de perfil:', error.message);
+    }
+  };
+
+
   return (
     <div className='profile-container' >
       {loading && <p>Carregando...</p>}
@@ -227,32 +244,38 @@ const UserProfile = () => {
           </div>
 
           {showConfig ? (
-              // Se mostrar configurações, exibir ConfigUserProfile
+            // Se mostrar configurações, exibir ConfigUserProfile
+            <div>
               <ConfigUserProfile
                 userId={userId}
                 user={user}
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />
-            ) : (
-              // Caso contrário, exibir informações do perfil
-              <div>
-                {/* ... Informações do perfil ... */}
-                {currentUser.uid === userId ? (
-                  <div>
-                    <button onClick={toggleView}>
-                      {publicView ? 'Ocultar configurações' : 'Ver configurações'}
-                    </button>
-                  </div>
-                ) : (
-                  // Modo de visualização pública para outros usuários
-                  <div>
-                    <p>Este é o perfil de <strong style={{ color: user.nameColor }}>{user.displayName}</strong>.</p>
-                    {/* Adicione outras informações públicas aqui */}
-                  </div>
-                )}
+              <div className='standard-profile'>
+                <ProfileImageUploader userId={currentUser.uid} onUploadSuccess={handleUploadSuccess} />
               </div>
-            )}
+            </div>
+          ) : (
+            // Caso contrário, exibir informações do perfil
+            <div>
+              {/* ... Informações do perfil ... */}
+              {currentUser.uid === userId ? (
+                <div>
+
+                  <button onClick={toggleView}>
+                    {publicView ? 'Ocultar configurações' : 'Ver configurações'}
+                  </button>
+                </div>
+              ) : (
+                // Modo de visualização pública para outros usuários
+                <div>
+                  <p>Este é o perfil de <strong style={{ color: user.nameColor }}>{user.displayName}</strong>.</p>
+                  {/* Adicione outras informações públicas aqui */}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
     </div>
