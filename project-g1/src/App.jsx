@@ -55,7 +55,7 @@ function App() {
     const simulateLoading = async () => {
       try {
         // Simule um carregamento para demonstração
-        for (let i = 0; i <= 100; i += 10) {
+        for (let i = 0; i <= 100; i += 25) {
           setLoadingProgress(i);
           await new Promise(resolve => setTimeout(resolve, 500));
         }
@@ -133,10 +133,10 @@ function App() {
             <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
             <Navbar userId={userId} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
             <ProgressBar />
-            {loading ? (
-              <LoadingScreen loadingProgress={loadingProgress} />
-            ) : (
-              <div className="container-absolute">
+            <div className="container-absolute">
+              {loading ? (
+                <LoadingScreen loadingProgress={loadingProgress} />
+              ) : (
                 <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/login' element={!user ? <Login /> : <Navigate to={`/profile/${userId}`} />} />
@@ -181,8 +181,8 @@ function App() {
                     </>
                   )}
                 </Routes>
-              </div>
-            )}
+              )}
+            </div>
             <ScrollToTopButton />
             <Footer />
           </BrowserRouter>
