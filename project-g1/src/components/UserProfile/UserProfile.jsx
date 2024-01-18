@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAuth, updateProfile as updateProfileAuth } from 'firebase/auth';
-import { getDatabase, ref, onValue, set } from 'firebase/database';
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 
 import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
@@ -14,6 +13,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import UserGameList from '../UserGameList/UserGameList';
 import ConfigUserProfile from './ConfigUserProfile';
 import ProfileImageUploader from './ProfileImageUploader';
+import UserProfileBio from './UserProfileBio';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -168,6 +168,15 @@ const UserProfile = () => {
     }
   };
 
+  const updateUserBio = (userId, bio) => {
+    try {
+      const db = getDatabase();
+      const userBioRef = ref(db, `users/${userId}/bio`); // Adicione '/bio' para apontar para o nó da biografia
+      set(userBioRef, bio);
+    } catch (error) {
+      console.error('Erro ao atualizar a biografia do usuário:', error.message);
+    }
+  };
 
   return (
     <div className='profile-container' >
@@ -185,6 +194,7 @@ const UserProfile = () => {
             </div>
             <h1>Perfil do Usuário</h1>
             <p>Nome do Usuário: <span style={{ color: user.nameColor }}>{user.displayName}</span></p>
+            <p className='user-bio-content'>{user.bio}</p>
 
             {/* Exibir o ranking do usuário */}
             <div>
@@ -212,7 +222,6 @@ const UserProfile = () => {
                 currentUser={currentUser}
                 confirmLevelUp={confirmLevelUp}
                 setConfirmLevelUp={setConfirmLevelUp}
-
               />
             </div>
             <div>
@@ -244,7 +253,6 @@ const UserProfile = () => {
           </div>
 
           {showConfig ? (
-            // Se mostrar configurações, exibir ConfigUserProfile
             <div>
               <ConfigUserProfile
                 userId={userId}
@@ -252,6 +260,9 @@ const UserProfile = () => {
                 currentUser={currentUser}
                 setCurrentUser={setCurrentUser}
               />
+              <div>
+                <UserProfileBio userId={userId} currentUser={currentUser} updateUserBio={updateUserBio} />
+              </div>
               <div className='standard-profile'>
                 <ProfileImageUploader userId={currentUser.uid} onUploadSuccess={handleUploadSuccess} />
               </div>
@@ -262,7 +273,6 @@ const UserProfile = () => {
               {/* ... Informações do perfil ... */}
               {currentUser.uid === userId ? (
                 <div>
-
                   <button onClick={toggleView}>
                     {publicView ? 'Ocultar configurações' : 'Ver configurações'}
                   </button>

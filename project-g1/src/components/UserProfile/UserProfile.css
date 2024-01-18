@@ -56,3 +56,12 @@ ul {
     flex-wrap: wrap;
     gap: 20px;
 }
+
+.user-bio-content {
+    display: flex;
+    flex-wrap: wrap;
+    background: white;
+    color: black;
+    width: 600px;
+    padding: 10px;
+}
