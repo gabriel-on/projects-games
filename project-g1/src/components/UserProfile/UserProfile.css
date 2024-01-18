@@ -64,4 +64,5 @@ ul {
     color: black;
     width: 600px;
     padding: 10px;
+    white-space: pre-line
 }

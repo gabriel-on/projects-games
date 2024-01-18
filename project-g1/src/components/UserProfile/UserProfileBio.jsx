@@ -5,6 +5,7 @@ import { getDatabase, ref, onValue, set } from 'firebase/database';
 const UserProfileBio = ({ userId, currentUser, updateUserBio }) => {
   const [bio, setBio] = useState('');
 
+  // Carregar a biografia atual ao montar o componente
   useEffect(() => {
     const loadBio = async () => {
       try {
@@ -42,6 +43,7 @@ const UserProfileBio = ({ userId, currentUser, updateUserBio }) => {
         placeholder="Escreva sua biografia aqui..."
         value={bio}
         onChange={handleBioChange}
+        style={{ whiteSpace: 'pre-line' }} // Esta linha de estilo CSS faz com que as quebras de linha sejam respeitadas
       />
       {currentUser.uid === userId && (
         <button onClick={handleSaveBio}>Salvar Biografia</button>
