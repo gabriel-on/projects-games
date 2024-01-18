@@ -27,6 +27,8 @@ const GameDetails = () => {
     averageClassification
   } = useInteractions(gameId);
 
+  const [userDisplayName, setUserDisplayName] = useState(null);
+
   const secondaryImages = gameData?.secondaryImages || [];
 
   const videoCode = gameData?.trailer ? gameData.trailer.split('v=')[1] : null;
@@ -52,6 +54,17 @@ const GameDetails = () => {
             setGameAnalysis(analysisArray);
           } else {
             setGameAnalysis([]);
+          }
+
+          // Buscar dados do usuário que adicionou o jogo
+          const userRef = ref(database, `users/${data.addedBy.userId}`);
+          const userSnapshot = await get(userRef);
+
+          if (userSnapshot.exists()) {
+            const userData = userSnapshot.val();
+            setUserDisplayName(userData.displayName);
+          } else {
+            console.log(`Usuário com ID ${data.addedBy.userId} não encontrado.`);
           }
         } else {
           console.log(`Jogo com ID ${gameId} não encontrado.`);
@@ -213,7 +226,9 @@ const GameDetails = () => {
       <div id='createdBy'>
         <p>
           Adicionado por:
-          <Link to={`/profile/${gameData.addedBy.userId}`}>{gameData.addedBy.displayName}</Link>
+          <Link to={`/profile/${gameData.addedBy.userId}`}>
+            {userDisplayName || gameData.addedBy.displayName}
+          </Link>
         </p>
         <p>Data de criação: <span>{new Date(gameData.createdAt).toLocaleString()}</span></p>
       </div>
