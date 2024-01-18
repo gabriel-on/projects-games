@@ -1,4 +1,3 @@
-// ProfileImageUploader.jsx
 import React, { useState } from 'react';
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getDatabase, ref as dbRef, update } from 'firebase/database';
@@ -12,7 +11,6 @@ const ProfileImageUploader = ({ userId, onUploadSuccess }) => {
     const handleProfileImageChange = (event) => {
         const file = event.target.files[0];
         setNewProfileImage(file);
-        // Limpar a mensagem de erro ao escolher uma nova imagem
         setErrorMessage(null);
     };
 
