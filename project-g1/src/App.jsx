@@ -38,14 +38,12 @@ import FirstVisitAchievement from './components/Achievements/FirstVisitAchieveme
 import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
 import Members from './pages/Members/Members.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx';
-import ConfigUserProfile from './components/UserProfile/ConfigUserProfile.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
   const [userLevel, setUserLevel] = useState(1);
   const { auth } = useAuth();
   const [isDarkMode, setDarkMode] = useState(() => {
-    // Obtém o valor do localStorage ou define o padrão como false
     return JSON.parse(localStorage.getItem('darkMode')) || false;
   });
 
@@ -60,8 +58,6 @@ function App() {
     // Salva o estado do tema no localStorage
     localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
   }, [isDarkMode]);
-
-  const loadingUser = user === undefined;
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -79,7 +75,6 @@ function App() {
             const isAdmin = userData.isAdmin || false;
             setUser((prevUser) => ({ ...prevUser, isAdmin }));
           } else {
-            // O usuário não existe no banco de dados, é o primeiro acesso
             // Desbloqueie a conquista de primeiro acesso
             const achievementsRef = ref(database, 'userAchievements/' + user.uid);
             await set(achievementsRef, {
