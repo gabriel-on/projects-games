@@ -1,0 +1,15 @@
+.LoadingScreen-bar {
+    position: fixed;
+    /* top: 0;
+    left: 0; */
+    width: 100%;
+    height: 2px; /* Ajuste a altura conforme necessário */
+    background-color: #ddd; /* Cor da barra de progresso não preenchida */
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #4caf50; /* Cor da barra de progresso preenchida */
+    transition: width 0.5s ease; /* Adiciona uma animação suave */
+  }
+  

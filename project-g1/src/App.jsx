@@ -39,6 +39,7 @@ import RankingDraw from './components/RankingDraw/RankingDraw.jsx';
 import Members from './pages/Members/Members.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx';
 import ProgressBar from './components/ProgressBar/ProgressBar.jsx';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -47,6 +48,30 @@ function App() {
   const [isDarkMode, setDarkMode] = useState(() => {
     return JSON.parse(localStorage.getItem('darkMode')) || false;
   });
+  const [loading, setLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
+  useEffect(() => {
+    const simulateLoading = async () => {
+      try {
+        // Simule um carregamento para demonstração
+        for (let i = 0; i <= 100; i += 10) {
+          setLoadingProgress(i);
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error('Error during loading:', error);
+      }
+    };
+
+    simulateLoading();
+
+    // Cleanup function (optional)
+    return () => {
+      // Additional cleanup logic if needed
+    };
+  }, []);
 
   const toggleTheme = () => {
     setDarkMode((prevMode) => !prevMode);
@@ -86,6 +111,7 @@ function App() {
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
+        setLoading(false);
       }
     });
 
@@ -106,59 +132,63 @@ function App() {
           <BrowserRouter>
             <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
             <Navbar userId={userId} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
-            <ProgressBar /> 
-            <div className="container-absolute">
-              <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/login' element={!user ? <Login /> : <Navigate to={`/profile/${userId}`} />} />
-                <Route path='/register' element={!user ? <Register /> : <Navigate to={"/"} />} />
-                <Route path='/about' element={<About />} />
-                <Route path='/game/:gameId' element={<GameDetails />} />
-                <Route path='/games' element={<GameList />} />
+            <ProgressBar />
+            {loading ? (
+              <LoadingScreen loadingProgress={loadingProgress} />
+            ) : (
+              <div className="container-absolute">
+                <Routes>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/login' element={!user ? <Login /> : <Navigate to={`/profile/${userId}`} />} />
+                  <Route path='/register' element={!user ? <Register /> : <Navigate to={"/"} />} />
+                  <Route path='/about' element={<About />} />
+                  <Route path='/game/:gameId' element={<GameDetails />} />
+                  <Route path='/games' element={<GameList />} />
 
-                <Route path='/profile/:userId' element={<UserProfile />} />
+                  <Route path='/profile/:userId' element={<UserProfile />} />
 
-                <Route path='/members' element={<Members />} />
+                  <Route path='/members' element={<Members />} />
 
-                <Route path='/search' element={<SearchBar />} />
+                  <Route path='/search' element={<SearchBar />} />
 
-                <Route path='/all-games' element={<AllGames />} />
+                  <Route path='/all-games' element={<AllGames />} />
 
-                <Route path='/rank' element={<RankingDraw rankings={rankings} userId={userId} />} />
+                  <Route path='/rank' element={<RankingDraw rankings={rankings} userId={userId} />} />
 
-                <Route path='/latest-added' element={<LatestAdded />} />
+                  <Route path='/latest-added' element={<LatestAdded />} />
 
-                <Route path='/populations' element={<GamesMoreInteractions />} />
+                  <Route path='/populations' element={<GamesMoreInteractions />} />
 
 
-                <Route path="/genres" element={<GenreList />} />
+                  <Route path="/genres" element={<GenreList />} />
 
-                <Route path="/game-v" element={<JogoDaVelha />} />
-                
-                <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} />} />
+                  <Route path="/game-v" element={<JogoDaVelha />} />
 
-                {isAdmin && (
-                  <>
-                    <Route path='/new'
-                      element={<AddGame />} />
-                    <Route path="/dashboard"
-                      element={<Dashboard />} />
-                    <Route path="/admin"
-                      element={<AdminPage isAdmin={isAdmin} />} />
-                    <Route path='/edit/:gameId'
-                      element={<EditGame />} />
-                    <Route path='/delete/:gameId'
-                      element={<DeleteGame />} />
-                  </>
-                )}
-              </Routes>
-            </div>
+                  <Route path="/leaderboard" element={<Leaderboard userLevel={userLevel} />} />
+
+                  {isAdmin && (
+                    <>
+                      <Route path='/new'
+                        element={<AddGame />} />
+                      <Route path="/dashboard"
+                        element={<Dashboard />} />
+                      <Route path="/admin"
+                        element={<AdminPage isAdmin={isAdmin} />} />
+                      <Route path='/edit/:gameId'
+                        element={<EditGame />} />
+                      <Route path='/delete/:gameId'
+                        element={<DeleteGame />} />
+                    </>
+                  )}
+                </Routes>
+              </div>
+            )}
             <ScrollToTopButton />
             <Footer />
           </BrowserRouter>
         </AuthProvider>
       </ThemeProvider>
-    </div>
+    </div >
   );
 }
 

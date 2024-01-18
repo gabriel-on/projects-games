@@ -29,6 +29,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.loading-indicator{
+    color: red;
+}
+
 /* Estilos responsivos para telas pequenas */
 @media screen and (max-width: 768px) {
     body {
