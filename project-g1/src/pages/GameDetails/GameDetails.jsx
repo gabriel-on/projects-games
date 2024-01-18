@@ -1,7 +1,7 @@
 // GameDetails.js
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getDatabase, ref, get, set, update, onValue } from 'firebase/database';
+import { getDatabase, ref, get, set, update } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import useInteractions from '../../hooks/useInteractions';
 import GameAnalysis from '../../components/GameAnalysis/GameAnalysis';
@@ -26,8 +26,6 @@ const GameDetails = () => {
     totalInteractions,
     averageClassification
   } = useInteractions(gameId);
-
-  const [userDisplayName, setUserDisplayName] = useState(null);
 
   const secondaryImages = gameData?.secondaryImages || [];
 
@@ -67,25 +65,11 @@ const GameDetails = () => {
   }, [gameId, user]);
 
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(getAuth(), (authUser) => {
+    const unsubscribe = onAuthStateChanged(getAuth(), (authUser) => {
       setUser(authUser);
-
-      if (authUser) {
-        const database = getDatabase();
-        const userUid = authUser.uid;
-
-        const userRef = ref(database, `users/${userUid}`);
-        const unsubscribeUser = onValue(userRef, (snapshot) => {
-          const userData = snapshot.val();
-          setUserDisplayName(userData?.displayName);
-        });
-
-        return () => unsubscribeUser();
-      } else {
-        setUserDisplayName(null);
-      }
     });
-    return () => unsubscribeAuth();
+
+    return () => unsubscribe();
   }, []);
 
   if (!gameData) {
@@ -229,9 +213,7 @@ const GameDetails = () => {
       <div id='createdBy'>
         <p>
           Adicionado por:
-          <Link to={`/profile/${gameData.addedBy.userId}`}>
-            {userDisplayName || gameData.addedBy.displayName}
-          </Link>
+          <Link to={`/profile/${gameData.addedBy.userId}`}>{gameData.addedBy.displayName}</Link>
         </p>
         <p>Data de criação: <span>{new Date(gameData.createdAt).toLocaleString()}</span></p>
       </div>
