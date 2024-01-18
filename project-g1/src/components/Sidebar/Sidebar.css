@@ -96,10 +96,13 @@
 }
 
 .standard-profile-sidebar div img {
+    border-radius: 5px;
+    display: flex;
+    aspect-ratio: 4/4;
     object-fit: cover;
-    margin: 3px;
+    /* margin: 3px; */
     max-width: 100%;
-    width: 20px;
+    width: 35px;
 }
 
 .close-button {
