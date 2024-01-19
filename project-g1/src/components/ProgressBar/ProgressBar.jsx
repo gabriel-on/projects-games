@@ -30,11 +30,6 @@ const ProgressBar = () => {
     setScrollPercentage(0);
   }, [location.pathname]);
 
-  useEffect(() => {
-    // Realiza a lógica desejada quando a rota muda
-    console.log('Rota alterada para:', location.pathname);
-  }, [location.pathname]);
-
   return <div className="progress-bar" style={{ width: `${scrollPercentage}%` }} />;
 };
 
