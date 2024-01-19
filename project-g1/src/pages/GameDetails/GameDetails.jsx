@@ -8,6 +8,7 @@ import '../GameDetails/GameDetails.css'
 import GameStatusModal from '../../components/GamesStatus/GameStatusModal';
 import SystemRequirementsTable from './SystemRequirementsTable';
 import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
+import LikeDislike from '../../components/LikeDislike/LikeDislike';
 
 const GameDetails = () => {
   const { gameId } = useParams();
@@ -158,6 +159,7 @@ const GameDetails = () => {
                 />
               )}
             </div>
+            <LikeDislike itemId={gameId} userId={user?.uid} />
           </div>
         </div>
 
