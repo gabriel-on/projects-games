@@ -8,61 +8,56 @@ const LikeDislike = ({ itemId, userId }) => {
     const [userAction, setUserAction] = useState(null);
 
     useEffect(() => {
-        // Adicione a lógica para buscar os dados iniciais do Firebase
         const itemRef = ref(db, `likeDislike/${itemId}`);
 
         onValue(itemRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
-                setLikes(data.likes || 0);
-                setDislikes(data.dislikes || 0);
+                setLikes(Math.max(data.likes || 0, 0));
+                setDislikes(Math.max(data.dislikes || 0, 0));
+                setUserAction(data.votes && data.votes[userId]);
             }
         });
-    }, [db, itemId]);
+    }, [db, itemId, userId]);
 
-    const handleLike = useCallback(() => {
-        // Adicione a lógica para lidar com o like
-        if (userAction === 'Like') {
-            // Se o usuário já deu like, pode remover o like aqui
-            updateDatabase(ref(db, `likeDislike/${itemId}`), {
-                likes: likes - 1,
+    const handleVote = useCallback((vote) => {
+        const votesRef = ref(db, `likeDislike/${itemId}/votes`);
+        const itemRef = ref(db, `likeDislike/${itemId}`);
+
+        if (userAction === vote) {
+            // Se o usuário clicou novamente no mesmo botão, remove o voto
+            updateDatabase(votesRef, {
+                [userId]: null,
             });
             setUserAction(null);
-        } else {
-            // Se o usuário não deu like ainda, pode adicionar o like aqui
-            updateDatabase(ref(db, `likeDislike/${itemId}`), {
-                likes: likes + 1,
-                dislikes: userAction === 'Dislike' ? dislikes - 1 : dislikes,
-            });
-            setUserAction('Like');
-        }
-    }, [db, itemId, likes, dislikes, userAction]);
 
-    const handleDislike = useCallback(() => {
-        // Adicione a lógica para lidar com o dislike
-        if (userAction === 'Dislike') {
-            // Se o usuário já deu dislike, pode remover o dislike aqui
-            updateDatabase(ref(db, `likeDislike/${itemId}`), {
-                dislikes: dislikes - 1,
+            // Atualiza o número de likes e dislikes no nó do item
+            updateDatabase(itemRef, {
+                likes: Math.max(0, vote === 'like' ? likes - 1 : likes),
+                dislikes: Math.max(0, vote === 'dislike' ? dislikes - 1 : dislikes),
             });
-            setUserAction(null);
         } else {
-            // Se o usuário não deu dislike ainda, pode adicionar o dislike aqui
-            updateDatabase(ref(db, `likeDislike/${itemId}`), {
-                dislikes: dislikes + 1,
-                likes: userAction === 'Like' ? likes - 1 : likes,
+            // Se o usuário está votando pela primeira vez ou mudando o voto, atualiza o voto
+            updateDatabase(votesRef, {
+                [userId]: vote,
             });
-            setUserAction('Dislike');
+            setUserAction(vote);
+
+            // Atualiza o número de likes e dislikes no nó do item
+            updateDatabase(itemRef, {
+                likes: Math.max(0, vote === 'like' ? likes + 1 : likes - (userAction === 'like' ? 1 : 0)),
+                dislikes: Math.max(0, vote === 'dislike' ? dislikes + 1 : dislikes - (userAction === 'dislike' ? 1 : 0)),
+            });
         }
-    }, [db, itemId, likes, dislikes, userAction]);
+    }, [db, itemId, userId, userAction, likes, dislikes]);
 
     return (
         <div>
-            <button id={`like-button-${itemId}`} onClick={handleLike}>
-                {userAction === 'Like' && '✔️'} 👍 ({likes})
+            <button id={`like-button-${itemId}`} onClick={() => handleVote('like')}>
+                {userAction === 'like' && '✔️'} 👍 ({likes})
             </button>
-            <button id={`dislike-button-${itemId}`} onClick={handleDislike}>
-                {userAction === 'Dislike' && '✔️'} 👎 ({dislikes})
+            <button id={`dislike-button-${itemId}`} onClick={() => handleVote('dislike')}>
+                {userAction === 'dislike' && '✔️'} 👎 ({dislikes})
             </button>
         </div>
     );
