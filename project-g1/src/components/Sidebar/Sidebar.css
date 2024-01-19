@@ -39,8 +39,38 @@
     transform: translateX(1115px);
 }
 
-/* .toggle-button {
-} */
+@media screen and (max-width: 420px) {
+    .sidebar {
+        width: 420px;
+        transform: translateX(440px);
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .links_list {
+        justify-content: center;
+        width: 420px;
+        flex-wrap: wrap;
+        display: flex;
+    }
+    
+    .sidebar .links_list > li {
+        width: 400px;
+    }
+
+    .links_list a.active {
+        width: 360px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #606060;
+        padding: 10px;
+        font-size: 1em;
+    }
+
+}
 
 .links_list {
     list-style: none;

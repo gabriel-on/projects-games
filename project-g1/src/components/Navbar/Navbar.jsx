@@ -26,7 +26,7 @@ const Navbar = ({ userId, toggleTheme, isDarkMode }) => {
           <h1>Logo</h1>
         </NavLink>
         <ul className="links_list">
-          <li>
+          <li className='search-links_list'>
             <NavLink to="/search">
               <i className="bi bi-search" />
             </NavLink>

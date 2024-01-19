@@ -45,7 +45,7 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                     onClick={closeSidebar}
                 />
             )}
-            <div className={`sidebar ${isSidebarOpen ? 'show' : ''}`}>
+            <div id='sidebar' className={`sidebar ${isSidebarOpen ? 'show' : ''}`}>
                 <button className="close-button" onClick={closeSidebar}>
                     Fechar
                 </button>

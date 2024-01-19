@@ -51,7 +51,7 @@
 .name-top {
     width: 200px;
     display: flex;
-    color: #c100fc;
+    color: #960000;
 }
 
 .position-top {
@@ -95,4 +95,38 @@
     display: flex;
     justify-content: space-between;
     width: 1010px;
+}
+
+@media screen and (max-width: 420px) {
+    .info-top-users-container {
+        width: 380px;
+        display: flex;
+        gap: 10px;
+    }
+    .info-top-users-container table {
+        padding: 10px;
+        width: 400px;
+    }
+
+    .info-top-users{
+        display: flex;
+        width: 360px;
+    }
+
+    .perfil-top-ten img {
+        width: 40px;
+    }
+
+    .name-top {
+        max-width: 200px;
+    }
+    
+    .position-top {
+        color: #ffffff;
+    }
+    
+    .level-top {
+        display: flex;
+        width: 60px;
+    }
 }
