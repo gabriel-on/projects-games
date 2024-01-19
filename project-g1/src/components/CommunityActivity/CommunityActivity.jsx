@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, onValue, push, set } from 'firebase/database';
 import { useAuth } from '../../hooks/useAuthentication';
 import { Link } from 'react-router-dom';
+import LikeDislike from '../LikeDislike/LikeDislike';
 
 function CommunityActivity() {
   const auth = useAuth();
@@ -49,7 +50,7 @@ function CommunityActivity() {
       userId: currentUser.uid,
       displayName: currentUser.displayName,
       responses: [],
-      timestamp: currentTime, // Adiciona a data e hora atual
+      timestamp: currentTime,
     });
 
     setNewActivityText('');
@@ -67,6 +68,7 @@ function CommunityActivity() {
             </Link>
             <span> Respostas: {activity.responses ? Object.values(activity.responses).length : 0}</span>
             <span> Data e Hora: {activity.timestamp}</span>
+            <LikeDislike itemId={activity.id} userId={currentUser.uid} />
           </li>
         ))}
       </ul>
