@@ -133,8 +133,8 @@ function App() {
             <FirstVisitAchievement userId={user && user.uid} firstVisitAchievementId="firstVisitAchievementId" />
             <Navbar userId={userId} toggleTheme={toggleTheme} isDarkMode={isDarkMode} />
 
-            <div className="container-absolute">
             <ProgressBar />
+            <div className="container-absolute">
               {loading ? (
                 <LoadingScreen loadingProgress={loadingProgress} />
               ) : (
