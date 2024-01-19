@@ -68,20 +68,22 @@ function CommunityActivity() {
             </Link>
             <span> Respostas: {activity.responses ? Object.values(activity.responses).length : 0}</span>
             <span> Data e Hora: {activity.timestamp}</span>
-            <LikeDislike itemId={activity.id} userId={currentUser.uid} />
+            <LikeDislike itemId={activity.id} userId={currentUser?.uid} />
           </li>
         ))}
       </ul>
-      <div>
-        <input
-          type="text"
-          value={newActivityText}
-          onChange={(e) => setNewActivityText(e.target.value)}
-        />
-        <button onClick={handlePostActivity}>
-          Postar Atividade
-        </button>
-      </div>
+      {currentUser && (
+        <div>
+          <input
+            type="text"
+            value={newActivityText}
+            onChange={(e) => setNewActivityText(e.target.value)}
+          />
+          <button onClick={handlePostActivity}>
+            Postar Atividade
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,11 +1,14 @@
 import { getDatabase, ref, onValue, update as updateDatabase } from 'firebase/database';
 import { useEffect, useState, useCallback } from 'react';
+import { useAuth } from '../../hooks/useAuthentication';
 
 const LikeDislike = ({ itemId, userId }) => {
     const db = getDatabase();
     const [likes, setLikes] = useState(0);
     const [dislikes, setDislikes] = useState(0);
     const [userAction, setUserAction] = useState(null);
+    const auth = useAuth();
+    const currentUser = auth.currentUser;
 
     useEffect(() => {
         const itemRef = ref(db, `likeDislike/${itemId}`);
@@ -21,6 +24,14 @@ const LikeDislike = ({ itemId, userId }) => {
     }, [db, itemId, userId]);
 
     const handleVote = useCallback((vote) => {
+        const currentUser = auth.currentUser;
+
+        if (!currentUser) {
+            // Exiba uma mensagem ou redirecione para a página de login
+            console.log('Você precisa estar autenticado para votar.');
+            return;
+        }
+
         const votesRef = ref(db, `likeDislike/${itemId}/votes`);
         const itemRef = ref(db, `likeDislike/${itemId}`);
 
@@ -59,6 +70,7 @@ const LikeDislike = ({ itemId, userId }) => {
             <button id={`dislike-button-${itemId}`} onClick={() => handleVote('dislike')}>
                 {userAction === 'dislike' && '✔️'} 👎 ({dislikes})
             </button>
+            {!currentUser && <p>Você precisa estar autenticado para interagir.</p>}
         </div>
     );
 };
