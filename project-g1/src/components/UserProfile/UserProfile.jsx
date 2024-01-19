@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
 import GameStatus from '../../components/GamesStatus/GamesStatus';
+
 import '../../components/UserProfile/UserProfile.css'
 
 import defaultProfileImage from '../../img/perfil.png';

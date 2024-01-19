@@ -24,6 +24,15 @@
     justify-content: center;
 }
 
+.perfil-top-ten img {
+    aspect-ratio: 4/4;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 60px;
+    object-fit: cover;
+}
+
 .info-top-users tr td a {
     justify-content: space-between;
     flex-wrap: wrap;
@@ -70,11 +79,6 @@
     align-content: center;
 }
 
-.perfil-top-ten img {
-    width: 40px;
-    color: red;
-}
-
 .info-top-users tr:nth-child(1) {
     background: #ffc107;
     display: flex;
@@ -114,7 +118,7 @@
     }
 
     .perfil-top-ten img {
-        width: 40px;
+        width: 60px;
     }
 
     .name-top {

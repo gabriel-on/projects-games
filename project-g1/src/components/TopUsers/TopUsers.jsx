@@ -20,6 +20,7 @@ const TopUsers = () => {
                         ([userId, userData]) => ({
                             userId,
                             displayName: userData.displayName,
+                            photoURL: userData.photoURL,
                         })
                     );
 
@@ -72,20 +73,15 @@ const TopUsers = () => {
                     {topUsers.map((user, index) => (
                         <tr key={user.userId} className={index < 3 ? `highlight-top-${index + 1}` : ''}>
                             <td className='perfil-top-ten'>
-                                {user.photoURL ? (
-                                    <img src={user.photoURL} alt="Foto de perfil" />
-                                ) : (
-                                    <img src={defaultProfilePhotoURL} alt="Foto de perfil padrão" />
-                                )}
-                            </td>
-                            <td>
-                                {/* <div className='perfil-top-ten'>
+                                <Link to={`/profile/${user.userId}`}>
                                     {user.photoURL ? (
                                         <img src={user.photoURL} alt="Foto de perfil" />
                                     ) : (
                                         <img src={defaultProfilePhotoURL} alt="Foto de perfil padrão" />
                                     )}
-                                </div> */}
+                                </Link>
+                            </td>
+                            <td>
                                 <Link to={`/profile/${user.userId}`} className='name-top'>
                                     Nome: {user.displayName}
                                 </Link>
