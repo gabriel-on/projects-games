@@ -23,6 +23,7 @@ function FullActivityView({ activity }) {
                 text: newResponseText,
                 userId: currentUser.uid,
                 displayName: currentUser.displayName,
+                timestamp: new Date().toISOString(), // Adiciona a data e hora atual
             };
 
             await set(newResponseRef, responseInfo);
@@ -48,6 +49,11 @@ function FullActivityView({ activity }) {
                                 <p>
                                     {response.displayName}: <span>
                                         {response.text}
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        {response.timestamp}
                                     </span>
                                 </p>
                             </li>

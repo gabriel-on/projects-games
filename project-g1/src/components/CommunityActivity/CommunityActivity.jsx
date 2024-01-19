@@ -8,8 +8,7 @@ function CommunityActivity() {
   const currentUser = auth.currentUser;
   const [activities, setActivities] = useState([]);
   const [newActivityText, setNewActivityText] = useState('');
-  const [selectedActivity, setSelectedActivity] = useState(null);
-  const [fullActivity, setFullActivity] = useState(null);
+  const [totalResponses, setTotalResponses] = useState(0);
 
   useEffect(() => {
     const db = getDatabase();
@@ -20,6 +19,13 @@ function CommunityActivity() {
       if (data) {
         const activityList = Object.values(data);
         setActivities(activityList);
+
+        // Calcular o número total de respostas
+        const total = activityList.reduce((acc, activity) => {
+          return acc + (activity.responses ? Object.values(activity.responses).length : 0);
+        }, 0);
+
+        setTotalResponses(total);
       }
     });
 
@@ -35,45 +41,35 @@ function CommunityActivity() {
     const activitiesRef = ref(db, 'communityActivities');
     const newActivityRef = push(activitiesRef);
 
+    const currentTime = new Date().toISOString();
+
     await set(newActivityRef, {
       id: newActivityRef.key,
       text: newActivityText,
       userId: currentUser.uid,
       displayName: currentUser.displayName,
       responses: [],
+      timestamp: currentTime, // Adiciona a data e hora atual
     });
 
     setNewActivityText('');
   };
 
-  const handleFullActivityClick = (activity) => {
-    setFullActivity(activity);
-  };
-
   return (
     <div>
       <h2>Community Activities</h2>
+      <p>Total de Respostas: {totalResponses}</p>
       <ul>
         {activities.map((activity) => (
           <li key={activity.id}>
-            <Link to={`/activity/${activity.id}`} onClick={() => handleFullActivityClick(activity)}>
+            <Link to={`/activity/${activity.id}`}>
               {activity.text}
             </Link>
+            <span> Respostas: {activity.responses ? Object.values(activity.responses).length : 0}</span>
+            <span> Data e Hora: {activity.timestamp}</span>
           </li>
         ))}
       </ul>
-      {selectedActivity && (
-        <div>
-          <h3>Atividade Selecionada</h3>
-          <p>{selectedActivity.text}</p>
-          <ul>
-            {Array.isArray(selectedActivity.responses) &&
-              selectedActivity.responses.map((response) => (
-                <li key={response.id}>{response.text}</li>
-              ))}
-          </ul>
-        </div>
-      )}
       <div>
         <input
           type="text"
