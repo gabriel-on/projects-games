@@ -40,6 +40,9 @@ import Members from './pages/Members/Members.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx';
 import ProgressBar from './components/ProgressBar/ProgressBar.jsx';
 import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx';
+import CommunityActivity from './components/CommunityActivity/CommunityActivity.jsx';
+import FullActivityView from './components/CommunityActivity/FullActivityView.jsx';
+import ActivityDetails from './components/CommunityActivity/ActivityDetails.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -160,6 +163,8 @@ function App() {
 
                   <Route path='/populations' element={<GamesMoreInteractions />} />
 
+                  <Route path='/community' element={<CommunityActivity />} />
+                  <Route path='/activity/:activityId' element={<ActivityDetails />} />
 
                   <Route path="/genres" element={<GenreList />} />
 

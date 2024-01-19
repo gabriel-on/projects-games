@@ -66,6 +66,11 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                             <i className="icon bi bi-person" /> Membros
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/community" onClick={closeSidebar} className="active">
+                            <i className="icon bi-chat-left-text" /> Comunidade
+                        </NavLink>
+                    </li>
 
                     {!user && (
                         <>
