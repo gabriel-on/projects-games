@@ -32,6 +32,11 @@ const LikeDislike = ({ itemId, userId }) => {
             return;
         }
 
+        // if (userId === currentUser.uid) {
+        //     console.log('Você não pode votar em sua própria postagem.');
+        //     return;
+        // }
+
         const votesRef = ref(db, `likeDislike/${itemId}/votes`);
         const itemRef = ref(db, `likeDislike/${itemId}`);
 
