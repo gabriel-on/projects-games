@@ -25,47 +25,49 @@ const LikeDislike = ({ itemId, userId }) => {
 
     const handleVote = useCallback((vote) => {
         const currentUser = auth.currentUser;
-
+    
         if (!currentUser) {
             // Exiba uma mensagem ou redirecione para a página de login
             console.log('Você precisa estar autenticado para votar.');
+            // Aqui você pode adicionar a lógica para redirecionar para a página de login
             return;
         }
-
-        // if (userId === currentUser.uid) {
-        //     console.log('Você não pode votar em sua própria postagem.');
-        //     return;
-        // }
-
+    
         const votesRef = ref(db, `likeDislike/${itemId}/votes`);
         const itemRef = ref(db, `likeDislike/${itemId}`);
-
-        if (userAction === vote) {
-            // Se o usuário clicou novamente no mesmo botão, remove o voto
-            updateDatabase(votesRef, {
-                [userId]: null,
-            });
-            setUserAction(null);
-
-            // Atualiza o número de likes e dislikes no nó do item
-            updateDatabase(itemRef, {
-                likes: Math.max(0, vote === 'like' ? likes - 1 : likes),
-                dislikes: Math.max(0, vote === 'dislike' ? dislikes - 1 : dislikes),
-            });
+    
+        // Verifique se currentUser é nulo antes de acessar currentUser.uid
+        if (currentUser.uid) {
+            if (userAction === vote) {
+                // Se o usuário clicou novamente no mesmo botão, remove o voto
+                updateDatabase(votesRef, {
+                    [userId]: null,
+                });
+                setUserAction(null);
+    
+                // Atualiza o número de likes e dislikes no nó do item
+                updateDatabase(itemRef, {
+                    likes: Math.max(0, vote === 'like' ? likes - 1 : likes),
+                    dislikes: Math.max(0, vote === 'dislike' ? dislikes - 1 : dislikes),
+                });
+            } else {
+                // Se o usuário está votando pela primeira vez ou mudando o voto, atualiza o voto
+                updateDatabase(votesRef, {
+                    [userId]: vote,
+                });
+                setUserAction(vote);
+    
+                // Atualiza o número de likes e dislikes no nó do item
+                updateDatabase(itemRef, {
+                    likes: Math.max(0, vote === 'like' ? likes + 1 : likes - (userAction === 'like' ? 1 : 0)),
+                    dislikes: Math.max(0, vote === 'dislike' ? dislikes + 1 : dislikes - (userAction === 'dislike' ? 1 : 0)),
+                });
+            }
         } else {
-            // Se o usuário está votando pela primeira vez ou mudando o voto, atualiza o voto
-            updateDatabase(votesRef, {
-                [userId]: vote,
-            });
-            setUserAction(vote);
-
-            // Atualiza o número de likes e dislikes no nó do item
-            updateDatabase(itemRef, {
-                likes: Math.max(0, vote === 'like' ? likes + 1 : likes - (userAction === 'like' ? 1 : 0)),
-                dislikes: Math.max(0, vote === 'dislike' ? dislikes + 1 : dislikes - (userAction === 'dislike' ? 1 : 0)),
-            });
+            console.log('Usuário não autenticado.');
         }
-    }, [db, itemId, userId, userAction, likes, dislikes]);
+    }, [auth, db, itemId, userId, userAction, likes, dislikes]);
+    
 
     return (
         <div>

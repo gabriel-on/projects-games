@@ -11,6 +11,7 @@ import LikeDislike from '../../components/LikeDislike/LikeDislike';
 
 const GameDetails = () => {
   const { gameId } = useParams();
+  const navigate = useNavigate();
   const [gameData, setGameData] = useState(null);
   const [user, setUser] = useState(null);
   const [showGameStatusModal, setShowGameStatusModal] = useState(false);
@@ -163,7 +164,7 @@ const GameDetails = () => {
               />
             )}
             <div>
-              <LikeDislike itemId={gameId} userId={user?.uid} />
+              {user && <LikeDislike itemId={gameId} userId={user?.uid} />}
             </div>
           </div>
           <div>
