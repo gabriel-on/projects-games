@@ -25,17 +25,17 @@ const LikeDislike = ({ itemId, userId }) => {
 
     const handleVote = useCallback((vote) => {
         const currentUser = auth.currentUser;
-    
+
         if (!currentUser) {
             // Exiba uma mensagem ou redirecione para a página de login
             console.log('Você precisa estar autenticado para votar.');
             // Aqui você pode adicionar a lógica para redirecionar para a página de login
             return;
         }
-    
+
         const votesRef = ref(db, `likeDislike/${itemId}/votes`);
         const itemRef = ref(db, `likeDislike/${itemId}`);
-    
+
         // Verifique se currentUser é nulo antes de acessar currentUser.uid
         if (currentUser.uid) {
             if (userAction === vote) {
@@ -44,7 +44,7 @@ const LikeDislike = ({ itemId, userId }) => {
                     [userId]: null,
                 });
                 setUserAction(null);
-    
+
                 // Atualiza o número de likes e dislikes no nó do item
                 updateDatabase(itemRef, {
                     likes: Math.max(0, vote === 'like' ? likes - 1 : likes),
@@ -56,7 +56,7 @@ const LikeDislike = ({ itemId, userId }) => {
                     [userId]: vote,
                 });
                 setUserAction(vote);
-    
+
                 // Atualiza o número de likes e dislikes no nó do item
                 updateDatabase(itemRef, {
                     likes: Math.max(0, vote === 'like' ? likes + 1 : likes - (userAction === 'like' ? 1 : 0)),
@@ -67,16 +67,26 @@ const LikeDislike = ({ itemId, userId }) => {
             console.log('Usuário não autenticado.');
         }
     }, [auth, db, itemId, userId, userAction, likes, dislikes]);
-    
+
 
     return (
-        <div>
-            <button id={`like-button-${itemId}`} onClick={() => handleVote('like')}>
-                {userAction === 'like' && '✔️'} 👍 ({likes})
-            </button>
-            <button id={`dislike-button-${itemId}`} onClick={() => handleVote('dislike')}>
-                {userAction === 'dislike' && '✔️'} 👎 ({dislikes})
-            </button>
+        <div className='like-dislike-container'>
+            <div>
+                <button
+                    id={`like-button-${itemId}`}
+                    onClick={() => handleVote('like')}
+                    disabled={!currentUser} // Desabilita o botão se o usuário não estiver autenticado
+                >
+                    {userAction === 'like' && '✔️'} 👍 ({likes})
+                </button>
+                <button
+                    id={`dislike-button-${itemId}`}
+                    onClick={() => handleVote('dislike')}
+                    disabled={!currentUser} // Desabilita o botão se o usuário não estiver autenticado
+                >
+                    {userAction === 'dislike' && '✔️'} 👎 ({dislikes})
+                </button>
+            </div>
             {!currentUser && <p>Você precisa estar autenticado para interagir.</p>}
         </div>
     );

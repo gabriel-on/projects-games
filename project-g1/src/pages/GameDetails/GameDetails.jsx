@@ -164,7 +164,7 @@ const GameDetails = () => {
               />
             )}
             <div>
-              {user && <LikeDislike itemId={gameId} userId={user?.uid} />}
+              <LikeDislike itemId={gameId} userId={user?.uid} />
             </div>
           </div>
           <div>
