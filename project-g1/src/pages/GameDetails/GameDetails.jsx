@@ -121,7 +121,7 @@ const GameDetails = () => {
 
   return (
     <div className='game-details-container' id='container'>
-      <>
+      
         <div id="banner">
           <div className='secondary-images-container'>
             <ul>
@@ -264,7 +264,8 @@ const GameDetails = () => {
 
           <p>Data de criação: <span>{new Date(gameData.createdAt).toLocaleString()}</span></p>
         </div>
-      </>
+
+
     </div>
   );
 };

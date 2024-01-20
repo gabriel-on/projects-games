@@ -19,6 +19,8 @@ const GameAnalysis = ({ gameId }) => {
   const auth = getAuth();
   const [user, setUser] = useState(null);
 
+  const MAX_ANALYSIS_LENGTH = 86; // Defina o limite de caracteres desejado
+
   // Função fetchGameData movida para fora do useEffect
   const fetchGameData = async () => {
     try {
@@ -196,7 +198,13 @@ const GameAnalysis = ({ gameId }) => {
             {gameAnalysis.map((analysis) => (
               <li key={analysis.timestamp}>
                 <p className='user-name-review'>{analysis.userName}</p>
-                <p><span className='review-text'>{analysis.text}</span></p>
+                <p>
+                  <span className='review-text'>
+                    {analysis.text.length > MAX_ANALYSIS_LENGTH
+                      ? `${analysis.text.substring(0, MAX_ANALYSIS_LENGTH)}...`
+                      : analysis.text}
+                  </span>
+                </p>
                 <p><span>Data da Análise: {new Date(analysis.timestamp).toLocaleString()}</span></p>
               </li>
             ))}

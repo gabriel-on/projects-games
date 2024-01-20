@@ -46,21 +46,23 @@
     }
 
     .sidebar.show {
+        display: flex;
+        flex-direction: column;
         transform: translateX(0);
     }
 
     .links_list {
         justify-content: center;
-        width: 420px;
+        width: 400px;
         flex-wrap: wrap;
         display: flex;
     }
     
     .sidebar .links_list > li {
-        width: 400px;
+        width: 360px;
     }
 
-    .links_list a.active {
+    .links_list a.active, .logout {
         width: 360px;
         display: flex;
         align-items: center;

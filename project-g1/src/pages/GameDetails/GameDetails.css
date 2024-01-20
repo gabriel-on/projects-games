@@ -225,10 +225,12 @@
     background-image: linear-gradient(180deg, transparent, #1b1b1b);
 }
 
+
 .details-div-foto>img {
+    aspect-ratio: 0/5;
     object-fit: cover;
     border: 2px solid black;
-    height: 40vh;
+    /* height: 40vh; */
     width: 220px;
 }
 
@@ -405,7 +407,7 @@
     gap: 10px;
 }
 
-.all-reviews-container>ul li> p {
+.all-reviews-container>ul li>p {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -423,9 +425,209 @@
     width: 560px;
 }
 
-.all-reviews-container>ul li>p> .review-text {
+.all-reviews-container>ul li>p>.review-text {
     background: white;
     color: #1b1b1b;
     display: flex;
     padding: 10px;
+}
+
+@media screen and (max-width: 420px) {
+    #container {
+        display: flex;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .details-div-foto img {
+        aspect-ratio: 0/5;
+        object-fit: cover;
+        border: 2px solid black;
+        /* height: 40vh; */
+        width: 180px;
+    }
+
+    .game-details-container {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .secondary-images-container ul>li>img {
+        display: flex;
+        justify-content: center;
+        width: 400px;
+        height: 200px;
+        /* margin: auto; */
+
+    }
+
+    .secondary-images-container::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 400px;
+        height: 415px;
+        background-image: linear-gradient(180deg, transparent, #1b1b1b);
+    }
+
+    .details-div-foto #status {
+        width: 100px;
+        position: relative;
+        bottom: 275px;
+        left: 100px;
+        display: flex;
+    }
+
+    .secondary-images-container ul>li>img {
+        width: 420px;
+    }
+
+    #banner {
+        top: 0;
+        left: 0;
+        width: 400px;
+    }
+
+    #set-rci {
+        position: relative;
+        display: flex;
+        width: 400px;
+        height: 40vh;
+    }
+
+    #trailer {
+        position: none;
+        display: flex;
+        justify-content: center;
+    }
+
+    #trailer .field {
+        width: 400px;
+    }
+
+    #trailer .field>iframe {
+        width: 300px;
+        height: 200px;
+        display: flex;
+    }
+
+    #info-container-details {
+        display: flex;
+        align-items: center;
+        width: 400px;
+    }
+
+    #info-container-details #descrição {
+        width: 400px;
+    }
+
+    #info-container-details #details-div {
+        display: flex;
+        flex-wrap: wrap;
+        width: 400px;
+    }
+
+    #info-container-details>#details-div>h2 {
+        font-size: 1em;
+    }
+
+    #info-container-details>#details-div>div {
+        font-size: 1em;
+        display: flex;
+    }
+
+    #info-container-details>#details-div>div ul li {
+        padding: 3px;
+        font-size: 1em;
+    }
+
+    #onde-comprar {
+        display: flex;
+        justify-content: center;
+        width: 400px;
+    }
+
+    #onde-comprar .sites-container {
+        display: flex;
+        justify-content: center;
+        width: 380px;
+    }
+
+    #onde-comprar>.sites-container ul {
+        display: flex;
+        justify-content: center;
+        width: 380px;
+    }
+
+    #onde-comprar>.sites-container ul li>a {
+        width: 360px;
+    }
+
+    #system-requirements {
+        width: 400px;
+    }
+
+    #system-requirements h2 {
+        font-size: 1em;
+    }
+
+    #system-requirements table tr {
+        font-size: 0.6em;
+    }
+
+    #analises {
+        width: 400px;
+    }
+
+    .reviews-container ul {
+        width: 380px;
+    }
+
+    .all-reviews-container>ul li {
+        width: 360px;
+    }
+
+    .all-reviews-container>ul li>p>.review-text {
+        width: 340px;
+        display: flex;
+        flex-wrap: wrap;
+        white-space: pre-line
+    }
+
+    .box-reviews-container .user-review div>.user-text {
+        width: 380px;
+        background: #e1e1e1;
+        color: #1b1b1b;
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: start;
+    }
+
+    .box-reviews-container>div textarea {
+        max-width: 380px;
+        min-width: 380px;
+        min-height: 100px;
+        padding: 10px;
+        justify-content: center;
+        display: flex;
+        font-size: 1.2em;
+    }
+
+    .all-reviews-container {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        padding: 10px;
+        background: black;
+        color: white;
+        width: 380px;
+        gap: 10px;
+    }
+
+    .all-reviews-container>ul li>p>span {
+        display: flex;
+        width: 360px;
+    }
 }
