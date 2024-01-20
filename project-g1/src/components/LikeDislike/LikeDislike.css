@@ -18,9 +18,11 @@
     flex-wrap: wrap;
     display: flex;
     cursor: pointer;
+    align-items: center;
 }
 
 .dark-mode .like-dislike-container>div>button>span {
+    display: flex;
     color: #fff;
     font-size: 1.2em;
 }

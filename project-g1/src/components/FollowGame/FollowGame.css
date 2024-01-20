@@ -1,0 +1,22 @@
+.follow-game-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.follow-game-container>button {
+    cursor: pointer;
+    border: none;
+    padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.follow-game-container button.followed {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.follow-game-container button:not(.followed) {
+    background-color: purple;
+    color: white;
+}

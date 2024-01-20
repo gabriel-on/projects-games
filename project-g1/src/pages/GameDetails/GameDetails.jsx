@@ -4,10 +4,14 @@ import { getDatabase, ref, get, set, update } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import useInteractions from '../../hooks/useInteractions';
 import GameAnalysis from '../../components/GameAnalysis/GameAnalysis';
+
+// CSS
 import '../GameDetails/GameDetails.css'
+
 import GameStatusModal from '../../components/GamesStatus/GameStatusModal';
 import SystemRequirementsTable from './SystemRequirementsTable';
 import LikeDislike from '../../components/LikeDislike/LikeDislike';
+import FollowGame from '../../components/FollowGame/FollowGame';
 
 const GameDetails = () => {
   const { gameId } = useParams();
@@ -149,9 +153,14 @@ const GameDetails = () => {
           id='info-status-container'>
           <div id="status">
             <h1>{gameData.title}</h1>
-            <button onClick={() => setShowGameStatusModal(true)}>
-              <i className="bi bi-bookmarks-fill"></i>
-            </button>
+            <div>
+              <button onClick={() => setShowGameStatusModal(true)}>
+                <i className="bi bi-bookmarks-fill"></i>
+              </button>
+              <button>
+                <FollowGame gameId={gameId} />
+              </button>
+            </div>
             {showGameStatusModal && (
               <GameStatusModal
                 gameId={gameId}
