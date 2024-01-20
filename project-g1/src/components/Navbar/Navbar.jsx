@@ -21,7 +21,7 @@ const Navbar = ({ userId, toggleTheme, isDarkMode }) => {
 
   return (
     <nav className={`navbar ${isDarkMode ? 'dark-mode' : ''}`}>
-      <>
+      <div>
         <NavLink to="/" className="brand">
           <h1>Logo</h1>
         </NavLink>
@@ -38,7 +38,7 @@ const Navbar = ({ userId, toggleTheme, isDarkMode }) => {
             <Sidebar userId={userId} user={user} isAdmin={isAdmin} logout={logout} isOpen={isSidebarOpen} />
           </li>
         </ul>
-      </>
+      </div>
     </nav>
   );
 };

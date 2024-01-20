@@ -10,37 +10,24 @@
 
 #container {
     display: grid;
-    grid-template-columns: 2fr 2fr 3fr;
-    grid-template-rows: 1fr 7fr 0fr;
+    grid-template-columns: 2fr 2fr;
+    grid-template-rows: 0.5fr 1fr 0fr;
     grid-template-areas:
         "Banner Banner Banner"
-        "Fotodojogo set-rci trailer"
-        "Fotodojogo 1 1"
-        "item-list item-list item-list"
+        "Fotodojogo Fotodojogo Fotodojogo"
+        "trailer trailer trailer"
         "Info-container Info-container Info-container"
         "createdBy createdBy createdBy";
     text-align: center;
     gap: 20px;
 }
 
-#foto-do-jogo {
-    grid-area: Fotodojogo;
-}
-
-#set-rci {
-    grid-area: set-rci;
-}
-
-#onde-comprar {
-    grid-area: Ondecomprar;
-}
-
 #banner {
     grid-area: Banner;
 }
 
-#item-list {
-    grid-area: item-list;
+#foto-do-jogo {
+    grid-area: Fotodojogo;
 }
 
 #info-container-details {
@@ -55,66 +42,89 @@
     grid-area: createdBy;
 }
 
-#descrição {
-    grid-area: Descrição;
+#banner {
+    display: flex;
+    margin: auto;
+    position: absolute;
+    z-index: -20;
+    width: 100%;
+}
+
+.secondary-images-container ul>li>img {
+    width: 1315px;
+    display: flex;
+    justify-content: center;
+    height: 235px;
+    margin: auto;
+    object-fit: cover;
+    filter: blur(10px) brightness(0.8) contrast(1.2);
+}
+
+.secondary-images-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    border-bottom: 2px solid purple;
+    background-image: linear-gradient(180deg, transparent, #1b1b1b);
+}
+
+#foto-do-jogo {
+    position: relative;
+    bottom: 10px;
+    width: 1200px;
+    display: flex;
+    max-height: 100%;
+    gap: 10px;
+    margin: auto;
+}
+
+#foto-do-jogo .details-div-foto>img {
+    display: flex;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border: 2px solid black;
+    width: 220px;
+}
+
+#info-status-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#info-status-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 #status {
-    position: relative;
-    bottom: 275px;
-    left: 190px;
+    flex-direction: column;
     display: flex;
+    gap: 60px;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 #status>button {
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: .8em;
-    border: 1px solid black;
-    padding: 10px;
-    background: red;
-    color: black;
+    display: flex;
+    border: none;
+    background: none;
     cursor: pointer;
 }
 
-#set-rci>div {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-#set-rci>div h1 {
-    display: flex;
-    gap: 10px;
-    color: white;
-}
-
-#set-rci>div h3 {
-    display: flex;
-    color: white;
-}
-
-#set-rci div>ul {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    display: flex;
-    color: black;
-    gap: 10px;
-    max-height: 40px;
-}
-
-#set-rci div>ul li {
+#status>button .bi-bookmarks-fill {
     text-transform: uppercase;
-    font-size: 0.9em;
-    padding: 6px;
-    background: #e70000;
-    display: flex;
-    color: black;
+    font-size: 2.2em;
+    color: rgb(255, 0, 0);
 }
 
 .game-details-container {
-    max-width: 1200px;
+    width: 100%;
     margin: auto;
     justify-content: center;
 }
@@ -133,6 +143,8 @@
     flex-direction: column;
     background: black;
     align-items: flex-start;
+    width: 1200px;
+    margin: auto;
     gap: 20px;
 }
 
@@ -166,7 +178,6 @@
     display: flex;
     flex-wrap: wrap;
     font-size: 1em;
-    /* width: 1000px; */
     gap: 20px;
 }
 
@@ -193,45 +204,6 @@
     align-items: center;
     gap: 20px;
     justify-content: space-between;
-}
-
-#banner,
-.secondary-images-container {
-    display: flex;
-    margin: auto;
-    position: absolute;
-    z-index: -20;
-}
-
-.secondary-images-container ul>li>img {
-    display: flex;
-    justify-content: center;
-    width: 1200px;
-    height: 390px;
-    margin: auto;
-    object-fit: cover;
-    /* border-image-slice: 1; */
-
-    filter: blur(30px) brightness(0.8) contrast(1.2);
-}
-
-.secondary-images-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1200px;
-    height: 415px;
-    background-image: linear-gradient(180deg, transparent, #1b1b1b);
-}
-
-
-.details-div-foto>img {
-    aspect-ratio: 0/5;
-    object-fit: cover;
-    border: 2px solid black;
-    /* height: 40vh; */
-    width: 220px;
 }
 
 #onde-comprar {
@@ -269,10 +241,7 @@
 }
 
 .set-rating-classification-interactions {
-    /* position: relative; */
-    /* top: 15px; */
     width: 300px;
-    height: 30px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -297,25 +266,33 @@
     background: yellow;
 }
 
-.details-container {
-    background: #707070;
-    width: 100%;
+.description-container {
+    background: #e7e7e7;
+    width: 1200px;
     height: 200px;
     display: flex;
-    flex-direction: column;
     gap: 20px;
     padding: 10px;
+    margin: auto;
+    border: 2px solid purple;
 }
 
-.description-container {
-    padding: 10px;
-    color: black;
-}
-
-.details-container .details-div {
+.description-container > p {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    text-align: left;
+    padding: 10px;
+    color:#000;
+}
+
+#system-requirements {
+    width: 1200px;
+    display: flex;
+    margin: auto;
+}
+
+.system-requirements-table-container {
+    width: 100%;
+    display: flex;
 }
 
 .games-status-details {
@@ -324,12 +301,14 @@
 }
 
 .reviews-container {
+    width: 1200px;
     align-items: center;
     gap: 20px;
     display: flex;
     flex-direction: column;
     background: #707070;
     padding: 10px;
+    margin: auto;
 }
 
 .reviews-container ul {
@@ -352,7 +331,6 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
-    /* width: 600px; */
 }
 
 
