@@ -66,10 +66,13 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                             <i className="icon bi bi-person" /> Membros
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to="/community" onClick={closeSidebar} className="active">
+                    <li title='Em Breve'>
+                        {/* <NavLink to="/community" onClick={closeSidebar} className="active" disabled>
                             <i className="icon bi-chat-left-text" /> Comunidade
-                        </NavLink>
+                        </NavLink> */}
+                        <button className='em-breve' disabled>
+                            <i className="icon bi-chat-left-text" /> Comunidade
+                        </button>
                     </li>
 
                     {!user && (

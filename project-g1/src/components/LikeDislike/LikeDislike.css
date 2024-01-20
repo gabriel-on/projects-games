@@ -1,0 +1,60 @@
+.like-dislike-container {
+    width: 100%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    display: flex;
+}
+
+.like-dislike-container>div {
+    max-width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 10px;
+}
+
+.like-dislike-container>div>button {
+    border: none;
+    background: none;
+    flex-wrap: wrap;
+    display: flex;
+    cursor: pointer;
+}
+
+.dark-mode .like-dislike-container>div>button>span {
+    color: #fff;
+    font-size: 1.2em;
+}
+
+.like-dislike-container>div>button>span {
+    color: #000;
+    font-size: 1.2em;
+}
+
+.bi-hand-thumbs-up-fill,
+.bi-hand-thumbs-down-fill {
+    color: white;
+    font-size: 1.8em;
+}
+
+.dark-mode .bi-hand-thumbs-up-fill,
+.dark-mode .bi-hand-thumbs-down-fill {
+    color: #fff;
+}
+
+.bi-hand-thumbs-up-fill,
+.bi-hand-thumbs-down-fill {
+    color: #000;
+    font-size: 1.8em;
+}
+
+#like-button-active {
+    color: green;
+}
+
+#dislike-button-active {
+    color: red;
+}
+
+.like-dislike-container>p {
+    max-width: 100%;
+}

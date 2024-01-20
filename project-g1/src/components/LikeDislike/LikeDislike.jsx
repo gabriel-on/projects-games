@@ -1,6 +1,7 @@
 import { getDatabase, ref, onValue, update as updateDatabase } from 'firebase/database';
 import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../../hooks/useAuthentication';
+import '../LikeDislike/LikeDislike.css'
 
 const LikeDislike = ({ itemId, userId }) => {
     const db = getDatabase();
@@ -75,16 +76,16 @@ const LikeDislike = ({ itemId, userId }) => {
                 <button
                     id={`like-button-${itemId}`}
                     onClick={() => handleVote('like')}
-                    disabled={!currentUser} // Desabilita o botão se o usuário não estiver autenticado
+                    disabled={!currentUser}
                 >
-                    {userAction === 'like' && '✔️'} 👍 ({likes})
+                    <i className="bi bi-hand-thumbs-up-fill" id={userAction === 'like' ? 'like-button-active' : ''}></i> <span id={userAction === 'like' ? 'like-button-active' : ''}>({likes})</span>
                 </button>
                 <button
                     id={`dislike-button-${itemId}`}
                     onClick={() => handleVote('dislike')}
-                    disabled={!currentUser} // Desabilita o botão se o usuário não estiver autenticado
+                    disabled={!currentUser}
                 >
-                    {userAction === 'dislike' && '✔️'} 👎 ({dislikes})
+                    <i className="bi bi-hand-thumbs-down-fill" id={userAction === 'dislike' ? 'dislike-button-active' : ''}></i><span id={userAction === 'dislike' ? 'dislike-button-active' : ''}>({dislikes})</span>
                 </button>
             </div>
             {!currentUser && <p>Você precisa estar autenticado para interagir.</p>}
