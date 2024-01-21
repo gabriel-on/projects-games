@@ -157,9 +157,9 @@ const GameDetails = () => {
               <button onClick={() => setShowGameStatusModal(true)}>
                 <i className="bi bi-bookmarks-fill"></i>
               </button>
-              <button>
+              <>
                 <FollowGame gameId={gameId} />
-              </button>
+              </>
             </div>
             {showGameStatusModal && (
               <GameStatusModal

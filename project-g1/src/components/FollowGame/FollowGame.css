@@ -11,6 +11,10 @@
     flex-wrap: wrap;
 }
 
+.follow-game-container>p {
+    color: red;
+}
+
 .follow-game-container button.followed {
     background-color: #4CAF50;
     color: white;
