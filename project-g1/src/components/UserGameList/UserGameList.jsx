@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import GamesStatus from '../GamesStatus/GamesStatus.jsx';
 import FollowGame from '../FollowGame/FollowGame.jsx';
+import { Link } from 'react-router-dom'
 
 const UserGameList = ({ userId }) => {
   const [userGameFollowers, setUserGameFollowers] = useState([]);
@@ -13,9 +14,7 @@ const UserGameList = ({ userId }) => {
       const userGameFollowersRef = ref(db, 'gameFollowers');
 
       try {
-        console.log('Fetching user game followers for userId:', userId);
         const snapshot = await get(userGameFollowersRef);
-        console.log('Snapshot:', snapshot.val());
 
         if (snapshot.exists()) {
           const gameFollowersData = snapshot.val();
@@ -23,7 +22,6 @@ const UserGameList = ({ userId }) => {
             // Filter only the IDs related to the current user
             return gameFollowersData[key][userId] === true;
           });
-          console.log('User game followers:', userGameFollowersList);
           setUserGameFollowers(userGameFollowersList);
 
           // Fetch details for each game
@@ -37,14 +35,12 @@ const UserGameList = ({ userId }) => {
           });
 
           const gamesDetails = await Promise.all(gamesDetailsPromises);
-          console.log('Games details:', gamesDetails);
           setGamesDetails(gamesDetails);
         } else {
           console.log('No data found for user game followers.');
           setUserGameFollowers([]);
         }
       } catch (error) {
-        console.error('Error fetching user game followers:', error);
         setUserGameFollowers([]);
       }
     };
@@ -60,7 +56,9 @@ const UserGameList = ({ userId }) => {
           <li key={index}>
             {game ? (
               <>
-                <strong>{game.details.title}</strong>
+                <Link to={`/game/${game.id}`}>
+                  <strong>{game.details.title}</strong>
+                </Link>
                 <FollowGame gameId={game.id} />
               </>
             ) : (
