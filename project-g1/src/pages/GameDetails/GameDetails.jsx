@@ -123,6 +123,12 @@ const GameDetails = () => {
     return
   }
 
+  const formatarData = (dataString) => {
+    const opcoesFormato = { day: 'numeric', month: 'long', year: 'numeric' };
+    const data = new Date(`${dataString}T00:00:00`);
+    return data.toLocaleDateString(undefined, opcoesFormato);
+  };
+
   return (
     <div className='game-details-container' id='container'>
 
@@ -152,7 +158,10 @@ const GameDetails = () => {
           className='set-rating-classification-interactions'
           id='info-status-container'>
           <div id="status">
-            <h1>{gameData.title}</h1>
+            <div className='title-date'>
+              <h1>{gameData.title}</h1>
+              <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
+            </div>
             <div>
               <button onClick={() => setShowGameStatusModal(true)}>
                 <i className="bi bi-bookmarks-fill"></i>
@@ -232,7 +241,7 @@ const GameDetails = () => {
                 <li key={index}>{developer}</li>
               ))}
             </ul>
-            <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
+            <p>Data de lançamento: <span>{formatarData(gameData.releaseDate)}</span></p>
           </div>
         </div>
         {gameData.officialSites && (

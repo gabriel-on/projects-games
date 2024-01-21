@@ -59,7 +59,7 @@ const FollowGame = ({ gameId }) => {
   return (
     <div className='follow-game-container'>
       <button className={isMarked ? 'followed' : ''} onClick={isMarked ? unfollowGame : followGame} disabled={loading}>
-        {loading ? 'Aguarde...' : isMarked ? 'Deixar de Seguir' : 'Seguir Jogo'}
+        {loading ? 'Aguarde...' : isMarked ? 'Seguindo' : 'Seguir Jogo'}
       </button>
       <FollowersCount gameId={gameId} />
     </div>
