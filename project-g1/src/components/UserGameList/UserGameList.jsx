@@ -59,6 +59,7 @@ const UserGameList = ({ userId }) => {
                 <Link to={`/game/${game.id}`}>
                   <strong>{game.details.title}</strong>
                 </Link>
+                <GamesStatus gameId={game.id}/>
                 <FollowGame gameId={game.id} />
               </>
             ) : (
