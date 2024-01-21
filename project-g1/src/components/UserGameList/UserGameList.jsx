@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
+import GamesStatus from '../GamesStatus/GamesStatus.jsx';
+import FollowGame from '../FollowGame/FollowGame.jsx';
 
 const UserGameList = ({ userId }) => {
   const [userGameFollowers, setUserGameFollowers] = useState([]);
@@ -28,7 +30,10 @@ const UserGameList = ({ userId }) => {
           const gamesDetailsPromises = userGameFollowersList.map(async gameId => {
             const gameRef = ref(db, `games/${gameId}`);
             const gameSnapshot = await get(gameRef);
-            return gameSnapshot.val();
+            return {
+              id: gameId,
+              details: gameSnapshot.val(),
+            };
           });
 
           const gamesDetails = await Promise.all(gamesDetailsPromises);
@@ -55,7 +60,8 @@ const UserGameList = ({ userId }) => {
           <li key={index}>
             {game ? (
               <>
-                <strong>{game.title}</strong>
+                <strong>{game.details.title}</strong>
+                <FollowGame gameId={game.id} />
               </>
             ) : (
               <span>Game not found</span>

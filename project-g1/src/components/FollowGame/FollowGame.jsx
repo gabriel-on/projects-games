@@ -7,30 +7,49 @@ import FollowersCount from './FollowersCount.jsx';
 
 const FollowGame = ({ gameId }) => {
   const [isMarked, setIsMarked] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
 
   const followGame = async () => {
-    if (currentUser) {
-      const gameFollowersRef = ref(getDatabase(), `gameFollowers/${gameId}/${currentUser.uid}`);
-      await set(gameFollowersRef, true);
-      setIsMarked(true);
+    try {
+      setLoading(true);
+      if (currentUser) {
+        const gameFollowersRef = ref(getDatabase(), `gameFollowers/${gameId}/${currentUser.uid}`);
+        await set(gameFollowersRef, true);
+        setIsMarked(true);
+      }
+    } catch (error) {
+      console.error('Error following game:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const unfollowGame = async () => {
-    if (currentUser) {
-      const gameFollowersRef = ref(getDatabase(), `gameFollowers/${gameId}/${currentUser.uid}`);
-      await remove(gameFollowersRef);
-      setIsMarked(false);
+    try {
+      setLoading(true);
+      if (currentUser) {
+        const gameFollowersRef = ref(getDatabase(), `gameFollowers/${gameId}/${currentUser.uid}`);
+        await remove(gameFollowersRef);
+        setIsMarked(false);
+      }
+    } catch (error) {
+      console.error('Error unfollowing game:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     const checkMarkedStatus = async () => {
-      if (currentUser) {
-        const gameFollowersRef = ref(getDatabase(), `gameFollowers/${gameId}/${currentUser.uid}`);
-        const gameFollowersSnapshot = await get(gameFollowersRef);
-        setIsMarked(gameFollowersSnapshot.exists());
+      try {
+        if (currentUser) {
+          const gameFollowersRef = ref(getDatabase(), `gameFollowers/${gameId}/${currentUser.uid}`);
+          const gameFollowersSnapshot = await get(gameFollowersRef);
+          setIsMarked(gameFollowersSnapshot.exists());
+        }
+      } catch (error) {
+        console.error('Error checking marked status:', error);
       }
     };
 
@@ -39,8 +58,8 @@ const FollowGame = ({ gameId }) => {
 
   return (
     <div className='follow-game-container'>
-      <button className={isMarked ? 'followed' : ''} onClick={isMarked ? unfollowGame : followGame}>
-        {isMarked ? 'Deixar de Seguir' : 'Seguir Jogo'}
+      <button className={isMarked ? 'followed' : ''} onClick={isMarked ? unfollowGame : followGame} disabled={loading}>
+        {loading ? 'Aguarde...' : isMarked ? 'Deixar de Seguir' : 'Seguir Jogo'}
       </button>
       <FollowersCount gameId={gameId} />
     </div>
