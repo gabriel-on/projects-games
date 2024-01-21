@@ -11,7 +11,6 @@ const ProgressBar = () => {
   
     if (scrollHeight > 0) {
       const scrolled = (window.scrollY / scrollHeight) * 100;
-      console.log('Scrolled:', scrolled);
       setScrollPercentage(scrolled);
     } else {
       console.log('Scrolled: N/A (scrollHeight is zero or negative)');

@@ -1,102 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import GameStatus from '../GamesStatus/GamesStatus';
-import { getDatabase, ref, get, remove } from 'firebase/database';
-import { getAuth } from 'firebase/auth';
+import { getDatabase, ref, get } from 'firebase/database';
 
 const UserGameList = ({ userId }) => {
-  const [markedGames, setMarkedGames] = useState([]);
-  const [gameDetails, setGameDetails] = useState({});
-  const [user, setUser] = useState(null);
+  const [userGameFollowers, setUserGameFollowers] = useState([]);
+  const [gamesDetails, setGamesDetails] = useState([]);
 
   useEffect(() => {
-    const fetchMarkedGames = async () => {
+    const fetchUserGameFollowers = async () => {
+      const db = getDatabase();
+      const userGameFollowersRef = ref(db, 'gameFollowers');
+
       try {
-        const database = getDatabase();
-        const userMarksRef = ref(database, `userMarks/${userId}`);
-        const userMarksSnapshot = await get(userMarksRef);
+        console.log('Fetching user game followers for userId:', userId);
+        const snapshot = await get(userGameFollowersRef);
+        console.log('Snapshot:', snapshot.val());
 
-        if (userMarksSnapshot.exists()) {
-          const markedGamesArray = Object.keys(userMarksSnapshot.val());
-          setMarkedGames(markedGamesArray);
+        if (snapshot.exists()) {
+          const gameFollowersData = snapshot.val();
+          const userGameFollowersList = Object.keys(gameFollowersData).filter(key => {
+            // Filter only the IDs related to the current user
+            return gameFollowersData[key][userId] === true;
+          });
+          console.log('User game followers:', userGameFollowersList);
+          setUserGameFollowers(userGameFollowersList);
 
-          // Buscar detalhes dos jogos marcados
-          const gamesDetailsPromises = markedGamesArray.map(async (gameId) => {
-            const gameRef = ref(database, `games/${gameId}`);
+          // Fetch details for each game
+          const gamesDetailsPromises = userGameFollowersList.map(async gameId => {
+            const gameRef = ref(db, `games/${gameId}`);
             const gameSnapshot = await get(gameRef);
-
-            if (gameSnapshot.exists()) {
-              const gameData = gameSnapshot.val();
-              return { id: gameId, name: gameData.title };
-            }
-
-            return null;
+            return gameSnapshot.val();
           });
 
           const gamesDetails = await Promise.all(gamesDetailsPromises);
-          const filteredGamesDetails = gamesDetails.filter(Boolean);
-          const gamesDetailsMap = Object.fromEntries(filteredGamesDetails.map(({ id, name }) => [id, name]));
-          setGameDetails(gamesDetailsMap);
+          console.log('Games details:', gamesDetails);
+          setGamesDetails(gamesDetails);
         } else {
-          setMarkedGames([]);
-          setGameDetails({});
+          console.log('No data found for user game followers.');
+          setUserGameFollowers([]);
         }
       } catch (error) {
-        console.error('Erro ao obter jogos marcados:', error);
+        console.error('Error fetching user game followers:', error);
+        setUserGameFollowers([]);
       }
     };
 
-    const auth = getAuth();
-    if (auth.currentUser) {
-      setUser(auth.currentUser);
-      fetchMarkedGames();
-    }
+    fetchUserGameFollowers();
   }, [userId]);
-
-  const handleMarkGame = async (gameId) => {
-    try {
-      const database = getDatabase();
-      const userMarksRef = ref(database, `userMarks/${userId}/${gameId}`);
-      await set(userMarksRef, true);
-
-      // Atualizar a lista de jogos marcados
-      setMarkedGames((prevMarkedGames) => [...prevMarkedGames, gameId]);
-    } catch (error) {
-      console.error('Erro ao marcar jogo:', error);
-    }
-  };
-
-  const handleUnmarkGame = async (gameId) => {
-    try {
-      const database = getDatabase();
-      const userMarksRef = ref(database, `userMarks/${userId}/${gameId}`);
-      await remove(userMarksRef);
-
-      // Atualizar a lista de jogos marcados
-      setMarkedGames((prevMarkedGames) => prevMarkedGames.filter((id) => id !== gameId));
-    } catch (error) {
-      console.error('Erro ao desmarcar jogo:', error);
-    }
-  };
 
   return (
     <div>
-      {markedGames.length > 0 ? (
-        <ul>
-          {markedGames.map((gameId) => (
-            <li key={gameId}>
-              <GameStatus
-                gameId={gameId}
-                onUnmarkGame={handleUnmarkGame}
-                onMarkGame={handleMarkGame}
-                isMarked={markedGames.includes(gameId)}
-              />
-              <p>Nome do Jogo: {gameDetails[gameId]}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Nenhum jogo marcado.</p>
-      )}
+      <h2>User's Game Followers:</h2>
+      <ul>
+        {gamesDetails.map((game, index) => (
+          <li key={index}>
+            {game ? (
+              <>
+                <strong>{game.title}</strong>
+              </>
+            ) : (
+              <span>Game not found</span>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

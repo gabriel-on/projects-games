@@ -249,7 +249,7 @@ const UserProfile = () => {
           </div>
 
           <div className='UserGameList-container'>
-            <h2 style={{ color: user.nameColor }}>Lista de Jogos Marcados:</h2>
+            <h2 style={{ color: user.nameColor }}>Lista de Jogos Seguidos:</h2>
             <UserGameList userId={userId} />
           </div>
 
