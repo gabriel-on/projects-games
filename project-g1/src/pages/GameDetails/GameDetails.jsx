@@ -243,17 +243,30 @@ const GameDetails = () => {
               ))}
             </ul>
             <ul className="developer-list">
-              <p>Desenvolvedora:</p>
+              <p>Desenvolvedor:</p>
               {gameData.developers.map((developer, index) => (
                 <li key={index}>{developer}</li>
               ))}
             </ul>
-            {/* <ul className="language-list">
+            <ul className="publisher-list">
+              <p>Distribuidora:</p>
+              {gameData.publishers.map((publisher, index) => (
+                <li key={index}>{
+                  publisher}</li>
+              ))}
+            </ul>
+            <ul className="language-list">
               <p>Idiomas Suportados:</p>
               {gameData.supportedLanguages.map((language, index) => (
                 <li key={index}>{language}</li>
               ))}
-            </ul> */}
+            </ul>
+            <ul className="player-list">
+              <p>Playrs:</p>
+              {gameData.players.map((player, index) => (
+                <li key={index}>{player}</li>
+              ))}
+            </ul>
             <p>Data de lançamento: <span>{gameData.unspecifiedReleaseDate || formatarData(gameData.releaseDate)}</span></p>
           </div>
         </div>
