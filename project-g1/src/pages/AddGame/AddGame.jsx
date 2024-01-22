@@ -3,7 +3,10 @@ import { getDatabase, ref, push, set, onValue } from 'firebase/database';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuthentication';
+
+// CSS
 import '../AddGame/AddGame.css';
+
 import MultipleSitesInput from '../../components/MultipleSitesInput/MultipleSitesInput';
 import SecondaryImagesInput from '../../components/SecondaryImagesInput/SecondaryImagesInput';
 import SystemRequirements from '../../components/SystemRequirements/SystemRequirements';
@@ -19,9 +22,12 @@ function AddGame() {
     developers: [],
     rating: '',
     releaseDate: '',
+    unspecifiedReleaseDate: '',
     addedBy: null,
     trailer: '',
     supportedLanguages: [],
+    publishers: [], 
+    players: [], 
     systemRequirements: {
       minProcessor: '',
       recProcessor: '',
@@ -37,7 +43,11 @@ function AddGame() {
   const [developersList, setDevelopersList] = useState([]);
   const [supportedLanguagesList, setSupportedLanguagesList] = useState([]);
   const [ratingsList, setRatingsList] = useState([]);
+  const [publishersList, setPublishersList] = useState([]);
+  const [playersList, setPlayersList] = useState([]);
   const [trailer, setTrailer] = useState('');
+
+  const [hasReleaseDate, setHasReleaseDate] = useState(true);
 
   const navigate = useNavigate();
   const { error: authError, getCurrentUser } = useAuth();
@@ -84,7 +94,7 @@ function AddGame() {
       .required('Campo obrigatório'),
     rating: Yup.string().required('Campo obrigatório'),
     // officialSite: Yup.string().url('URL inválida'),
-    releaseDate: Yup.string().required('Campo obrigatório'),
+    // releaseDate: Yup.string().required('Campo obrigatório'),
     trailer: Yup.string().url('URL do trailer inválida'),
   });
 
@@ -161,12 +171,39 @@ function AddGame() {
       }
     };
 
+    const fetchPublishers = async () => {
+      const database = getDatabase();
+      const publishersRef = ref(database, 'publishers');
+    
+      onValue(publishersRef, (snapshot) => {
+        const publishersData = snapshot.val();
+        if (publishersData) {
+          const publishersArray = Object.values(publishersData);
+          setPublishersList(publishersArray);
+        }
+      });
+    };    
+
+    const fetchPlayers = async () => {
+      const database = getDatabase();
+      const playersRef = ref(database, 'players');
+    
+      onValue(playersRef, (snapshot) => {
+        const playersData = snapshot.val();
+        if (playersData) {
+          const playersArray = Object.values(playersData);
+          setPlayersList(playersArray);
+        }
+      });
+    };    
 
     fetchGenres();
     fetchConsoles();
     fetchDevelopers();
     fetchRatings();
     fetchSupportedLanguages();
+    fetchPublishers();
+    fetchPlayers();
   }, []);
 
   const handleChange = (e) => {
@@ -179,6 +216,15 @@ function AddGame() {
 
     if (name === 'trailer') {
       setTrailer(value);
+    } else if (name === 'hasReleaseDate') {
+      setHasReleaseDate(checked);
+      // Limpar a data de lançamento se o usuário desmarcar a opção
+      if (!checked) {
+        setNewGame((prevGame) => ({
+          ...prevGame,
+          releaseDate: '',
+        }));
+      }
     } else if (type === 'checkbox') {
       setNewGame((prevGame) => {
         const updatedArray = checked
@@ -273,6 +319,8 @@ function AddGame() {
   const [showAllRatings, setShowAllRatings]
     = useState(false);
   const [showAllLanguages, setShowAllLanguages] = useState(false);
+  const [showAllPublishers, setShowAllPublishers] = useState(false);
+  const [showAllPlayers, setShowAllPlayers] = useState(false);
 
   return (
     <div>
@@ -322,6 +370,8 @@ function AddGame() {
           developersList={developersList}
           ratingsList={ratingsList}
           supportedLanguagesList={supportedLanguagesList}
+          publishersList={publishersList}
+          playersList={playersList}
 
           newGame={newGame}
 
@@ -332,12 +382,17 @@ function AddGame() {
           showAllDevelopers={showAllDevelopers}
           showAllRatings={showAllRatings}
           showAllLanguages={showAllLanguages}
+          showAllPublishers={showAllPublishers}
+          showAllPlayers={showAllPlayers} 
 
           setShowAllGenres={setShowAllGenres}
           setShowAllConsoles={setShowAllConsoles}
           setShowAllDevelopers={setShowAllDevelopers}
           setShowAllRatings={setShowAllRatings}
           setShowAllLanguages={setShowAllLanguages}
+          setShowAllPublishers={setShowAllPublishers}
+          setShowAllPlayers={setShowAllPlayers}
+
           errors={errors}
         />
 
@@ -373,18 +428,46 @@ function AddGame() {
           </label>
         </div>
 
+        {hasReleaseDate && (
+          <div className='field'>
+            <label>
+              Data de Lançamento:
+              <input
+                type="date"
+                name="releaseDate"
+                value={newGame.releaseDate}
+                onChange={handleChange}
+              />
+              {errors.releaseDate && <p className="error-message">{errors.releaseDate}</p>}
+            </label>
+          </div>
+        )}
+
         <div className='field'>
           <label>
-            Data de Lançamento:
+            Data de Lançamento Específica:
             <input
-              type="date"
-              name="releaseDate"
-              value={newGame.releaseDate}
+              type="checkbox"
+              name="hasReleaseDate"
+              checked={hasReleaseDate}
               onChange={handleChange}
             />
-            {errors.releaseDate && <p className="error-message">{errors.releaseDate}</p>}
           </label>
         </div>
+
+        {!hasReleaseDate && (
+          <div className='field'>
+            <label>
+              Data de Lançamento Não Especificada:
+              <input
+                type="text"
+                name="unspecifiedReleaseDate"
+                value={newGame.unspecifiedReleaseDate}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+        )}
 
         <button type="submit">Adicionar Jogo</button>
       </form>

@@ -160,7 +160,14 @@ const GameDetails = () => {
           <div id="status">
             <div className='title-date'>
               <h1>{gameData.title}</h1>
-              <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
+              {gameData.releaseDate && (
+                <p>Data de lançamento: <span>{new Date(`${gameData.releaseDate}T00:00:00`).toLocaleDateString()}</span></p>
+              )}
+
+              {gameData.unspecifiedReleaseDate && (
+                <p>Data de lançamento não especificada: <span>{gameData.unspecifiedReleaseDate}</span></p>
+              )}
+
             </div>
             <div>
               <button onClick={() => setShowGameStatusModal(true)}>
@@ -247,7 +254,7 @@ const GameDetails = () => {
                 <li key={index}>{language}</li>
               ))}
             </ul> */}
-            <p>Data de lançamento: <span>{formatarData(gameData.releaseDate)}</span></p>
+            <p>Data de lançamento: <span>{gameData.unspecifiedReleaseDate || formatarData(gameData.releaseDate)}</span></p>
           </div>
         </div>
         {gameData.officialSites && (

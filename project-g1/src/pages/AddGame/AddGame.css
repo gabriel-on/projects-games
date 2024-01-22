@@ -67,7 +67,9 @@ label {
 .consoles-list,
 .rating-list,
 .developers-list,
-.languages-list {
+.languages-list,
+.publishers-list,
+.players-list {
     align-content: center;
     display: flex;
     font-size: 0.8em;
@@ -107,11 +109,25 @@ label {
     flex-wrap: wrap;
 }
 
+.publishers-list input {
+    width: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.players-list input {
+    width: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .genre,
 .console,
 .rating,
 .developer,
-.language {
+.language,
+.publisher,
+.player {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -179,6 +195,20 @@ input[type="date"]:focus {
 
 .checked-language {
     background-color: #e9dc1e;
+    /* Cor para opção marcada */
+    color: #fff;
+    /* Cor do texto para opção marcada */
+}
+
+.checked-publisher {
+    background-color: #e91eac;
+    /* Cor para opção marcada */
+    color: #fff;
+    /* Cor do texto para opção marcada */
+}
+
+.checked-player {
+    background-color: #2c1ee9;
     /* Cor para opção marcada */
     color: #fff;
     /* Cor do texto para opção marcada */
