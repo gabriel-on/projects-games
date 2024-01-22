@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { useState, useEffect, useRef } from "react";
 import { getDatabase, ref, set } from "firebase/database"; // Importação do Realtime Database
+import { getUnixTime } from 'date-fns';
 
 export const useAuth = () => {
     const [error, setError] = useState(null);
@@ -26,7 +27,6 @@ export const useAuth = () => {
     const createUser = async (data) => {
         handleCancellation();
         setLoading(true);
-
         
         try {
 
@@ -44,12 +44,15 @@ export const useAuth = () => {
 
             await updateProfileAuth(user, { displayName: data.displayName });
 
+            const joinedAt = getUnixTime(new Date()); // Obtém o timestamp UNIX atual
+
             // Criar um documento para o usuário no Realtime Database
             const dbRef = ref(db, `users/${user.uid}`);
             await set(dbRef, {
                 email: data.email,
                 displayName: data.displayName,
                 isAdmin: data.isAdmin || false,
+                joinedAt: joinedAt,
             });
 
             setCurrentUser({

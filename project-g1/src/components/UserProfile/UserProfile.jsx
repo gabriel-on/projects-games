@@ -28,6 +28,7 @@ const UserProfile = () => {
   const navigate = useNavigate()
   const [showConfig, setShowConfig] = useState(false);
   const [confirmLevelUp, setConfirmLevelUp] = useState(false);
+  const [joinedAt, setJoinedAt] = useState(null);
 
   useEffect(() => {
     if (userId) {
@@ -54,6 +55,7 @@ const UserProfile = () => {
           loadFavoriteGames(userId);
           loadUserAchievements(userId);
           loadUserRanking(userId);
+          setJoinedAt(userData.joinedAt);
 
           // Verifica se userData.level é definido antes de salvar
           if (userData && userData.level !== undefined) {
@@ -172,7 +174,7 @@ const UserProfile = () => {
   const updateUserBio = (userId, bio) => {
     try {
       const db = getDatabase();
-      const userBioRef = ref(db, `users/${userId}/bio`); // Adicione '/bio' para apontar para o nó da biografia
+      const userBioRef = ref(db, `users/${userId}/bio`); 
       set(userBioRef, bio);
     } catch (error) {
       console.error('Erro ao atualizar a biografia do usuário:', error.message);
@@ -195,6 +197,7 @@ const UserProfile = () => {
             </div>
             <h1>Perfil do Usuário</h1>
             <p>Nome do Usuário: <span style={{ color: user.nameColor }}>{user.displayName}</span></p>
+            <p>Membro Desde: {joinedAt ? new Date(joinedAt * 1000).toLocaleDateString() : 'Carregando...'}</p>
             <p className='user-bio-content'>{user.bio}</p>
 
             {/* Exibir o ranking do usuário */}
@@ -239,7 +242,9 @@ const UserProfile = () => {
                 <ul>
                   {favoriteGames.map((game) => (
                     <li key={game.id}>
-                      {game.title}
+                      <Link to={`/game/${game.id}`}>
+                        <p>{game.title}</p>
+                      </Link>
                       <GameStatus gameId={game.id} />
                     </li>
                   ))}
@@ -269,7 +274,6 @@ const UserProfile = () => {
               </div>
             </div>
           ) : (
-            // Caso contrário, exibir informações do perfil
             <div>
               {/* ... Informações do perfil ... */}
               {currentUser.uid === userId ? (
@@ -279,10 +283,8 @@ const UserProfile = () => {
                   </button>
                 </div>
               ) : (
-                // Modo de visualização pública para outros usuários
                 <div>
                   <p>Este é o perfil de <strong style={{ color: user.nameColor }}>{user.displayName}</strong>.</p>
-                  {/* Adicione outras informações públicas aqui */}
                 </div>
               )}
             </div>

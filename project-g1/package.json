@@ -13,6 +13,7 @@
     "@firebase/firestore": "^4.4.0",
     "@firebase/storage": "^0.12.0",
     "axios": "^1.6.5",
+    "date-fns": "^3.3.0",
     "firebase": "^10.7.1",
     "firebase-admin": "^12.0.0",
     "image-average-color": "^1.0.0",

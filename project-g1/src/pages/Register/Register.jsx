@@ -42,8 +42,7 @@ const Register = () => {
           uid: res.user.uid,
           displayName,
           email,
-          role: 'user',  // Define o papel como 'user' por padrão
-          // outros campos do usuário
+          role: 'user',
         });
       }
 
