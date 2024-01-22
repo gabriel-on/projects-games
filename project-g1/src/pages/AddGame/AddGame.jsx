@@ -416,7 +416,6 @@ function AddGame() {
           onChange={handleRequirementsChange}
         />
 
-
         <SecondaryImagesInput
           name="secondaryImages"
           value={newGame.secondaryImages}
