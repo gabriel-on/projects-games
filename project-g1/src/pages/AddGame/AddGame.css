@@ -66,7 +66,8 @@ label {
 .genres-list,
 .consoles-list,
 .rating-list,
-.developers-list {
+.developers-list,
+.languages-list {
     align-content: center;
     display: flex;
     font-size: 0.8em;
@@ -100,10 +101,17 @@ label {
     flex-wrap: wrap;
 }
 
+.languages-list input {
+    width: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .genre,
 .console,
 .rating,
-.developer {
+.developer,
+.language {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -164,6 +172,13 @@ input[type="date"]:focus {
 
 .checked-rating {
     background-color: #e91e63;
+    /* Cor para opção marcada */
+    color: #fff;
+    /* Cor do texto para opção marcada */
+}
+
+.checked-language {
+    background-color: #e9dc1e;
     /* Cor para opção marcada */
     color: #fff;
     /* Cor do texto para opção marcada */

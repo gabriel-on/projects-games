@@ -241,6 +241,12 @@ const GameDetails = () => {
                 <li key={index}>{developer}</li>
               ))}
             </ul>
+            {/* <ul className="language-list">
+              <p>Idiomas Suportados:</p>
+              {gameData.supportedLanguages.map((language, index) => (
+                <li key={index}>{language}</li>
+              ))}
+            </ul> */}
             <p>Data de lançamento: <span>{formatarData(gameData.releaseDate)}</span></p>
           </div>
         </div>

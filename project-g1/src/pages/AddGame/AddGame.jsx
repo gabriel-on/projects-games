@@ -7,6 +7,7 @@ import '../AddGame/AddGame.css';
 import MultipleSitesInput from '../../components/MultipleSitesInput/MultipleSitesInput';
 import SecondaryImagesInput from '../../components/SecondaryImagesInput/SecondaryImagesInput';
 import SystemRequirements from '../../components/SystemRequirements/SystemRequirements';
+import AddGameSelectableList from './AddGameSelectableList';
 
 function AddGame() {
   const [newGame, setNewGame] = useState({
@@ -20,6 +21,7 @@ function AddGame() {
     releaseDate: '',
     addedBy: null,
     trailer: '',
+    supportedLanguages: [],
     systemRequirements: {
       minProcessor: '',
       recProcessor: '',
@@ -33,6 +35,7 @@ function AddGame() {
   const [genresList, setGenresList] = useState([]);
   const [consolesList, setConsolesList] = useState([]);
   const [developersList, setDevelopersList] = useState([]);
+  const [supportedLanguagesList, setSupportedLanguagesList] = useState([]);
   const [ratingsList, setRatingsList] = useState([]);
   const [trailer, setTrailer] = useState('');
 
@@ -51,15 +54,6 @@ function AddGame() {
     rating: '',
     releaseDate: '',
     trailer: '',
-  });
-
-  const [minRequirements, setMinRequirements] = useState({
-    minProcessor: '',
-    // Adicione outros requisitos mínimos aqui
-  });
-  const [recRequirements, setRecRequirements] = useState({
-    recProcessor: '',
-    // Adicione outros requisitos recomendados aqui
   });
 
   const handleRequirementsChange = (e) => {
@@ -150,10 +144,29 @@ function AddGame() {
       });
     };
 
+    const fetchSupportedLanguages = async () => {
+      try {
+        const database = getDatabase();
+        const supportedLanguagesRef = ref(database, 'supportedLanguages');
+
+        onValue(supportedLanguagesRef, (snapshot) => {
+          const supportedLanguagesData = snapshot.val();
+          if (supportedLanguagesData) {
+            const supportedLanguagesArray = Object.values(supportedLanguagesData);
+            setSupportedLanguagesList(supportedLanguagesArray);
+          }
+        });
+      } catch (error) {
+        console.error('Erro ao buscar idiomas suportados:', error.message);
+      }
+    };
+
+
     fetchGenres();
     fetchConsoles();
     fetchDevelopers();
     fetchRatings();
+    fetchSupportedLanguages();
   }, []);
 
   const handleChange = (e) => {
@@ -202,7 +215,7 @@ function AddGame() {
           },
           createdAt: new Date().toISOString(),
           systemRequirements: systemRequirements,
-        };  
+        };
 
         const newGameRef = push(gamesRef);
         await set(newGameRef, newGameWithUser);
@@ -251,7 +264,6 @@ function AddGame() {
     }
   };
 
-  const MAX_OPTIONS_DISPLAYED = 12; // Defina o número máximo de opções a serem exibidas
   const [showAllGenres, setShowAllGenres]
     = useState(false);
   const [showAllDevelopers, setShowAllDevelopers]
@@ -260,6 +272,7 @@ function AddGame() {
     = useState(false);
   const [showAllRatings, setShowAllRatings]
     = useState(false);
+  const [showAllLanguages, setShowAllLanguages] = useState(false);
 
   return (
     <div>
@@ -303,113 +316,30 @@ function AddGame() {
           </label>
         </div>
 
-        <div className='field'>
-          <p>Gêneros:</p>
-          <div className='genres-list'>
-            {genresList.slice(0, showAllGenres ? genresList.length : MAX_OPTIONS_DISPLAYED).map((genre) => (
-              <label
-                key={genre}
-                className={`genre ${newGame.genres.includes(genre) ? 'checked-genre' : ''}`}
-              >
-                <input
-                  type="checkbox"
-                  name="genres"
-                  value={genre}
-                  checked={newGame.genres.includes(genre)}
-                  onChange={handleChange}
-                />
-                {genre}
-              </label>
-            ))}
-            {errors.genres && <p className="error-message">{errors.genres}</p>}
-          </div>
-          {genresList.length > MAX_OPTIONS_DISPLAYED && !showAllGenres && (
-            <button className="show-more-options" onClick={() => setShowAllGenres(true)}>
-              Mostrar Tudo
-            </button>
-          )}
-        </div>
+        <AddGameSelectableList
+          genresList={genresList}
+          consolesList={consolesList}
+          developersList={developersList}
+          ratingsList={ratingsList}
+          supportedLanguagesList={supportedLanguagesList}
 
-        <div className='field'>
-          <p>Consoles:</p>
-          <div className='consoles-list'>
-            {consolesList.slice(0, showAllConsoles ? consolesList.length : MAX_OPTIONS_DISPLAYED).map((console) => (
-              <label
-                key={console}
-                className={`console ${newGame.consoles.includes(console) ? 'checked-console' : ''}`}
-              >
-                <input
-                  type="checkbox"
-                  name="consoles"
-                  value={console}
-                  checked={newGame.consoles.includes(console)}
-                  onChange={handleChange}
-                />
-                {console}
-              </label>
-            ))}
-            {errors.consoles && <p className="error-message">{errors.consoles}</p>}
-          </div>
-          {consolesList.length > MAX_OPTIONS_DISPLAYED && !showAllConsoles && (
-            <button className="show-more-options" onClick={() => setShowAllConsoles(true)}>
-              Mostrar Tudo
-            </button>
-          )}
-        </div>
+          newGame={newGame}
 
-        <div className='field'>
-          <p>Desenvolvedores:</p>
-          <div className='developers-list'>
-            {developersList.slice(0, showAllDevelopers ? developersList.length : MAX_OPTIONS_DISPLAYED).map((developer) => (
-              <label
-                key={developer}
-                className={`developer ${newGame.developers.includes(developer) ? 'checked-developer' : ''}`}
-              >
-                <input
-                  type="checkbox"
-                  name="developers"
-                  value={developer}
-                  checked={newGame.developers.includes(developer)}
-                  onChange={handleChange}
-                />
-                {developer}
-              </label>
-            ))}
-            {errors.developers && <p className="error-message">{errors.developers}</p>}
-          </div>
-          {developersList.length > MAX_OPTIONS_DISPLAYED && !showAllDevelopers && (
-            <button className="show-more-options" onClick={() => setShowAllDevelopers(true)}>
-              Mostrar Tudo
-            </button>
-          )}
-        </div>
+          handleChange={handleChange}
 
-        <div className='field'>
-          <p>Classificação Indicativa:</p>
-          <div className='rating-list'>
-            {ratingsList.slice(0, showAllRatings ? ratingsList.length : MAX_OPTIONS_DISPLAYED).map((rating) => (
-              <label
-                key={rating.id}
-                className={`rating ${newGame.rating === rating.label ? 'checked-rating' : ''}`}
-              >
-                <input
-                  type="radio"
-                  name="rating"
-                  value={rating.label}
-                  checked={newGame.rating === rating.label}
-                  onChange={handleChange}
-                />
-                {rating.label}
-              </label>
-            ))}
-            {errors.rating && <p className="error-message">{errors.rating}</p>}
-          </div>
-          {ratingsList.length > MAX_OPTIONS_DISPLAYED && !showAllRatings && (
-            <button className="show-more-options" onClick={() => setShowAllRatings(true)}>
-              Mostrar Tudo
-            </button>
-          )}
-        </div>
+          showAllGenres={showAllGenres}
+          showAllConsoles={showAllConsoles}
+          showAllDevelopers={showAllDevelopers}
+          showAllRatings={showAllRatings}
+          showAllLanguages={showAllLanguages}
+
+          setShowAllGenres={setShowAllGenres}
+          setShowAllConsoles={setShowAllConsoles}
+          setShowAllDevelopers={setShowAllDevelopers}
+          setShowAllRatings={setShowAllRatings}
+          setShowAllLanguages={setShowAllLanguages}
+          errors={errors}
+        />
 
         <SystemRequirements
           systemRequirements={systemRequirements}
