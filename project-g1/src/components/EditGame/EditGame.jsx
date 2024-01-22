@@ -10,6 +10,7 @@ import EditGameSelectableList from './EditGameSelectableList';
 const EditGame = () => {
   const { gameId } = useParams();
   const navigate = useNavigate();
+  const [hasReleaseDate, setHasReleaseDate] = useState(true);
 
   const [game, setGame] = useState({
     title: '',
@@ -20,8 +21,10 @@ const EditGame = () => {
     developers: [],
     rating: '',
     releaseDate: '',
+    unspecifiedReleaseDate: '',
     addedBy: null,
     trailer: '',
+    players: [],
     systemRequirements: {
       minGraphicsCard1: '',
       minGraphicsCard2: '',
@@ -58,6 +61,7 @@ const EditGame = () => {
     developers: '',
     rating: '',
     trailer: '',
+    players: [],
   });
 
   const handleRequirementsChange = (e) => {
@@ -81,7 +85,7 @@ const EditGame = () => {
     developers: Yup.array().min(1, 'Selecione pelo menos uma desenvolvedora').required('Campo obrigatório'),
     rating: Yup.string().required('Campo obrigatório'),
     // officialSites: Yup.string().url('URL inválida'),
-    releaseDate: Yup.date().required('Campo obrigatório'),
+    releaseDate: Yup.mixed(), // Remova a validação específica da data
     trailer: Yup.string().url('URL do trailer inválida'), // Adicione o campo do trailer aqui
   });
 
@@ -117,6 +121,7 @@ const EditGame = () => {
             rating: gameData.rating || '',
             releaseDate: gameData.releaseDate || '',
             trailer: gameData.trailer || '',
+            players: gameData.players || [],
           });
         }
       });
@@ -127,17 +132,29 @@ const EditGame = () => {
     fetchData('consoles', 'consoles');
     fetchData('developers', 'developers');
     fetchData('ratings', 'ratings');
+    fetchData('players', 'players');
+    fetchData('publishers', 'publishers');
+    fetchData('supportedLanguages', 'supportedLanguages');
   }, [gameId]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
+  
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: '',
     }));
-
+  
     setGame((prevGame) => {
+      if (type === 'checkbox' && name === 'hasReleaseDate') {
+        setHasReleaseDate(checked);
+  
+        return {
+          ...prevGame,
+          unspecifiedReleaseDate: checked ? '' : prevGame.unspecifiedReleaseDate,
+        };
+      }
+  
       if (type === 'checkbox') {
         const updatedArray = checked
           ? [...prevGame[name], value]
@@ -147,7 +164,7 @@ const EditGame = () => {
         return { ...prevGame, [name]: value };
       }
     });
-  };
+  };  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -169,6 +186,15 @@ const EditGame = () => {
       setErrors(fieldErrors);
     }
   };
+  const handleClearReleaseDate = () => {
+    setGame((prevGame) => ({
+      ...prevGame,
+      releaseDate: '', // Limpar a data de lançamento
+      unspecifiedReleaseDate: '', // Certificar-se de limpar também a data não especificada se estiver preenchida
+    }));
+    setHasReleaseDate(false); // Desmarcar o checkbox
+  };
+
   const [showAllGenres, setShowAllGenres]
     = useState(false);
   const [showAllDevelopers, setShowAllDevelopers]
@@ -176,6 +202,12 @@ const EditGame = () => {
   const [showAllConsoles, setShowAllConsoles]
     = useState(false);
   const [showAllRatings, setShowAllRatings]
+    = useState(false);
+  const [showAllPlayers, setShowAllPlayers]
+    = useState(false)
+  const [showAllPublishers, setShowAllPublishers]
+    = useState(false);
+  const [showAllLanguages, setShowAllLanguages]
     = useState(false);
 
   return (
@@ -228,6 +260,9 @@ const EditGame = () => {
           showAllDevelopers={showAllDevelopers}
           showAllConsoles={showAllConsoles}
           showAllRatings={showAllRatings}
+          showAllPlayers={showAllPlayers}
+          showAllPublishers={showAllPublishers}
+          showAllLanguages={showAllLanguages}
 
           handleChange={handleChange}
           game={game}
@@ -236,6 +271,9 @@ const EditGame = () => {
           setShowAllDevelopers={setShowAllDevelopers}
           setShowAllConsoles={setShowAllConsoles}
           setShowAllRatings={setShowAllRatings}
+          setShowAllPlayers={setShowAllPlayers}
+          setShowAllPublishers={setShowAllPublishers}
+          setShowAllLanguages={setShowAllLanguages}
 
           errors={errors}
         />
@@ -272,18 +310,55 @@ const EditGame = () => {
           </label>
         </div>
 
+        {hasReleaseDate && (
+          <div className='field'>
+            <label>
+              Data de Lançamento:
+              <input
+                type="date"
+                name="releaseDate"
+                value={game.releaseDate}
+                onChange={handleChange}
+              />
+              {errors.releaseDate && <p className="error-message">{errors.releaseDate}</p>}
+            </label>
+          </div>
+        )}
+
+        {/* Botão para limpar a data de lançamento */}
+        {hasReleaseDate && (
+          <div className='field'>
+            <button type="button" onClick={handleClearReleaseDate}>
+              Limpar Data de Lançamento
+            </button>
+          </div>
+        )}
+
         <div className='field'>
           <label>
-            Data de Lançamento:
+            Data de Lançamento Específica:
             <input
-              type="date"
-              name="releaseDate"
-              value={game.releaseDate}
-              onChange={handleChange}
+              type="checkbox"
+              name="hasReleaseDate"
+              checked={hasReleaseDate}
+              onChange={() => setHasReleaseDate(!hasReleaseDate)}
             />
-            {errors.releaseDate && <p className="error-message">{errors.releaseDate}</p>}
           </label>
         </div>
+
+        {!hasReleaseDate && (
+          <div className='field'>
+            <label>
+              Data de Lançamento Não Especificada:
+              <input
+                type="text"
+                name="unspecifiedReleaseDate"
+                value={game.unspecifiedReleaseDate}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+        )}
 
         <button type="submit">Salvar Edições</button>
       </form>

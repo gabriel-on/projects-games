@@ -9,6 +9,12 @@ function EditGameSelectableList({
     setShowAllConsoles,
     showAllRatings,
     setShowAllRatings,
+    showAllPlayers,
+    setShowAllPlayers,
+    showAllPublishers,
+    setShowAllPublishers,
+    showAllLanguages,
+    setShowAllLanguages,
     lists,
     handleChange,
     errors,
@@ -100,6 +106,33 @@ function EditGameSelectableList({
             </div>
 
             <div className='field'>
+                <p>Publicadoras:</p>
+                <div className='publishers-list'>
+                    {lists.publishers.slice(0, showAllPublishers ? lists.publishers.length : MAX_OPTIONS_DISPLAYED).map((publisher) => (
+                        <label
+                            key={publisher}
+                            className={`publisher ${game.publishers && game.publishers.includes(publisher) ? 'checked-publisher' : ''}`}
+                        >
+                            <input
+                                type="checkbox"
+                                name="publishers"
+                                value={publisher}
+                                checked={game.publishers && game.publishers.includes(publisher)}
+                                onChange={handleChange}
+                            />
+                            {publisher}
+                        </label>
+                    ))}
+                    {errors.publishers && <p className="error-message">{errors.publishers}</p>}
+                </div>
+                {lists.publishers.length > MAX_OPTIONS_DISPLAYED && !showAllPublishers && (
+                    <button className="show-more-options" onClick={() => setShowAllPublishers(true)}>
+                        Mostrar Mais
+                    </button>
+                )}
+            </div>
+
+            <div className='field'>
                 <p>Classificação Indicativa:</p>
                 <div className='rating-list'>
                     {lists.ratings.slice(0, showAllRatings ? lists.ratings.length : MAX_OPTIONS_DISPLAYED).map((rating) => (
@@ -125,6 +158,62 @@ function EditGameSelectableList({
                     </button>
                 )}
             </div>
+
+            <div className='field'>
+                <p>Idiomas Suportados:</p>
+                <div className='languages-list'>
+                    {lists.supportedLanguages.slice(0, showAllLanguages ? lists.supportedLanguages.length : MAX_OPTIONS_DISPLAYED).map((language) => (
+                        <label
+                            key={language}
+                            className={`language ${game.supportedLanguages && game.supportedLanguages.includes(language) ? 'checked-language' : ''}`}
+                        >
+                            <input
+                                type="checkbox"
+                                name="supportedLanguages"
+                                value={language}
+                                checked={game.supportedLanguages && game.supportedLanguages.includes(language)}
+                                onChange={handleChange}
+                            />
+                            {language}
+                        </label>
+                    ))}
+                    {errors.supportedLanguages && <p className="error-message">{errors.supportedLanguages}</p>}
+                </div>
+                {lists.supportedLanguages.length > MAX_OPTIONS_DISPLAYED && !showAllLanguages && (
+                    <button className="show-more-options" onClick={() => setShowAllLanguages(true)}>
+                        Mostrar Mais
+                    </button>
+                )}
+            </div>
+
+
+            <div className='field'>
+                <p>Jogadores:</p>
+                <div className='players-list'>
+                    {lists.players.slice(0, showAllPlayers ? lists.players.length : MAX_OPTIONS_DISPLAYED).map((player) => (
+                        <label
+                            key={player}
+                            className={`player ${game.players && game.players.includes(player) ? 'checked-player' : ''}`}
+                        >
+                            <input
+                                type="checkbox"
+                                name="players"
+                                value={player}
+                                checked={game.players && game.players.includes(player)}
+                                onChange={handleChange}
+                            />
+                            {player}
+                        </label>
+                    ))}
+                    {errors.players && <p className="error-message">{errors.players}</p>}
+                </div>
+                {lists.players.length > MAX_OPTIONS_DISPLAYED && !showAllPlayers && (
+                    <button className="show-more-options" onClick={() => setShowAllPlayers(true)}>
+                        Mostrar Mais
+                    </button>
+                )}
+            </div>
+
         </div>
     )
 }
