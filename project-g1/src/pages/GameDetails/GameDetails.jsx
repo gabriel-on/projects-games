@@ -284,7 +284,8 @@ const GameDetails = () => {
             </div>
           </div>
         )}
-        <div>
+        <div className='supported-Languages-container'>
+          <h2>Idiomas Suportados</h2>
           <table>
             <thead>
               <tr>
