@@ -139,22 +139,22 @@ const EditGame = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-  
+
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: '',
     }));
-  
+
     setGame((prevGame) => {
       if (type === 'checkbox' && name === 'hasReleaseDate') {
         setHasReleaseDate(checked);
-  
+
         return {
           ...prevGame,
           unspecifiedReleaseDate: checked ? '' : prevGame.unspecifiedReleaseDate,
         };
       }
-  
+
       if (type === 'checkbox') {
         const updatedArray = checked
           ? [...prevGame[name], value]
@@ -164,7 +164,7 @@ const EditGame = () => {
         return { ...prevGame, [name]: value };
       }
     });
-  };  
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -180,17 +180,19 @@ const EditGame = () => {
       navigate(`/game/${gameId}`);
     } catch (validationError) {
       const fieldErrors = {};
-      validationError.inner.forEach((error) => {
-        fieldErrors[error.path] = error.message;
-      });
-      setErrors(fieldErrors);
+      if (validationError.inner) {
+        validationError.inner.forEach((error) => {
+          fieldErrors[error.path] = error.message;
+        });
+      }
+
     }
   };
   const handleClearReleaseDate = () => {
     setGame((prevGame) => ({
       ...prevGame,
-      releaseDate: '', // Limpar a data de lançamento
-      unspecifiedReleaseDate: '', // Certificar-se de limpar também a data não especificada se estiver preenchida
+      releaseDate: '',
+      unspecifiedReleaseDate: '',
     }));
     setHasReleaseDate(false); // Desmarcar o checkbox
   };

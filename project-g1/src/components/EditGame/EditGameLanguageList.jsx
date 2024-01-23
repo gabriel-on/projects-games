@@ -69,8 +69,7 @@ function EditGameLanguageList({
                 <label>
                   Dublagem:
                   <select
-                    name={`
-                    subtitles_${language}`}
+                    name={`subtitles_${language}`}
                     onChange={handleSelectChange}
                     value={convertYesNoToBoolean(game[`subtitles_${language}`])}
                   >
