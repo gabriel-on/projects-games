@@ -57,7 +57,7 @@
     height: 235px;
     margin: auto;
     object-fit: cover;
-    filter: blur(10px) brightness(0.8) contrast(1.2);
+    filter: blur(12px) brightness(0.8) contrast(1.2);
 }
 
 .secondary-images-container::after {

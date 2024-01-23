@@ -13,31 +13,78 @@
     display: flex;
 }
 
-.dashboard-container > div > ul{
+.dashboard-container>div>ul {
     width: 100%;
     flex-wrap: wrap;
     display: flex;
     gap: 15px;
 }
 
-.dashboard-container > div > ul > li{
+.dashboard-container>div>ul>li {
     width: 225px;
     flex-wrap: wrap;
     display: flex;
+}
+
+.checkbox-select {
+    width: 40px;
+    position: relative;
+    top: 20%;
+    left: 85%;
+}
+
+label > input[type='checkbox']{
+    appearance: none;
+    
+    border: 1px solid #000000;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 5px;
+    position: relative;
+}
+
+label > input[type='checkbox']:checked::before {
+    font-size: 1.2em;
+    border-radius: 5px;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    content: '✔';
+    top: -5%;
+    left: -5%;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ffbb00;
+    background: #3498db;
+    color: #000;
 }
 
 .dashboard-container .info-game-dash {
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
     width: 225px;
 }
 
-.dashboard-container .info-game-dash div > img{
+.dashboard-container .info-game-details-dash {
+    padding: 5px;
+    border: 1px solid white;
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* width: 225px; */
+}
+
+.dashboard-container .info-game-dash div>img {
     object-fit: cover;
     aspect-ratio: 4/5;
 }
 
-.dashboard-container .info-game-dash > h3{
+.dashboard-container .info-game-dash>h3 {
     justify-content: center;
     display: flex;
 }
@@ -62,6 +109,7 @@
     text-transform: uppercase;
     font-size: 0.9em;
 }
+
 .dashboard-container .edit-btn {
     background: blue;
     color: white;
@@ -77,7 +125,7 @@
     color: white;
 }
 
-.dashboard-container .link-btn > i {
+.dashboard-container .link-btn>i {
     background: purple;
     color: white;
     font-size: 1em;

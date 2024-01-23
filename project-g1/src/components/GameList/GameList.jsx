@@ -147,11 +147,12 @@ const GameList = ({ searchTerm }) => {
             <li key={game.id} className='info-game-dash'>
               <label>
                 <input
+                  className={`checkbox-select ${selectAll || selectedGames.includes(game.id) ? 'selected' : ''}`}
                   type="checkbox"
                   checked={selectAll || selectedGames.includes(game.id)}
                   onChange={() => handleToggleSelectGame(game.id)}
                 />
-                <div to={`/game/${game.id}`} >
+                <div to={`/game/${game.id}`} className='info-game-details-dash'>
                   <h3>{game.title}</h3>
                   <img src={game.image} alt={game.title} style={{ maxWidth: '100%' }} />
                 </div>
