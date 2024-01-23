@@ -54,12 +54,12 @@ const UserGameList = ({ userId }) => {
       <ul>
         {gamesDetails.map((game, index) => (
           <li key={index}>
-            {game ? (
+            {game && game.details ? (
               <>
                 <Link to={`/game/${game.id}`}>
                   <strong>{game.details.title}</strong>
                 </Link>
-                <GamesStatus gameId={game.id}/>
+                <GamesStatus gameId={game.id} />
                 <FollowGame gameId={game.id} />
               </>
             ) : (
@@ -67,6 +67,7 @@ const UserGameList = ({ userId }) => {
             )}
           </li>
         ))}
+
       </ul>
     </div>
   );

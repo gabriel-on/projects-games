@@ -1,0 +1,2580 @@
+{
+  "achievements": {
+    "FirstInteractionGameId": {
+      "description": "Interaja com um jogo pela primeira vez!",
+      "name": "O Começo",
+      "points": 75
+    },
+    "firstVisitAchievementId": {
+      "description": "Acesse o site pela primeira vez!",
+      "name": "Novato",
+      "points": 50
+    }
+  },
+  "communityActivities": {
+    "-NoUjj6gRKIWXpi3SXO5": {
+      "displayName": "Black",
+      "id": "-NoUjj6gRKIWXpi3SXO5",
+      "responses": {
+        "-NoUjn0Y7wPA_UeWsysS": {
+          "displayName": "Black",
+          "id": "-NoUjn0Y7wPA_UeWsysS",
+          "text": "hmm",
+          "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+        },
+        "-NoUoPZNBmRrLnA7MVk1": {
+          "displayName": "Black",
+          "id": "-NoUoPZNBmRrLnA7MVk1",
+          "text": "123",
+          "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+        },
+        "-NoUou-IbmXbXD3Q8EPj": {
+          "displayName": "Black",
+          "id": "-NoUou-IbmXbXD3Q8EPj",
+          "text": "3",
+          "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+        },
+        "-NoUrm0fZ1HX-g7QI5Qn": {
+          "displayName": "Gabriel",
+          "id": "-NoUrm0fZ1HX-g7QI5Qn",
+          "text": "4",
+          "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+        }
+      },
+      "text": "GTA 6",
+      "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+    },
+    "-NoUptkxbGArcCY_WF0c": {
+      "displayName": "Black",
+      "id": "-NoUptkxbGArcCY_WF0c",
+      "responses": {
+        "-NoUrhE1OhkSm57d1lGl": {
+          "displayName": "Gabriel",
+          "id": "-NoUrhE1OhkSm57d1lGl",
+          "text": "teste 1",
+          "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+        }
+      },
+      "text": "gta 5",
+      "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+    },
+    "-NoUzYymwCPhVuS74g6t": {
+      "displayName": "Gabriel",
+      "id": "-NoUzYymwCPhVuS74g6t",
+      "responses": {
+        "-NoUzg0dJrOeGmzSnYEN": {
+          "displayName": "Gabriel",
+          "id": "-NoUzg0dJrOeGmzSnYEN",
+          "text": "1:33 hrs",
+          "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+        },
+        "-NoV-94N-XyPI85AeEXw": {
+          "displayName": "Gabriel",
+          "id": "-NoV-94N-XyPI85AeEXw",
+          "text": "Aqui",
+          "timestamp": "2024-01-19T04:35:21.575Z",
+          "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+        }
+      },
+      "text": "GTA IV",
+      "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+    },
+    "-NoV0F3QIXBlrpjRHfZA": {
+      "displayName": "Gabriel",
+      "id": "-NoV0F3QIXBlrpjRHfZA",
+      "responses": {
+        "-NoX_eNE5bCpMPs3_WYE": {
+          "displayName": "Gabriel",
+          "id": "-NoX_eNE5bCpMPs3_WYE",
+          "text": "x1?",
+          "timestamp": "2024-01-19T16:38:26.874Z",
+          "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+        }
+      },
+      "text": "Teste",
+      "timestamp": "2024-01-19T04:40:08.237Z",
+      "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+    },
+    "-NoXYJlXdSDMEBsngwDd": {
+      "displayName": "Gabriel",
+      "id": "-NoXYJlXdSDMEBsngwDd",
+      "text": "Far Cry 5 é +ou-",
+      "timestamp": "2024-01-19T16:28:14.114Z",
+      "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+    },
+    "-NocTV9XmAayglWiZFYi": {
+      "displayName": "Gabriel",
+      "id": "-NocTV9XmAayglWiZFYi",
+      "text": "teste",
+      "timestamp": "2024-01-20T20:05:00.851Z",
+      "userId": "pouJEZb8xWcGIyONYRu7as578U42"
+    }
+  },
+  "consoles": [
+    null,
+    "PC",
+    "PlayStation 5",
+    "Xbox Series X/S",
+    "Nintendo Switch",
+    "PlayStation 4",
+    "Xbox One",
+    "Nintendo Wii U",
+    "Nintendo 3DS",
+    "PlayStation Vita",
+    "Nintendo Wii",
+    "PlayStation 3",
+    "Xbox 360",
+    "PlayStation 2",
+    "Xbox",
+    "Nintendo DS",
+    "PlayStation Portable (PSP)",
+    "Game Boy Advance",
+    "PlayStation",
+    "Nintendo 64",
+    "Sega Dreamcast",
+    "Nintendo GameCube",
+    null,
+    "Super Nintendo Entertainment System (SNES)",
+    "Sega Genesis",
+    "Nintendo Entertainment System (NES)",
+    "Atari 2600",
+    "Commodore 64",
+    "Amiga",
+    "Neo Geo",
+    "Sega Saturn",
+    "Sega Master System",
+    "TurboGrafx-16",
+    "Intellivision",
+    "ColecoVision",
+    "Oculus Quest",
+    "HTC Vive",
+    "PlayStation VR",
+    "Valve Index",
+    "Oculus Rift",
+    "Samsung Gear VR",
+    "Google Daydream",
+    "Xbox Kinect",
+    "Nintendo Labo VR Kit",
+    "Game Boy",
+    "Game Boy Color",
+    "Nintendo DS Lite",
+    "Nintendo DSi",
+    "Nintendo 3DS XL",
+    "Nintendo 2DS",
+    "New Nintendo 3DS XL",
+    "New Nintendo 2DS XL",
+    "Game Boy Advance SP",
+    "Game Boy Micro",
+    "Sega Game Gear"
+  ],
+  "developers": {
+    "1": "Naughty Dog",
+    "2": "Rockstar Games",
+    "3": "Blizzard Entertainment",
+    "4": "Ubisoft",
+    "5": "Electronic Arts",
+    "6": "Bethesda Game Studios",
+    "7": "Square Enix",
+    "8": "Capcom",
+    "9": "BioWare",
+    "10": "CD Projekt",
+    "11": "Nintendo",
+    "12": "Valve Corporation",
+    "13": "Respawn Entertainment",
+    "14": "Gearbox Software",
+    "15": "2K Games",
+    "16": "Kojima Productions",
+    "17": "NetherRealm Studios",
+    "18": "Crystal Dynamics",
+    "19": "Obsidian Entertainment",
+    "20": "PlatinumGames",
+    "1000": "Outras"
+  },
+  "digitalGamesStores": {
+    "epicGamesStore": {
+      "name": "Epic Games Store",
+      "website": "https://www.epicgames.com/store/"
+    },
+    "gog": {
+      "name": "GOG",
+      "website": "https://www.gog.com/"
+    },
+    "greenManGaming": {
+      "name": "Green Man Gaming",
+      "website": "https://www.greenmangaming.com/"
+    },
+    "microsoftStore": {
+      "name": "Microsoft Store",
+      "website": "https://www.microsoft.com/en-us/store/b/xbox"
+    },
+    "origin": {
+      "name": "Origin",
+      "website": "https://www.origin.com/"
+    },
+    "steam": {
+      "name": "Steam",
+      "website": "https://store.steampowered.com/"
+    },
+    "ubisoftConnect": {
+      "name": "Ubisoft Connect",
+      "website": "https://store.ubi.com/"
+    }
+  },
+  "gameAnalysis": {
+    "-Nmw13qm7I0R2t7kovSF": {
+      "-NnRFnF97a6Rbc8H79B0": {
+        "analysisId": "-NnRFnF97a6Rbc8H79B0",
+        "text": "BOM um 7",
+        "timestamp": 1704503976434,
+        "userId": "zvMvTSy5QGYlY2wTTQgG2PsQoUB3",
+        "userName": "BLACK"
+      },
+      "-NnRWOtuOwbUoQ6q-URk": {
+        "analysisId": "-NnRWOtuOwbUoQ6q-URk",
+        "text": "teste 2",
+        "timestamp": 1704508912048,
+        "userId": "9x77IiFUPaYKK47QnUJKMW3VJ4t2",
+        "userName": "Black 3"
+      },
+      "-NnRev3nOg5OpSXLj1TX": {
+        "analysisId": "-NnRev3nOg5OpSXLj1TX",
+        "text": "Good",
+        "timestamp": 1704509269190,
+        "userId": "ipKmhrDzPdT86865CNjBU4wvWsn1",
+        "userName": "Black 2"
+      }
+    },
+    "-Nmw4lJOiyeBpLhL8sVP": {
+      "-NnjXvXNqagJrjjurM9K": {
+        "analysisId": "-NnjXvXNqagJrjjurM9K",
+        "text": "Um dia eu jogo 2077",
+        "timestamp": 1704827307686,
+        "userId": "zvMvTSy5QGYlY2wTTQgG2PsQoUB3",
+        "userName": "BLACK"
+      }
+    },
+    "-NnKnPAIRYAa6iCp9BkK": {
+      "-Nnj5RO2YsGjciWVZ4xk": {
+        "analysisId": "-Nnj5RO2YsGjciWVZ4xk",
+        "text": "Bom um 7/10",
+        "timestamp": 1704818492254,
+        "userId": "zvMvTSy5QGYlY2wTTQgG2PsQoUB3",
+        "userName": "BLACK"
+      }
+    },
+    "-NnanWb1MaOB-hIjKoPj": {
+      "-Nnb3SpHJz_mpmWNJpmP": {
+        "analysisId": "-Nnb3SpHJz_mpmWNJpmP",
+        "text": "Teste, 123...",
+        "timestamp": 1704683754484,
+        "userId": "2hRtnZRpQnM8YERZX8Cfq7cMkL02",
+        "userName": "User"
+      },
+      "-NnijxxOG2KTyyRDX6zx": {
+        "analysisId": "-NnijxxOG2KTyyRDX6zx",
+        "text": "Teste, 321",
+        "timestamp": 1704812600568,
+        "userId": "zvMvTSy5QGYlY2wTTQgG2PsQoUB3",
+        "userName": "BLACK"
+      }
+    },
+    "-No2WHdpH0W5xiICPIkH": {
+      "-NoI2CvRl12AY_xwDhra": {
+        "analysisId": "-NoI2CvRl12AY_xwDhra",
+        "text": "teste",
+        "timestamp": 1705421622325,
+        "userId": "cWLZSy1aCqVO16k6ak2l56IQVNy2",
+        "userName": "Black 1"
+      }
+    },
+    "-NoIyeCz8Pi4s2Z2RJJQ": {
+      "-NoK-1rDDw6vEYsLL1EY": {
+        "analysisId": "-NoK-1rDDw6vEYsLL1EY",
+        "text": "HMM ggggggggggggggggggggggggggggggggggggg. gggggggggggggggggggggggssttttttttttttttttttttttttttttttttttttt",
+        "timestamp": 1705463019943,
+        "userId": "zvMvTSy5QGYlY2wTTQgG2PsQoUB3",
+        "userName": "BLACK"
+      }
+    }
+  },
+  "gameFollowers": {
+    "-Nn1kV4DDeXq21mov9km": {
+      "pouJEZb8xWcGIyONYRu7as578U42": true
+    },
+    "-NnKnPAIRYAa6iCp9BkK": {
+      "cWLZSy1aCqVO16k6ak2l56IQVNy2": true,
+      "pouJEZb8xWcGIyONYRu7as578U42": true
+    },
+    "-NoIyeCz8Pi4s2Z2RJJQ": {
+      "cWLZSy1aCqVO16k6ak2l56IQVNy2": true
+    },
+    "-NoJqSHdpoBvCEur7QTX": {
+      "cWLZSy1aCqVO16k6ak2l56IQVNy2": true,
+      "pouJEZb8xWcGIyONYRu7as578U42": true
+    },
+    "-NoPhRciPV6R_khR58t9": {
+      "b4vWWgAtVnTouNGI32jS3rWAeLZ2": true,
+      "cWLZSy1aCqVO16k6ak2l56IQVNy2": true,
+      "pouJEZb8xWcGIyONYRu7as578U42": true
+    },
+    "-NoRyZ1BFRtzm3m_o1hm": {
+      "b4vWWgAtVnTouNGI32jS3rWAeLZ2": true,
+      "cWLZSy1aCqVO16k6ak2l56IQVNy2": true,
+      "pouJEZb8xWcGIyONYRu7as578U42": true
+    },
+    "-Noo2i9HJrt7vJTAF1D6": {
+      "b4vWWgAtVnTouNGI32jS3rWAeLZ2": true
+    }
+  },
+  "games": {
+    "-Nmw13qm7I0R2t7kovSF": {
+      "classification": 3,
+      "classifications": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": "5",
+        "R8uvgC1ICqcEieRCqDCXWNBXLpv2": 0,
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "7",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "7"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 3",
+        "Xbox 360"
+      ],
+      "description": "Descrição",
+      "developers": [
+        "Rockstar Games"
+      ],
+      "favorites": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": false,
+        "R8uvgC1ICqcEieRCqDCXWNBXLpv2": true,
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": true,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": true
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Tiro",
+        "Mundo Aberto"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/9/91/Grand_Theft_Auto_IV_capa.png",
+      "officialSite": "",
+      "officialSites": [
+        {
+          "link": "https://store.steampowered.com",
+          "name": "Steam"
+        }
+      ],
+      "rating": "18+",
+      "releaseDate": "2008-04-29",
+      "secondaryImages": [
+        {
+          "link": ""
+        }
+      ],
+      "title": "GTA 4",
+      "trailer": "",
+      "userStatus": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": "planning",
+        "R8uvgC1ICqcEieRCqDCXWNBXLpv2": "played",
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "none",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "played"
+      }
+    },
+    "-Nmw1EXbhBjsxnko4oYl": {
+      "classifications": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": 0,
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "8",
+        "R8uvgC1ICqcEieRCqDCXWNBXLpv2": 0,
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": "8",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "7"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "Xbox Series X",
+        "PlayStation 4",
+        "Xbox One",
+        "PlayStation 3",
+        "Xbox 360",
+        "Xbox Series S"
+      ],
+      "description": "teste",
+      "developers": [
+        "Rockstar Games"
+      ],
+      "favorites": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": false,
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": true,
+        "R8uvgC1ICqcEieRCqDCXWNBXLpv2": false,
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": true,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": true
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Tiro"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/8/80/Grand_Theft_Auto_V_capa.png",
+      "officialSite": "",
+      "rating": "18+",
+      "releaseDate": "2013-04-01",
+      "title": "GTA 5",
+      "trailer": "",
+      "userStatus": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": "none",
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "planning",
+        "R8uvgC1ICqcEieRCqDCXWNBXLpv2": "played",
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": "played",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "played"
+      }
+    },
+    "-Nmw4lJOiyeBpLhL8sVP": {
+      "classification": 0,
+      "classifications": {
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "5",
+        "L2VUje14fuTdQwZ1H9cQ4XoLJGo1": 0,
+        "LzRLm0Y0WjZ6SZA0N72ID0rewPu2": 0,
+        "ZQsfDdjghleFV9RM2gazN8F09rF2": "6",
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": "5",
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": 0,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "5"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "Xbox Series X",
+        "PlayStation 4",
+        "Xbox One",
+        "Xbox Series S"
+      ],
+      "description": "teste",
+      "developers": [
+        "CD Projekt"
+      ],
+      "favorites": {
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": true,
+        "L2VUje14fuTdQwZ1H9cQ4XoLJGo1": true,
+        "LzRLm0Y0WjZ6SZA0N72ID0rewPu2": false,
+        "ZQsfDdjghleFV9RM2gazN8F09rF2": false,
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": false,
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": false,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": false
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Tiro",
+        "Sandbox",
+        "Ficção Científica"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/f/f7/Cyberpunk_2077_capa.png",
+      "officialSite": "https://www.cyberpunk.net/br/pt-br/",
+      "rating": "18+",
+      "releaseDate": "2020-12-20",
+      "title": "Cyberpunk 2077",
+      "userStatus": {
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "planning",
+        "L2VUje14fuTdQwZ1H9cQ4XoLJGo1": "planning",
+        "LzRLm0Y0WjZ6SZA0N72ID0rewPu2": "planning",
+        "ZQsfDdjghleFV9RM2gazN8F09rF2": "none",
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": "none",
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": "planning",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "planning"
+      }
+    },
+    "-NmwJT2CWKZJ73XXrbNm": {
+      "classifications": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": 0,
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "7",
+        "L2VUje14fuTdQwZ1H9cQ4XoLJGo1": 0,
+        "VAibCjZ6M5ZmzJ9jmPdR20GecXC2": 0,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "7"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 4",
+        "Xbox One"
+      ],
+      "description": "descrição",
+      "developers": [
+        "Outras"
+      ],
+      "favorites": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": false,
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": false,
+        "L2VUje14fuTdQwZ1H9cQ4XoLJGo1": false,
+        "VAibCjZ6M5ZmzJ9jmPdR20GecXC2": false,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": true
+      },
+      "genres": [
+        "Ação",
+        "Aventura"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/thumb/1/11/Mad_max_capa.jpg/250px-Mad_max_capa.jpg",
+      "officialSite": "",
+      "rating": "16+",
+      "releaseDate": "2015-12-30",
+      "title": "Mad Max",
+      "userStatus": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": "none",
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "none",
+        "L2VUje14fuTdQwZ1H9cQ4XoLJGo1": "none",
+        "VAibCjZ6M5ZmzJ9jmPdR20GecXC2": "played",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "played"
+      }
+    },
+    "-Nn1O4gOuOd9ezlGZFmJ": {
+      "addedBy": "Black 2",
+      "classifications": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": 0,
+        "EkNLD56PzFcrkzgcVS2A3wHwo5m1": "8",
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "8",
+        "Twi0wYbBa0NG3zrqB2HFLEjz6VB3": 0,
+        "XBIqch3A1ZMWbo9PBIySl5i199z2": "8",
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": 0,
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": "8",
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": "8",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "8"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 3",
+        "Xbox 360"
+      ],
+      "description": "teste",
+      "developers": [
+        "Outras"
+      ],
+      "favorites": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": false,
+        "EkNLD56PzFcrkzgcVS2A3wHwo5m1": true,
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": true,
+        "Twi0wYbBa0NG3zrqB2HFLEjz6VB3": true,
+        "XBIqch3A1ZMWbo9PBIySl5i199z2": false,
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": true,
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": true,
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": true,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": false
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Tiro",
+        "Stealth"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/5/59/Far_cry_3_box_art.jpg",
+      "officialSite": "",
+      "rating": "18+",
+      "releaseDate": "2222-02-22",
+      "title": "Far Cry 3",
+      "userStatus": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": "planning",
+        "EkNLD56PzFcrkzgcVS2A3wHwo5m1": "played",
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "played",
+        "Twi0wYbBa0NG3zrqB2HFLEjz6VB3": "none",
+        "XBIqch3A1ZMWbo9PBIySl5i199z2": "played",
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "planning",
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": "played",
+        "lsno2XcVHpa3mewQwl0HPd7ENlr2": "planning",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "played"
+      }
+    },
+    "-Nn1kV4DDeXq21mov9km": {
+      "addedBy": "Black 2",
+      "classification": 5,
+      "classifications": {
+        "4VuVy3anlRPZEi88VCIbHkpMbZi2": 5,
+        "5pnuGn4vuyTssiHqIwU9xOzQC3n1": 4,
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "5",
+        "VAibCjZ6M5ZmzJ9jmPdR20GecXC2": "7",
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": 3,
+        "i2WbuJlrg5fLqNYttX5p3JrkLQr2": "5",
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": "5",
+        "pouJEZb8xWcGIyONYRu7as578U42": "7",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "5"
+      },
+      "consoles": [
+        "PC",
+        "Xbox One",
+        "PlayStation 4",
+        "Xbox Series X",
+        "PlayStation 5",
+        "Xbox Series S",
+        "Nintendo Switch"
+      ],
+      "description": "Você é Geralt de Rívia, mercenário matador de monstros. Você está em um continente devastado pela guerra e infestado de monstros para você explorar à vontade. Sua tarefa é encontrar Ciri, a Criança da Profecia — uma arma viva que pode alterar a forma do mundo.",
+      "developers": [
+        "CD Projekt"
+      ],
+      "favorites": {
+        "4VuVy3anlRPZEi88VCIbHkpMbZi2": false,
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": false,
+        "VAibCjZ6M5ZmzJ9jmPdR20GecXC2": true,
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": true,
+        "i2WbuJlrg5fLqNYttX5p3JrkLQr2": false,
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": true,
+        "pouJEZb8xWcGIyONYRu7as578U42": true,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": true
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Fantasia",
+        "RPG",
+        "Mundo Aberto"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/0/06/TW3_Wild_Hunt.png",
+      "officialSite": "",
+      "officialSites": [
+        {
+          "link": "https://www.cyberpunk.net/br/pt-br/",
+          "name": "Site Oficial"
+        },
+        {
+          "link": "https://store.epicgames.com/p/the-witcher-3-wild-hunt",
+          "name": "Epic Games"
+        },
+        {
+          "link": "https://store.steampowered.com/app/292030/The_Witcher_3_Wild_Hunt/",
+          "name": "Steam"
+        },
+        {
+          "link": "https://www.xbox.com/games/store/the-witcher-3-wild-hunt-game-of-the-year-edition/c261457lcnmj",
+          "name": "Xbox Store"
+        },
+        {
+          "link": "https://store.playstation.com/product/UP4497-PPSA03972_00-00000000000GOTY7",
+          "name": "Playstation Store"
+        },
+        {
+          "link": "https://www.nintendo.com/store/products/the-witcher-3-wild-hunt-complete-edition-switch/",
+          "name": "Nintendo Store"
+        }
+      ],
+      "rating": "18+",
+      "releaseDate": "2015-05-19",
+      "secondaryImages": [
+        {
+          "link": "https://upload.wikimedia.org/wikipedia/pt/0/06/TW3_Wild_Hunt.png"
+        }
+      ],
+      "title": "The Witcher 3",
+      "trailer": "https://www.youtube.com/watch?v=53MyR_Z3i1w",
+      "userStatus": {
+        "4VuVy3anlRPZEi88VCIbHkpMbZi2": "playing",
+        "HoTLyf3seoO7dPAlr51BRvDDhgs2": "pause",
+        "VAibCjZ6M5ZmzJ9jmPdR20GecXC2": "planning",
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": "played",
+        "i2WbuJlrg5fLqNYttX5p3JrkLQr2": "planning",
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": "pause",
+        "pouJEZb8xWcGIyONYRu7as578U42": "played",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "none"
+      }
+    },
+    "-Nn1sa0fdRy_qDJHVu4z": {
+      "addedBy": "Black 2",
+      "classification": 4,
+      "classifications": {
+        "5zWoBj2QDuefcHncQRVyKM3xh5j1": 3,
+        "HMzsml5sidb9mb8j4NypBbIpI5v2": 4,
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "7",
+        "ipKmhrDzPdT86865CNjBU4wvWsn1": 0
+      },
+      "consoles": [
+        "PC"
+      ],
+      "description": "Descrição",
+      "developers": [
+        "CD Projekt"
+      ],
+      "favorites": {
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": false,
+        "ipKmhrDzPdT86865CNjBU4wvWsn1": false
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Fantasia",
+        "RPG",
+        "Mundo Aberto"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/4/40/Witcher_2_cover.jpg",
+      "officialSite": "",
+      "rating": 0,
+      "releaseDate": "2023-12-12",
+      "title": "The Witcher 2: Assassins of Kings",
+      "userStatus": {
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "played",
+        "ipKmhrDzPdT86865CNjBU4wvWsn1": "played"
+      }
+    },
+    "-NnAxAUEUzzoIr2_6YCx": {
+      "addedBy": "BLACK",
+      "classifications": {
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": "5",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "9"
+      },
+      "consoles": [
+        "PC"
+      ],
+      "description": "Descrição",
+      "developers": [
+        "Outras"
+      ],
+      "favorites": {
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": false,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": true
+      },
+      "genres": [
+        "Mundo Aberto",
+        "Simulação",
+        "Outros"
+      ],
+      "image": "https://cdn-products.eneba.com/resized-products/qdPhJAFSps7j0gokGPeCw7dizGJmVRadNxdXRSsrSu0_350x200_3x-0.jpeg",
+      "officialSite": "",
+      "rating": "Livre",
+      "releaseDate": "2012-09-18",
+      "title": "Euro Truck Simulator 2",
+      "userInteractions": {
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": {
+          "-NnEsaBh-KdK_t9uhWMR": {
+            "classification": "5",
+            "timestamp": "2024-01-03T15:12:32.769Z"
+          }
+        },
+        "ZQsfDdjghleFV9RM2gazN8F09rF2": {
+          "-NnEhVWxBScro2ia0mx0": {
+            "classification": "5",
+            "timestamp": "2024-01-03T14:24:06.021Z"
+          },
+          "-NnEhYE2j-opWL5AY4st": {
+            "classification": "5",
+            "timestamp": "2024-01-03T14:24:17.091Z"
+          },
+          "-NnEihQIBoY17ndsr4gS": {
+            "classification": "4",
+            "timestamp": "2024-01-03T14:29:20.972Z"
+          }
+        },
+        "ukrE8qK7fvOe8rbWXohJW8dofET2": {
+          "-NnEqrwFOqsCPUetpNLz": {
+            "classification": "4",
+            "timestamp": "2024-01-03T15:05:01.160Z"
+          },
+          "-NnErQII6F9bSR32Qnfx": {
+            "classification": "6",
+            "timestamp": "2024-01-03T15:07:25.995Z"
+          },
+          "-NnEsEEPDcan3P25NKUI": {
+            "classification": "8",
+            "timestamp": "2024-01-03T15:10:58.740Z"
+          },
+          "-NnEsEFhMYIv7YdWVpmJ": {
+            "classification": "8",
+            "timestamp": "2024-01-03T15:10:58.823Z"
+          },
+          "-NnEsKW2cb63Mkait_Gg": {
+            "classification": "9",
+            "timestamp": "2024-01-03T15:11:24.437Z"
+          }
+        }
+      },
+      "userStatus": {
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": "none",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "played"
+      }
+    },
+    "-NnAxtRv8nH54mczX5Vw": {
+      "addedBy": "BLACK",
+      "classifications": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": "8",
+        "9x77IiFUPaYKK47QnUJKMW3VJ4t2": "7",
+        "ipKmhrDzPdT86865CNjBU4wvWsn1": "7",
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": 0,
+        "oqbd87U4Rvbe8iOfdUbCzPizMnd2": 0,
+        "vqmjlBSj4EZqSu2MhVv9YQnWclZ2": 0,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "6"
+      },
+      "consoles": [
+        "PC"
+      ],
+      "description": "Descrição",
+      "developers": [
+        "Outras"
+      ],
+      "favorites": {
+        "5dF1shQgr7cINDqSDC7njtuXJ002": true,
+        "9rnlutv256eZSr7z4qweScNSzoh2": true,
+        "9x77IiFUPaYKK47QnUJKMW3VJ4t2": false,
+        "XBIqch3A1ZMWbo9PBIySl5i199z2": false,
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": false,
+        "ii6HYuW2o0gF5OuKQe5IByDvkMx1": true,
+        "ipKmhrDzPdT86865CNjBU4wvWsn1": true,
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": false,
+        "oqbd87U4Rvbe8iOfdUbCzPizMnd2": false,
+        "ukrE8qK7fvOe8rbWXohJW8dofET2": true,
+        "vqmjlBSj4EZqSu2MhVv9YQnWclZ2": true,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": false
+      },
+      "genres": [
+        "Mundo Aberto",
+        "Simulação",
+        "Outros"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/en/5/5c/Euro_Truck_Simulator_Box_Art.jpg",
+      "officialSite": "",
+      "rating": "Livre",
+      "releaseDate": "2008-08-28",
+      "title": "Euro Truck Simulator 1",
+      "userStatus": {
+        "9rnlutv256eZSr7z4qweScNSzoh2": "planning",
+        "9x77IiFUPaYKK47QnUJKMW3VJ4t2": "played",
+        "XBIqch3A1ZMWbo9PBIySl5i199z2": "playing",
+        "YAf4rSzloQRxJYOPyVjUFCdy9kC3": "played",
+        "ipKmhrDzPdT86865CNjBU4wvWsn1": "none",
+        "kpiKjj4w8uVDY2jCa3uwAIssa292": "planning",
+        "oqbd87U4Rvbe8iOfdUbCzPizMnd2": "planning",
+        "ukrE8qK7fvOe8rbWXohJW8dofET2": "planning",
+        "vqmjlBSj4EZqSu2MhVv9YQnWclZ2": "none",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "planning"
+      }
+    },
+    "-NnKnPAIRYAa6iCp9BkK": {
+      "addedBy": "BLACK",
+      "classifications": {
+        "pouJEZb8xWcGIyONYRu7as578U42": "7",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "7"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 4",
+        "Xbox One"
+      ],
+      "description": "Descrição",
+      "developers": [
+        "Ubisoft"
+      ],
+      "favorites": {
+        "pouJEZb8xWcGIyONYRu7as578U42": true,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": true
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Mundo Aberto",
+        "Sobrevivência",
+        "Stealth",
+        "Tiro"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/e/e4/FC4_KEYART_PACK_FINAL-610x722.jpg",
+      "officialSite": "",
+      "rating": "18+",
+      "releaseDate": "2014-11-18",
+      "title": "Far Cry 4",
+      "userStatus": {
+        "pouJEZb8xWcGIyONYRu7as578U42": "played",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "played"
+      }
+    },
+    "-NoIyeCz8Pi4s2Z2RJJQ": {
+      "addedBy": "BLACK",
+      "classifications": {
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": 0
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "Xbox Series X"
+      ],
+      "createdAt": "2024-01-16T20:33:24.472Z",
+      "description": "Grand Theft Auto VI é um futuro jogo eletrônico de ação-aventura desenvolvido pela Rockstar Studios e publicado pela Rockstar Games. Será o oitavo título principal da franquia Grand Theft Auto, sendo o sucessor de Grand Theft Auto V, e o décimo sexto jogo eletrônico da série.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "developers": [
+        "Rockstar Games"
+      ],
+      "favorites": {
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": false
+      },
+      "genres": [
+        "Ação",
+        "Aventura"
+      ],
+      "image": "https://conteudo.imguol.com.br/c/noticias/96/2023/12/05/imagem-de-divulgacao-do-trailer-de-gta-6-vi-1701782343798_v2_3x4.png",
+      "rating": "18+",
+      "releaseDate": "2025-02-26",
+      "secondaryImages": [
+        {
+          "link": "https://sm.ign.com/ign_br/news/g/gta-fans-a/gta-fans-are-going-full-zoom-and-enhance-on-gta-6-and-reckon_esce.jpg"
+        }
+      ],
+      "systemRequirements": {
+        "minGraphicsCard1": "Radeon RX 5500 XT",
+        "minGraphicsCard2": "GeForce GTX 1650 Ti",
+        "minProcessor1": "Ryzen 5 5600X",
+        "minProcessor2": "Core i7-10700K",
+        "minRam": "16",
+        "minStorage": "150",
+        "recGraphicsCard1": "Radeon RX 6900 XT",
+        "recGraphicsCard2": "GeForce RTX 3080",
+        "recProcessor1": "Ryzen 9 5950X",
+        "recProcessor2": "Core i9-11900K",
+        "recRam": "32",
+        "recStorage": "150"
+      },
+      "title": "GTA 6",
+      "trailer": "https://www.youtube.com/watch?v=QdBZY2fkU-0",
+      "userStatus": {
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "planning"
+      }
+    },
+    "-NoJqSHdpoBvCEur7QTX": {
+      "addedBy": "BLACK",
+      "classifications": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "7",
+        "pouJEZb8xWcGIyONYRu7as578U42": "7",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "7"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "Xbox Series X",
+        "PlayStation 4",
+        "Xbox One"
+      ],
+      "createdAt": "2024-01-17T00:37:11.042Z",
+      "description": "Descrição",
+      "developers": [
+        "Ubisoft"
+      ],
+      "favorites": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": false,
+        "pouJEZb8xWcGIyONYRu7as578U42": false,
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": false
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Mundo Aberto"
+      ],
+      "image": "https://cdn1.epicgames.com/offer/coriander/FCZ_StorePortrait_1200x1600_1200x1600-a254f505d277fe3dc17beb12416bf11a",
+      "rating": "18+",
+      "releaseDate": "2018-03-27",
+      "secondaryImages": [
+        {
+          "link": "https://cdn1.epicgames.com/offer/coriander/FarCry5_Landscape-2560x1440-a06e007ef1ab0fac6eeb5689d11ddd91_2560x1440-a06e007ef1ab0fac6eeb5689d11ddd91"
+        }
+      ],
+      "systemRequirements": {
+        "minGraphicsCard1": "Radeon RX 550",
+        "minGraphicsCard2": "GeForce GTX 1050",
+        "minProcessor1": "Ryzen 3 3100",
+        "minProcessor2": "Core i5-9400F",
+        "minRam": "8",
+        "minStorage": "60",
+        "recGraphicsCard1": "Radeon RX 5700 XT",
+        "recGraphicsCard2": "GeForce GTX 1660 Super",
+        "recProcessor1": "Ryzen 5 3600",
+        "recProcessor2": "Core i7-10700K",
+        "recRam": "8",
+        "recStorage": "60"
+      },
+      "title": "Far Cry 5",
+      "trailer": "",
+      "userStatus": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "played",
+        "pouJEZb8xWcGIyONYRu7as578U42": "played",
+        "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": "played"
+      }
+    },
+    "-NoPhRciPV6R_khR58t9": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "classifications": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "5",
+        "pouJEZb8xWcGIyONYRu7as578U42": 0
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "PlayStation 4",
+        "Xbox Series X",
+        "Xbox One",
+        "Nintendo Switch"
+      ],
+      "createdAt": "2024-01-18T03:55:32.139Z",
+      "description": "Ghostrunner é um jogo eletrônico de ação e plataforma co-desenvolvido pela One More Level e Slipgate Ironworks, produzido pela 3D Realms e co-publicado pela 505 Games e All in! Games.",
+      "developers": [
+        "Outras"
+      ],
+      "favorites": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": false,
+        "pouJEZb8xWcGIyONYRu7as578U42": false
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Luta"
+      ],
+      "image": "https://image.api.playstation.com/vulcan/ap/rnd/202008/2818/4xjRkRmOm9wklCdSWXVMaXBi.png",
+      "officialSites": [
+        {
+          "link": "https://store.steampowered.com/app/1139900/Ghostrunner/",
+          "name": "Steam"
+        }
+      ],
+      "rating": "18+",
+      "releaseDate": "2020-09-20",
+      "secondaryImages": [
+        {
+          "link": "https://store-images.s-microsoft.com/image/apps.6339.14150012495483667.3dab4f1e-a4bc-43a2-92e3-c7b3b9a91dc2.05ad53f0-6c70-4c55-ab3f-b14fb56d39c1?q=90&w=480&h=270"
+        }
+      ],
+      "systemRequirements": {
+        "minGraphicsCard1": "GeForce GTX 1050",
+        "minGraphicsCard2": "Radeon RX 550",
+        "minProcessor1": "Ryzen 3 3100",
+        "minProcessor2": "Core i5-9400F",
+        "minRam": "8",
+        "minStorage": "30",
+        "recGraphicsCard1": "Radeon RX 5700 XT",
+        "recGraphicsCard2": "GeForce RTX 3050",
+        "recProcessor1": "Ryzen 5 3600",
+        "recProcessor2": "Core i7-9700F",
+        "recRam": "16",
+        "recStorage": "30"
+      },
+      "title": "Ghostrunner",
+      "trailer": "",
+      "userStatus": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "planning",
+        "pouJEZb8xWcGIyONYRu7as578U42": "planning"
+      }
+    },
+    "-NoRyZ1BFRtzm3m_o1hm": {
+      "addedBy": {
+        "displayName": "Black 2",
+        "userId": "cuz7WNJ5FGf3U7Va9mer2NXrvmG2"
+      },
+      "classifications": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "9",
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "8",
+        "pouJEZb8xWcGIyONYRu7as578U42": "9"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "Xbox Series X",
+        "Xbox One",
+        "PlayStation 4",
+        "PlayStation 3",
+        "PlayStation 2",
+        "Xbox",
+        "Xbox 360",
+        "Xbox Series S"
+      ],
+      "createdAt": "2024-01-18T14:29:33.124Z",
+      "description": "Grand Theft Auto: San Andreas é um jogo eletrônico de ação-aventura desenvolvido pela Rockstar North e publicado pela Rockstar Games. É o quinto título principal da série Grand Theft Auto e foi lançado em outubro de 2004 para PlayStation 2 e em junho de 2005 para Xbox e Microsoft Windows.",
+      "developers": [
+        "Rockstar Games"
+      ],
+      "favorites": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": true,
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": true,
+        "pouJEZb8xWcGIyONYRu7as578U42": true
+      },
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Mundo Aberto"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/d/d3/Grand_Theft_Auto_San_Andreas_capa.png",
+      "rating": "18+",
+      "releaseDate": "2004-09-26",
+      "secondaryImages": [
+        {
+          "link": "https://www.mundodeportivo.com/alfabeta/hero/2020/10/GTA-San-Andreas.jpg?width=768&aspect_ratio=16:9&format=nowebp"
+        }
+      ],
+      "systemRequirements": {
+        "minGraphicsCard1": "Radeon RX 550",
+        "minGraphicsCard2": "GeForce GTX 1050",
+        "minProcessor1": "Core i3-9100",
+        "minProcessor2": "Ryzen 3 3100",
+        "minRam": "8",
+        "minStorage": "20",
+        "recGraphicsCard1": "Radeon RX 5500 XT",
+        "recGraphicsCard2": "GeForce GTX 1050 Ti",
+        "recProcessor1": "Ryzen 5 3600",
+        "recProcessor2": "Core i3-10100",
+        "recRam": "16",
+        "recStorage": "20"
+      },
+      "title": "Grand Theft Auto: San Andreas",
+      "trailer": "",
+      "userStatus": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "played",
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "played",
+        "pouJEZb8xWcGIyONYRu7as578U42": "played"
+      }
+    },
+    "-NolfM0SpaquXr1gQEth": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "Xbox Series X/S"
+      ],
+      "createdAt": "2024-01-22T14:57:44.139Z",
+      "description": "Descrição:",
+      "developers": [
+        "Rockstar Games"
+      ],
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Fantasia"
+      ],
+      "image": "https://i.pinimg.com/564x/84/f1/33/84f1338748aad4087fdc1b912d8125b8.jpg",
+      "rating": "18+",
+      "releaseDate": "2024-01-22",
+      "systemRequirements": {
+        "minGraphicsCard1": "Radeon RX 6800 XT",
+        "minGraphicsCard2": "Radeon RX 5700 XT",
+        "minProcessor1": "Ryzen 5 3600XT",
+        "minProcessor2": "Ryzen 7 5800X",
+        "minRam": "8",
+        "minStorage": "60",
+        "recGraphicsCard1": "Radeon RX 590",
+        "recGraphicsCard2": "Radeon RX 6700 XT",
+        "recProcessor1": "Ryzen 5 3600XT",
+        "recProcessor2": "Ryzen 9 5950X",
+        "recRam": "16",
+        "recStorage": "60"
+      },
+      "title": "teste",
+      "trailer": ""
+    },
+    "-Nom--R7grFP-5410NBS": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 4",
+        "PlayStation Vita"
+      ],
+      "createdAt": "2024-01-22T16:27:56.575Z",
+      "description": "Descrição",
+      "developers": [
+        "Naughty Dog",
+        "Electronic Arts",
+        "BioWare"
+      ],
+      "genres": [
+        "Ação",
+        "Terror",
+        "Outros"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/8/80/Grand_Theft_Auto_V_capa.png",
+      "rating": "16+",
+      "releaseDate": "2024-01-22",
+      "supportedLanguages": [
+        "Inglês",
+        "Italiano",
+        "Chinês (Simplificado)"
+      ],
+      "systemRequirements": {
+        "minGraphicsCard1": "Radeon RX 5700 XT",
+        "minGraphicsCard2": "Radeon RX 6700 XT",
+        "minProcessor1": "Ryzen 7 2700X",
+        "minProcessor2": "Ryzen 5 3600",
+        "minRam": "16",
+        "minStorage": "20",
+        "recGraphicsCard1": "Radeon RX 570",
+        "recGraphicsCard2": "Radeon RX 550",
+        "recProcessor1": "Ryzen 9 5950X",
+        "recProcessor2": "Ryzen 9 5900X",
+        "recRam": "16",
+        "recStorage": "20"
+      },
+      "title": "teste 2",
+      "trailer": ""
+    },
+    "-Nom9a5jYSOQHrmpEwmC": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PC"
+      ],
+      "createdAt": "2024-01-22T17:14:12.270Z",
+      "description": "Descrição:",
+      "developers": [
+        "Naughty Dog",
+        "Rockstar Games"
+      ],
+      "genres": [
+        "Ação",
+        "Aventura"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/8/80/Grand_Theft_Auto_V_capa.png",
+      "rating": "16+",
+      "releaseDate": "",
+      "supportedLanguages": [
+        "Português (BR)",
+        "Inglês"
+      ],
+      "systemRequirements": {
+        "minGraphicsCard1": "Radeon RX 5700 XT",
+        "minProcessor1": "Ryzen 9 3950X",
+        "minProcessor2": "Ryzen 7 3700X",
+        "minRam": "8",
+        "minStorage": "20",
+        "recGraphicsCard1": "Radeon RX 6700 XT",
+        "recGraphicsCard2": "Radeon RX 5700 XT",
+        "recProcessor1": "Ryzen 9 3900X",
+        "recProcessor2": "Ryzen 9 3900X",
+        "recRam": "16",
+        "recStorage": "20"
+      },
+      "title": "Título",
+      "trailer": "",
+      "unspecifiedReleaseDate": "2025"
+    },
+    "-NomXPU7ZnOMqZriC_o4": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PlayStation 4",
+        "PC",
+        "Xbox Series X/S"
+      ],
+      "createdAt": "2024-01-22T18:58:16.201Z",
+      "description": "Descrição:",
+      "developers": [
+        "Electronic Arts",
+        "Naughty Dog",
+        "Blizzard Entertainment"
+      ],
+      "genres": [
+        "Terror",
+        "Ação",
+        "Fantasia"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/9/91/Grand_Theft_Auto_IV_capa.png",
+      "players": [
+        "Two Players",
+        "Single Player",
+        "Three Players"
+      ],
+      "publishers": [
+        "Nintendo",
+        "Take-Two Interactive",
+        "Sony Interactive Entertainment"
+      ],
+      "rating": "16+",
+      "releaseDate": "",
+      "supportedLanguages": [
+        "Japonês",
+        "Português (BR)",
+        "Inglês"
+      ],
+      "systemRequirements": {
+        "minGraphicsCard1": "Radeon RX 5700 XT",
+        "minGraphicsCard2": "Radeon RX 5600 XT",
+        "minProcessor1": "Ryzen 9 3900X",
+        "minProcessor2": "Ryzen 9 3900X",
+        "minRam": "8",
+        "minStorage": "20",
+        "recGraphicsCard1": "Radeon RX 5700 XT",
+        "recGraphicsCard2": "Radeon RX 6800 XT",
+        "recProcessor1": "Ryzen 9 3900X",
+        "recProcessor2": "Ryzen 7 3700X",
+        "recRam": "16",
+        "recStorage": "20"
+      },
+      "title": "Título 2",
+      "trailer": "",
+      "unspecifiedReleaseDate": "2025"
+    },
+    "-NomyKHkSsEv6V14tSkW": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PlayStation 5",
+        "PlayStation 4"
+      ],
+      "createdAt": "2024-01-22T21:00:14.674Z",
+      "description": "Descrição",
+      "developers": [
+        "Rockstar Games"
+      ],
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Terror"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/f/f7/Cyberpunk_2077_capa.png",
+      "players": [
+        "Two Players"
+      ],
+      "publishers": [
+        "Activision"
+      ],
+      "rating": "10+",
+      "releaseDate": "2024-01-31",
+      "supportedLanguages": [
+        "Espanhol"
+      ],
+      "systemRequirements": {
+        "minGraphicsCard1": "Radeon RX 6800 XT",
+        "minGraphicsCard2": "Radeon RX 6900 XT",
+        "minProcessor1": "Ryzen 9 3900X",
+        "minProcessor2": "Ryzen 9 3900X",
+        "minRam": "8",
+        "minStorage": "60",
+        "recGraphicsCard1": "Radeon RX 6900 XT",
+        "recGraphicsCard2": "Radeon RX 6800 XT",
+        "recProcessor1": "Ryzen 9 5950X",
+        "recProcessor2": "Ryzen 9 5900X",
+        "recRam": "32",
+        "recStorage": "30"
+      },
+      "title": "Título: 3",
+      "trailer": "",
+      "unspecifiedReleaseDate": "2026"
+    },
+    "-NonnzqGYBuqYQdunc1z": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "Xbox Series X/S"
+      ],
+      "createdAt": "2024-01-23T00:54:42.262Z",
+      "description": "Descrição",
+      "developers": [
+        "Rockstar Games"
+      ],
+      "dubbing_Português (BR)": "false",
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Fantasia"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/8/80/Grand_Theft_Auto_V_capa.png",
+      "interface_Português (BR)": "true",
+      "players": [
+        "Single Player"
+      ],
+      "publishers": [
+        "Ubisoft"
+      ],
+      "rating": "18+",
+      "releaseDate": "",
+      "subtitles_Português (BR)": "true",
+      "supportedLanguages": [
+        "Português (BR)"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título: 4",
+      "trailer": "",
+      "unspecifiedReleaseDate": "2025"
+    },
+    "-Nonp7LdCVm79r_nf5sV": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "Nintendo Wii",
+        "PlayStation 3",
+        "Xbox 360"
+      ],
+      "createdAt": "2024-01-23T00:59:39.246Z",
+      "description": "Descrição:",
+      "developers": [
+        "CD Projekt",
+        "Nintendo",
+        "Valve Corporation"
+      ],
+      "dubbing_Inglês": "true",
+      "dubbing_Português (BR)": "false",
+      "genres": [
+        "Plataforma",
+        "Quebra-cabeça",
+        "Corrida"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/thumb/1/11/Mad_max_capa.jpg/250px-Mad_max_capa.jpg",
+      "interface_Inglês": "true",
+      "interface_Português (BR)": "true",
+      "players": [
+        "Single Player"
+      ],
+      "publishers": [
+        "Activision",
+        "Ubisoft",
+        "Epic Games"
+      ],
+      "rating": "16+",
+      "releaseDate": "",
+      "subtitles_Inglês": "true",
+      "subtitles_Português (BR)": "true",
+      "supportedLanguages": [
+        "Português (BR)"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:5",
+      "trailer": "",
+      "unspecifiedReleaseDate": "2026"
+    },
+    "-Nonp7LgqcN18W26QlCM": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "Nintendo Wii",
+        "PlayStation 3",
+        "Xbox 360"
+      ],
+      "createdAt": "2024-01-23T00:59:39.248Z",
+      "description": "Descrição:",
+      "developers": [
+        "CD Projekt",
+        "Nintendo",
+        "Valve Corporation"
+      ],
+      "dubbing_Inglês": "true",
+      "dubbing_Português (BR)": "false",
+      "genres": [
+        "Plataforma",
+        "Quebra-cabeça",
+        "Corrida"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/thumb/1/11/Mad_max_capa.jpg/250px-Mad_max_capa.jpg",
+      "interface_Inglês": "true",
+      "interface_Português (BR)": "true",
+      "players": [
+        "Single Player"
+      ],
+      "publishers": [
+        "Activision",
+        "Ubisoft",
+        "Epic Games"
+      ],
+      "rating": "16+",
+      "releaseDate": "",
+      "subtitles_Inglês": "true",
+      "subtitles_Português (BR)": "true",
+      "supportedLanguages": [
+        "Inglês"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:5",
+      "trailer": "",
+      "unspecifiedReleaseDate": "2026"
+    },
+    "-NonpvmcFcT-FAGlxRNm": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "Nintendo 3DS"
+      ],
+      "createdAt": "2024-01-23T01:03:09.933Z",
+      "description": "Descrição:",
+      "developers": [
+        "Capcom"
+      ],
+      "dubbing_Espanhol": "true",
+      "dubbing_Português (BR)": "false",
+      "genres": [
+        "Mundo Aberto"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/thumb/1/11/Mad_max_capa.jpg/250px-Mad_max_capa.jpg",
+      "interface_Espanhol": "true",
+      "interface_Português (BR)": "true",
+      "players": [
+        "Two Players"
+      ],
+      "publishers": [
+        "Activision"
+      ],
+      "rating": "16+",
+      "releaseDate": "2024-01-22",
+      "subtitles_Espanhol": "true",
+      "subtitles_Português (BR)": "true",
+      "supportedLanguages": [
+        "Espanhol"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:",
+      "trailer": "",
+      "unspecifiedReleaseDate": ""
+    },
+    "-Nonpvme0jjjy28Xsp4D": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "Nintendo 3DS"
+      ],
+      "createdAt": "2024-01-23T01:03:09.935Z",
+      "description": "Descrição:",
+      "developers": [
+        "Capcom"
+      ],
+      "dubbing_Espanhol": "true",
+      "dubbing_Português (BR)": "false",
+      "genres": [
+        "Mundo Aberto"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/thumb/1/11/Mad_max_capa.jpg/250px-Mad_max_capa.jpg",
+      "interface_Espanhol": "true",
+      "interface_Português (BR)": "true",
+      "players": [
+        "Two Players"
+      ],
+      "publishers": [
+        "Activision"
+      ],
+      "rating": "16+",
+      "releaseDate": "2024-01-22",
+      "subtitles_Espanhol": "true",
+      "subtitles_Português (BR)": "true",
+      "supportedLanguages": [
+        "Português (BR)"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:",
+      "trailer": "",
+      "unspecifiedReleaseDate": ""
+    },
+    "-NonrMc3DL98vFHNPANb": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "Nintendo 3DS",
+        "PlayStation 3"
+      ],
+      "createdAt": "2024-01-23T01:09:26.089Z",
+      "description": "Descrição:",
+      "developers": [
+        "Capcom",
+        "Nintendo"
+      ],
+      "dubbing_Russo": "true",
+      "genres": [
+        "Música",
+        "Mundo Aberto"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/8/80/Grand_Theft_Auto_V_capa.png",
+      "interface_Russo": "true",
+      "players": [
+        "Two Players"
+      ],
+      "publishers": [
+        "Activision"
+      ],
+      "rating": "10+",
+      "releaseDate": "2024-01-23",
+      "subtitles_Russo": "true",
+      "supportedLanguages": [
+        "Russo"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:",
+      "trailer": "",
+      "unspecifiedReleaseDate": ""
+    },
+    "-NonsJOQsLCQ7H3hoVRu": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PlayStation 5"
+      ],
+      "createdAt": "2024-01-23T01:13:35.008Z",
+      "description": "Descrição:",
+      "developers": [
+        "Nintendo"
+      ],
+      "dubbing_Espanhol": "false",
+      "dubbing_Inglês": "true",
+      "genres": [
+        "Aventura"
+      ],
+      "image": "https://i.pinimg.com/564x/84/f1/33/84f1338748aad4087fdc1b912d8125b8.jpg",
+      "interface_Espanhol": "true",
+      "interface_Inglês": "true",
+      "players": [
+        "Three Players"
+      ],
+      "publishers": [
+        "Activision",
+        "Nintendo"
+      ],
+      "rating": "16+",
+      "releaseDate": "2024-01-22",
+      "subtitles_Espanhol": "true",
+      "subtitles_Inglês": "false",
+      "supportedLanguages": [
+        "Inglês"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:",
+      "trailer": "",
+      "unspecifiedReleaseDate": ""
+    },
+    "-NonsJOSPtajwCpiX8M5": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PlayStation 5"
+      ],
+      "createdAt": "2024-01-23T01:13:35.010Z",
+      "description": "Descrição:",
+      "developers": [
+        "Nintendo"
+      ],
+      "dubbing_Espanhol": "false",
+      "dubbing_Inglês": "true",
+      "genres": [
+        "Aventura"
+      ],
+      "image": "https://i.pinimg.com/564x/84/f1/33/84f1338748aad4087fdc1b912d8125b8.jpg",
+      "interface_Espanhol": "true",
+      "interface_Inglês": "true",
+      "players": [
+        "Three Players"
+      ],
+      "publishers": [
+        "Activision",
+        "Nintendo"
+      ],
+      "rating": "16+",
+      "releaseDate": "2024-01-22",
+      "subtitles_Espanhol": "true",
+      "subtitles_Inglês": "false",
+      "supportedLanguages": [
+        "Espanhol"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:",
+      "trailer": "",
+      "unspecifiedReleaseDate": ""
+    },
+    "-NonyZoJ-1NIK15mcT99": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "Nintendo Switch",
+        "Nintendo 3DS"
+      ],
+      "createdAt": "2024-01-23T01:40:55.079Z",
+      "description": "Descrição",
+      "developers": [
+        "Capcom"
+      ],
+      "dubbing_Inglês": "false",
+      "dubbing_Português (BR)": "true",
+      "genres": [
+        "Ação",
+        "Aventura"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/9/91/Grand_Theft_Auto_IV_capa.png",
+      "interface_Inglês": "true",
+      "interface_Português (BR)": "true",
+      "players": [
+        "Two Players"
+      ],
+      "publishers": [
+        "Activision"
+      ],
+      "rating": "18+",
+      "releaseDate": "",
+      "subtitles_Inglês": "true",
+      "subtitles_Português (BR)": "true",
+      "supportedLanguages": [
+        "Português (BR)"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:",
+      "trailer": "",
+      "unspecifiedReleaseDate": "2026"
+    },
+    "-NonyZoNLpPGKTYAjFcN": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "Nintendo Switch",
+        "Nintendo 3DS"
+      ],
+      "createdAt": "2024-01-23T01:40:55.082Z",
+      "description": "Descrição",
+      "developers": [
+        "Capcom"
+      ],
+      "dubbing_Inglês": "false",
+      "dubbing_Português (BR)": "true",
+      "genres": [
+        "Ação",
+        "Aventura"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/9/91/Grand_Theft_Auto_IV_capa.png",
+      "interface_Inglês": "true",
+      "interface_Português (BR)": "true",
+      "players": [
+        "Two Players"
+      ],
+      "publishers": [
+        "Activision"
+      ],
+      "rating": "18+",
+      "releaseDate": "",
+      "subtitles_Inglês": "true",
+      "subtitles_Português (BR)": "true",
+      "supportedLanguages": [
+        "Inglês"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:",
+      "trailer": "",
+      "unspecifiedReleaseDate": "2026"
+    },
+    "-NonzN4lVmq3NmRDpMsE": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PlayStation 5"
+      ],
+      "createdAt": "2024-01-23T01:44:25.092Z",
+      "description": "Descriç",
+      "developers": [
+        "Rockstar Games"
+      ],
+      "dubbing_Espanhol": "true",
+      "genres": [
+        "Quebra-cabeça"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/thumb/1/11/Mad_max_capa.jpg/250px-Mad_max_capa.jpg",
+      "interface_Espanhol": "true",
+      "players": [
+        "Cooperative (Co-op)"
+      ],
+      "publishers": [
+        "Activision"
+      ],
+      "rating": "16+",
+      "releaseDate": "2024-01-24",
+      "subtitles_Espanhol": "true",
+      "supportedLanguages": [
+        "Espanhol"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título:",
+      "trailer": "",
+      "unspecifiedReleaseDate": ""
+    },
+    "-Noo2i9HJrt7vJTAF1D6": {
+      "addedBy": {
+        "displayName": "Black",
+        "userId": "b4vWWgAtVnTouNGI32jS3rWAeLZ2"
+      },
+      "consoles": [
+        "PC",
+        "PlayStation 5",
+        "Xbox Series X/S",
+        "PlayStation 4"
+      ],
+      "createdAt": "2024-01-23T02:03:24.052Z",
+      "description": "Descrição:",
+      "developers": [
+        "CD Projekt"
+      ],
+      "dubbing_Chinês (Simplificado)": "true",
+      "dubbing_Espanhol": "false",
+      "dubbing_Inglês": "true",
+      "dubbing_Português (BR)": "false",
+      "genres": [
+        "Ação",
+        "Aventura",
+        "Mundo Aberto"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/pt/f/f7/Cyberpunk_2077_capa.png",
+      "interface_Chinês (Simplificado)": "true",
+      "interface_Espanhol": "true",
+      "interface_Inglês": "true",
+      "interface_Português (BR)": "true",
+      "players": [
+        "Single Player"
+      ],
+      "publishers": [
+        "Epic Games"
+      ],
+      "rating": "18+",
+      "releaseDate": "2024-01-31",
+      "subtitles_Espanhol": "true",
+      "subtitles_Inglês": "true",
+      "subtitles_Português (BR)": "true",
+      "supportedLanguages": [
+        "Inglês",
+        "Português (BR)",
+        "Chinês (Simplificado)",
+        "Espanhol"
+      ],
+      "systemRequirements": {
+        "minRam": "",
+        "minStorage": "",
+        "recRam": "",
+        "recStorage": ""
+      },
+      "title": "Título: 6",
+      "trailer": "",
+      "unspecifiedReleaseDate": ""
+    }
+  },
+  "genres": {
+    "action": "Ação",
+    "adventure": "Aventura",
+    "fantasy": "Fantasia",
+    "fighting": "Luta",
+    "horror": "Terror",
+    "mmo": "MMO",
+    "music": "Música",
+    "open-world": "Mundo Aberto",
+    "others": "Outros",
+    "platformer": "Plataforma",
+    "puzzle": "Quebra-cabeça",
+    "racing": "Corrida",
+    "rpg": "RPG",
+    "sandbox": "Sandbox",
+    "sci-fi": "Ficção Científica",
+    "shooter": "Tiro",
+    "simulation": "Simulação",
+    "sports": "Esportes",
+    "stealth": "Stealth",
+    "strategy": "Estratégia",
+    "survival": "Sobrevivência"
+  },
+  "graphicsCards": {
+    "AMD": {
+      "31": "Radeon RX 6900 XT",
+      "32": "Radeon RX 6800 XT",
+      "33": "Radeon RX 6700 XT",
+      "34": "Radeon RX 5700 XT",
+      "35": "Radeon RX 5600 XT",
+      "36": "Radeon RX 5500 XT",
+      "37": "Radeon VII",
+      "38": "Radeon RX 590",
+      "39": "Radeon RX 580",
+      "40": "Radeon RX 570",
+      "41": "Radeon RX 560",
+      "42": "Radeon RX 550",
+      "43": "Radeon Pro VII",
+      "44": "Radeon Pro WX 7100",
+      "45": "Radeon Pro WX 5100",
+      "46": "Radeon Pro WX 4100",
+      "47": "Radeon Pro WX 3200",
+      "48": "Radeon RX 5500",
+      "49": "Radeon RX 5300",
+      "50": "Radeon RX 520"
+    },
+    "NVIDIA": [
+      null,
+      "GeForce RTX 3090",
+      "GeForce RTX 3080",
+      "GeForce RTX 3070",
+      "GeForce RTX 3060 Ti",
+      "GeForce RTX 2080 Ti",
+      "GeForce RTX 2080 Super",
+      "GeForce RTX 2070 Super",
+      "GeForce GTX 1660 Ti",
+      "GeForce GTX 1660 Super",
+      "GeForce GTX 1660",
+      "GeForce GTX 1650 Super",
+      "GeForce GTX 1650",
+      "Quadro RTX 8000",
+      "Quadro RTX 6000",
+      "Quadro RTX 5000",
+      "Quadro P5000",
+      "Quadro P4000",
+      "GeForce RTX 3050 Ti",
+      "GeForce RTX 3050",
+      "GeForce GTX 1650 Ti",
+      "GeForce GTX 1050 Ti",
+      "GeForce GTX 1050",
+      "Quadro P2000",
+      "Quadro P1000",
+      "Quadro P620",
+      "Quadro P400",
+      "TITAN RTX",
+      "TITAN V",
+      "TITAN Xp",
+      "TITAN X (Pascal)"
+    ]
+  },
+  "likeDislike": {
+    "-Nn1O4gOuOd9ezlGZFmJ": {
+      "dislikes": 0,
+      "likes": 1,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like"
+      }
+    },
+    "-Nn1kV4DDeXq21mov9km": {
+      "dislikes": 0,
+      "likes": 2,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "like"
+      }
+    },
+    "-NnKnPAIRYAa6iCp9BkK": {
+      "dislikes": 0,
+      "likes": 2,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "like"
+      }
+    },
+    "-NoIyeCz8Pi4s2Z2RJJQ": {
+      "dislikes": 0,
+      "likes": 2,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "like"
+      }
+    },
+    "-NoJqSHdpoBvCEur7QTX": {
+      "dislikes": 0,
+      "likes": 2,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "like"
+      }
+    },
+    "-NoPhRciPV6R_khR58t9": {
+      "dislikes": 1,
+      "likes": 2,
+      "votes": {
+        "EkNLD56PzFcrkzgcVS2A3wHwo5m1": "dislike",
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "like"
+      }
+    },
+    "-NoRyZ1BFRtzm3m_o1hm": {
+      "dislikes": 0,
+      "likes": 3,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "like"
+      }
+    },
+    "-NoUjj6gRKIWXpi3SXO5": {
+      "dislikes": 0,
+      "likes": 4,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "like"
+      }
+    },
+    "-NoUptkxbGArcCY_WF0c": {
+      "dislikes": 3,
+      "likes": 3,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "dislike"
+      }
+    },
+    "-NoUzYymwCPhVuS74g6t": {
+      "dislikes": 6,
+      "likes": 6,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "dislike",
+        "pouJEZb8xWcGIyONYRu7as578U42": "dislike"
+      }
+    },
+    "-NoV0F3QIXBlrpjRHfZA": {
+      "dislikes": 1,
+      "likes": 2,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "dislike",
+        "cWLZSy1aCqVO16k6ak2l56IQVNy2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "like"
+      }
+    },
+    "-NoXYJlXdSDMEBsngwDd": {
+      "dislikes": 0,
+      "likes": 1,
+      "votes": {
+        "pouJEZb8xWcGIyONYRu7as578U42": "like"
+      }
+    },
+    "-NocTV9XmAayglWiZFYi": {
+      "dislikes": 1,
+      "likes": 1,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like",
+        "pouJEZb8xWcGIyONYRu7as578U42": "dislike"
+      }
+    },
+    "-Noo2i9HJrt7vJTAF1D6": {
+      "dislikes": 0,
+      "likes": 1,
+      "votes": {
+        "b4vWWgAtVnTouNGI32jS3rWAeLZ2": "like"
+      }
+    }
+  },
+  "players": [
+    null,
+    "Single Player",
+    "Two Players",
+    "Three Players",
+    "Four Players",
+    "Cooperative (Co-op)",
+    "First Person",
+    "Multiplayer",
+    "Open World",
+    "Third Person",
+    "Split-Screen",
+    "Local Multiplayer",
+    "Online Multiplayer",
+    "Massively Multiplayer Online (MMO)",
+    "Asynchronous Multiplayer",
+    "Battle Royale"
+  ],
+  "processors": {
+    "AMD": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      "Ryzen 9 5950X",
+      "Ryzen 9 5900X",
+      "Ryzen 7 5800X",
+      "Ryzen 5 5600X",
+      "Ryzen 9 3950X",
+      "Ryzen 9 3900X",
+      "Ryzen 7 3700X",
+      "Ryzen 5 3600X",
+      "Ryzen 5 5600G",
+      "Ryzen 7 4700G",
+      "Ryzen 5 3600",
+      "Ryzen 3 3300X",
+      "Ryzen 9 3900XT",
+      "Ryzen 5 3600XT",
+      "Ryzen 7 3800XT",
+      "Ryzen 9 3900",
+      "Ryzen 7 2700X",
+      "Ryzen 5 2600X",
+      "Ryzen 5 2600",
+      "Ryzen 3 3200G",
+      "Ryzen 3 3100",
+      "Ryzen 7 3800X",
+      "Ryzen 5 3600XT",
+      "Ryzen 5 3600",
+      "Ryzen 5 3400G",
+      "Ryzen 5 3500X"
+    ],
+    "intel": [
+      null,
+      "Core i9-11900K",
+      "Core i7-11700K",
+      "Core i5-11600K",
+      "Core i9-10900K",
+      "Core i7-10700K",
+      "Core i5-10600K",
+      "Core i9-10850K",
+      "Core i9-10980XE",
+      "Core i7-10700",
+      "Core i5-10400",
+      "Core i3-10100",
+      "Core i9-9900K",
+      "Core i7-9700K",
+      "Core i5-9600K",
+      "Core i9-9980XE",
+      "Core i7-9700F",
+      "Core i5-9400F",
+      "Core i3-9100"
+    ]
+  },
+  "publishers": [
+    null,
+    "Electronic Arts",
+    "Activision",
+    "Ubisoft",
+    "Take-Two Interactive",
+    "Nintendo",
+    "Sony Interactive Entertainment",
+    "Microsoft Studios (Xbox Game Studios)",
+    "Square Enix",
+    "Capcom",
+    "Bethesda Softworks",
+    "Epic Games",
+    "CD Projekt",
+    "Bandai Namco Entertainment",
+    "Sega",
+    "Warner Bros. Interactive Entertainment",
+    "2K Games",
+    "Rockstar Games",
+    "Valve Corporation",
+    "Activision Blizzard",
+    "Eidos Interactive"
+  ],
+  "ratings": [
+    null,
+    "Livre",
+    "10+",
+    "12+",
+    "14+",
+    "16+",
+    "18+"
+  ],
+  "supportedLanguages": [
+    null,
+    "Inglês",
+    "Espanhol",
+    "Francês",
+    "Alemão",
+    "Italiano",
+    "Português",
+    "Português (BR)",
+    "Russo",
+    "Chinês (Simplificado)",
+    "Chinês (Tradicional)",
+    "Japonês",
+    "Coreano",
+    "Árabe",
+    "Holandês",
+    "Polonês",
+    "Turco",
+    "Sueco",
+    "Norueguês",
+    "Dinamarquês",
+    "Finlandês",
+    "Grego",
+    "Hindi"
+  ],
+  "userAchievements": {
+    "7Hu69kbJbfVUyydfnT75u5Cauvl2": {
+      "firstVisitAchievement": true,
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 50
+      }
+    },
+    "E4J9wlwEq9NRWJ2adhU9VY1nDdl1": {
+      "firstVisitAchievement": true
+    },
+    "EkNLD56PzFcrkzgcVS2A3wHwo5m1": {
+      "FirstInteractionGameId": {
+        "description": "Interaja com um jogo pela primeira vez!",
+        "name": "O Começo",
+        "points": 0
+      },
+      "firstVisitAchievement": {
+        "points": 0
+      },
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 0
+      }
+    },
+    "JowGhz5KFhesALtsmhP4IetR3rS2": {
+      "firstVisitAchievement": true
+    },
+    "NrSASa0EHYadJ6uwEqjmjWjroKP2": {
+      "firstVisitAchievement": true,
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 50
+      }
+    },
+    "Twi0wYbBa0NG3zrqB2HFLEjz6VB3": {
+      "FirstInteractionGameId": {
+        "description": "Interaja com um jogo pela primeira vez!",
+        "name": "O Começo",
+        "points": 0
+      },
+      "firstVisitAchievement": {
+        "points": 0
+      },
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 0
+      }
+    },
+    "Wg3g88uldZUDTiNLp3f3oHd2WWx2": {
+      "firstVisitAchievement": true
+    },
+    "b4vWWgAtVnTouNGI32jS3rWAeLZ2": {
+      "FirstInteractionGameId": {
+        "description": "Interaja com um jogo pela primeira vez!",
+        "name": "O Começo",
+        "points": 0
+      },
+      "firstVisitAchievement": {
+        "points": 0
+      },
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 0
+      }
+    },
+    "cWLZSy1aCqVO16k6ak2l56IQVNy2": {
+      "FirstInteractionGameId": {
+        "description": "Interaja com um jogo pela primeira vez!",
+        "name": "O Começo",
+        "points": 0
+      },
+      "firstVisitAchievement": {
+        "points": 0
+      },
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 0
+      }
+    },
+    "cuz7WNJ5FGf3U7Va9mer2NXrvmG2": {
+      "firstVisitAchievement": true,
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 50
+      }
+    },
+    "pouJEZb8xWcGIyONYRu7as578U42": {
+      "FirstInteractionGameId": {
+        "description": "Interaja com um jogo pela primeira vez!",
+        "name": "O Começo",
+        "points": 0
+      },
+      "firstVisitAchievement": {
+        "points": 0
+      },
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 0
+      }
+    },
+    "tIeki8MkQ0UTIekWj4Kw5DOIAvI2": {
+      "firstVisitAchievement": true
+    },
+    "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": {
+      "firstVisitAchievement": true,
+      "firstVisitAchievementId": {
+        "description": "Acesse o site pela primeira vez!",
+        "name": "Novato",
+        "points": 50
+      }
+    }
+  },
+  "userMarks": {
+    "EkNLD56PzFcrkzgcVS2A3wHwo5m1": {
+      "-Nn1O4gOuOd9ezlGZFmJ": true
+    }
+  },
+  "userRankings": {
+    "3aIBNYHOM5goHTiJsnbbaLlOHNH3": {
+      "dificuldade": "Difícil",
+      "nome": "S",
+      "porcentagem": 5
+    },
+    "HoTLyf3seoO7dPAlr51BRvDDhgs2": {
+      "dificuldade": "Moderado",
+      "nome": "A",
+      "porcentagem": 10
+    },
+    "L2VUje14fuTdQwZ1H9cQ4XoLJGo1": {
+      "dificuldade": "Fácil",
+      "nome": "B",
+      "porcentagem": 15
+    },
+    "LzRLm0Y0WjZ6SZA0N72ID0rewPu2": {
+      "dificuldade": "Moderado",
+      "nome": "A",
+      "porcentagem": 10
+    },
+    "b4vWWgAtVnTouNGI32jS3rWAeLZ2": {
+      "dificuldade": "Extremamente Fácil",
+      "nome": "D",
+      "porcentagem": 25
+    },
+    "gl0cjAUVCQcgLParzbHBgsb36dE2": {
+      "dificuldade": "Muito Fácil",
+      "nome": "C",
+      "porcentagem": 20
+    },
+    "srbz7s3OURe9RRn4YMidzUWfDrC2": {
+      "dificuldade": "Extremamente Fácil",
+      "nome": "D",
+      "porcentagem": 25
+    },
+    "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": {
+      "dificuldade": "Moderado",
+      "nome": "A",
+      "porcentagem": 10
+    }
+  },
+  "users": {
+    "7Hu69kbJbfVUyydfnT75u5Cauvl2": {
+      "displayName": "Tester 1",
+      "email": "teste1@gmail.com",
+      "isAdmin": false,
+      "joinedAt": 1705880873
+    },
+    "EkNLD56PzFcrkzgcVS2A3wHwo5m1": {
+      "backgroundColor": "#8a008a",
+      "displayName": "User",
+      "email": "user@gmail.com",
+      "isAdmin": false,
+      "nameColor": "#c800ff"
+    },
+    "Wg3g88uldZUDTiNLp3f3oHd2WWx2": {
+      "displayName": "kamilly",
+      "email": "kamillysilvafigueredo111@gmail.com",
+      "isAdmin": false,
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/game-list-c3dc2.appspot.com/o/profile_images%2FWg3g88uldZUDTiNLp3f3oHd2WWx2%2F1000277088.jpg?alt=media&token=2c5e7c71-e2e6-4db4-9c37-96fa2e67b0bf"
+    },
+    "b4vWWgAtVnTouNGI32jS3rWAeLZ2": {
+      "backgroundColor": "#993d00",
+      "bio": "Teste\n\n- BLACK",
+      "displayName": "BLACK",
+      "email": "black@gmail.com",
+      "isAdmin": true,
+      "nameColor": "#ffae00",
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/game-list-c3dc2.appspot.com/o/profile_images%2Fb4vWWgAtVnTouNGI32jS3rWAeLZ2%2Fimagens-e-gifs-do-goku-black-2.gif?alt=media&token=d9a3c2f3-b4e6-4e01-b324-d7ceca7649fd"
+    },
+    "cWLZSy1aCqVO16k6ak2l56IQVNy2": {
+      "backgroundColor": "#00134d",
+      "displayName": "TORIKI",
+      "nameColor": "#01f9f5",
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/game-list-c3dc2.appspot.com/o/profile_images%2FcWLZSy1aCqVO16k6ak2l56IQVNy2%2F2521.gif?alt=media&token=493d46a1-177e-4caa-b5a3-11d119549fa6"
+    },
+    "cuz7WNJ5FGf3U7Va9mer2NXrvmG2": {
+      "backgroundColor": "#005885",
+      "bio": "VSFD FDP\n\n- Blue",
+      "displayName": "Blue",
+      "email": "black2@gmail.com",
+      "isAdmin": true,
+      "nameColor": "#009dff",
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/game-list-c3dc2.appspot.com/o/profile_images%2Fcuz7WNJ5FGf3U7Va9mer2NXrvmG2%2F13036.gif?alt=media&token=c1b559f3-ff0f-450d-9f30-aacdf854896a"
+    },
+    "pouJEZb8xWcGIyONYRu7as578U42": {
+      "backgroundColor": "#610000",
+      "bio": "\"Se você não gosta do seu destino, não o aceite. Em vez disso, tenha a coragem de mudá-lo do jeito que você quer que ele seja.\"\n\n- Naruto Uzumaki",
+      "displayName": "REDrunner",
+      "nameColor": "#ff0000",
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/game-list-c3dc2.appspot.com/o/profile_images%2FpouJEZb8xWcGIyONYRu7as578U42%2F003.jpg?alt=media&token=8d0f9160-4b08-4eb8-97c5-cb5160b956dd"
+    },
+    "tIeki8MkQ0UTIekWj4Kw5DOIAvI2": {
+      "displayName": "tester",
+      "email": "teste@gmail.com",
+      "isAdmin": false,
+      "joinedAt": 1705881566
+    }
+  },
+  "usersLevel": {
+    "7Hu69kbJbfVUyydfnT75u5Cauvl2": [
+      null,
+      {
+        "points": 50
+      }
+    ],
+    "EkNLD56PzFcrkzgcVS2A3wHwo5m1": {
+      "1": {
+        "points": 125
+      },
+      "2": {
+        "points": 50
+      },
+      "level": 1
+    },
+    "Twi0wYbBa0NG3zrqB2HFLEjz6VB3": {
+      "1": {
+        "points": 125
+      },
+      "2": {
+        "points": 50
+      },
+      "level": 1
+    },
+    "Wg3g88uldZUDTiNLp3f3oHd2WWx2": [
+      null,
+      {
+        "points": 0
+      }
+    ],
+    "b4vWWgAtVnTouNGI32jS3rWAeLZ2": {
+      "1": {
+        "points": 125
+      },
+      "2": {
+        "points": 50
+      },
+      "level": 1
+    },
+    "cWLZSy1aCqVO16k6ak2l56IQVNy2": {
+      "1": {
+        "points": 125
+      },
+      "2": {
+        "points": 50
+      },
+      "level": 1
+    },
+    "cuz7WNJ5FGf3U7Va9mer2NXrvmG2": [
+      null,
+      {
+        "points": 50
+      }
+    ],
+    "pouJEZb8xWcGIyONYRu7as578U42": {
+      "1": {
+        "points": 125
+      },
+      "2": {
+        "points": 50
+      },
+      "level": 1
+    },
+    "tIeki8MkQ0UTIekWj4Kw5DOIAvI2": [
+      null,
+      {
+        "points": 0
+      }
+    ],
+    "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": {
+      "28": {
+        "points": 100
+      },
+      "29": {
+        "points": 25
+      },
+      "level": 28
+    }
+  },
+  "usersScore": {
+    "ipKmhrDzPdT86865CNjBU4wvWsn1": [
+      {
+        "displayName": "DefaultDisplayName",
+        "score": 25,
+        "wins": 4
+      }
+    ],
+    "zvMvTSy5QGYlY2wTTQgG2PsQoUB3": [
+      {
+        "displayName": "DefaultDisplayName",
+        "score": 60,
+        "wins": 3
+      }
+    ]
+  }
+}
