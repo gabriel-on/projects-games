@@ -1,4 +1,5 @@
 import React from 'react'
+import EditGameLanguageList from './EditGameLanguageList'
 
 function EditGameSelectableList({
     showAllGenres,
@@ -159,33 +160,14 @@ function EditGameSelectableList({
                 )}
             </div>
 
-            <div className='field'>
-                <p>Idiomas Suportados:</p>
-                <div className='languages-list'>
-                    {lists.supportedLanguages.slice(0, showAllLanguages ? lists.supportedLanguages.length : MAX_OPTIONS_DISPLAYED).map((language) => (
-                        <label
-                            key={language}
-                            className={`language ${game.supportedLanguages && game.supportedLanguages.includes(language) ? 'checked-language' : ''}`}
-                        >
-                            <input
-                                type="checkbox"
-                                name="supportedLanguages"
-                                value={language}
-                                checked={game.supportedLanguages && game.supportedLanguages.includes(language)}
-                                onChange={handleChange}
-                            />
-                            {language}
-                        </label>
-                    ))}
-                    {errors.supportedLanguages && <p className="error-message">{errors.supportedLanguages}</p>}
-                </div>
-                {lists.supportedLanguages.length > MAX_OPTIONS_DISPLAYED && !showAllLanguages && (
-                    <button className="show-more-options" onClick={() => setShowAllLanguages(true)}>
-                        Mostrar Mais
-                    </button>
-                )}
-            </div>
-
+            <EditGameLanguageList
+                lists={lists}
+                showAllLanguages={showAllLanguages}
+                setShowAllLanguages={setShowAllLanguages}
+                game={game}
+                handleChange={handleChange}
+                errors={errors}
+            />
 
             <div className='field'>
                 <p>Jogadores:</p>
