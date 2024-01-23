@@ -297,10 +297,10 @@ const GameDetails = () => {
             <tbody>
               {gameData.supportedLanguages.map((language, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
                   <td>{language}</td>
-                  <td>Sim</td>
-                  <td>Sim</td>
+                  <td>{gameData[`interface_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
+                  <td>{gameData[`dubbing_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
+                  <td>{gameData[`subtitles_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
                 </tr>
               ))}
             </tbody>
