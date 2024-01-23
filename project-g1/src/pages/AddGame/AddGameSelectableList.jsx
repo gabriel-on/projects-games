@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AddGameLanguageList from './AddGameLanguageList';
 
 function AddGameSelectableList({
   handleChange,
@@ -137,32 +138,14 @@ function AddGameSelectableList({
         )}
       </div>
 
-      <div className='field'>
-        <p>Idiomas Suportados:</p>
-        <div className='languages-list'>
-          {supportedLanguagesList.slice(0, showAllLanguages ? supportedLanguagesList.length : MAX_OPTIONS_DISPLAYED).map((language) => (
-            <label
-              key={language}
-              className={`language ${newGame.supportedLanguages.includes(language) ? 'checked-language' : ''}`}
-            >
-              <input
-                type="checkbox"
-                name="supportedLanguages"
-                value={language}
-                checked={newGame.supportedLanguages.includes(language)}
-                onChange={handleChange}
-              />
-              {language}
-            </label>
-          ))}
-          {errors.supportedLanguages && <p className="error-message">{errors.supportedLanguages}</p>}
-        </div>
-        {supportedLanguagesList.length > MAX_OPTIONS_DISPLAYED && !showAllLanguages && (
-          <button className="show-more-options" onClick={() => setShowAllLanguages(true)}>
-            Mostrar Tudo
-          </button>
-        )}
-      </div>
+      <AddGameLanguageList
+        languages={supportedLanguagesList}
+        selectedLanguages={newGame.supportedLanguages}
+        onChange={handleChange}
+        showAllLanguages={showAllLanguages}
+        onShowAllLanguagesClick={() => setShowAllLanguages(true)}
+        errors={errors}
+      />
 
       <div className='field'>
         <p>Publishers:</p>

@@ -253,14 +253,14 @@ const GameDetails = () => {
                   publisher}</li>
               ))}
             </ul>
-            <ul className="language-list">
+            {/* <ul className="language-list">
               <p>Idiomas Suportados:</p>
               {gameData.supportedLanguages.map((language, index) => (
                 <li key={index}>{language}</li>
               ))}
-            </ul>
+            </ul> */}
             <ul className="player-list">
-              <p>Playrs:</p>
+              <p>Players:</p>
               {gameData.players.map((player, index) => (
                 <li key={index}>{player}</li>
               ))}
@@ -284,6 +284,28 @@ const GameDetails = () => {
             </div>
           </div>
         )}
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Idioma</th>
+                <th>Interface</th>
+                <th>Dublagem</th>
+                <th>Legendas</th>
+              </tr>
+            </thead>
+            <tbody>
+              {gameData.supportedLanguages.map((language, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{language}</td>
+                  <td>Sim</td>
+                  <td>Sim</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         {gameData.systemRequirements && (
           <div id="system-requirements">
             <SystemRequirementsTable systemRequirements={gameData.systemRequirements} />
