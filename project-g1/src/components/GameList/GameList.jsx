@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get, remove } from 'firebase/database';
 import { Link } from 'react-router-dom';
 
+// CSS
+import '../../pages/Dashboard/Dashboard.css'
+
 const GameList = ({ searchTerm }) => {
   const [games, setGames] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
@@ -127,7 +130,7 @@ const GameList = ({ searchTerm }) => {
   }
 
   return (
-    <div>
+    <div className='dashboard-container'>
       <div>
         <button onClick={handleToggleSelectAll}>
           {selectAll ? 'Desmarcar Todos' : 'Selecionar Todos'}
@@ -141,23 +144,28 @@ const GameList = ({ searchTerm }) => {
         <p>Total de Jogos: {filteredGames.length}</p>
         <ul>
           {filteredGames.map((game) => (
-            <li key={game.id}>
+            <li key={game.id} className='info-game-dash'>
               <label>
                 <input
                   type="checkbox"
                   checked={selectAll || selectedGames.includes(game.id)}
                   onChange={() => handleToggleSelectGame(game.id)}
                 />
-                <div to={`/game/${game.id}`}>
+                <div to={`/game/${game.id}`} >
                   <h3>{game.title}</h3>
                   <img src={game.image} alt={game.title} style={{ maxWidth: '100%' }} />
-                  <p>{game.description}</p>
                 </div>
               </label>
-              <Link to={`/edit/${game.id}`}>
-                <button>Editar</button>
-              </Link>
-              <button onClick={() => handleDelete(game.id)}>Excluir</button>
+              <div className='btn-container'>
+                <Link to={`/edit/${game.id}`} className='dash-btn  edit-btn'>
+                  Editar
+                </Link>
+                <button className='dash-btn delete-btn' onClick={() => handleDelete(game.id)}>Excluir</button>
+
+                <Link to={`/game/${game.id}`} className='dash-btn link-btn'>
+                  <i className="bi bi-link-45deg"></i>
+                </Link>
+              </div>
             </li>
           ))}
         </ul>

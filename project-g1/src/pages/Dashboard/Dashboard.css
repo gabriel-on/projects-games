@@ -1,0 +1,84 @@
+.dashboard-container-absolute {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.dashboard-container {
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.dashboard-container > div > ul{
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 15px;
+}
+
+.dashboard-container > div > ul > li{
+    width: 225px;
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.dashboard-container .info-game-dash {
+    display: flex;
+    flex-wrap: wrap;
+    width: 225px;
+}
+
+.dashboard-container .info-game-dash div > img{
+    object-fit: cover;
+    aspect-ratio: 4/5;
+}
+
+.dashboard-container .info-game-dash > h3{
+    justify-content: center;
+    display: flex;
+}
+
+.dashboard-container .btn-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    /* gap: 10px; */
+    justify-content: space-between;
+}
+
+.dashboard-container .dash-btn {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    padding: 10px;
+    border: none;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+.dashboard-container .edit-btn {
+    background: blue;
+    color: white;
+}
+
+.dashboard-container .delete-btn {
+    background: red;
+    color: white;
+}
+
+.dashboard-container .link-btn {
+    background: purple;
+    color: white;
+}
+
+.dashboard-container .link-btn > i {
+    background: purple;
+    color: white;
+    font-size: 1em;
+}

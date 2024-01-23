@@ -5,6 +5,9 @@ import GameList from '../../components/GameList/GameList.jsx';
 import EditGame from '../../components/EditGame/EditGame.jsx';
 import { getDatabase, ref, onValue } from 'firebase/database';
 
+// CSS
+import '../Dashboard/Dashboard.css'
+
 const Dashboard = () => {
   const [selectedGame, setSelectedGame] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,7 +53,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <div className='dashboard-container-absolute'>
       <div>
         <h1>Página de Dashboard</h1>
         <div>
