@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, get } from 'firebase/database';
 import GamesStatus from '../GamesStatus/GamesStatus.jsx';
+
+import '../UserGameList/UserGameList.css'
+
 import FollowGame from '../FollowGame/FollowGame.jsx';
 import { Link } from 'react-router-dom'
+import GameStatusModal from '../GamesStatus/GameStatusModal.jsx';
 
-const UserGameList = ({ userId }) => {
+const UserGameList = ({ userId, userClassification, handleClassificationChange, handleStatusChange, handleToggleFavorite, handleSaveChanges }) => {
   const [userGameFollowers, setUserGameFollowers] = useState([]);
   const [gamesDetails, setGamesDetails] = useState([]);
+  const [showGameStatusModal, setShowGameStatusModal] = useState(false);
 
   useEffect(() => {
     const fetchUserGameFollowers = async () => {
@@ -49,8 +54,7 @@ const UserGameList = ({ userId }) => {
   }, [userId]);
 
   return (
-    <div>
-      <h2>User's Game Followers:</h2>
+    <div className='game-followers-container'>
       <ul>
         {gamesDetails.map((game, index) => (
           <li key={index}>
@@ -58,9 +62,27 @@ const UserGameList = ({ userId }) => {
               <>
                 <Link to={`/game/${game.id}`}>
                   <strong>{game.details.title}</strong>
+                  <img src={game.details.image} alt="" className='game-followers-img'/>
                 </Link>
-                <GamesStatus gameId={game.id} />
-                <FollowGame gameId={game.id} />
+                <div>
+                  <button onClick={() => setShowGameStatusModal(true)}>
+                    <i className="bi bi-bookmarks-fill"></i>
+                  </button>
+                  <>
+                    <FollowGame gameId={game.id} />
+                  </>
+                </div>
+                {showGameStatusModal && (
+                  <GameStatusModal
+                    gameId={game.id}
+                    userClassification={userClassification}
+                    onClassificationChange={handleClassificationChange}
+                    onStatusChange={handleStatusChange}
+                    onToggleFavorite={handleToggleFavorite}
+                    onSaveChanges={handleSaveChanges}
+                    onClose={() => setShowGameStatusModal(false)}
+                  />
+                )}
               </>
             ) : (
               <span>Game not found</span>
