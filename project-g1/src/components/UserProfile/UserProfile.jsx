@@ -7,6 +7,8 @@ import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
 import GameStatus from '../../components/GamesStatus/GamesStatus';
 
+import useInteractions from '../../hooks/useInteractions';
+
 import '../../components/UserProfile/UserProfile.css'
 
 import defaultProfileImage from '../../img/perfil.png';
@@ -15,6 +17,8 @@ import UserGameList from '../UserGameList/UserGameList';
 import ConfigUserProfile from './ConfigUserProfile';
 import ProfileImageUploader from './ProfileImageUploader';
 import UserProfileBio from './UserProfileBio';
+import GameStatusModal from '../GamesStatus/GameStatusModal';
+import FollowGame from '../FollowGame/FollowGame';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -29,6 +33,18 @@ const UserProfile = () => {
   const [showConfig, setShowConfig] = useState(false);
   const [confirmLevelUp, setConfirmLevelUp] = useState(false);
   const [joinedAt, setJoinedAt] = useState(null);
+  const [showGameStatusModal, setShowGameStatusModal] = useState(false);
+  const { gameId } = useParams();
+
+  const {
+    userClassification,
+    handleClassificationChange,
+    handleStatusChange,
+    handleToggleFavorite,
+    handleSaveChanges,
+    totalInteractions,
+    averageClassification
+  } = useInteractions(gameId);
 
   useEffect(() => {
     if (userId) {
@@ -174,7 +190,7 @@ const UserProfile = () => {
   const updateUserBio = (userId, bio) => {
     try {
       const db = getDatabase();
-      const userBioRef = ref(db, `users/${userId}/bio`); 
+      const userBioRef = ref(db, `users/${userId}/bio`);
       set(userBioRef, bio);
     } catch (error) {
       console.error('Erro ao atualizar a biografia do usuário:', error.message);
@@ -244,8 +260,27 @@ const UserProfile = () => {
                     <li key={game.id}>
                       <Link to={`/game/${game.id}`}>
                         <p>{game.title}</p>
+                        <img src={game.image} alt="" />
                       </Link>
-                      <GameStatus gameId={game.id} />
+                      <div>
+                        <button onClick={() => setShowGameStatusModal(true)}>
+                          <i className="bi bi-bookmarks-fill"></i>
+                        </button>
+                        <>
+                          <FollowGame gameId={game.id} />
+                        </>
+                      </div>
+                      {showGameStatusModal && (
+                        <GameStatusModal
+                          gameId={game.id}
+                          userClassification={userClassification}
+                          onClassificationChange={handleClassificationChange}
+                          onStatusChange={handleStatusChange}
+                          onToggleFavorite={handleToggleFavorite}
+                          onSaveChanges={handleSaveChanges}
+                          onClose={() => setShowGameStatusModal(false)}
+                        />
+                      )}
                     </li>
                   ))}
                 </ul>

@@ -37,18 +37,18 @@ ul {
 }
 
 .favorites-container div ul{
-    /* width: 860px; */
+    width: 860px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
-/* .favorites-container div ul li{
+.favorites-container div ul li > a{
     width: 260px;
     flex-direction: column;
     border: 1px solid black;
     display: flex;
     padding: 10px;
-} */
+}
 
 .UserGameList-container div ul{
     /* width: 860px; */
