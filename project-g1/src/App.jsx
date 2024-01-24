@@ -43,6 +43,8 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen.jsx';
 import CommunityActivity from './components/CommunityActivity/CommunityActivity.jsx';
 import FullActivityView from './components/CommunityActivity/FullActivityView.jsx';
 import ActivityDetails from './components/CommunityActivity/ActivityDetails.jsx';
+import AchievementsList from './components/AchievementsList/AchievementsList.jsx';
+import Achievement from './components/Achievements/Achievement.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -152,6 +154,9 @@ function App() {
                   <Route path='/profile/:userId' element={<UserProfile />} />
 
                   <Route path='/members' element={<Members />} />
+
+                  <Route path='/achievements' element={<AchievementsList />} />
+                  <Route path='/achievement/:achievementId' element={<Achievement />} />
 
                   <Route path='/search' element={<SearchBar />} />
 
