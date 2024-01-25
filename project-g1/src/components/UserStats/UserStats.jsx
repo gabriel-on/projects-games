@@ -47,8 +47,6 @@ const UserStats = ({ userId }) => {
 
   return (
     <div className="user-stats">
-      <h2>Estatísticas dos Jogos</h2>
-
       <div className="user-progress-bar">
         <p>Total de Jogos: {userStats.totalGames}</p>
         {/* <div className="bar" style={{ width: `${(userStats.totalGames / userStats.totalGames) * 100}%` }}>

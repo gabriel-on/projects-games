@@ -5,10 +5,10 @@
 
 .user-progress-bar {
     margin-bottom: 15px;
-    width: 100%;
 }
 
 .bar {
+    width: 0;
     background: #4caf50;
     color: white;
     display: flex;

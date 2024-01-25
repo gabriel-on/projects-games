@@ -252,7 +252,9 @@ const UserProfile = () => {
             <UserAchievementsList userId={userId} />
           </div>
 
+          {/* Estatísticas dos jogos */}
           <div>
+            <h2 style={{ color: user.nameColor }}>Estatísticas dos Jogos</h2>
             <UserStats
               userId={userId}
               gameId={gameId}
