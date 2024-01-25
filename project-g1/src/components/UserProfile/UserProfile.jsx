@@ -257,6 +257,7 @@ const UserProfile = () => {
             <FavoriteGamesList favoriteGames={favoriteGames} />
           </div>
 
+          {/* Lista de jogos seguidos */}
           <div className='UserGameList-container'>
             <h2 style={{ color: user.nameColor }}>Lista de Jogos Seguidos:</h2>
             <UserGameList userId={userId} />
