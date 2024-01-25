@@ -70,7 +70,7 @@ const GameStatus = ({ gameId }) => {
         <div>
           <p>Status do Jogo: {userGameStatus}</p>
           <select value={userGameStatus} onChange={(e) => handleStatusChange(e.target.value)}>
-            <option value="none">Nenhum</option>
+            <option value="">Nenhum</option>
             <option value="planning">Planejando</option>
             <option value="playing">Jogando</option>
             <option value="re-playing">Re-jogando</option>

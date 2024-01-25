@@ -1,0 +1,28 @@
+.user-stats {
+    font-family: 'Arial', sans-serif;
+    margin-top: 20px;
+}
+
+.user-progress-bar {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.bar {
+    background: #4caf50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* max-width: 590px; */
+    height: 15px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+span {
+    position: relative;
+    font-size: 0.8em;
+    /* display: inline-block; */
+    padding: 0 5px;
+}
