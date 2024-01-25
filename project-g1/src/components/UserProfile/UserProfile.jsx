@@ -20,6 +20,7 @@ import UserProfileBio from './UserProfileBio';
 import GameStatusModal from '../GamesStatus/GameStatusModal';
 import FollowGame from '../FollowGame/FollowGame';
 import FavoriteGamesList from '../FavoriteGamesList/FavoriteGamesList';
+import UserStats from '../UserStats/UserStats';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -249,6 +250,13 @@ const UserProfile = () => {
           <div>
             <h2 style={{ color: user.nameColor }}>Conquistas Resgatadas</h2>
             <UserAchievementsList userId={userId} />
+          </div>
+
+          <div>
+            <UserStats
+              userId={userId}
+              gameId={gameId}
+            />
           </div>
 
           {/* Lista de jogos favoritos */}
