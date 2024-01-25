@@ -12,7 +12,7 @@ import useInteractions from '../../hooks/useInteractions';
 import '../../components/UserProfile/UserProfile.css'
 
 import defaultProfileImage from '../../img/perfil.png';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import UserGameList from '../UserGameList/UserGameList';
 import ConfigUserProfile from './ConfigUserProfile';
 import ProfileImageUploader from './ProfileImageUploader';
@@ -21,6 +21,16 @@ import GameStatusModal from '../GamesStatus/GameStatusModal';
 import FollowGame from '../FollowGame/FollowGame';
 import FavoriteGamesList from '../FavoriteGamesList/FavoriteGamesList';
 import UserStats from '../UserStats/UserStats';
+
+const UserNavbar = ({ setActiveSection }) => {
+  return (
+    <div className="user-navbar">
+      <button onClick={() => setActiveSection('stats')}>Estatísticas dos Jogos</button>
+      <button onClick={() => setActiveSection('favorites')}>Jogos Favoritos</button>
+      <button onClick={() => setActiveSection('followedGames')}>Lista de Jogos Seguidos</button>
+    </div>
+  );
+};
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -38,15 +48,7 @@ const UserProfile = () => {
   const [showGameStatusModal, setShowGameStatusModal] = useState(false);
   const { gameId } = useParams();
 
-  const {
-    userClassification,
-    handleClassificationChange,
-    handleStatusChange,
-    handleToggleFavorite,
-    handleSaveChanges,
-    totalInteractions,
-    averageClassification
-  } = useInteractions(gameId);
+  const [activeSection, setActiveSection] = useState('stats');
 
   useEffect(() => {
     if (userId) {
@@ -247,31 +249,31 @@ const UserProfile = () => {
               setConfirmLevelUp={setConfirmLevelUp}
             />
           </div>
-          <div>
-            <h2 style={{ color: user.nameColor }}>Conquistas Resgatadas</h2>
-            <UserAchievementsList userId={userId} />
-          </div>
 
-          {/* Estatísticas dos jogos */}
-          <div>
-            <h2 style={{ color: user.nameColor }}>Estatísticas dos Jogos</h2>
-            <UserStats
-              userId={userId}
-              gameId={gameId}
-            />
-          </div>
+          {/* UserNavbar */}
+          <UserNavbar setActiveSection={setActiveSection} />
 
-          {/* Lista de jogos favoritos */}
-          <div className='FavoriteGamesList-container'>
-            <h2 style={{ color: user.nameColor }}>Jogos Favoritos:</h2>
-            <FavoriteGamesList favoriteGames={favoriteGames} />
-          </div>
+          {/* Seção dinâmica com base na escolha da navbar */}
+          {activeSection === 'stats' && (
+            <div>
+              <h2 style={{ color: user.nameColor }}>Estatísticas dos Jogos</h2>
+              <UserStats userId={userId} gameId={gameId} />
+            </div>
+          )}
 
-          {/* Lista de jogos seguidos */}
-          <div className='UserGameList-container'>
-            <h2 style={{ color: user.nameColor }}>Lista de Jogos Seguidos:</h2>
-            <UserGameList userId={userId} />
-          </div>
+          {activeSection === 'favorites' && (
+            <div className='FavoriteGamesList-container'>
+              <h2 style={{ color: user.nameColor }}>Jogos Favoritos:</h2>
+              <FavoriteGamesList favoriteGames={favoriteGames} />
+            </div>
+          )}
+
+          {activeSection === 'followedGames' && (
+            <div className='UserGameList-container'>
+              <h2 style={{ color: user.nameColor }}>Lista de Jogos Seguidos:</h2>
+              <UserGameList userId={userId} />
+            </div>
+          )}
 
           {showConfig ? (
             <div>
