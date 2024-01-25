@@ -19,6 +19,7 @@ import ProfileImageUploader from './ProfileImageUploader';
 import UserProfileBio from './UserProfileBio';
 import GameStatusModal from '../GamesStatus/GameStatusModal';
 import FollowGame from '../FollowGame/FollowGame';
+import FavoriteGamesList from '../FavoriteGamesList/FavoriteGamesList';
 
 const UserProfile = () => {
   const { currentUser, logout, loading, error, auth, setCurrentUser } = useAuth();
@@ -233,59 +234,27 @@ const UserProfile = () => {
                 </div>
               )}
             </div>
-            <div >
-              <h2 style={{ color: user.nameColor }}>Nível</h2>
-              <UserLevel
-                userPoints={userPoints}
-                userAchievements={userAchievements}
-                userId={userId}
-                currentUser={currentUser}
-                confirmLevelUp={confirmLevelUp}
-                setConfirmLevelUp={setConfirmLevelUp}
-              />
-            </div>
-            <div>
-              <h2 style={{ color: user.nameColor }}>Conquistas Resgatadas</h2>
-              <UserAchievementsList userId={userId} />
-            </div>
+          </div>
+          <div >
+            <h2 style={{ color: user.nameColor }}>Nível</h2>
+            <UserLevel
+              userPoints={userPoints}
+              userAchievements={userAchievements}
+              userId={userId}
+              currentUser={currentUser}
+              confirmLevelUp={confirmLevelUp}
+              setConfirmLevelUp={setConfirmLevelUp}
+            />
+          </div>
+          <div>
+            <h2 style={{ color: user.nameColor }}>Conquistas Resgatadas</h2>
+            <UserAchievementsList userId={userId} />
           </div>
 
           {/* Lista de jogos favoritos */}
-          <div className='favorites-container' >
-            {favoriteGames.length > 0 && (
-              <div className='favorites-container'>
-                <h2 style={{ color: user.nameColor }}>Jogos Favoritos:</h2>
-                <ul>
-                  {favoriteGames.map((game) => (
-                    <li key={game.id}>
-                      <Link to={`/game/${game.id}`}>
-                        <p>{game.title}</p>
-                        <img src={game.image} alt="" />
-                      </Link>
-                      <div>
-                        <button onClick={() => setShowGameStatusModal(true)}>
-                          <i className="bi bi-bookmarks-fill"></i>
-                        </button>
-                        <>
-                          <FollowGame gameId={game.id} />
-                        </>
-                      </div>
-                      {showGameStatusModal && (
-                        <GameStatusModal
-                          gameId={game.id}
-                          userClassification={userClassification}
-                          onClassificationChange={handleClassificationChange}
-                          onStatusChange={handleStatusChange}
-                          onToggleFavorite={handleToggleFavorite}
-                          onSaveChanges={handleSaveChanges}
-                          onClose={() => setShowGameStatusModal(false)}
-                        />
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+          <div className='FavoriteGamesList-container'>
+            <h2 style={{ color: user.nameColor }}>Jogos Favoritos:</h2>
+            <FavoriteGamesList favoriteGames={favoriteGames} />
           </div>
 
           <div className='UserGameList-container'>
