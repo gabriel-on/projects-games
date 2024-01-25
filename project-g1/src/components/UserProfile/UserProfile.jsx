@@ -5,20 +5,16 @@ import { getDatabase, ref, onValue, set, update } from 'firebase/database';
 import { useAuth } from '../../hooks/useAuthentication';
 import UserAchievementsList from '../UserAchievementsList/UserAchievementsList';
 import UserLevel from '../UserLevel/UserLevel';
-import GameStatus from '../../components/GamesStatus/GamesStatus';
 
-import useInteractions from '../../hooks/useInteractions';
-
+// CSS
 import '../../components/UserProfile/UserProfile.css'
 
 import defaultProfileImage from '../../img/perfil.png';
-import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import UserGameList from '../UserGameList/UserGameList';
 import ConfigUserProfile from './ConfigUserProfile';
 import ProfileImageUploader from './ProfileImageUploader';
 import UserProfileBio from './UserProfileBio';
-import GameStatusModal from '../GamesStatus/GameStatusModal';
-import FollowGame from '../FollowGame/FollowGame';
 import FavoriteGamesList from '../FavoriteGamesList/FavoriteGamesList';
 import UserStats from '../UserStats/UserStats';
 
@@ -45,7 +41,6 @@ const UserProfile = () => {
   const [showConfig, setShowConfig] = useState(false);
   const [confirmLevelUp, setConfirmLevelUp] = useState(false);
   const [joinedAt, setJoinedAt] = useState(null);
-  const [showGameStatusModal, setShowGameStatusModal] = useState(false);
   const { gameId } = useParams();
 
   const [activeSection, setActiveSection] = useState('stats');
@@ -248,6 +243,11 @@ const UserProfile = () => {
               confirmLevelUp={confirmLevelUp}
               setConfirmLevelUp={setConfirmLevelUp}
             />
+          </div>
+
+          <div>
+            <h2 style={{ color: user.nameColor }}>Conquistas Resgatadas</h2>
+            <UserAchievementsList userId={userId} />
           </div>
 
           {/* UserNavbar */}
