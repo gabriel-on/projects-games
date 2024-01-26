@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, onValue, push, set } from 'firebase/database';
-import { getAuth } from 'firebase/auth';  // Adicione esta linha
+import { getDatabase, ref, onValue, push, set, get } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
 
 const UserAchievementsList = ({ userId }) => {
     const [userAchievements, setUserAchievements] = useState([]);
     const [highlightedAchievement, setHighlightedAchievement] = useState(null);
+    const [highlightedAchievementsMap, setHighlightedAchievementsMap] = useState({});
 
-    const auth = getAuth();  // Adicione esta linha para obter o objeto auth
+    const auth = getAuth();
 
     const highlightAchievement = async (achievementId) => {
         try {
@@ -16,8 +17,15 @@ const UserAchievementsList = ({ userId }) => {
                 return;
             }
 
+            // Verifica se a conquista já foi destacada para este usuário
+            if (highlightedAchievementsMap[achievementId]) {
+                console.log('Conquista já destacada anteriormente.');
+                return;
+            }
+
             const db = getDatabase();
             const highlightedAchievementsRef = ref(db, `highlightedAchievements/${userId}`);
+            const userHighlightedAchievementsRef = ref(db, `userHighlightedAchievements/${userId}`);
 
             // Obtenha a conquista pelo ID
             const highlightedAchievementData = userAchievements.find(achievement => achievement.id === achievementId);
@@ -35,6 +43,14 @@ const UserAchievementsList = ({ userId }) => {
 
             // Atualize o estado com a conquista destacada
             setHighlightedAchievement(highlightedAchievementData);
+
+            // Atualize o estado local para marcar a conquista como destacada
+            setHighlightedAchievementsMap(prevMap => ({
+                ...prevMap,
+                [achievementId]: true,
+            }));
+
+            console.log('Conquista destacada com sucesso!');
         } catch (error) {
             console.error('Erro ao destacar conquista:', error.message);
         }
