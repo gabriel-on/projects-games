@@ -17,6 +17,7 @@ import ProfileImageUploader from './ProfileImageUploader';
 import UserProfileBio from './UserProfileBio';
 import FavoriteGamesList from '../FavoriteGamesList/FavoriteGamesList';
 import UserStats from '../UserStats/UserStats';
+import UserLevelDisplay from '../UserLevel/UserLevelDisplay';
 
 const UserNavbar = ({ setActiveSection }) => {
   return (
@@ -43,6 +44,7 @@ const UserProfile = () => {
   const [confirmLevelUp, setConfirmLevelUp] = useState(false);
   const [joinedAt, setJoinedAt] = useState(null);
   const { gameId } = useParams();
+  const [userLevel, setUserLevel] = useState(0); // ou qualquer outro valor padrão desejado
 
   const [activeSection, setActiveSection] = useState('stats');
 
@@ -204,35 +206,60 @@ const UserProfile = () => {
       {error && <p>{error}</p>}
       {user && (
         <div className='profile-content' style={{ background: user.backgroundColor }}>
-          <div>
+          <div className='profile-header'>
             <div className='standard-profile'>
               <img
                 src={user.photoURL || defaultProfileImage}
                 alt="Foto de Perfil"
               />
             </div>
-            <h1>Perfil do Usuário</h1>
-            <p>Nome do Usuário: <span style={{ color: user.nameColor }}>{user.displayName}</span></p>
-            <p>Membro Desde: {joinedAt ? new Date(joinedAt * 1000).toLocaleDateString() : 'Carregando...'}</p>
-            <p className='user-bio-content'>{user.bio}</p>
-
-            {/* Exibir o ranking do usuário */}
-            <div>
-              <h2 style={{ color: user.nameColor }}>Ranking</h2>
-              {userRanking && (
-                <div>
-                  <p>
-                    Ranking: <strong>{userRanking.nome}</strong>
-                  </p>
-                  <p>
-                    Dificuldade: {userRanking.dificuldade}
-                  </p>
-                  <p>
-                    Porcentagem: {userRanking.porcentagem}%
-                  </p>
+            <div className='profile-header-info'>
+              <div className='profile-item-1'>
+                {/* <h1>Perfil do Usuário</h1> */}
+                <p>
+                  <span style={{ color: user.nameColor }}>{user.displayName}</span>
+                </p>
+                <p>
+                  Membro Desde: {joinedAt ? new Date(joinedAt * 1000).toLocaleDateString() : 'Carregando...'}
+                </p>
+              </div>
+              {/* Exibir o ranking do usuário */}
+              <div className='profile-item-2'>
+                {userRanking && (
+                  <div>
+                    <p>
+                      Ranking: <strong>{userRanking.nome}</strong>
+                    </p>
+                  </div>
+                )}
+                <div >
+                  <UserLevelDisplay userId={userId} />
                 </div>
-              )}
+              </div>
             </div>
+          </div>
+
+          <div className='user-main-bio-achievements'>
+            <p className='user-bio-content'>
+              {user.bio}
+            </p>
+            <p className='user-achievement-content'>1</p>
+          </div>
+          <div>
+            <h2 style={{ color: user.nameColor }}>Ranking</h2>
+            {userRanking && (
+              <div>
+                <p>
+                  Ranking: <strong>{userRanking.nome}</strong>
+                </p>
+                <p>
+                  Dificuldade: {userRanking.dificuldade}
+                </p>
+                <p>
+                  Porcentagem: {userRanking.porcentagem}%
+                </p>
+              </div>
+            )}
           </div>
           <div >
             <h2 style={{ color: user.nameColor }}>Nível</h2>

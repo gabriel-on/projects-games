@@ -13,9 +13,38 @@ ul {
     padding: 10px;
 }
 
+.profile-header {
+    gap: 10px;
+    display: flex;
+}
+
+.profile-header-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.profile-item-1, .profile-item-2 {
+    text-transform: uppercase;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-item-1 > p > span{
+    padding: 0;
+    font-size: 1em;
+}
+
 .profile-container .standard-profile {
     max-width: 100px;
     padding: 10px;
+}
+
+.standard-profile {
+    display: flex;
+    justify-content: center;
 }
 
 .standard-profile img {
@@ -69,6 +98,20 @@ ul {
     width: 600px;
     padding: 10px;
     white-space: pre-line
+}
+
+.user-achievement-content {
+    display: flex;
+    background: #333;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+}
+
+.user-main-bio-achievements {
+    gap: 20px;
+    display: flex;
 }
 
 /* UserNavbar */
