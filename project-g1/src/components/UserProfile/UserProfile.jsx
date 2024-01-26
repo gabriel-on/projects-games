@@ -18,6 +18,7 @@ import UserProfileBio from './UserProfileBio';
 import FavoriteGamesList from '../FavoriteGamesList/FavoriteGamesList';
 import UserStats from '../UserStats/UserStats';
 import UserLevelDisplay from '../UserLevel/UserLevelDisplay';
+import HighlightedAchievements from '../HighlightedAchievements/HighlightedAchievements';
 
 const UserNavbar = ({ setActiveSection }) => {
   return (
@@ -44,7 +45,8 @@ const UserProfile = () => {
   const [confirmLevelUp, setConfirmLevelUp] = useState(false);
   const [joinedAt, setJoinedAt] = useState(null);
   const { gameId } = useParams();
-  const [userLevel, setUserLevel] = useState(0); // ou qualquer outro valor padrão desejado
+  const [highlightedAchievement, setHighlightedAchievement] = useState(null);
+
 
   const [activeSection, setActiveSection] = useState('stats');
 
@@ -243,8 +245,14 @@ const UserProfile = () => {
             <p className='user-bio-content'>
               {user.bio}
             </p>
-            <p className='user-achievement-content'>1</p>
+
+            <div>
+              <HighlightedAchievements
+                userId={userId}
+              />
+            </div>
           </div>
+
           <div>
             <h2 style={{ color: user.nameColor }}>Ranking</h2>
             {userRanking && (

@@ -16,6 +16,7 @@ ul {
 .profile-header {
     gap: 10px;
     display: flex;
+    border-bottom: 2px solid purple;
 }
 
 .profile-header-info {
@@ -101,12 +102,19 @@ ul {
 }
 
 .user-achievement-content {
-    display: flex;
+    width: 100%;
     background: #333;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: 100px;
     height: 100px;
+}
+
+.user-main-bio-achievements > div > div > ul {
+    display: flex;
+    gap: 20px;
 }
 
 .user-main-bio-achievements {
