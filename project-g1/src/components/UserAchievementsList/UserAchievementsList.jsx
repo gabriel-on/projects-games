@@ -1,23 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, onValue, push, set, get } from 'firebase/database';
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const UserAchievementsList = ({ userId }) => {
     const [userAchievements, setUserAchievements] = useState([]);
     const [highlightedAchievement, setHighlightedAchievement] = useState(null);
     const [highlightedAchievementsMap, setHighlightedAchievementsMap] = useState({});
+    const [currentUser, setCurrentUser] = useState(null);
 
     const auth = getAuth();
 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setCurrentUser(user);
+        });
+
+        return () => unsubscribe();
+    }, [auth]);
+
+    const saveHighlightToDatabase = async (achievementId) => {
+        try {
+            const db = getDatabase();
+            const userHighlightedAchievementsRef = ref(db, `userHighlightedAchievements/${userId}/${achievementId}`);
+
+            await set(userHighlightedAchievementsRef, true);
+
+            console.log('Conquista destacada com sucesso!');
+        } catch (error) {
+            console.error('Erro ao destacar conquista:', error.message);
+        }
+    };
+
+    const fetchHighlightedAchievementsFromDatabase = async () => {
+        try {
+            const db = getDatabase();
+            const userHighlightedAchievementsRef = ref(db, `userHighlightedAchievements/${userId}`);
+
+            const snapshot = await get(userHighlightedAchievementsRef);
+            const data = snapshot.val() || {};
+            setHighlightedAchievementsMap(data);
+        } catch (error) {
+            console.error('Erro ao obter conquistas destacadas do usuário:', error.message);
+        }
+    };
+
     const highlightAchievement = async (achievementId) => {
         try {
-            // Verifica a autenticação do usuário
-            if (!auth.currentUser) {
+            if (!currentUser) {
                 console.log('Usuário não autenticado.');
                 return;
             }
 
-            // Verifica se a conquista já foi destacada para este usuário
             if (highlightedAchievementsMap[achievementId]) {
                 console.log('Conquista já destacada anteriormente.');
                 return;
@@ -25,9 +58,7 @@ const UserAchievementsList = ({ userId }) => {
 
             const db = getDatabase();
             const highlightedAchievementsRef = ref(db, `highlightedAchievements/${userId}`);
-            const userHighlightedAchievementsRef = ref(db, `userHighlightedAchievements/${userId}`);
 
-            // Obtenha a conquista pelo ID
             const highlightedAchievementData = userAchievements.find(achievement => achievement.id === achievementId);
 
             if (!highlightedAchievementData) {
@@ -35,21 +66,17 @@ const UserAchievementsList = ({ userId }) => {
                 return;
             }
 
-            // Use push para gerar um ID exclusivo para a conquista destacada
             const newHighlightedAchievementRef = push(highlightedAchievementsRef);
-
-            // Salve a conquista destacada no novo nó no Firebase com o ID gerado
             await set(newHighlightedAchievementRef, highlightedAchievementData);
 
-            // Atualize o estado com a conquista destacada
             setHighlightedAchievement(highlightedAchievementData);
 
-            // Atualize o estado local para marcar a conquista como destacada
             setHighlightedAchievementsMap(prevMap => ({
                 ...prevMap,
                 [achievementId]: true,
             }));
 
+            await saveHighlightToDatabase(achievementId);
             console.log('Conquista destacada com sucesso!');
         } catch (error) {
             console.error('Erro ao destacar conquista:', error.message);
@@ -62,12 +89,10 @@ const UserAchievementsList = ({ userId }) => {
                 const db = getDatabase();
                 const userAchievementsRef = ref(db, `userAchievements/${userId}`);
 
-                // Use onValue para ouvir alterações no banco de dados
                 onValue(userAchievementsRef, (snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
 
-                        // Filtra as conquistas que têm as informações necessárias
                         const filteredAchievements = Object.keys(data)
                             .filter((achievementId) => {
                                 const achievement = data[achievementId];
@@ -82,8 +107,10 @@ const UserAchievementsList = ({ userId }) => {
                                 ...data[achievementId],
                             }));
 
-                        // Atualiza o estado com as conquistas filtradas
                         setUserAchievements(filteredAchievements);
+
+                        // Após carregar as conquistas do usuário, busque as destacadas no banco de dados
+                        fetchHighlightedAchievementsFromDatabase();
                     } else {
                         setUserAchievements([]);
                     }
@@ -106,9 +133,14 @@ const UserAchievementsList = ({ userId }) => {
                         <li key={achievement.id}>
                             <p>Conquista: {achievement.name}</p>
                             <p>Descrição: {achievement.description}</p>
-                            <button onClick={() => highlightAchievement(achievement.id)}>
-                                Destacar Conquista
-                            </button>
+                            {currentUser && currentUser.uid === userId && (
+                                <button
+                                    onClick={() => highlightAchievement(achievement.id)}
+                                    disabled={highlightedAchievementsMap[achievement.id]}
+                                >
+                                    Destacar Conquista
+                                </button>
+                            )}
                         </li>
                     ))}
                 </ul>
