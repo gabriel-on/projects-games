@@ -21,9 +21,10 @@ import UserStats from '../UserStats/UserStats';
 const UserNavbar = ({ setActiveSection }) => {
   return (
     <div className="user-navbar">
-      <button onClick={() => setActiveSection('stats')}>Estatísticas dos Jogos</button>
-      <button onClick={() => setActiveSection('favorites')}>Jogos Favoritos</button>
-      <button onClick={() => setActiveSection('followedGames')}>Lista de Jogos Seguidos</button>
+      <button onClick={() => setActiveSection('stats')}>Estatísticas</button>
+      <button onClick={() => setActiveSection('favorites')}>Favoritos</button>
+      <button onClick={() => setActiveSection('followedGames')}>Jogos Seguidos</button>
+      <button onClick={() => setActiveSection('achievementsList')}>Conquistas</button>
     </div>
   );
 };
@@ -245,11 +246,6 @@ const UserProfile = () => {
             />
           </div>
 
-          <div>
-            <h2 style={{ color: user.nameColor }}>Conquistas Resgatadas</h2>
-            <UserAchievementsList userId={userId} />
-          </div>
-
           {/* UserNavbar */}
           <UserNavbar setActiveSection={setActiveSection} />
 
@@ -272,6 +268,13 @@ const UserProfile = () => {
             <div className='UserGameList-container'>
               <h2 style={{ color: user.nameColor }}>Lista de Jogos Seguidos:</h2>
               <UserGameList userId={userId} />
+            </div>
+          )}
+
+          {activeSection === 'achievementsList' && (
+            <div>
+              <h2 style={{ color: user.nameColor }}>Conquistas Resgatadas</h2>
+              <UserAchievementsList userId={userId} />
             </div>
           )}
 
