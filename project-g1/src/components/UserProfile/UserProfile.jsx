@@ -20,6 +20,7 @@ import UserStats from '../UserStats/UserStats';
 import UserLevelDisplay from '../UserLevel/UserLevelDisplay';
 import HighlightedAchievements from '../HighlightedAchievements/HighlightedAchievements';
 import UserFollowButton from './UserFollowButton';
+import UserFollowingList from './UserFollowingList';
 
 const UserNavbar = ({ setActiveSection }) => {
   return (
@@ -27,6 +28,7 @@ const UserNavbar = ({ setActiveSection }) => {
       <button onClick={() => setActiveSection('stats')}>Estatísticas</button>
       <button onClick={() => setActiveSection('favorites')}>Favoritos</button>
       <button onClick={() => setActiveSection('followedGames')}>Jogos Seguidos</button>
+      <button onClick={() => setActiveSection('UserFollowingList')}>Seguindo</button>
       <button onClick={() => setActiveSection('achievementsList')}>Conquistas</button>
     </div>
   );
@@ -309,6 +311,13 @@ const UserProfile = () => {
             <div className='UserGameList-container'>
               <h2 style={{ color: user.nameColor }}>Lista de Jogos Seguidos:</h2>
               <UserGameList userId={userId} />
+            </div>
+          )}
+
+          {activeSection === 'UserFollowingList' && (
+            <div className='UserFollowingList-container'>
+              <h2 style={{ color: user.nameColor }}>Lista de usuarios Seguidos:</h2>
+              <UserFollowingList userId={userId} />
             </div>
           )}
 
