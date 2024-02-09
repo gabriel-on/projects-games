@@ -12,10 +12,12 @@ const UserFollowingList = ({ userId }) => {
     useEffect(() => {
         // Carregar a lista de usuários seguidos ao montar o componente
         loadFollowingList();
-    }, []);
+    }, [userId]); // Adicionando userId como dependência
 
     const loadFollowingList = async () => {
         try {
+            setLoading(true); // Definir loading como true enquanto a lista está sendo atualizada
+
             const db = getDatabase();
             const currentUserFollowingRef = ref(db, `users/${userId}/following`);
 

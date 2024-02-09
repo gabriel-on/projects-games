@@ -10,14 +10,14 @@ const UserFollowButton = ({ currentUserUid, targetUserId }) => {
     useEffect(() => {
         checkIfFollowing();
         loadFollowerCount();
-    }, []);
+    }, [targetUserId]); // Adicionando targetUserId como dependência
 
     const checkIfFollowing = async () => {
         try {
             const db = getDatabase();
             const currentUserFollowingRef = ref(db, `users/${currentUserUid}/following`);
 
-            const snapshot = await get(currentUserFollowingRef);  // Use get para obter uma Promise do snapshot
+            const snapshot = await get(currentUserFollowingRef);
             const followingList = snapshot.val() || {};
 
             setIsFollowing(targetUserId in followingList);
@@ -26,7 +26,6 @@ const UserFollowButton = ({ currentUserUid, targetUserId }) => {
             setError('Erro ao verificar se está seguindo');
         }
     };
-
 
     const loadFollowerCount = () => {
         try {
