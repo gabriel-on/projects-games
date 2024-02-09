@@ -66,10 +66,15 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                             <i className="icon bi bi-person" /> Membros
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to="/achievements" onClick={closeSidebar} className="active">
                         <i className="icon bi-award"></i>                            Conquistas
                         </NavLink>
+                    </li> */}
+                    <li title='Em Breve'>
+                        <button className='em-breve' disabled>
+                        <i className="icon bi-award"></i>                            Conquistas
+                        </button>
                     </li>
                     <li title='Em Breve'>
                         {/* <NavLink to="/community" onClick={closeSidebar} className="active" disabled>
