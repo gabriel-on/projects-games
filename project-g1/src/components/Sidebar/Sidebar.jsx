@@ -56,6 +56,15 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                             <i className="icon bi bi-house-door" /> Home
                         </NavLink>
                     </li>
+                    {user && (
+                        <ul className="links_list">
+                            <li>
+                                <NavLink to={`/profile/${userId}`} onClick={closeSidebar} className="active">
+                                    <i className="icon bi bi-person-circle" /> Perfil
+                                </NavLink>
+                            </li>
+                        </ul>
+                    )}
                     <li>
                         <NavLink to="/leaderboard" onClick={closeSidebar} className="active">
                             <i className="icon bi bi-bar-chart" /> Ranking
@@ -73,7 +82,7 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                     </li> */}
                     <li title='Em Breve'>
                         <button className='em-breve' disabled>
-                        <i className="icon bi-award"></i>                            Conquistas
+                            <i className="icon bi-award"></i>                            Conquistas
                         </button>
                     </li>
                     <li title='Em Breve'>
@@ -103,11 +112,6 @@ const Sidebar = ({ userId, user, isAdmin, logout, isOpen }) => {
                 </ul>
                 {user && (
                     <ul className="links_list">
-                        <li>
-                            <NavLink to={`/profile/${userId}`} onClick={closeSidebar} className="active">
-                                <i className="icon bi bi-person-circle" /> Perfil
-                            </NavLink>
-                        </li>
                         {isAdmin && (
                             <>
                                 <li>
