@@ -1,82 +1,86 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, update, onValue } from 'firebase/database';
+import { getDatabase, ref, update, onValue, get } from 'firebase/database';
 
 const UserFollowButton = ({ currentUserUid, targetUserId }) => {
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [followerCount, setFollowerCount] = useState(0);
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [followerCount, setFollowerCount] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Verificar se o usuário atual está seguindo o usuário-alvo ao montar o componente
-    checkIfFollowing();
-    // Carregar a contagem de seguidores
-    loadFollowerCount();
-  }, []);
+    useEffect(() => {
+        checkIfFollowing();
+        loadFollowerCount();
+    }, []);
 
-  const checkIfFollowing = async () => {
-    try {
-      const db = getDatabase();
-      const currentUserFollowingRef = ref(db, `users/${currentUserUid}/following`);
+    const checkIfFollowing = async () => {
+        try {
+            const db = getDatabase();
+            const currentUserFollowingRef = ref(db, `users/${currentUserUid}/following`);
 
-      const snapshot = await currentUserFollowingRef.once('value');
-      const followingList = snapshot.val() || {};
+            const snapshot = await get(currentUserFollowingRef);  // Use get para obter uma Promise do snapshot
+            const followingList = snapshot.val() || {};
 
-      setIsFollowing(targetUserId in followingList);
-    } catch (error) {
-      console.error('Erro ao verificar se está seguindo:', error.message);
-    }
-  };
+            setIsFollowing(targetUserId in followingList);
+        } catch (error) {
+            console.error('Erro ao verificar se está seguindo:', error.message);
+            setError('Erro ao verificar se está seguindo');
+        }
+    };
 
-  const loadFollowerCount = () => {
-    try {
-      const db = getDatabase();
-      const targetUserFollowersRef = ref(db, `users/${targetUserId}/followers`);
 
-      onValue(targetUserFollowersRef, (snapshot) => {
-        const followers = snapshot.val() || {};
-        const count = Object.keys(followers).length;
-        setFollowerCount(count);
-      });
-    } catch (error) {
-      console.error('Erro ao carregar contagem de seguidores:', error.message);
-    }
-  };
+    const loadFollowerCount = () => {
+        try {
+            const db = getDatabase();
+            const targetUserFollowersRef = ref(db, `users/${targetUserId}/followers`);
+            onValue(targetUserFollowersRef, (snapshot) => {
+                const followers = snapshot.val() || {};
+                const count = Object.keys(followers).length;
+                setFollowerCount(count);
+            });
+        } catch (error) {
+            console.error('Erro ao carregar contagem de seguidores:', error.message);
+            setError('Erro ao carregar contagem de seguidores');
+        }
+    };
 
-  const toggleFollow = async () => {
-    try {
-      const db = getDatabase();
+    const toggleFollow = async () => {
+        try {
+            setLoading(true);
+            const db = getDatabase();
+            const currentUserFollowingRef = ref(db, `users/${currentUserUid}/following`);
+            const targetUserFollowersRef = ref(db, `users/${targetUserId}/followers`);
 
-      // Adicionar ou remover o usuário atual dos seguidores do usuário-alvo
-      const currentUserFollowingRef = ref(db, `users/${currentUserUid}/following`);
-      const targetUserFollowersRef = ref(db, `users/${targetUserId}/followers`);
+            if (isFollowing) {
+                await update(currentUserFollowingRef, { [targetUserId]: null });
+                await update(targetUserFollowersRef, { [currentUserUid]: null });
+            } else {
+                await update(currentUserFollowingRef, { [targetUserId]: true });
+                await update(targetUserFollowersRef, { [currentUserUid]: true });
+            }
 
-      if (isFollowing) {
-        // Se estiver seguindo, deixe de seguir
-        await update(currentUserFollowingRef, { [targetUserId]: null });
-        await update(targetUserFollowersRef, { [currentUserUid]: null });
-      } else {
-        // Se não estiver seguindo, comece a seguir
-        await update(currentUserFollowingRef, { [targetUserId]: true });
-        await update(targetUserFollowersRef, { [currentUserUid]: true });
-      }
+            setIsFollowing(!isFollowing);
+            loadFollowerCount();
+        } catch (error) {
+            console.error('Erro ao seguir/deixar de seguir usuário:', error.message);
+            setError('Erro ao seguir/deixar de seguir usuário');
+        } finally {
+            setLoading(false);
+        }
+    };
 
-      // Atualizar o estado do botão
-      setIsFollowing(!isFollowing);
-
-      // Atualizar a contagem de seguidores após a ação
-      loadFollowerCount();
-    } catch (error) {
-      console.error('Erro ao seguir/deixar de seguir usuário:', error.message);
-    }
-  };
-
-  return (
-    <div>
-      <button onClick={toggleFollow} disabled={currentUserUid === targetUserId}>
-        {isFollowing ? 'Deixar de Seguir' : 'Seguir'}
-      </button>
-      <span>{followerCount} Seguidores</span>
-    </div>
-  );
+    return (
+        <div>
+            <button
+                className={isFollowing ? 'followed' : ''}
+                onClick={toggleFollow}
+                disabled={loading || currentUserUid === targetUserId}
+            >
+                {loading ? 'Aguarde...' : isFollowing ? 'Deixar de Seguir' : 'Seguir'}
+            </button>
+            <span>{followerCount} Seguidores</span>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+        </div>
+    );
 };
 
 export default UserFollowButton;
