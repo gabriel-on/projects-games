@@ -19,6 +19,7 @@ import FavoriteGamesList from '../FavoriteGamesList/FavoriteGamesList';
 import UserStats from '../UserStats/UserStats';
 import UserLevelDisplay from '../UserLevel/UserLevelDisplay';
 import HighlightedAchievements from '../HighlightedAchievements/HighlightedAchievements';
+import UserFollowButton from './UserFollowButton';
 
 const UserNavbar = ({ setActiveSection }) => {
   return (
@@ -221,6 +222,11 @@ const UserProfile = () => {
                 <p>
                   <span style={{ color: user.nameColor }}>{user.displayName}</span>
                 </p>
+                <UserFollowButton
+                  currentUserUid={currentUser.uid}
+                  targetUserId={userId}
+                  isCurrentUserProfile={currentUser.uid === userId}
+                />
                 <p>
                   Membro Desde: {joinedAt ? new Date(joinedAt * 1000).toLocaleDateString() : 'Carregando...'}
                 </p>
