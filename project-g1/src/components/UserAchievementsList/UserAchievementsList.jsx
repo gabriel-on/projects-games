@@ -31,6 +31,32 @@ const UserAchievementsList = ({ userId }) => {
         }
     };
 
+    const removeHighlightFromDatabase = async (achievementId) => {
+        try {
+            const db = getDatabase();
+            const highlightedAchievementsRef = ref(db, `highlightedAchievements/${userId}`);
+
+            // Encontrar a chave do nó correspondente à conquista destacada para removê-la
+            const snapshot = await get(highlightedAchievementsRef);
+            const data = snapshot.val();
+            const highlightedAchievementKey = Object.keys(data).find(key => data[key].id === achievementId);
+
+            if (highlightedAchievementKey) {
+                const specificHighlightedAchievementRef = ref(db, `highlightedAchievements/${userId}/${highlightedAchievementKey}`);
+                await set(specificHighlightedAchievementRef, null);
+
+                const userHighlightedAchievementsRef = ref(db, `userHighlightedAchievements/${userId}/${achievementId}`);
+                await set(userHighlightedAchievementsRef, false);
+
+                console.log('Conquista removida com sucesso!');
+            } else {
+                console.log('Conquista não encontrada entre as destacadas.');
+            }
+        } catch (error) {
+            console.error('Erro ao remover conquista:', error.message);
+        }
+    };
+
     const fetchHighlightedAchievementsFromDatabase = async () => {
         try {
             const db = getDatabase();
@@ -44,42 +70,48 @@ const UserAchievementsList = ({ userId }) => {
         }
     };
 
-    const highlightAchievement = async (achievementId) => {
+    const toggleHighlightAchievement = async (achievementId) => {
         try {
             if (!currentUser) {
                 console.log('Usuário não autenticado.');
                 return;
             }
 
-            if (highlightedAchievementsMap[achievementId]) {
-                console.log('Conquista já destacada anteriormente.');
-                return;
-            }
-
             const db = getDatabase();
-            const highlightedAchievementsRef = ref(db, `highlightedAchievements/${userId}`);
+            const userHighlightedAchievementsRef = ref(db, `userHighlightedAchievements/${userId}/${achievementId}`);
 
-            const highlightedAchievementData = userAchievements.find(achievement => achievement.id === achievementId);
+            if (highlightedAchievementsMap[achievementId]) {
+                // Se já estiver destacada, remova a conquista e atualize para false
+                await removeHighlightFromDatabase(achievementId);
+            } else {
+                // Se não estiver destacada, destaque a conquista e atualize para true
+                const highlightedAchievementsRef = ref(db, `highlightedAchievements/${userId}`);
 
-            if (!highlightedAchievementData) {
-                console.log('Conquista não encontrada.');
-                return;
+                const highlightedAchievementData = userAchievements.find(achievement => achievement.id === achievementId);
+
+                if (!highlightedAchievementData) {
+                    console.log('Conquista não encontrada.');
+                    return;
+                }
+
+                const newHighlightedAchievementRef = push(highlightedAchievementsRef);
+                await set(newHighlightedAchievementRef, highlightedAchievementData);
+                await set(userHighlightedAchievementsRef, true);
             }
 
-            const newHighlightedAchievementRef = push(highlightedAchievementsRef);
-            await set(newHighlightedAchievementRef, highlightedAchievementData);
-
-            setHighlightedAchievement(highlightedAchievementData);
+            // Atualize o estado e o mapa de conquistas destacadas
+            setHighlightedAchievement(highlightedAchievementData => {
+                return highlightedAchievementData ? null : highlightedAchievementData;
+            });
 
             setHighlightedAchievementsMap(prevMap => ({
                 ...prevMap,
-                [achievementId]: true,
+                [achievementId]: !prevMap[achievementId],
             }));
 
-            await saveHighlightToDatabase(achievementId);
-            console.log('Conquista destacada com sucesso!');
+            console.log('Operação realizada com sucesso!');
         } catch (error) {
-            console.error('Erro ao destacar conquista:', error.message);
+            console.error('Erro ao realizar a operação:', error.message);
         }
     };
 
@@ -135,10 +167,9 @@ const UserAchievementsList = ({ userId }) => {
                             <p>Descrição: {achievement.description}</p>
                             {currentUser && currentUser.uid === userId && (
                                 <button
-                                    onClick={() => highlightAchievement(achievement.id)}
-                                    disabled={highlightedAchievementsMap[achievement.id]}
+                                    onClick={() => toggleHighlightAchievement(achievement.id)}
                                 >
-                                    Destacar Conquista
+                                    {highlightedAchievementsMap[achievement.id] ? 'Remover Conquista' : 'Destacar Conquista'}
                                 </button>
                             )}
                         </li>
