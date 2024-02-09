@@ -144,3 +144,20 @@ ul {
 .user-navbar button:hover {
     background-color: #ddd;
 }
+
+.user-following-container {
+    display: flex;
+}
+
+.user-following-container > ul li a {
+    color: orangered;
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.user-following-container > ul li >a img {
+    aspect-ratio: 4/4;
+    object-fit: cover;
+    width: 40px;
+}
