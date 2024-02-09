@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, update, onValue, get } from 'firebase/database';
+import { getDatabase, ref, update, get } from 'firebase/database';
 
 const UserFollowButton = ({ currentUserUid, targetUserId }) => {
     const [isFollowing, setIsFollowing] = useState(false);
@@ -10,7 +10,7 @@ const UserFollowButton = ({ currentUserUid, targetUserId }) => {
     useEffect(() => {
         checkIfFollowing();
         loadFollowerCount();
-    }, [targetUserId]); // Adicionando targetUserId como dependência
+    }, [targetUserId]);
 
     const checkIfFollowing = async () => {
         try {
@@ -27,15 +27,16 @@ const UserFollowButton = ({ currentUserUid, targetUserId }) => {
         }
     };
 
-    const loadFollowerCount = () => {
+    const loadFollowerCount = async () => {
         try {
             const db = getDatabase();
             const targetUserFollowersRef = ref(db, `users/${targetUserId}/followers`);
-            onValue(targetUserFollowersRef, (snapshot) => {
-                const followers = snapshot.val() || {};
-                const count = Object.keys(followers).length;
-                setFollowerCount(count);
-            });
+
+            const snapshot = await get(targetUserFollowersRef);
+            const followers = snapshot.val() || {};
+            const count = Object.keys(followers).length;
+
+            setFollowerCount(count);
         } catch (error) {
             console.error('Erro ao carregar contagem de seguidores:', error.message);
             setError('Erro ao carregar contagem de seguidores');
@@ -57,8 +58,8 @@ const UserFollowButton = ({ currentUserUid, targetUserId }) => {
                 await update(targetUserFollowersRef, { [currentUserUid]: true });
             }
 
-            setIsFollowing(!isFollowing);
-            loadFollowerCount();
+            // Aguarde as operações assíncronas serem concluídas antes de atualizar o estado
+            await Promise.all([checkIfFollowing(), loadFollowerCount()]);
         } catch (error) {
             console.error('Erro ao seguir/deixar de seguir usuário:', error.message);
             setError('Erro ao seguir/deixar de seguir usuário');
