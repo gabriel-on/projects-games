@@ -32,6 +32,9 @@ const Navbar = ({ userId, toggleTheme, isDarkMode }) => {
             </NavLink>
           </li>
           <li>
+            <NavLink to={"/advanced-search"}>Busca Avançada</NavLink>
+          </li>
+          <li>
             <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
           </li>
           <li>

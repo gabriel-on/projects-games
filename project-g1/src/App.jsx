@@ -45,6 +45,7 @@ import FullActivityView from './components/CommunityActivity/FullActivityView.js
 import ActivityDetails from './components/CommunityActivity/ActivityDetails.jsx';
 import AchievementsList from './components/AchievementsList/AchievementsList.jsx';
 import Achievement from './components/Achievements/Achievement.jsx';
+import AdvancedSearch from './components/AdvancedSearch/AdvancedSearch.jsx';
 
 function App() {
   const [user, setUser] = useState(undefined);
@@ -159,6 +160,8 @@ function App() {
                   <Route path='/achievement/:achievementId' element={<Achievement />} />
 
                   <Route path='/search' element={<SearchBar />} />
+
+                  <Route path='/advanced-search' element={<AdvancedSearch/>}/>
 
                   <Route path='/all-games' element={<AllGames />} />
 

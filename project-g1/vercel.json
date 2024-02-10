@@ -29,6 +29,10 @@
             "destination": "/index.html"
         },
         {
+            "source": "/advanced-search",
+            "destination": "/index.html"
+        },
+        {
             "source": "/all-games",
             "destination": "/index.html"
         },
