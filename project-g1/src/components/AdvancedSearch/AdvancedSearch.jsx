@@ -17,6 +17,7 @@ const AdvancedSearch = () => {
     const [developers, setDevelopers] = useState([]);
     const [publishers, setPublishers] = useState([]);
     const [ratings, setRatings] = useState([]);
+    const [sortBy, setSortBy] = useState(''); // Novo estado para armazenar a opção de ordenação
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -201,7 +202,7 @@ const AdvancedSearch = () => {
             if (snapshot.exists()) {
                 const gamesData = snapshot.val();
 
-                const filteredGames = Object.keys(gamesData)
+                let filteredGames = Object.keys(gamesData)
                     .filter(
                         (key) =>
                             (!selectedGenre ||
@@ -213,6 +214,15 @@ const AdvancedSearch = () => {
                             (!selectedRating || gamesData[key].rating === selectedRating)
                     )
                     .map((key) => ({ ...gamesData[key], id: key }));
+
+                // Ordenar os jogos de acordo com a opção selecionada
+                if (sortBy === 'name') {
+                    filteredGames = filteredGames.sort((a, b) => a.name.localeCompare(b.name));
+                } else if (sortBy === 'releaseDate') {
+                    filteredGames = filteredGames.sort((a, b) => a.releaseDate.localeCompare(b.releaseDate));
+                } else if (sortBy === 'rating') {
+                    filteredGames = filteredGames.sort((a, b) => b.rating - a.rating);
+                }
 
                 setGames(filteredGames);
 
@@ -249,11 +259,13 @@ const AdvancedSearch = () => {
                 selectedDeveloper={selectedDeveloper}
                 selectedPublisher={selectedPublisher}
                 selectedRating={selectedRating}
+                selectedSort={sortBy}
                 onGenreChange={(e) => setSelectedGenre(e.target.value)}
                 onYearChange={(e) => setSelectedYear(e.target.value)}
                 onDeveloperChange={(e) => setSelectedDeveloper(e.target.value)}
                 onPublisherChange={(e) => setSelectedPublisher(e.target.value)}
                 onRatingChange={(e) => setSelectedRating(e.target.value)}
+                onSortChange={(e) => setSortBy(e.target.value)}
             />
 
             <button onClick={handleSearch}>Pesquisar</button>
