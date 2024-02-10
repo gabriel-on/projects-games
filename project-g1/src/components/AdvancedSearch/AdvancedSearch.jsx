@@ -6,10 +6,12 @@ const AdvancedSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
+  const [selectedDeveloper, setSelectedDeveloper] = useState(''); // Novo estado para desenvolvedores
   const [games, setGames] = useState([]);
   const [genreGamesCount, setGenreGamesCount] = useState({});
   const [genres, setGenres] = useState([]);
-  const [years, setYears] = useState([]); // Estado para armazenar os anos disponíveis
+  const [years, setYears] = useState([]);
+  const [developers, setDevelopers] = useState([]); // Novo estado para desenvolvedores
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
@@ -33,6 +35,7 @@ const AdvancedSearch = () => {
       }
     };
 
+    // Função para buscar os anos disponíveis
     const fetchYears = async () => {
       const database = getDatabase();
       const gamesRef = ref(database, 'games');
@@ -61,8 +64,38 @@ const AdvancedSearch = () => {
       }
     };
 
+    // Função para buscar os desenvolvedores disponíveis
+    const fetchDevelopers = async () => {
+      const database = getDatabase();
+      const gamesRef = ref(database, 'games');
+
+      try {
+        const snapshot = await get(gamesRef);
+
+        if (snapshot.exists()) {
+          const gamesData = snapshot.val();
+
+          // Obter desenvolvedores únicos dos dados dos jogos
+          const uniqueDevelopers = Array.from(
+            new Set(
+              Object.keys(gamesData).map(
+                (key) => gamesData[key].developers
+              ).flat()
+            )
+          );
+
+          setDevelopers(uniqueDevelopers);
+        } else {
+          console.error('Dados de jogos não disponíveis para obter desenvolvedores.');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar jogos para obter desenvolvedores:', error);
+      }
+    };
+
     fetchGenres();
     fetchYears();
+    fetchDevelopers(); // Chama a função para buscar os desenvolvedores
   }, []);
 
   const fetchGames = async () => {
@@ -75,14 +108,15 @@ const AdvancedSearch = () => {
       if (snapshot.exists()) {
         const gamesData = snapshot.val();
 
-        // Filtrar jogos pelo gênero selecionado e ano
+        // Filtrar jogos pelo gênero selecionado, ano e desenvolvedor
         const filteredGames = Object.keys(gamesData)
           .filter(
             (key) =>
               (!selectedGenre ||
                 (gamesData[key].genres &&
                   gamesData[key].genres.includes(selectedGenre))) &&
-              (!selectedYear || gamesData[key].releaseDate.startsWith(selectedYear))
+              (!selectedYear || gamesData[key].releaseDate.startsWith(selectedYear)) &&
+              (!selectedDeveloper || gamesData[key].developers.includes(selectedDeveloper))
           )
           .map((key) => ({ ...gamesData[key], id: key }));
 
@@ -140,6 +174,21 @@ const AdvancedSearch = () => {
         {years.map((year, index) => (
           <option key={index} value={year}>
             {year}
+          </option>
+        ))}
+      </select>
+
+      {/* Dropdown de seleção para desenvolvedores */}
+      <select
+        value={selectedDeveloper}
+        onChange={(e) => setSelectedDeveloper(e.target.value)}
+      >
+        <option key="" value="">
+          Todos os Desenvolvedores
+        </option>
+        {developers.map((developer, index) => (
+          <option key={index} value={developer}>
+            {developer}
           </option>
         ))}
       </select>
