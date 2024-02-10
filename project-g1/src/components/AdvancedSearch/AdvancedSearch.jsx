@@ -7,13 +7,15 @@ const AdvancedSearch = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedDeveloper, setSelectedDeveloper] = useState('');
-  const [selectedPublisher, setSelectedPublisher] = useState(''); // Novo estado para publishers
+  const [selectedPublisher, setSelectedPublisher] = useState('');
+  const [selectedRating, setSelectedRating] = useState(''); // Novo estado para rating
   const [games, setGames] = useState([]);
   const [genreGamesCount, setGenreGamesCount] = useState({});
   const [genres, setGenres] = useState([]);
   const [years, setYears] = useState([]);
   const [developers, setDevelopers] = useState([]);
-  const [publishers, setPublishers] = useState([]); // Novo estado para publishers
+  const [publishers, setPublishers] = useState([]);
+  const [ratings, setRatings] = useState([]);
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
@@ -90,7 +92,6 @@ const AdvancedSearch = () => {
       }
     };
 
-    // Função para buscar os publishers disponíveis
     const fetchPublishers = async () => {
       const database = getDatabase();
       const gamesRef = ref(database, 'games');
@@ -118,10 +119,39 @@ const AdvancedSearch = () => {
       }
     };
 
+    // Função para buscar as classificações disponíveis
+    const fetchRatings = async () => {
+      const database = getDatabase();
+      const gamesRef = ref(database, 'games');
+
+      try {
+        const snapshot = await get(gamesRef);
+
+        if (snapshot.exists()) {
+          const gamesData = snapshot.val();
+
+          const uniqueRatings = Array.from(
+            new Set(
+              Object.keys(gamesData).map(
+                (key) => gamesData[key].rating
+              )
+            )
+          ).filter(Boolean);
+
+          setRatings(uniqueRatings);
+        } else {
+          console.error('Dados de jogos não disponíveis para obter classificações.');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar jogos para obter classificações:', error);
+      }
+    };
+
     fetchGenres();
     fetchYears();
     fetchDevelopers();
-    fetchPublishers(); // Chama a função para buscar os publishers
+    fetchPublishers();
+    fetchRatings(); // Chama a função para buscar as classificações
   }, []);
 
   const fetchGames = async () => {
@@ -142,7 +172,8 @@ const AdvancedSearch = () => {
                   gamesData[key].genres.includes(selectedGenre))) &&
               (!selectedYear || gamesData[key].releaseDate.startsWith(selectedYear)) &&
               (!selectedDeveloper || gamesData[key].developers.includes(selectedDeveloper)) &&
-              (!selectedPublisher || gamesData[key].publishers.includes(selectedPublisher))
+              (!selectedPublisher || gamesData[key].publishers.includes(selectedPublisher)) &&
+              (!selectedRating || gamesData[key].rating === selectedRating)
           )
           .map((key) => ({ ...gamesData[key], id: key }));
 
@@ -213,7 +244,6 @@ const AdvancedSearch = () => {
         ))}
       </select>
 
-      {/* Dropdown de seleção para publishers */}
       <select
         value={selectedPublisher}
         onChange={(e) => setSelectedPublisher(e.target.value)}
@@ -224,6 +254,21 @@ const AdvancedSearch = () => {
         {publishers.map((publisher, index) => (
           <option key={index} value={publisher}>
             {publisher}
+          </option>
+        ))}
+      </select>
+
+      {/* Dropdown de seleção para rating */}
+      <select
+        value={selectedRating}
+        onChange={(e) => setSelectedRating(e.target.value)}
+      >
+        <option key="" value="">
+          Todas as Classificações
+        </option>
+        {ratings.map((rating, index) => (
+          <option key={index} value={rating}>
+            {rating}
           </option>
         ))}
       </select>
