@@ -259,7 +259,7 @@ const AdvancedSearch = () => {
             <button onClick={handleSearch}>Pesquisar</button>
 
             <div>
-                <h3>Quantidade de Jogos por Gênero:</h3>
+                <h3>Quantidade de Jogos: {games.length}</h3>
                 <ul>
                     {Object.entries(genreGamesCount).map(([genre, count]) => (
                         <li key={genre}>{`${genre}: ${count}`}</li>

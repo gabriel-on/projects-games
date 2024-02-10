@@ -70,7 +70,7 @@ const SearchFilters = ({
         onChange={onPublisherChange}
       >
         <option key="" value="">
-          Todos os Publishers
+          Todos as Distribuidoras
         </option>
         {publishers.map((publisher, index) => (
           <option key={index} value={publisher}>
