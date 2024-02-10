@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdvancedSearchResults from './AdvancedSearchResults';
 import { getDatabase, ref, get } from 'firebase/database';
+import SearchFilters from './SearchFilters';
 
 const AdvancedSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -230,76 +231,23 @@ const AdvancedSearch = () => {
 
   return (
     <div>
-      <select
-        value={selectedGenre}
-        onChange={(e) => setSelectedGenre(e.target.value)}
-      >
-        <option key="" value="">
-          Todos os Gêneros
-        </option>
-        {genres.map((genre, index) => (
-          <option key={index} value={genre}>
-            {genre}
-          </option>
-        ))}
-      </select>
-
-      <select
-        value={selectedYear}
-        onChange={(e) => setSelectedYear(e.target.value)}
-      >
-        <option key="" value="">
-          Todos os Anos
-        </option>
-        {years.map((year, index) => (
-          <option key={index} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
-
-      <select
-        value={selectedDeveloper}
-        onChange={(e) => setSelectedDeveloper(e.target.value)}
-      >
-        <option key="" value="">
-          Todos os Desenvolvedores
-        </option>
-        {developers.map((developer, index) => (
-          <option key={index} value={developer}>
-            {developer}
-          </option>
-        ))}
-      </select>
-
-      <select
-        value={selectedPublisher}
-        onChange={(e) => setSelectedPublisher(e.target.value)}
-      >
-        <option key="" value="">
-          Todos os Publishers
-        </option>
-        {publishers.map((publisher, index) => (
-          <option key={index} value={publisher}>
-            {publisher}
-          </option>
-        ))}
-      </select>
-
-      {/* Dropdown de seleção para rating */}
-      <select
-        value={selectedRating}
-        onChange={(e) => setSelectedRating(e.target.value)}
-      >
-        <option key="" value="">
-          Todas as Classificações
-        </option>
-        {ratings.map((rating, index) => (
-          <option key={index} value={rating}>
-            {rating}
-          </option>
-        ))}
-      </select>
+      <SearchFilters
+        genres={genres}
+        years={years}
+        developers={developers}
+        publishers={publishers}
+        ratings={ratings}
+        selectedGenre={selectedGenre}
+        selectedYear={selectedYear}
+        selectedDeveloper={selectedDeveloper}
+        selectedPublisher={selectedPublisher}
+        selectedRating={selectedRating}
+        onGenreChange={(e) => setSelectedGenre(e.target.value)}
+        onYearChange={(e) => setSelectedYear(e.target.value)}
+        onDeveloperChange={(e) => setSelectedDeveloper(e.target.value)}
+        onPublisherChange={(e) => setSelectedPublisher(e.target.value)}
+        onRatingChange={(e) => setSelectedRating(e.target.value)}
+      />
 
       <button onClick={handleSearch}>Pesquisar</button>
 
