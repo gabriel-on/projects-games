@@ -85,7 +85,7 @@ const SearchFilters = ({
         onChange={onRatingChange}
       >
         <option key="" value="">
-          Todas as Classificações
+          Todas as Idades
         </option>
         {ratings.map((rating, index) => (
           <option key={index} value={rating}>
