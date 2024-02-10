@@ -5,9 +5,11 @@ import { getDatabase, ref, get } from 'firebase/database';
 const AdvancedSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
   const [games, setGames] = useState([]);
   const [genreGamesCount, setGenreGamesCount] = useState({});
   const [genres, setGenres] = useState([]);
+  const [years, setYears] = useState([]); // Estado para armazenar os anos disponíveis
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
@@ -31,7 +33,36 @@ const AdvancedSearch = () => {
       }
     };
 
+    const fetchYears = async () => {
+      const database = getDatabase();
+      const gamesRef = ref(database, 'games');
+
+      try {
+        const snapshot = await get(gamesRef);
+
+        if (snapshot.exists()) {
+          const gamesData = snapshot.val();
+
+          // Obter anos únicos dos dados dos jogos
+          const uniqueYears = Array.from(
+            new Set(
+              Object.keys(gamesData).map(
+                (key) => gamesData[key].releaseDate.substring(0, 4)
+              )
+            )
+          );
+
+          setYears(uniqueYears);
+        } else {
+          console.error('Dados de jogos não disponíveis para obter anos.');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar jogos para obter anos:', error);
+      }
+    };
+
     fetchGenres();
+    fetchYears();
   }, []);
 
   const fetchGames = async () => {
@@ -44,13 +75,14 @@ const AdvancedSearch = () => {
       if (snapshot.exists()) {
         const gamesData = snapshot.val();
 
-        // Filtrar jogos pelo gênero selecionado
+        // Filtrar jogos pelo gênero selecionado e ano
         const filteredGames = Object.keys(gamesData)
           .filter(
             (key) =>
-              !selectedGenre ||
-              (gamesData[key].genres &&
-                gamesData[key].genres.includes(selectedGenre))
+              (!selectedGenre ||
+                (gamesData[key].genres &&
+                  gamesData[key].genres.includes(selectedGenre))) &&
+              (!selectedYear || gamesData[key].releaseDate.startsWith(selectedYear))
           )
           .map((key) => ({ ...gamesData[key], id: key }));
 
@@ -74,6 +106,8 @@ const AdvancedSearch = () => {
   };
 
   const handleSearch = () => {
+    // Realizar qualquer lógica de pesquisa adicional se necessário
+    // Por enquanto, isso aciona a função fetchGames
     fetchGames();
     setShowResults(true); // Exibir os resultados após a pesquisa
   };
@@ -91,6 +125,21 @@ const AdvancedSearch = () => {
         {genres.map((genre, index) => (
           <option key={index} value={genre}>
             {genre}
+          </option>
+        ))}
+      </select>
+
+      {/* Dropdown de seleção para anos */}
+      <select
+        value={selectedYear}
+        onChange={(e) => setSelectedYear(e.target.value)}
+      >
+        <option key="" value="">
+          Todos os Anos
+        </option>
+        {years.map((year, index) => (
+          <option key={index} value={year}>
+            {year}
           </option>
         ))}
       </select>
