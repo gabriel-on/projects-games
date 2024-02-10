@@ -8,7 +8,7 @@ const AdvancedSearch = () => {
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedDeveloper, setSelectedDeveloper] = useState('');
   const [selectedPublisher, setSelectedPublisher] = useState('');
-  const [selectedRating, setSelectedRating] = useState(''); // Novo estado para rating
+  const [selectedRating, setSelectedRating] = useState('');
   const [games, setGames] = useState([]);
   const [genreGamesCount, setGenreGamesCount] = useState({});
   const [genres, setGenres] = useState([]);
@@ -16,7 +16,6 @@ const AdvancedSearch = () => {
   const [developers, setDevelopers] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const [ratings, setRatings] = useState([]);
-  const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -119,7 +118,6 @@ const AdvancedSearch = () => {
       }
     };
 
-    // Função para buscar as classificações disponíveis
     const fetchRatings = async () => {
       const database = getDatabase();
       const gamesRef = ref(database, 'games');
@@ -147,11 +145,42 @@ const AdvancedSearch = () => {
       }
     };
 
+    // Função para buscar os jogos ao iniciar a página
+    const fetchAllGames = async () => {
+      const database = getDatabase();
+      const gamesRef = ref(database, 'games');
+
+      try {
+        const snapshot = await get(gamesRef);
+
+        if (snapshot.exists()) {
+          const gamesData = snapshot.val();
+          const allGames = Object.keys(gamesData).map((key) => ({ ...gamesData[key], id: key }));
+          
+          setGames(allGames);
+
+          const genreCounts = allGames.reduce((counts, game) => {
+            game.genres.forEach((genre) => {
+              counts[genre] = (counts[genre] || 0) + 1;
+            });
+            return counts;
+          }, {});
+
+          setGenreGamesCount(genreCounts);
+        } else {
+          console.error('Dados de jogos não disponíveis.');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar todos os jogos:', error);
+      }
+    };
+
     fetchGenres();
     fetchYears();
     fetchDevelopers();
     fetchPublishers();
-    fetchRatings(); // Chama a função para buscar as classificações
+    fetchRatings();
+    fetchAllGames(); // Chama a função para buscar todos os jogos ao iniciar a página
   }, []);
 
   const fetchGames = async () => {
@@ -197,7 +226,6 @@ const AdvancedSearch = () => {
 
   const handleSearch = () => {
     fetchGames();
-    setShowResults(true);
   };
 
   return (
@@ -275,7 +303,6 @@ const AdvancedSearch = () => {
 
       <button onClick={handleSearch}>Pesquisar</button>
 
-      {showResults && (
         <div>
           <h3>Quantidade de Jogos por Gênero:</h3>
           <ul>
@@ -286,7 +313,6 @@ const AdvancedSearch = () => {
 
           <AdvancedSearchResults results={games} />
         </div>
-      )}
     </div>
   );
 };
