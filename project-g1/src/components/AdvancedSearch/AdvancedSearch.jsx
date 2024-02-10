@@ -180,7 +180,7 @@ const AdvancedSearch = () => {
     fetchDevelopers();
     fetchPublishers();
     fetchRatings();
-    fetchAllGames(); // Chama a função para buscar todos os jogos ao iniciar a página
+    fetchAllGames();
   }, []);
 
   const fetchGames = async () => {
