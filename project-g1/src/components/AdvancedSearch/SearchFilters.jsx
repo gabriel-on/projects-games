@@ -19,7 +19,11 @@ const SearchFilters = ({
 }) => {
   return (
     <div>
-      <select value={selectedGenre} onChange={onGenreChange}>
+      {/* Dropdown de seleção para gêneros */}
+      <select
+        value={selectedGenre}
+        onChange={onGenreChange}
+      >
         <option key="" value="">
           Todos os Gêneros
         </option>
@@ -30,7 +34,11 @@ const SearchFilters = ({
         ))}
       </select>
 
-      <select value={selectedYear} onChange={onYearChange}>
+      {/* Dropdown de seleção para anos */}
+      <select
+        value={selectedYear}
+        onChange={onYearChange}
+      >
         <option key="" value="">
           Todos os Anos
         </option>
@@ -41,7 +49,11 @@ const SearchFilters = ({
         ))}
       </select>
 
-      <select value={selectedDeveloper} onChange={onDeveloperChange}>
+      {/* Dropdown de seleção para desenvolvedores */}
+      <select
+        value={selectedDeveloper}
+        onChange={onDeveloperChange}
+      >
         <option key="" value="">
           Todos os Desenvolvedores
         </option>
@@ -52,7 +64,11 @@ const SearchFilters = ({
         ))}
       </select>
 
-      <select value={selectedPublisher} onChange={onPublisherChange}>
+      {/* Dropdown de seleção para publishers */}
+      <select
+        value={selectedPublisher}
+        onChange={onPublisherChange}
+      >
         <option key="" value="">
           Todos os Publishers
         </option>
@@ -63,8 +79,11 @@ const SearchFilters = ({
         ))}
       </select>
 
-      {/* Dropdown de seleção para rating */}
-      <select value={selectedRating} onChange={onRatingChange}>
+      {/* Dropdown de seleção para classificações */}
+      <select
+        value={selectedRating}
+        onChange={onRatingChange}
+      >
         <option key="" value="">
           Todas as Classificações
         </option>
