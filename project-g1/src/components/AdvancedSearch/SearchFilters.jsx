@@ -17,89 +17,99 @@ const SearchFilters = ({
   onPublisherChange,
   onRatingChange,
   selectedSort,
-  onSortChange
+  onSortChange,
+  searchTerm,
+  onSearchChange
 }) => {
   return (
     <div className="search-filters">
-      <div className="filter-group">
-        <label>Gênero:</label>
-        <select value={selectedGenre} onChange={onGenreChange}>
-          <option key="" value="">
-            Todos os Gêneros
-          </option>
-          {genres.map((genre, index) => (
-            <option key={index} value={genre}>
-              {genre}
-            </option>
-          ))}
-        </select>
+      <div className="search-filters-container">
+        <label>Pesquisar:</label>
+        <input type="text" value={searchTerm} 
+        onChange={(e) => onSearchChange(e.target.value)} 
+        />
       </div>
-
-      <div className="filter-group">
-        <label>Ano:</label>
-        <select value={selectedYear} onChange={onYearChange}>
-          <option key="" value="">
-            Todos os Anos
-          </option>
-          {years.map((year, index) => (
-            <option key={index} value={year}>
-              {year}
+      <div className='search-filters'>
+        <div className="filter-group">
+          <label>Gênero:</label>
+          <select value={selectedGenre} onChange={onGenreChange}>
+            <option key="" value="">
+              Todos os Gêneros
             </option>
-          ))}
-        </select>
-      </div>
+            {genres.map((genre, index) => (
+              <option key={index} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="filter-group">
-        <label>Desenvolvedor:</label>
-        <select value={selectedDeveloper} onChange={onDeveloperChange}>
-          <option key="" value="">
-            Todos os Desenvolvedores
-          </option>
-          {developers.map((developer, index) => (
-            <option key={index} value={developer}>
-              {developer}
+        <div className="filter-group">
+          <label>Ano:</label>
+          <select value={selectedYear} onChange={onYearChange}>
+            <option key="" value="">
+              Todos os Anos
             </option>
-          ))}
-        </select>
-      </div>
+            {years.map((year, index) => (
+              <option key={index} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="filter-group">
-        <label>Distribuidora:</label>
-        <select value={selectedPublisher} onChange={onPublisherChange}>
-          <option key="" value="">
-            Todos as Distribuidoras
-          </option>
-          {publishers.map((publisher, index) => (
-            <option key={index} value={publisher}>
-              {publisher}
+        <div className="filter-group">
+          <label>Desenvolvedor:</label>
+          <select value={selectedDeveloper} onChange={onDeveloperChange}>
+            <option key="" value="">
+              Todos os Desenvolvedores
             </option>
-          ))}
-        </select>
-      </div>
+            {developers.map((developer, index) => (
+              <option key={index} value={developer}>
+                {developer}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="filter-group">
-        <label>Idade:</label>
-        <select value={selectedRating} onChange={onRatingChange}>
-          <option key="" value="">
-            Todas as Idades
-          </option>
-          {ratings.map((rating, index) => (
-            <option key={index} value={rating}>
-              {rating}
+        <div className="filter-group">
+          <label>Distribuidora:</label>
+          <select value={selectedPublisher} onChange={onPublisherChange}>
+            <option key="" value="">
+              Todos as Distribuidoras
             </option>
-          ))}
-        </select>
-      </div>
+            {publishers.map((publisher, index) => (
+              <option key={index} value={publisher}>
+                {publisher}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="filter-group">
-        <label>Ordenar por:</label>
-        <select value={selectedSort} onChange={onSortChange}>
-          <option value="">Sem ordenação</option>
-          <option value="name">Nome</option>
-          <option value="releaseDate">Data de Lançamento</option>
-          <option value="rating">Idade</option>
-          <option value="createdAt">Adicionado</option>
-        </select>
+        <div className="filter-group">
+          <label>Idade:</label>
+          <select value={selectedRating} onChange={onRatingChange}>
+            <option key="" value="">
+              Todas as Idades
+            </option>
+            {ratings.map((rating, index) => (
+              <option key={index} value={rating}>
+                {rating}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="filter-group">
+          <label>Ordenar por:</label>
+          <select value={selectedSort} onChange={onSortChange}>
+            <option value="">Sem ordenação</option>
+            <option value="name">Nome</option>
+            <option value="releaseDate">Data de Lançamento</option>
+            <option value="rating">Idade</option>
+            <option value="createdAt">Adicionado</option>
+          </select>
+        </div>
       </div>
     </div>
   );

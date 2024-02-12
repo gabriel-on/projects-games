@@ -213,6 +213,9 @@ const AdvancedSearch = () => {
                             (!selectedDeveloper || gamesData[key].developers.includes(selectedDeveloper)) &&
                             (!selectedPublisher || gamesData[key].publishers.includes(selectedPublisher)) &&
                             (!selectedRating || gamesData[key].rating === selectedRating)
+                            &&
+                            (searchTerm === '' ||
+                                (gamesData[key].title && gamesData[key].title.toLowerCase().includes(searchTerm.toLowerCase())))
                     )
                     .map((key) => ({ ...gamesData[key], id: key }));
 
@@ -287,6 +290,10 @@ const AdvancedSearch = () => {
         fetchGames();
     };
 
+    const onSearchChange = (value) => {
+        setSearchTerm(value);
+      };      
+
     return (
         <div className='Advanced-Search-container'>
             <SearchFilters
@@ -309,6 +316,8 @@ const AdvancedSearch = () => {
                 onRatingChange={(e) => setSelectedRating(e.target.value)}
                 onSortChange={(e) => setSortBy(e.target.value)}
                 onCreatedAtChange={(e) => setCreatedAt(e.target.value)}
+                searchTerm={searchTerm}
+                onSearchChange={onSearchChange}
             />
 
             <div className='btn-filters-container'>
