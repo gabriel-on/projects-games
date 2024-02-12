@@ -78,7 +78,7 @@ const SearchFilters = ({
       </div>
 
       <div className="filter-group">
-        <label>Classificação:</label>
+        <label>Idade:</label>
         <select value={selectedRating} onChange={onRatingChange}>
           <option key="" value="">
             Todas as Idades

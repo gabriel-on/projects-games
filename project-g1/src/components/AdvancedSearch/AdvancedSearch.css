@@ -1,3 +1,54 @@
+/* ESCOPO PRINCIPAL */
+.Advanced-Search-container {
+    padding-top: 50px;
+    width: 1200px;
+    margin: auto;
+}
+
+/* FILTROS */
+.search-filters {
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.filter-group {
+    width: 400px;
+    display: flex;
+}
+
+.filter-group>label {
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+}
+
+.filter-group>select {
+    width: 100%;
+    display: flex;
+    padding: 10px;
+}
+
+/* BOTÕES */
+.btn-filters-container {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.btn-filters {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: .7em;
+    border: 1px solid purple;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* RESULTADOS */
 .Advanced-Search-Results-container {
     display: flex;
     flex-direction: column;
@@ -7,10 +58,12 @@
 .Advanced-Search-Results-container>ul {
     gap: 10px;
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .Advanced-Search-Results-container>ul li img {
     aspect-ratio: 4/5;
     object-fit: cover;
-    width: 250px;
+    width: 230px;
 }

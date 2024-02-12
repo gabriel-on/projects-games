@@ -271,7 +271,7 @@ const AdvancedSearch = () => {
     };
 
     return (
-        <div>
+        <div className='Advanced-Search-container'>
             <SearchFilters
                 genres={genres}
                 years={years}
@@ -292,21 +292,21 @@ const AdvancedSearch = () => {
                 onSortChange={(e) => setSortBy(e.target.value)}
             />
 
-            <button onClick={handleSearch}>Pesquisar</button>
-
-            <button onClick={handleSortDirectionChange}>
-                Direção da Ordenação: {sortDirection === 'asc' ? 'Crescente' : 'Decrescente'}
-            </button>
-
-            <button onClick={handleResetFilters}>Redefinir Filtros</button>
+            <div className='btn-filters-container'>
+                <button className='btn-filters' onClick={handleSearch}>Pesquisar</button>
+                <button className='btn-filters' onClick={handleSortDirectionChange}>
+                    Ordenação: {sortDirection === 'asc' ? 'Crescente' : 'Decrescente'}
+                </button>
+                <button className='btn-filters' onClick={handleResetFilters}>Redefinir Filtros</button>
+            </div>
 
             <div>
                 <h3>Quantidade de Jogos: {games.length}</h3>
-                <ul>
+                {/* <ul>
                     {Object.entries(genreGamesCount).map(([genre, count]) => (
                         <li key={genre}>{`${genre}: ${count}`}</li>
                     ))}
-                </ul>
+                </ul> */}
 
                 <AdvancedSearchResults results={games} />
             </div>
