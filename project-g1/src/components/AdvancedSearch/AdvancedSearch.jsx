@@ -252,9 +252,22 @@ const AdvancedSearch = () => {
     };
 
     const handleSortDirectionChange = () => {
-        // Alternar entre 'asc' e 'desc' ao clicar no botão
         const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
         setSortDirection(newSortDirection);
+    };
+
+    const handleResetFilters = () => {
+        // Redefinir todos os filtros e opções de ordenação para os valores padrão
+        setSelectedGenre('');
+        setSelectedYear('');
+        setSelectedDeveloper('');
+        setSelectedPublisher('');
+        setSelectedRating('');
+        setSortBy('');
+        setSortDirection('asc');
+
+        // Atualizar os resultados
+        fetchGames();
     };
 
     return (
@@ -284,6 +297,8 @@ const AdvancedSearch = () => {
             <button onClick={handleSortDirectionChange}>
                 Direção da Ordenação: {sortDirection === 'asc' ? 'Crescente' : 'Decrescente'}
             </button>
+
+            <button onClick={handleResetFilters}>Redefinir Filtros</button>
 
             <div>
                 <h3>Quantidade de Jogos: {games.length}</h3>
