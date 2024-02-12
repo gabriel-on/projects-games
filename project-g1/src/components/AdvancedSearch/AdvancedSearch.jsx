@@ -17,8 +17,8 @@ const AdvancedSearch = () => {
     const [developers, setDevelopers] = useState([]);
     const [publishers, setPublishers] = useState([]);
     const [ratings, setRatings] = useState([]);
-    const [sortBy, setSortBy] = useState(''); 
-    const [sortDirection, setSortDirection] = useState('asc'); // Estado para rastrear a direção da ordenação
+    const [sortBy, setSortBy] = useState('');
+    const [sortDirection, setSortDirection] = useState('asc');
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -95,7 +95,7 @@ const AdvancedSearch = () => {
         };
 
         const fetchPublishers = async () => {
-            const database = getDatabase();  // Adicione esta linha
+            const database = getDatabase();
             const gamesRef = ref(database, 'games');
 
             try {
@@ -148,7 +148,6 @@ const AdvancedSearch = () => {
             }
         };
 
-        // Função para buscar os jogos ao iniciar a página
         const fetchAllGames = async () => {
             const database = getDatabase();
             const gamesRef = ref(database, 'games');
@@ -171,7 +170,6 @@ const AdvancedSearch = () => {
 
                     setGenreGamesCount(genreCounts);
 
-                    // Extrair lista de gêneros dos jogos
                     const uniqueGenres = Array.from(
                         new Set(allGames.flatMap((game) => game.genres))
                     );
@@ -194,6 +192,9 @@ const AdvancedSearch = () => {
     }, []);
 
     const fetchGames = async () => {
+        const database = getDatabase();
+        const gamesRef = ref(database, 'games');
+
         try {
             const snapshot = await get(gamesRef);
 
@@ -213,7 +214,6 @@ const AdvancedSearch = () => {
                     )
                     .map((key) => ({ ...gamesData[key], id: key }));
 
-                // Ordenar os jogos de acordo com a opção selecionada e a direção da ordenação
                 if (sortBy === 'name') {
                     filteredGames = filteredGames.sort((a, b) =>
                         sortDirection === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
@@ -246,15 +246,14 @@ const AdvancedSearch = () => {
         }
     };
 
-    const handleSortDirectionChange = () => {
-        // Alternar entre 'asc' (crescente) e 'desc' (decrescente)
-        const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-        setSortDirection(newSortDirection);
-    };
-
-
     const handleSearch = () => {
         fetchGames();
+    };
+
+    const handleSortDirectionChange = () => {
+        // Alternar entre 'asc' e 'desc' ao clicar no botão
+        const newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        setSortDirection(newSortDirection);
     };
 
     return (
@@ -281,8 +280,7 @@ const AdvancedSearch = () => {
 
             <button onClick={handleSearch}>Pesquisar</button>
 
-             {/* Adicione um botão ou seletor para alternar a direção da ordenação */}
-             <button onClick={handleSortDirectionChange}>
+            <button onClick={handleSortDirectionChange}>
                 Direção da Ordenação: {sortDirection === 'asc' ? 'Crescente' : 'Decrescente'}
             </button>
 
