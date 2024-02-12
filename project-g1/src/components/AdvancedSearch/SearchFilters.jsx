@@ -31,6 +31,7 @@ const SearchFilters = ({
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
           onKeyDown={onKeyPress}
+          placeholder='Busca...'
         />
 
       </div>
