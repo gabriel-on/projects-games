@@ -19,15 +19,20 @@ const SearchFilters = ({
   selectedSort,
   onSortChange,
   searchTerm,
-  onSearchChange
+  onSearchChange,
+  onKeyPress
 }) => {
   return (
     <div className="search-filters">
       <div className="search-filters-container">
         <label>Pesquisar:</label>
-        <input type="text" value={searchTerm} 
-        onChange={(e) => onSearchChange(e.target.value)} 
+        <input
+          type="search"
+          value={searchTerm}
+          onChange={(e) => onSearchChange(e.target.value)}
+          onKeyDown={onKeyPress}
         />
+
       </div>
       <div className='search-filters'>
         <div className="filter-group">

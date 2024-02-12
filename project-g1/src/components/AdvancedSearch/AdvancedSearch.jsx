@@ -292,7 +292,12 @@ const AdvancedSearch = () => {
 
     const onSearchChange = (value) => {
         setSearchTerm(value);
-      };      
+    };
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            fetchGames();
+        }
+    };
 
     return (
         <div className='Advanced-Search-container'>
@@ -318,6 +323,8 @@ const AdvancedSearch = () => {
                 onCreatedAtChange={(e) => setCreatedAt(e.target.value)}
                 searchTerm={searchTerm}
                 onSearchChange={onSearchChange}
+                onSearchSubmit={fetchGames}
+                onKeyPress={handleKeyPress}
             />
 
             <div className='btn-filters-container'>

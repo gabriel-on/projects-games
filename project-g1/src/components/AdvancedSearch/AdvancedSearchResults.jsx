@@ -5,7 +5,6 @@ import './AdvancedSearch.css'
 const AdvancedSearchResults = ({ results }) => {
   return (
     <div className='Advanced-Search-Results-container'>
-      <h2>Resultados da Pesquisa</h2>
       <ul>
         {results && Array.isArray(results) && results.length > 0 ? (
           results.map((game) => (
