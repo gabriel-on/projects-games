@@ -33,8 +33,8 @@ const SearchFilters = ({
           onKeyDown={onKeyPress}
           placeholder='Busca...'
         />
-
       </div>
+      
       <div className='search-filters'>
         <div className="filter-group">
           <label>Gênero:</label>
