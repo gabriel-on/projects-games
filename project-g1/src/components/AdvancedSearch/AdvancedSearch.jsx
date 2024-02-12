@@ -215,11 +215,10 @@ const AdvancedSearch = () => {
                     )
                     .map((key) => ({ ...gamesData[key], id: key }));
 
-                    if (sortBy === 'name') {
-                        filteredGames = filteredGames.sort((a, b) =>
-                            sortDirection === 'asc' ? (a.title || '').localeCompare(b.title || '') : (b.title || '').localeCompare(a.title || '')
-                        );
-                                        
+                if (sortBy === 'name') {
+                    filteredGames = filteredGames.sort((a, b) =>
+                        sortDirection === 'asc' ? (a.title || '').localeCompare(b.title || '') : (b.title || '').localeCompare(a.title || '')
+                    );
                 } else if (sortBy === 'releaseDate') {
                     filteredGames = filteredGames.sort((a, b) =>
                         sortDirection === 'asc' ? a.releaseDate.localeCompare(b.releaseDate) : b.releaseDate.localeCompare(a.releaseDate)
