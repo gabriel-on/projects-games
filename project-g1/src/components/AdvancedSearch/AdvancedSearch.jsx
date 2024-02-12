@@ -329,9 +329,9 @@ const AdvancedSearch = () => {
             <div className='btn-filters-container'>
                 <button className='btn-filters' onClick={handleSearch}>Pesquisar</button>
                 <button className='btn-filters' onClick={handleSortDirectionChange}>
-                    Ordenação: {sortDirection === 'asc' ? 'Crescente' : 'Decrescente'}
+                    Ordem: {sortDirection === 'asc' ? 'Crescente' : 'Decrescente'}
                 </button>
-                <button className='btn-filters' onClick={handleResetFilters}>Redefinir Filtros</button>
+                <button className='btn-filters' onClick={handleResetFilters}>Limpar Filtros</button>
             </div>
 
             <div>
