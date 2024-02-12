@@ -224,9 +224,21 @@ const AdvancedSearch = () => {
                         sortDirection === 'asc' ? a.releaseDate.localeCompare(b.releaseDate) : b.releaseDate.localeCompare(a.releaseDate)
                     );
                 } else if (sortBy === 'rating') {
-                    filteredGames = filteredGames.sort((a, b) =>
-                        sortDirection === 'asc' ? a.rating - b.rating : b.rating - a.rating
-                    );
+                    filteredGames = filteredGames.sort((a, b) => {
+                        const ratingOrder = {
+                            "Livre": 1, "10+": 2,
+                            "12+": 3, "14+": 4,
+                            "16+": 5, "18+": 6,
+                        };
+
+                        const ratingA = ratingOrder[a.rating];
+                        const ratingB = ratingOrder[b.rating];
+
+                        if (ratingA === undefined) return 1; // Defina a ordem padrão se não estiver na lista
+                        if (ratingB === undefined) return -1; // Defina a ordem padrão se não estiver na lista
+
+                        return sortDirection === 'asc' ? ratingA - ratingB : ratingB - ratingA;
+                    });
                 }
 
                 setGames(filteredGames);

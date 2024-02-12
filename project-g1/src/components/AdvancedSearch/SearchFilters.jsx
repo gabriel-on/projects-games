@@ -97,7 +97,7 @@ const SearchFilters = ({
           <option value="">Sem ordenação</option>
           <option value="name">Nome</option>
           <option value="releaseDate">Data de Lançamento</option>
-          <option value="rating">Classificação</option>
+          <option value="rating">Idade</option>
         </select>
       </div>
     </div>
