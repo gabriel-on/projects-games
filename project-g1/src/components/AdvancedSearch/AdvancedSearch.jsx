@@ -277,7 +277,6 @@ const AdvancedSearch = () => {
     };
 
     const handleResetFilters = () => {
-        // Redefinir todos os filtros e opções de ordenação para os valores padrão
         setSelectedGenre('');
         setSelectedYear('');
         setSelectedDeveloper('');
