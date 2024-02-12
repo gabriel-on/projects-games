@@ -18,6 +18,7 @@ const AdvancedSearch = () => {
     const [developers, setDevelopers] = useState([]);
     const [publishers, setPublishers] = useState([]);
     const [ratings, setRatings] = useState([]);
+    const [createdAt, setCreatedAt] = useState('');
     const [sortBy, setSortBy] = useState('');
     const [sortDirection, setSortDirection] = useState('asc');
 
@@ -239,6 +240,10 @@ const AdvancedSearch = () => {
 
                         return sortDirection === 'asc' ? ratingA - ratingB : ratingB - ratingA;
                     });
+                } else if (sortBy === 'createdAt') {
+                    filteredGames = filteredGames.sort((a, b) =>
+                        sortDirection === 'asc' ? a.createdAt.localeCompare(b.createdAt) : b.createdAt.localeCompare(a.createdAt)
+                    );
                 }
 
                 setGames(filteredGames);
@@ -290,6 +295,7 @@ const AdvancedSearch = () => {
                 developers={developers}
                 publishers={publishers}
                 ratings={ratings}
+                createdAt={createdAt}
                 selectedGenre={selectedGenre}
                 selectedYear={selectedYear}
                 selectedDeveloper={selectedDeveloper}
@@ -302,6 +308,7 @@ const AdvancedSearch = () => {
                 onPublisherChange={(e) => setSelectedPublisher(e.target.value)}
                 onRatingChange={(e) => setSelectedRating(e.target.value)}
                 onSortChange={(e) => setSortBy(e.target.value)}
+                onCreatedAtChange={(e) => setCreatedAt(e.target.value)}
             />
 
             <div className='btn-filters-container'>

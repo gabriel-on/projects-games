@@ -98,6 +98,7 @@ const SearchFilters = ({
           <option value="name">Nome</option>
           <option value="releaseDate">Data de Lançamento</option>
           <option value="rating">Idade</option>
+          <option value="createdAt">Adicionado</option>
         </select>
       </div>
     </div>
