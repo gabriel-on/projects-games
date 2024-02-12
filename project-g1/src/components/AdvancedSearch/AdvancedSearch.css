@@ -1,0 +1,16 @@
+.Advanced-Search-Results-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.Advanced-Search-Results-container>ul {
+    gap: 10px;
+    display: flex;
+}
+
+.Advanced-Search-Results-container>ul li img {
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    width: 250px;
+}
