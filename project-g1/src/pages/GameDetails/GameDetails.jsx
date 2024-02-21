@@ -13,6 +13,19 @@ import SystemRequirementsTable from './SystemRequirementsTable';
 import LikeDislike from '../../components/LikeDislike/LikeDislike';
 import FollowGame from '../../components/FollowGame/FollowGame';
 
+// NAVEGAÇÃO
+const UserNavbar = ({ setActiveSection }) => {
+  return (
+    <div className="user-navbar">
+      <button onClick={() => setActiveSection('details')}>Detalhes</button>
+      <button onClick={() => setActiveSection('trailer')}>Trailers</button>
+      <button onClick={() => setActiveSection('analises')}>Analises</button>
+      <button onClick={() => setActiveSection('system-requirements')}>Requisitos (PC)</button>
+      <button onClick={() => setActiveSection('supported-Languages')}>Idiomas Suportados</button>
+    </div>
+  );
+};
+
 const GameDetails = () => {
   const { gameId } = useParams();
   const navigate = useNavigate();
@@ -21,6 +34,7 @@ const GameDetails = () => {
   const [showGameStatusModal, setShowGameStatusModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const simulateLoading = async () => {
@@ -198,127 +212,142 @@ const GameDetails = () => {
         </div>
       </div>
 
-      <div id='trailer'>
-        {gameData.trailer ? (
-          <div className="field">
-            <label>Trailer:</label>
-            <iframe
-              width="360"
-              height="240"
-              src={`https://www.youtube.com/embed/${videoCode}`}
-              title="YouTube video player"
-              allowFullScreen
-            ></iframe>
-          </div>
-        ) : (
-          <div className="field">
-            <label>Trailer:</label>
-            <p>Nenhum vídeo disponível.</p>
+      <div id='info-container-details'>
+        <div>
+          <UserNavbar setActiveSection={setActiveSection} />
+        </div>
+
+        {activeSection === 'trailer' && (
+          <div id='trailer'>
+            {gameData.trailer ? (
+              <div className="field">
+                <label>Trailer:</label>
+                <iframe
+                  width="360"
+                  height="240"
+                  src={`https://www.youtube.com/embed/${videoCode}`}
+                  title="YouTube video player"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            ) : (
+              <div className="field">
+                <label>Trailer:</label>
+                <p>Nenhum vídeo disponível.</p>
+              </div>
+            )}
           </div>
         )}
-      </div>
 
-      <div id='info-container-details'>
-        <div id="descrição">
-          <h2>Descrição</h2>
-          <div className='description-container'>
-            <p>{gameData.description}</p>
-          </div>
-        </div>
-        <div id='details-div'>
-          <h2>Detalhes</h2>
-          <div>
-            <ul className='genre-list'>
-              <p>Gênero:</p>
-              {gameData.genres.map((genre, index) => (
-                <li key={index}>{genre}</li>
-              ))}
-            </ul>
-            <ul className="console-list">
-              <p>Console:</p>
-              {gameData.consoles.map((console, index) => (
-                <li key={index}>{console}</li>
-              ))}
-            </ul>
-            <ul className="developer-list">
-              <p>Desenvolvedor:</p>
-              {gameData.developers.map((developer, index) => (
-                <li key={index}>{developer}</li>
-              ))}
-            </ul>
-            <ul className="publisher-list">
-              <p>Distribuidora:</p>
-              {gameData.publishers.map((publisher, index) => (
-                <li key={index}>{
-                  publisher}</li>
-              ))}
-            </ul>
-            {/* <ul className="language-list">
-              <p>Idiomas Suportados:</p>
-              {gameData.supportedLanguages.map((language, index) => (
-                <li key={index}>{language}</li>
-              ))}
-            </ul> */}
-            <ul className="player-list">
-              <p>Players:</p>
-              {gameData.players.map((player, index) => (
-                <li key={index}>{player}</li>
-              ))}
-            </ul>
-            <p>Data de lançamento: <span>{formatarData(gameData.releaseDate) || gameData.unspecifiedReleaseDate}</span></p>
-          </div>
-        </div>
-        {gameData.officialSites && (
-          <div id="onde-comprar">
-            <h3>Onde comprar</h3>
-            <div className='sites-container'>
-              <ul>
-                {gameData.officialSites.map((site, index) => (
-                  <li key={index}>
-                    <a href={site.link} target="_blank" rel="noopener noreferrer">
-                      {site.name}
-                    </a>
-                  </li>
+        {activeSection === 'details' && (
+          <>
+            <div id="descrição">
+              <h2>Descrição</h2>
+              <div className='description-container'>
+                <p>{gameData.description}</p>
+              </div>
+            </div>
+            <div id='details-div'>
+              <h2>Detalhes</h2>
+              <div>
+                <ul className='genre-list'>
+                  <p>Gênero:</p>
+                  {gameData.genres.map((genre, index) => (
+                    <li key={index}>{genre}</li>
+                  ))}
+                </ul>
+                <ul className="console-list">
+                  <p>Console:</p>
+                  {gameData.consoles.map((console, index) => (
+                    <li key={index}>{console}</li>
+                  ))}
+                </ul>
+                <ul className="developer-list">
+                  <p>Desenvolvedor:</p>
+                  {gameData.developers.map((developer, index) => (
+                    <li key={index}>{developer}</li>
+                  ))}
+                </ul>
+                <ul className="publisher-list">
+                  <p>Distribuidora:</p>
+                  {gameData.publishers.map((publisher, index) => (
+                    <li key={index}>{
+                      publisher}</li>
+                  ))}
+                </ul>
+                <ul className="player-list">
+                  <p>Players:</p>
+                  {gameData.players.map((player, index) => (
+                    <li key={index}>{player}</li>
+                  ))}
+                </ul>
+                <p>Data de lançamento: <span>{formatarData(gameData.releaseDate) || gameData.unspecifiedReleaseDate}</span></p>
+              </div>
+            </div>
+            {gameData.officialSites && (
+              <div id="onde-comprar">
+                <h3>Onde comprar</h3>
+                <div className='sites-container'>
+                  <ul>
+                    {gameData.officialSites.map((site, index) => (
+                      <li key={index}>
+                        <a href={site.link} target="_blank" rel="noopener noreferrer">
+                          {site.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {activeSection === 'supported-Languages' && (
+          <div className='supported-Languages-container'>
+            <h2>Idiomas Suportados</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Idioma</th>
+                  <th>Interface</th>
+                  <th>Dublagem</th>
+                  <th>Legendas</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gameData.supportedLanguages.map((language, index) => (
+                  <tr key={index}>
+                    <td>{language}</td>
+                    <td>{gameData[`interface_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
+                    <td>{gameData[`dubbing_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
+                    <td>{gameData[`subtitles_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
+                  </tr>
                 ))}
-              </ul>
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {gameData.systemRequirements && (
+          <>
+            {activeSection === 'system-requirements' && (
+              <div id="system-requirements">
+                <SystemRequirementsTable systemRequirements={gameData.systemRequirements} />
+              </div>
+            )}
+          </>
+        )}
+
+        {activeSection === 'analises' && (
+          <div id="analises">
+            <div className='reviews-container'>
+              <GameAnalysis gameId={gameId} />
             </div>
           </div>
         )}
-        <div className='supported-Languages-container'>
-          <h2>Idiomas Suportados</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Idioma</th>
-                <th>Interface</th>
-                <th>Dublagem</th>
-                <th>Legendas</th>
-              </tr>
-            </thead>
-            <tbody>
-              {gameData.supportedLanguages.map((language, index) => (
-                <tr key={index}>
-                  <td>{language}</td>
-                  <td>{gameData[`interface_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
-                  <td>{gameData[`dubbing_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
-                  <td>{gameData[`subtitles_${language}`] === 'true' ? 'Sim' : 'Não'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {gameData.systemRequirements && (
-          <div id="system-requirements">
-            <SystemRequirementsTable systemRequirements={gameData.systemRequirements} />
-          </div>
-        )}
-        <div id="analises">
-          <div className='reviews-container'>
-            {/* <h2>Sua Análise do Jogo</h2> */}
-            <GameAnalysis gameId={gameId} />
-          </div>
-        </div>
       </div>
+      
       <div id='createdBy'>
         <p>
           Adicionado por:{" "}
