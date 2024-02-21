@@ -364,7 +364,7 @@ const GameDetails = () => {
         {activeSection === 'status' && (
           <GameStatusDisplay
             userStatus={userStatus}
-          />
+            />
         )}
       </div>
 

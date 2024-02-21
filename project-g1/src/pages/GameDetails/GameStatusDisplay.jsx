@@ -1,70 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import { getDatabase, ref, get } from 'firebase/database';
+import { ref, getDatabase, get } from 'firebase/database';
+import { useEffect, useState } from 'react';
 
-const GameStatusDisplay = ({ userStatus, gameId }) => {
-  const [userDetails, setUserDetails] = useState({});
+const GameStatusDisplay = ({ gameId }) => {
+    const [userStatus, setUserStatus] = useState({});
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        console.log('Iniciando busca por detalhes do usuário...');
+    useEffect(() => {
+        const fetchUserStatus = async () => {
+            try {
+                const database = getDatabase();
+                const statusRef = ref(database, `games/${gameId}/userStatus`);
+                const statusSnapshot = await get(statusRef);
 
-        const database = getDatabase();
+                console.log('statusSnapshot:', statusSnapshot.val()); // Adicione este log
 
-        // Mapear userIds para Promise que retorna o detalhe do usuário
-        const userDetailPromises = Object.keys(userStatus).map(async (userId) => {
-          console.log(`Buscando detalhes para o usuário com ID ${userId}...`);
+                if (statusSnapshot.exists()) {
+                    const statusData = statusSnapshot.val();
+                    setUserStatus(statusData);
+                } else {
+                    setUserStatus({});
+                }
+            } catch (error) {
+                console.error('Erro ao obter status do usuário:', error);
+            }
+        };
 
-          const userRef = ref(database, `users/${userId}`);
-          const userSnapshot = await get(userRef);
-          const userData = userSnapshot.val();
+        fetchUserStatus();
+    }, [gameId]);
 
-          console.log(`Detalhes encontrados para o usuário com ID ${userId}:`, userData);
+    return (
+        <div>
+            <h2>Status do Jogo</h2>
 
-          return {
-            userId,
-            displayName: userData?.displayName || userId, // Usar userId se o displayName não estiver disponível
-          };
-        });
+            {Object.keys(userStatus).length > 0 ? (
+                Object.entries(userStatus).map(([userId, status]) => (
+                    <p key={userId}>
+                        ID do Usuário: {userId}, Status: {status}
+                    </p>
+                ))
+            ) : (
+                <p>Nenhum status encontrado.</p>
+            )}
 
-        // Aguardar todas as Promises
-        const userDetailsArray = await Promise.all(userDetailPromises);
-
-        console.log('Detalhes de todos os usuários obtidos:', userDetailsArray);
-
-        // Mapear os resultados para um objeto userDetails
-        const userDetailsObject = userDetailsArray.reduce((acc, { userId, displayName }) => {
-          acc[userId] = { displayName };
-          return acc;
-        }, {});
-
-        console.log('Atualizando estado userDetails:', userDetailsObject);
-
-        setUserDetails(userDetailsObject);
-
-        console.log('Busca por detalhes do usuário concluída.');
-      } catch (error) {
-        console.error('Erro ao buscar detalhes do usuário:', error);
-      }
-    };
-
-    fetchUserDetails();
-  }, [userStatus]);
-
-  console.log('Renderizando componente GameStatusDisplay com userDetails:', userDetails);
-
-  return (
-    <div>
-      <h2>Status dos Usuários</h2>
-      <ul>
-        {Object.entries(userStatus).map(([userId, status]) => (
-          <li key={userId}>
-            <strong>{userDetails[userId]?.displayName || userId}:</strong> {status}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+            {/* Restante do código para exibir outros detalhes */}
+        </div>
+    );
 };
 
 export default GameStatusDisplay;
