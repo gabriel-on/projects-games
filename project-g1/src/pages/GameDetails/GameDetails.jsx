@@ -12,6 +12,7 @@ import GameStatusModal from '../../components/GamesStatus/GameStatusModal';
 import SystemRequirementsTable from './SystemRequirementsTable';
 import LikeDislike from '../../components/LikeDislike/LikeDislike';
 import FollowGame from '../../components/FollowGame/FollowGame';
+import GameStatusDisplay from './GameStatusDisplay';
 
 // NAVEGAÇÃO
 const UserNavbar = ({ setActiveSection }) => {
@@ -19,6 +20,7 @@ const UserNavbar = ({ setActiveSection }) => {
     <div className="user-navbar">
       <button onClick={() => setActiveSection('details')}>Detalhes</button>
       <button onClick={() => setActiveSection('trailer')}>Trailers</button>
+      <button onClick={() => setActiveSection('status')}>Status</button>
       <button onClick={() => setActiveSection('analises')}>Analises</button>
       <button onClick={() => setActiveSection('system-requirements')}>Requisitos (PC)</button>
       <button onClick={() => setActiveSection('supported-Languages')}>Idiomas Suportados</button>
@@ -35,6 +37,7 @@ const GameDetails = () => {
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [activeSection, setActiveSection] = useState('details');
+  const [userStatus, setUserStatus] = useState({});
 
   useEffect(() => {
     const simulateLoading = async () => {
@@ -88,6 +91,17 @@ const GameDetails = () => {
         if (snapshot.exists()) {
           const data = snapshot.val();
           setGameData(data);
+
+          // Buscar status dos usuários
+          const statusRef = ref(database, `status/${gameId}`);
+          const statusSnapshot = await get(statusRef);
+
+          if (statusSnapshot.exists()) {
+            const statusData = statusSnapshot.val();
+            setUserStatus(statusData);
+          } else {
+            setUserStatus({});
+          }
 
           // Buscar análises do jogo
           const analysisRef = ref(database, `gameAnalysis/${gameId}`);
@@ -345,6 +359,12 @@ const GameDetails = () => {
               <GameAnalysis gameId={gameId} />
             </div>
           </div>
+        )}
+
+        {activeSection === 'status' && (
+          <GameStatusDisplay
+            userStatus={userStatus}
+          />
         )}
       </div>
 
