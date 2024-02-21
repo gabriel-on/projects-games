@@ -34,7 +34,7 @@ const GameDetails = () => {
   const [showGameStatusModal, setShowGameStatusModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('details');
 
   useEffect(() => {
     const simulateLoading = async () => {
@@ -347,7 +347,7 @@ const GameDetails = () => {
           </div>
         )}
       </div>
-      
+
       <div id='createdBy'>
         <p>
           Adicionado por:{" "}
