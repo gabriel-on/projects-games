@@ -1,13 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&family=Rubik+Glitch&display=swap');
 
 :root {
-    --background-navbar-light: #e1e1e1;
-    --text-color-navbar-light: #1e1e1e;
-    --text-color-logo-light: #1e1e1e;
+    --background-navbar-light: #1e1e1e;
+    --text-color-navbar-light: #e1e1e1;
+    --text-color-logo-light: red;
 
     --background-navbar-dark: #1e1e1e;
     --text-color-navbar-dark: #e1e1e1;
-    --text-color-logo-dark: purple;
+    --text-color-logo-dark: red;
 }
 
 .dark-mode .navbar {
@@ -124,7 +124,7 @@ a>h1 {
 
 .navbar li>a {
     border-radius: 5px;
-    background: purple;
+    background: red;
     padding: 8px;
     text-transform: uppercase;
     color: white;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuthentication';
 import { useAuthValue } from '../../context/AuthContext';
+
+// CSS
 import '../Navbar/Navbar.css';
 import Sidebar from '../Sidebar/Sidebar';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
